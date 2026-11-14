@@ -1734,7 +1734,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
- {id:'praise',i:'✓',t:'A compliment when you finish',d:'Mark a task done and a small "Nice work!" pops up – different every time, in Spanish for the workers. The last task of the day and Friday get a special one. See them all: Maintenance → Compliments preview.',go:function(){openPraisePreview();}},
+ {id:'praise',i:'✓',t:'A compliment when you finish',d:'Mark a task done and a small "Nice work!" pops up – different every time, in Spanish for the workers. For you, Rocky and Ashley the last task of the day and Friday get a special one. See them all: Maintenance → Compliments preview.',go:function(){openPraisePreview();}},
  {id:'snowprac',i:'❄️',t:'Snow practice',d:'Maintenance → Snow practice: add 20 practice customers and run a whole storm. Only you see it, nobody gets a notification, and ending it deletes it. Tap "Open the driver screen" to see what the driver sees.',go:function(){openMaint();}},
  {id:'snowico',i:'🗺',t:'Snow tabs in mint',d:'Customers, Routes and Storms have new line icons and mint colors.',go:function(){openSnow();}},
  {id:'photocam',i:'📷',t:'Photo button = in-app camera',d:'The Photo button on a job opens the same camera as the chat: tap for a photo, hold for a video, gallery inside.',go:function(){goView('home');}},
@@ -1970,7 +1970,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140740',lastUpd=0;
+var BUILD='202611140742',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2539,7 +2539,7 @@ function praise(kind,lang){kind=kind||'task';var l=(PRAISE[lang||(LANG==='es'?'e
   var b=el('div',{class:'praise'+(kind!=='task'?' big':''),role:'status'},el('span',{class:'prck',html:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>'}),el('b',{text:w}));
   document.body.appendChild(b);setTimeout(function(){b.classList.add('out');},kind!=='task'?2300:1500);setTimeout(function(){b.remove();},kind!=='task'?2800:2000);}
 // which compliment: the last open task of the day (Friday = the week) gets a special one
-function praiseDone(){try{var t=today(),left=S.tasks.filter(function(q){return q.owner===S.me&&q.status!=='done'&&(!q.due||q.due<=t);}).length;
+function praiseDone(){if(!isOffice()){praise('task');return;}try{var t=today(),left=S.tasks.filter(function(q){return q.owner===S.me&&q.status!=='done'&&(!q.due||q.due<=t);}).length;
   praise(left?'task':(new Date().getDay()===5?'week':'day'));}catch(e){praise('task');}}
 function sendComment(x,text,status,re,ments){
   var now=new Date().toISOString(),crid=rid();
@@ -4147,7 +4147,7 @@ function openPraisePreview(){var lang='en',sw;
   function b(kind,label){return el('button',{class:'cbtn',onclick:function(){praise(kind,lang);}},label);}
   sw=el('div',{class:'seg'},[['en','English'],['es','Español']].map(function(o){return el('button',{class:'seg-b'+(o[0]===lang?' on':''),onclick:function(e){lang=o[0];[].forEach.call(sw.children,function(c){c.classList.remove('on');});e.currentTarget.classList.add('on');}},o[1]);}));
   openSheet([el('h2',{text:'✓ '+T('Compliments preview')}),el('p',{class:'muted',style:'margin:0 0 8px',text:T('Fake – nothing is saved. Tap a button to see what pops up.')}),sw,
-    b('task',T('A task is done (different each time)')),b('day',T('The last task of the day')),b('week',T('Friday – the last task of the week')),b('snow',T('Snow – the last stop of the route')),
+    b('task',T('A task is done (different each time)')),b('day',T('The last task of the day (office only)')),b('week',T('Friday – the last task of the week (office only)')),b('snow',T('Snow – the last stop of the route')),
     el('button',{class:'cbtn',onclick:function(){openMaint();}},'‹ '+T('Back')),el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);}
 // Practice storm (Yossi): nobody else sees it, nobody is notified; ending it deletes it.
 function openSnowPractice(){
