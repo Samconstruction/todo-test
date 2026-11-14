@@ -1009,6 +1009,14 @@ input[type=search].in,input.chatsearch{padding-left:40px;background:#fff url("da
 .sn-prac{display:flex;flex-direction:column;gap:2px;background:#FFF1E3;border:1.5px dashed #F0A35E;border-radius:16px;padding:10px 14px;margin:0 0 10px;color:#8A4B12}
 .sn-prac b{font-size:13px;letter-spacing:.12em}.sn-prac span{font-size:14px;font-weight:600}
 .sn-drvbtn{width:100%;margin-top:10px;min-height:46px;border-radius:14px;background:#E6F6F1;color:#0E4F45;font-weight:800;font-size:15px}
+/* compliment when a task is done */
+.praise{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%) scale(.85);z-index:9999;display:flex;align-items:center;gap:10px;padding:14px 22px 14px 14px;border-radius:999px;background:#fff;color:#0E4F45;box-shadow:0 14px 40px rgba(14,79,69,.22),0 0 0 1.5px #BDEBDF;pointer-events:none;opacity:0;animation:prIn .28s cubic-bezier(.2,1.4,.4,1) forwards;white-space:nowrap;max-width:92vw}
+.praise b{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.praise .prck{width:38px;height:38px;border-radius:50%;background:#1B8F7B;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.praise.big{padding:18px 26px 18px 16px;background:linear-gradient(135deg,#D8F5EE,#fff)}.praise.big b{font-size:21px}.praise.big .prck{width:44px;height:44px}
+.praise.out{animation:prOut .45s ease forwards}
+@keyframes prIn{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes prOut{from{opacity:1;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(.96)}}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1364,6 +1372,7 @@ function openMaint(fresh){
     el('button',{class:'cbtn',onclick:openNotSetUp},'📲 '+T('Workers alerts on')+' '+on+'/'+crew.length,never?el('small',{class:'muted',style:'display:block;font-weight:600',text:never+' '+T('never opened the app')}):null),
     el('button',{class:'cbtn',onclick:function(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}},'👀 '+T('See the app as someone else')),
     el('button',{class:'cbtn',onclick:openUsage},'⏱ '+T('Time in the app today')+((M.usage||[]).length?' · '+M.usage.length+' '+T('people'):'')),
+    el('button',{class:'cbtn',onclick:openPraisePreview},'✓ '+T('Compliments preview')),
     el('button',{class:'cbtn',onclick:openSnowPractice},'❄️ '+T('Snow practice (only you)')),
     el('button',{class:'cbtn',onclick:openChanges},'↩ '+T('Undo recent changes')),
     bkB,updB,
@@ -1725,6 +1734,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'praise',i:'✓',t:'A compliment when you finish',d:'Mark a task done and a small "Nice work!" pops up – different every time, in Spanish for the workers. The last task of the day and Friday get a special one. See them all: Maintenance → Compliments preview.',go:function(){openPraisePreview();}},
  {id:'snowprac',i:'❄️',t:'Snow practice',d:'Maintenance → Snow practice: add 20 practice customers and run a whole storm. Only you see it, nobody gets a notification, and ending it deletes it. Tap "Open the driver screen" to see what the driver sees.',go:function(){openMaint();}},
  {id:'snowico',i:'🗺',t:'Snow tabs in mint',d:'Customers, Routes and Storms have new line icons and mint colors.',go:function(){openSnow();}},
  {id:'photocam',i:'📷',t:'Photo button = in-app camera',d:'The Photo button on a job opens the same camera as the chat: tap for a photo, hold for a video, gallery inside.',go:function(){goView('home');}},
@@ -1960,7 +1970,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140732',lastUpd=0;
+var BUILD='202611140740',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2516,10 +2526,25 @@ function mentionText(text,keys){var d=el('div',{class:'btxt'});if(!keys||!keys.l
     if(at<0){d.appendChild(document.createTextNode(rest));break;}
     if(at>0)d.appendChild(document.createTextNode(rest.slice(0,at)));d.appendChild(el('span',{class:'ment',text:hit}));rest=rest.slice(at+hit.length);}
   return d;}
+// ---------- A small compliment when someone closes a task (different each time) ----------
+var PRAISE={
+  en:{task:['Nice work!','Done and dusted','One less thing','Crushing it!','That’s how it’s done','Solid work','Boom – done!','Great job!','On a roll!','Nailed it!','Way to go!','Look at you go!'],
+      day:['All done for today 🎉'],week:['Great week! 🎉'],snow:['Route done – get warm! ☕']},
+  es:{task:['¡Buen trabajo!','¡Listo, campeón!','Uno menos','¡Así se hace!','¡Excelente!','¡Bien hecho!','¡Qué máquina!','¡Lo lograste!','¡Sigue así!','¡Perfecto!','¡Bravo!','¡De lujo!'],
+      day:['¡Todo listo por hoy! 🎉'],week:['¡Gran semana! 🎉'],snow:['¡Ruta lista – a calentarse! ☕']}};
+var PRAISE_LAST='';
+function praise(kind,lang){kind=kind||'task';var l=(PRAISE[lang||(LANG==='es'?'es':'en')]||PRAISE.en)[kind]||PRAISE.en.task,w=l[0];
+  if(l.length>1){var k=0;do{w=l[Math.floor(Math.random()*l.length)];}while(w===PRAISE_LAST&&++k<5);}PRAISE_LAST=w;
+  [].forEach.call(document.querySelectorAll('.praise'),function(o){o.remove();});
+  var b=el('div',{class:'praise'+(kind!=='task'?' big':''),role:'status'},el('span',{class:'prck',html:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>'}),el('b',{text:w}));
+  document.body.appendChild(b);setTimeout(function(){b.classList.add('out');},kind!=='task'?2300:1500);setTimeout(function(){b.remove();},kind!=='task'?2800:2000);}
+// which compliment: the last open task of the day (Friday = the week) gets a special one
+function praiseDone(){try{var t=today(),left=S.tasks.filter(function(q){return q.owner===S.me&&q.status!=='done'&&(!q.due||q.due<=t);}).length;
+  praise(left?'task':(new Date().getDay()===5?'week':'day'));}catch(e){praise('task');}}
 function sendComment(x,text,status,re,ments){
   var now=new Date().toISOString(),crid=rid();
   allT().forEach(function(t){if(t.id!==x.id)return;if(status)t.status=status;if(text){var l=parseComments(t),m={id:'q'+crid,by:S.me,at:now,text:text};if(re)m.re=re;if(ments&&ments.length)m.m=ments;l.push(m);t.comments=JSON.stringify(l);}});
-  S.saving++;render();
+  S.saving++;render();if(status==='done')setTimeout(praiseDone,120);
   var cp={id:x.id,text:text,status:status||'',re:re||'',rid:crid};if(ments&&ments.length)cp.mentions=ments;
   call('comment',cp).then(function(d){S.saving--;if(!S.saving)apply(d);render();})
   .catch(function(e){S.saving--;if(isBadPin(e)){signOut(T('Wrong PIN. Try again.'));return;}if(isNet(e)){enqueue('comment',cp);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
@@ -4117,6 +4142,13 @@ function snowStorms(wrap){
     wrap.appendChild(el('div',{class:'sn-card',onclick:function(){S.snStorm=s.id;render();window.scrollTo(0,0);}},el('div',{class:'sn-nm',text:dateLabel(s.date)+(+s.round>1?' · '+T('round')+' '+s.round:'')}),
       el('div',{class:'sn-ad gray',text:dn+' '+T('of')+' '+s.stops.length+' '+T('done')+' · '+T('finished')+' '+clockOf(s.endedAt)})));});
 }
+// See every kind of compliment without closing a real task
+function openPraisePreview(){var lang='en',sw;
+  function b(kind,label){return el('button',{class:'cbtn',onclick:function(){praise(kind,lang);}},label);}
+  sw=el('div',{class:'seg'},[['en','English'],['es','Español']].map(function(o){return el('button',{class:'seg-b'+(o[0]===lang?' on':''),onclick:function(e){lang=o[0];[].forEach.call(sw.children,function(c){c.classList.remove('on');});e.currentTarget.classList.add('on');}},o[1]);}));
+  openSheet([el('h2',{text:'✓ '+T('Compliments preview')}),el('p',{class:'muted',style:'margin:0 0 8px',text:T('Fake – nothing is saved. Tap a button to see what pops up.')}),sw,
+    b('task',T('A task is done (different each time)')),b('day',T('The last task of the day')),b('week',T('Friday – the last task of the week')),b('snow',T('Snow – the last stop of the route')),
+    el('button',{class:'cbtn',onclick:function(){openMaint();}},'‹ '+T('Back')),el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);}
 // Practice storm (Yossi): nobody else sees it, nobody is notified; ending it deletes it.
 function openSnowPractice(){
   var load=S.sn?Promise.resolve():call('snowGet',{}).then(snowApply).catch(function(){});
@@ -4195,7 +4227,7 @@ function snowDriverView(){
         el('button',{class:photos?'on':'',onclick:function(){pickPhoto({id:'',snow:{storm:m.storm,c:cur.c}},true);}},'📷 '+(photos?photos+' '+T('photos'):T('Photo'))),
         el('button',{class:cur.salted?'on':'',onclick:function(){cur.salted=!cur.salted;render();snowCall('snowStop',{storm:m.storm,c:cur.c,op:'salt'});}},'🔸 '+T('Salted')+(cur.salted?' ✓':'')),
         el('button',{onclick:function(){snowProblem(m,cur);}},'⚠️ '+T('Problem'))),
-      el('button',{class:'sn-done',onclick:function(){cur.st='done';cur.at=new Date().toISOString();render();window.scrollTo(0,0);snowCall('snowStop',{storm:m.storm,c:cur.c,op:'done'});}},T('✓ Done – next stop'))));
+      el('button',{class:'sn-done',onclick:function(){cur.st='done';cur.at=new Date().toISOString();if(!st.some(function(q){return q.st!=='done';}))setTimeout(function(){praise('snow');},150);render();window.scrollTo(0,0);snowCall('snowStop',{storm:m.storm,c:cur.c,op:'done'});}},T('✓ Done – next stop'))));
   } else wrap.appendChild(el('div',{class:'sn-card okc'},el('div',{class:'sn-nm',text:'✅ '+T('All stops done – great work!')})));
   if(dn.length){wrap.appendChild(el('div',{class:'sn-mut',style:'margin:12px 2px 4px',text:T('Finished')}));
     dn.forEach(function(x){wrap.appendChild(el('div',{class:'sn-stop done'},el('div',{class:'n',text:'✓'}),el('div',{class:'t'},el('b',{text:x.n}),el('span',{text:T('Done')+' '+clockOf(x.at)+(x.salted?' · 🔸 '+T('salted'):'')+((x.ph||[]).length?' · 📷 '+x.ph.length:'')})),
