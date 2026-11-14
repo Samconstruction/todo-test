@@ -1067,7 +1067,6 @@ var WHATS_NEW=[
  {id:'notset',i:'📲',t:'Workers not set up',d:'List of workers who never opened the app or have alerts off, with a Send button.',go:function(){openNotSetUp();}},
  {id:'send',i:'📤',t:'Send the app to a worker',d:'Workers list → 📲 Send app: WhatsApp or text with the link, PIN and Spanish steps.',go:function(){openCrewManager();}},
  {id:'qr',i:'🔳',t:'QR code',d:'A worker scans it with the camera and the app opens.',go:function(){openQR();}},
- {id:'morning',i:'⏰',t:'6:30 AM morning check',d:'Only you get it (never Saturday): vans with no crew, people not placed, jobs with no address.',go:function(){toast('⏰ '+T('Comes as a notification on the real app at 6:30 AM'));}},
  {id:'chat',i:'☑️',t:'WhatsApp-style chat',d:'Ticks show sent / seen. Tap a message for Reply, Copy, Delete. Swipe between photos.',go:function(){goView('chats');}},
  {id:'usage',i:'⏱',t:'Time in the app',d:'See how long each person had the app open today.',go:function(){openUsage();}},
  {id:'snow',i:'❄️',t:'Snow plowing',d:'Customers, routes, storms and billing – only in this test app.',go:function(){openSnow();}},
@@ -1240,7 +1239,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140401',lastUpd=0;
+var BUILD='202611140409',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
