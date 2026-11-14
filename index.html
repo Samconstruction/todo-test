@@ -1238,7 +1238,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140310',lastUpd=0;
+var BUILD='202611140320',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1363,7 +1363,8 @@ function groupedList(wrap,mine,emptyText,opts){
   var t=today();
   var closed=opts&&opts.closed||function(x){return x.status==='done';};
   var open=mine.filter(function(x){return !closed(x);}).sort(byWhen);
-  var urg=open.filter(function(x){return x.urgent==='1';}),rest=open.filter(function(x){return x.urgent!=='1';});
+  var isU=function(x){return x.urgent==='1'&&(!x.due||x.due<=t);}; // urgent goes on top only when it is for today (or late); later ones stay under their day
+  var urg=open.filter(isU),rest=open.filter(function(x){return !isU(x);});
   var tm=addDays(t,1);
   var groups=[['Urgent',urg],['Overdue',rest.filter(function(x){return x.due&&x.due<t;})],['Today',rest.filter(function(x){return x.due===t;})]];
   if(opts&&opts.splitTomorrow){groups.push(['Tomorrow',rest.filter(function(x){return x.due===tm;})]);groups.push(['Coming up',rest.filter(function(x){return x.due&&x.due>tm;})]);}
