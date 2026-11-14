@@ -1863,12 +1863,13 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'sn_daynight',i:'🕓',t:'Today or tonight',d:'Start storm says "today" during the day and "tonight" in the evening and at night, by the clock.',go:function(){openSnow();}},
  {id:'sn_more',i:'❄️',t:'Snow plowing for you and Rocky',d:'Snow plowing moved out of "Only for you" – it is in More for you and Rocky, with the same "Show on Today screen" switch.',go:function(){goView('more');}},
  {id:'fx_prospot',i:'⏱',t:'Prospect crews: overtime by the leader only',d:'Workers in a Prospect crew no longer see My week / overtime. Only the crew leader marks their overtime in the daily report.',go:function(){wnPickWorker();}},
  {id:'estfast',i:'⚡',t:'Estimate PDFs open right away',d:'The newest estimate PDFs are downloaded quietly in the background, so when you or Rocky tap one it opens at once.',go:function(){openEst();}},
  {id:'fx_mates',i:'📞',t:'Prospect crews: phone list',d:'Workers in a Prospect crew now see everybody in their own crew (and their leader) in the phone list.',go:function(){wnPickWorker();}},
  {id:'sn_rocky',i:'❄️',t:'Rocky runs snow',d:'Rocky has Snow plowing in his More, can start and end storms, and can be picked as a driver. When he drives, his route shows on his Today screen.',go:function(){openSnow();}},
- {id:'sn_trucks',i:'🚜',t:'Start storm: 1 or 2 trucks',d:'Start storm now asks how many trucks tonight and who drives each one (Rocky, you or a worker). The saved routes are split between the trucks; your last choice is remembered.',go:function(){openSnow();}},
+ {id:'sn_trucks',i:'🚜',t:'Start storm: 1 or 2 trucks',d:'Start storm now asks how many trucks (today or tonight) and who drives each one (Rocky, you or a worker). The saved routes are split between the trucks; your last choice is remembered.',go:function(){openSnow();}},
  {id:'sn_offline',i:'⏳',t:'Snow works with no signal',d:'A driver tapping Done with no signal: it is saved on the phone and sent when the signal is back ("1 waiting to send"). Nothing is lost.',go:function(){openSnowPractice();}},
  {id:'sn_drv',i:'🌙',t:'New driver screen for night and gloves',d:'Dark screen, one huge DONE button, Navigate, Call the customer, Skip (do it later), Salted only when needed, two-tap Undo, the screen stays on. Try it in Snow practice → Open the driver screen.',go:function(){openSnowPractice();}},
  {id:'sn_move',i:'⇄',t:'Move a stop to the other truck',d:'During a storm tap a customer → "Move to Carlos" (or whoever drives the other truck).',go:function(){openSnow();}},
@@ -2145,7 +2146,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140858',lastUpd=0;
+var BUILD='202611140859',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -4379,6 +4380,8 @@ function openSnowPractice(){
       el('p',{class:'muted',style:'font-size:13px;margin:6px 0 0',text:T('Practice customers are on 2 practice routes and never go into a real storm. Your real customers on a route are in the practice too.')}),
       el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);});
 }
+// day or night by the clock (New York time): evening and night = tonight
+function snowNight(){var h=nyNow().h;return h>=17||h<5;}
 // Start a storm: 1 or 2 trucks tonight, who drives each one (the saved routes are split between the trucks)
 function snowStartSheet(prac){
   var sn=S.sn,routes=(sn.routes||[]).filter(function(r){return prac||!/^Practice /.test(r.name);}),custs=sn.custs||[];
@@ -4388,7 +4391,7 @@ function snowStartSheet(prac){
   var n=last.n||Math.min(2,routes.length),drv=[(last.d||[])[0]||'Rocky',(last.d||[])[1]||''];
   var box=el('div',{class:'tkbox'});
   function paint(){box.innerHTML='';
-    box.appendChild(el('p',{class:'muted',style:'margin:0 0 8px',text:T('How many trucks tonight?')}));
+    box.appendChild(el('p',{class:'muted',style:'margin:0 0 8px',text:snowNight()?T('How many trucks tonight?'):T('How many trucks today?')}));
     box.appendChild(el('div',{class:'tkpick'},[1,2].map(function(k){return el('button',{class:n===k?'on':'',onclick:function(){n=k;paint();}},k+' '+(k===1?T('truck'):T('trucks')));})));
     var split=[[],[]];routes.forEach(function(r,i){split[n===1?0:i%2].push(r);});
     for(var t=0;t<n;t++)(function(t){
@@ -4403,7 +4406,7 @@ function snowStartSheet(prac){
       closeSheet(true,true);S.snTab='Storms';snowCall('snowStart',{trucks:trucks,practice:prac?1:0},prac?T('Practice storm started – only you see it'):(sn.driversOn?T('Storm started – drivers notified'):T('Storm started'))).then(function(){if(prac){openSnow();S.snTab='Storms';render();}},function(){});}},(prac?'▶ ':'')+T('Start – send to drivers')));
     box.appendChild(el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel')));}
   paint();
-  openSheet([el('h2',{text:'❄️ '+(prac?T('Practice storm'):T('Start storm – today'))}),box]);
+  openSheet([el('h2',{text:'❄️ '+(prac?T('Practice storm'):(snowNight()?T('Start storm – tonight'):T('Start storm – today')))}),box]);
 }
 function snowStopSheet(s,x){
   var kids=[el('h2',{text:x.n}),el('div',{class:'sn-ad',text:'📍 '+x.a}),snChips(x.w,x.cb),
