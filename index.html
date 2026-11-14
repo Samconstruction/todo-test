@@ -730,6 +730,54 @@ body:has(.scrim.chatfull)::after{display:none}
 .mmlist{position:fixed;min-width:200px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(14,40,36,.25);animation:mmpop .16s ease-out}
 .mmi{display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;background:none;border:none;border-bottom:1px solid #EEF2F0;padding:14px 16px;font-size:16px;font-weight:600;color:var(--ink);text-align:left}
 .mmi:last-child{border-bottom:none}.mmi.red{color:#D9342B}.mmic{font-size:18px;color:#4A8178}
+/* @mentions */
+.ment{color:#1B8F7B;font-weight:800;background:#D4F3EA;border-radius:6px;padding:0 3px}
+.bub.mine .ment{background:#B5E7D8}
+.tagbox{background:#fff;border:1px solid #DCE7E3;border-radius:16px;margin:0 0 8px;overflow:hidden;box-shadow:0 6px 18px rgba(14,79,69,.10);animation:chatin .12s ease-out}
+.tagi{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-bottom:1px solid #EEF2F0;padding:10px 14px;font-size:16px;color:var(--ink);text-align:left}
+.tagi:last-child{border-bottom:none}
+.attcard{grid-template-columns:repeat(5,1fr)}.attic.a5{background:#FFE3E0;color:#C2483D;font-weight:900;font-size:24px}
+@media (max-width:370px){.attic{width:48px;height:48px;font-size:23px}}
+/* video in chat like WhatsApp */
+.vtile{position:relative;display:block;width:240px;max-width:100%;aspect-ratio:3/4;border:none;padding:0;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,#2A5F56,#0E2E29);margin:2px 0}
+.vtile .vtimg{width:100%;height:100%;object-fit:cover;display:block;opacity:0}.vtile.has .vtimg{opacity:1}
+.vtplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;display:flex;align-items:center;justify-content:center}
+.vtplay svg{width:28px;height:28px;margin-left:3px}
+.vtdur{position:absolute;left:8px;bottom:8px;display:flex;align-items:center;gap:5px;color:#fff;font-size:13px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.viewer .vbody{will-change:transform}
+/* task page (as the worker sees it) */
+.scrim.tvfull .sheet.tvsheet{height:100vh;height:100dvh;max-height:none;max-width:none;border-radius:0;background:#EEF4F1;padding:0 14px calc(16px + env(safe-area-inset-bottom));overflow-y:auto;gap:12px}
+.tvtop{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:6px;margin:0 -14px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px 4px;background:linear-gradient(135deg,#BDEBDF,#D8F5EE);font-size:19px;color:#0E4F45}
+.tview{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 6px 20px rgba(14,79,69,.12)}
+.tvstrip{background:#3DBFA6;color:#fff;font-weight:800;font-size:14px;padding:10px 16px}.tview.s-done .tvstrip{background:#4DBB87}.tview.s-half .tvstrip{background:#F2B04A}
+.tvbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.tvname{font-size:26px;font-weight:800;line-height:1.15}.tvtitle{font-size:17px;font-weight:600}
+.tvwho{display:flex;align-items:center;gap:8px;font-size:16px}.tvst{margin-left:auto;font-size:13px;font-weight:800;border-radius:999px;padding:4px 10px;background:#EEF2F0;color:#4A6A64}
+.tvst.st-done{background:#E2F3E6;color:#1E6B30}.tvst.st-half{background:#FFF0D1;color:#9A6200}
+.tvaddr{display:flex;align-items:center;gap:4px;background:#F1F8F5;border-radius:14px;padding:12px;color:var(--ink);text-decoration:none;font-size:16px}.tvaddr .tvgo{margin-left:auto;color:#1B8F7B;font-weight:800}
+.tvnote{background:#FFFBEF;border-radius:14px;padding:10px 12px;font-size:16px;white-space:pre-wrap}.tvnote .lbl{margin:0 0 4px}
+.tvurg{color:#C2483D;font-weight:800}
+.tvbtns{display:flex;flex-direction:column;gap:8px}
+.jhdel{display:block;width:100%;margin:8px 0 0;background:#fff;border:2px solid #F6C9C3;color:#C2483D;border-radius:16px;padding:13px;font-size:16px;font-weight:800}
+:root{--acc:#1F8A77}
+.tvbtns .primary{background:#1B8F7B}
+/* modern video player */
+.vp{position:relative;width:100%;height:100%;max-height:100vh;display:flex;align-items:center;justify-content:center;background:#000}
+.vp video{width:100%;max-height:100vh;max-height:100dvh;display:block;object-fit:contain}
+.vpbig{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:none;background:rgba(27,143,123,.85);color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.vp.on .vpbig{display:flex}.vpbig svg{width:36px;height:36px;margin-left:4px}
+.vpctl{position:absolute;left:0;right:0;bottom:0;padding:26px 14px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,0));opacity:0;transition:opacity .2s;pointer-events:none}
+.vp.on .vpctl{opacity:1;pointer-events:auto}
+.vpseek{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;margin:0 0 6px;--p:0%}
+.vpseek::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(to right,#4FD1B8 0,#4FD1B8 var(--p),rgba(255,255,255,.3) var(--p))}
+.vpseek::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;margin-top:-6px;box-shadow:0 0 0 4px rgba(79,209,184,.35)}
+.vpseek::-moz-range-track{height:4px;border-radius:2px;background:rgba(255,255,255,.3)}.vpseek::-moz-range-progress{height:4px;background:#4FD1B8}.vpseek::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:none}
+.vpbar{display:flex;align-items:center;gap:12px;color:#fff}
+.vpbtn{width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center}
+.vptime{flex:1;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;opacity:.95}
+.vpspeed{min-width:56px;height:36px;border-radius:999px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-weight:800}
+.vpspeed.fast{background:#1B8F7B;border-color:#1B8F7B}
+.viewer .vvid{width:100%;height:100%;display:flex;align-items:center}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -742,6 +790,10 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'No work Saturday':'Sábado no se trabaja'});
+Object.assign(ES,{'Delete job':'Borrar trabajo','Tap again to delete this job':'Toca otra vez para borrar este trabajo','Job deleted':'Trabajo borrado','Deleting hides the job. Its photos and history stay; you can bring it back in App maintenance → Undo.':'Borrar esconde el trabajo. Sus fotos e historial quedan; se puede recuperar en Mantenimiento → Deshacer.'});
+Object.assign(ES,{'Task':'Tarea','Edit task':'Editar tarea','Job page':'Página del trabajo','Notes':'Notas'});
+Object.assign(ES,{'Tag someone':'Etiquetar','tagged you':'te etiquetó'});
 Object.assign(ES,{'Copy':'Copiar','Tap again to delete':'Toca otra vez para borrar'});
 Object.assign(ES,{'Camera':'Cámara','Photos':'Fotos','Gallery video':'Video de galería'});
 Object.assign(ES,{'Taken off':'Quitado'});
@@ -1135,7 +1187,10 @@ function needItems(){
   if(!isSat(nw)&&(isSat(t)?h>=19:h>=12)&&!schedSent(nw))add('🗓',T("Tomorrow's schedule"),T('Not sent yet'),pill(T('Make it'),'blue'),function(){openSchedule(nw);},'warn');
   urg.concat(od.filter(function(x){return urg.indexOf(x)<0;})).slice(0,4).forEach(function(x){var late=x.due&&x.due<t;
     add(x.urgent==='1'?'⚠️':'⏰',x.title,(late?T('Late')+' · '+dueLabel(x.due):dueLabel(x.due||t))+(jobOf(x.job)?' · '+jobOf(x.job).name:''),pill(x.urgent==='1'?T('Urgent'):T('Late'),'red'),function(){openEditor(x);},'red');});
-  unreadTasks().slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
+  // tagged me (@) in a message I haven't opened yet: on top of the messages
+  var tagged=[];unreadTasks().forEach(function(x){var seen=((S.seen||{})[x.id]||{})[S.me]||'',tm=chatMsgs(x).filter(function(m){return m.by!==S.me&&m.at>seen&&(m.m||[]).indexOf(S.me)>=0;}).pop();if(tm)tagged.push([x,tm]);});
+  tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
+  unreadTasks().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
   if(schedSent(t)&&!isSat(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
   if(!isSat(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
   return it;
@@ -1160,7 +1215,7 @@ function homeView(){
   wrap.appendChild(el('div',{class:'ctiles'},
     tile('c-green','✅',T('My tasks'),tasksSub,function(){goView('tasks');}),
     tile('c-blue','🗓',T('Schedule'),schSub,function(){goView('sched');}),
-    tile('c-purple','📋',T('Reports'),crews.length?repIn+' '+T('of')+' '+crews.length+' '+T('sent today'):'',openReports),
+    tile('c-purple','📋',T('Reports'),isSat(t)?T('No work Saturday'):(crews.length?repIn+' '+T('of')+' '+crews.length+' '+T('sent today'):''),openReports),
     tile('c-orange','＋',T('New task'),'',function(){openEditor(null);}),
     isSnowAdmin()&&snowHome()?tile('c-snow wide','❄️',T('Snow plowing'),S.snow&&S.snow.active?T('storm on'):T('Customers · routes · storms'),openSnow):null));
   return wrap;
@@ -1175,7 +1230,7 @@ function needView(){
   wrap.appendChild(heroBox(T('Needs you now'),longDate(t)+(out?' · '+out+' '+T('people out'):''),[
     hTile(od,T('Overdue tasks'),function(){goView('tasks');},od?'red':''),
     hTile(isSat(t)?'—':(schedSent(t)?nCrews:'✗'),isSat(t)?T('Closed today'):(schedSent(t)?T('Crews out'):T('Schedule not sent')),function(){goView('sched');},!isSat(t)&&!schedSent(t)?'red':''),
-    hTile(crews.length?repIn+'/'+crews.length:'—',T('Reports in'),openReports,crews.length&&repIn===crews.length?'ok':'')]));
+    hTile(isSat(t)||!crews.length?'—':repIn+'/'+crews.length,isSat(t)?T('No work Saturday'):T('Reports in'),openReports,!isSat(t)&&crews.length&&repIn===crews.length?'ok':'')]));
   var need=needItems();
   if(need.length)need.forEach(function(n){wrap.appendChild(needRow(n.icon,n.title,n.sub,n.pl,n.fn,n.cls==='warn'?'warn':''));});
   else wrap.appendChild(el('div',{class:'nrow okrow'},el('span',{class:'nic',text:'✓'}),el('span',{class:'nmid'},el('b',{text:T('All caught up')}),el('span',{class:'nsub',text:T('Nothing is waiting for you')}))));
@@ -1329,6 +1384,10 @@ var WHATS_NEW=[
  {id:'chatpage',i:'💬',t:'Chat is a full page',d:'Chats open as a full page with ‹ back on top, mint colors, and a new ＋ menu (Camera, Photos, Video, Gallery video).',go:function(){goView('chats');}},
  {id:'react',i:'👍',t:'Reactions like WhatsApp',d:'Hold a message: the emoji bar pops up on top, Reply / Copy / Delete under it. The reaction sits on the corner of the message.',go:function(){goView('chats');}},
  {id:'ticks',i:'✓✓',t:'Blue ticks only from the right person',d:'A message to a worker turns blue only when that worker saw it – not when another office person looked.',go:function(){goView('chats');}},
+ {id:'tag',i:'🏷',t:'Tag someone in a chat',d:'Type @ in a chat (or ＋ → Tag someone) and pick Rocky, Ashley or the worker. They get a notification and it shows in their Needs you.',go:function(){goView('chats');}},
+ {id:'video2',i:'🎬',t:'Videos like WhatsApp',d:'Videos show big in the chat. Tap to play full screen, swipe up or down to go back.',go:function(){goView('chats');}},
+ {id:'tview',i:'📄',t:'Tap the job on top of a chat',d:'Opens the task the way the worker sees it: address, notes, who – with Chat, Edit task and Job page buttons.',go:function(){goView('chats');}},
+ {id:'jdel',i:'🗑',t:'Delete a job',d:'Open a job → Delete job (tap twice). Close job is for finished jobs; Delete hides a job you don\'t need.',go:function(){openJobs();}},
  {id:'brand',i:'🔤',t:'SAM To-Do name on top',d:'The logo picture at the top is now a clean "SAM To-Do" name, and your photo circle opens the menu.',go:function(){goView('home');}},
  {id:'icon',i:'🟧',t:'Own TEST icon',d:'The test app has its own address and orange TEST icon, so it sits next to the real app.',go:function(){toast('🟧 '+T('Look at your home screen'));}}
 ];
@@ -1499,7 +1558,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140458',lastUpd=0;
+var BUILD='202611140511',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2049,11 +2108,19 @@ function commentsBox(x){
   show.forEach(function(c){box.appendChild(el('div',{class:'cmt'},el('b',{text:nameOf(c.by)+': '}),el('span',{text:c.text}),el('span',{class:'cwhen',text:' · '+cWhen(c.at)})));});
   return box;
 }
-function sendComment(x,text,status,re){
+function tagPeople(x){var l=PEOPLE.filter(function(k){return k!==S.me;}).map(function(k){return {key:k,name:k};});
+  if(x&&x.owner&&x.owner!==S.me&&PEOPLE.indexOf(x.owner)<0)l.unshift({key:x.owner,name:nameOf(x.owner)});return l;}
+function mentionText(text,keys){var d=el('div',{class:'btxt'});if(!keys||!keys.length){d.textContent=text;return d;}
+  var names=keys.map(function(k){return '@'+nameOf(k);}).sort(function(a,b){return b.length-a.length;}),rest=text;
+  while(rest){var at=-1,hit='';names.forEach(function(n){var i=rest.indexOf(n);if(i>=0&&(at<0||i<at)){at=i;hit=n;}});
+    if(at<0){d.appendChild(document.createTextNode(rest));break;}
+    if(at>0)d.appendChild(document.createTextNode(rest.slice(0,at)));d.appendChild(el('span',{class:'ment',text:hit}));rest=rest.slice(at+hit.length);}
+  return d;}
+function sendComment(x,text,status,re,ments){
   var now=new Date().toISOString();
-  S.tasks.forEach(function(t){if(t.id!==x.id)return;if(status)t.status=status;if(text){var l=parseComments(t),m={id:'tmp'+Date.now(),by:S.me,at:now,text:text};if(re)m.re=re;l.push(m);t.comments=JSON.stringify(l);}});
+  S.tasks.forEach(function(t){if(t.id!==x.id)return;if(status)t.status=status;if(text){var l=parseComments(t),m={id:'tmp'+Date.now(),by:S.me,at:now,text:text};if(re)m.re=re;if(ments&&ments.length)m.m=ments;l.push(m);t.comments=JSON.stringify(l);}});
   S.saving++;render();
-  var cp={id:x.id,text:text,status:status||'',re:re||''};
+  var cp={id:x.id,text:text,status:status||'',re:re||''};if(ments&&ments.length)cp.mentions=ments;
   call('comment',cp).then(function(d){S.saving--;if(!S.saving)apply(d);render();})
   .catch(function(e){S.saving--;if(isBadPin(e)){signOut(T('Wrong PIN. Try again.'));return;}if(isNet(e)){enqueue('comment',cp);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
 }
@@ -2145,16 +2212,24 @@ function msgMenu(x,m,b,acts,onReply){
   var lTop=Math.min(H-list.offsetHeight-16,rc.bottom+10);if(lTop<top+64)lTop=top+64;
   list.style.top=lTop+'px';list.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
 }
+var VTH={};try{VTH=JSON.parse(localStorage.getItem('sam_vth')||'{}')||{};}catch(e){VTH={};}
+function vthSave(){try{var ks=Object.keys(VTH);if(ks.length>60)ks.slice(0,ks.length-60).forEach(function(k){delete VTH[k];});localStorage.setItem('sam_vth',JSON.stringify(VTH));}catch(e){try{VTH={};localStorage.removeItem('sam_vth');}catch(e2){}}}
+var VTH_ASK={};
+function videoTile(m){var id=m.video,img=el('img',{class:'vtimg',alt:''}),t=el('button',{class:'vtile',type:'button',onclick:function(e){e.stopPropagation();playVideo({id:id,dur:m.dur,by:m.by});}},img,
+    el('span',{class:'vtplay',html:IC.play}),el('span',{class:'vtdur'},el('span',{html:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h7A2.5 2.5 0 0 1 16 6.5v1.3l3.4-2.2a1 1 0 0 1 1.6.8v11.2a1 1 0 0 1-1.6.8L16 16.2v1.3a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 17.5z"/></svg>'}),el('span',{text:m.dur?fmtDur(m.dur):T('Video')})));
+  if(VTH[id]){img.src=VTH[id];t.classList.add('has');}
+  else if(VTH[id]!==''&&!VTH_ASK[id]){VTH_ASK[id]=1;call('photoGet',{fileId:id,vthumb:true}).then(function(b){VTH[id]=b?'data:image/jpeg;base64,'+b:'';vthSave();if(b)document.querySelectorAll('img.vtimg[data-v="'+id+'"]').forEach(function(n){n.src=VTH[id];n.parentNode.classList.add('has');});}).catch(function(){delete VTH_ASK[id];});}
+  img.setAttribute('data-v',id);return t;}
 function bubble(x,m,openRx,setRx,all,onReply){
   var mine=m.by===S.me,b=el('div',{class:'bub'+(mine?' mine':'')+(PEOPLE.indexOf(m.by)>=0?' off':'')});
   if(!mine)b.appendChild(el('div',{class:'bwho',text:nameOf(m.by)}));
   if(m.re){var q=(all||[]).filter(function(o){return o.id===m.re;})[0];
     b.appendChild(el('button',{class:'bquote',onclick:function(){var r=document.querySelector('.brow[data-mid="'+m.re+'"]');if(r){r.scrollIntoView({behavior:'smooth',block:'center'});r.classList.add('flash');setTimeout(function(){r.classList.remove('flash');},1600);}}},
       el('b',{text:q?(q.by===S.me?T('You'):nameOf(q.by)):'…'}),el('span',{text:q?msgLabel(q):T('Message')})));}
-  if(m.text)b.appendChild(el('div',{class:'btxt',text:m.text}));
+  if(m.text)b.appendChild(mentionText(m.text,m.m));
   if(m.photo){var im=thumb(m.photo);im.classList.add('cphoto');b.appendChild(im);}
   if(m.file)b.appendChild(el('button',{class:'filetile',onclick:function(){openFile(m);}},el('span',{class:'ficon',text:fileIcon(m)}),el('span',{class:'fname',text:m.name||T('File')}),el('span',{class:'fsize',text:fmtSize(m.size)})));
-  if(m.video)b.appendChild(el('button',{class:'vidtile',onclick:function(){playVideo({id:m.video,dur:m.dur,by:m.by});}},el('span',{class:'play',text:'▶'}),el('span',{text:T('Video')+(m.dur?' '+fmtDur(m.dur):'')})));
+  if(m.video)b.appendChild(videoTile(m));
   if(m.voice)b.appendChild(voiceTile(m));
   var r=m.r||{},cnt={};Object.keys(r).forEach(function(k){cnt[r[k]]=(cnt[r[k]]||[]).concat(k===S.me?T('You'):nameOf(k));});
   var rxRow=el('button',{class:'rxrow',type:'button',onclick:function(ev){ev.stopPropagation();toast(Object.keys(cnt).map(function(e){return e+' '+cnt[e].join(', ');}).join('  ·  '));}});var allE=Object.keys(cnt),tot=0;allE.forEach(function(e){tot+=cnt[e].length;rxRow.appendChild(el('span',{class:'rx',text:e}));});if(tot>1)rxRow.appendChild(el('span',{class:'rxn',text:String(tot)}));
@@ -2179,6 +2254,27 @@ function bubble(x,m,openRx,setRx,all,onReply){
   b.addEventListener('contextmenu',function(e){e.preventDefault();clearTimeout(holdT);openMenu();});
   return el('div',{class:'brow'+(mine?' mine':'')+(allE.length?' hasrx':''),'data-mid':m.id},b);
 }
+function openTaskView(x){
+  var job=jobOf(x.job),sch=/^(🚐|🚗)/.test(x.title||''),name=job?job.name:x.title,photos=x.photos?x.photos.split(','):[],st={todo:T('Not started'),half:T('Halfway'),done:T('Done')}[x.status]||'';
+  var when=(x.due?(x.due===today()?T('Today'):dueLabel(x.due))+' · '+dateLabel(x.due):T('No date'))+(x.time?' · '+timeLabel(x.time):'');
+  var card=el('div',{class:'tview s-'+x.status},
+    el('div',{class:'tvstrip',text:'🕖 '+when}),
+    el('div',{class:'tvbody'},
+      el('div',{class:'tvname',text:name}),
+      !sch&&job&&x.title!==job.name?el('div',{class:'tvtitle',text:x.title}):null,
+      el('div',{class:'tvwho'},avatar(x.owner,nameOf(x.owner),30),el('b',{text:nameOf(x.owner)}),el('span',{class:'tvst st-'+x.status,text:st})),
+      x.address||(job&&job.address)?el('a',{class:'tvaddr',href:mapsUrl(x.address||job.address),target:'_blank',rel:'noopener'},'📍 ',el('span',{text:x.address||job.address}),el('span',{class:'tvgo',text:T('Go')+' ›'})):null,
+      x.note?el('div',{class:'tvnote'},el('div',{class:'lbl',text:'📝 '+T('Notes')}),el('div',{text:x.note})):null,
+      x.team&&x.team.length?teamBox(x):null,rideLine(x),sharedLine(x),
+      x.urgent==='1'?el('div',{class:'tvurg',text:'❗ '+T('URGENT')}):null,
+      photos.length?el('div',{class:'thumbs'},photos.map(function(id){return thumb(id);})):null));
+  var kids=[el('div',{class:'tvtop'},el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:closeSheet,html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}),el('b',{text:T('Task')})),card,
+    el('div',{class:'tvbtns'},
+      x._arch?null:el('button',{class:'primary',onclick:function(){closeSheet(true,true);openChat(x.id);}},'💬 '+T('Chat')),
+      isOffice()&&!x._arch?el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);openEditor(x);}},'✏️ '+T('Edit task')):null,
+      job?el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);openHist(job.id);}},'🏗 '+T('Job page')):null)];
+  openSheet(kids);var sc=document.getElementById('scrim');if(sc){sc.classList.add('chatfull','tvfull');sc.querySelector('.sheet').classList.add('tvsheet');}
+}
 function openChat(id){
   var x=S.tasks.filter(function(t){return t.id===id;})[0]||(S.archHits||[]).filter(function(t){return t.id===id;})[0];if(!x){toast(T('That task is no longer open.'));return;}var arch=!!x._arch;
   var head=el('div',{class:'chathead'}),list=el('div',{class:'chatlist'}),comp=el('div',{class:'chatcomp'}),rxOpen=null,lastN=-1,replyTo=null,seenSent='';
@@ -2188,7 +2284,7 @@ function openChat(id){
   function paintHead(){var t=cur(),sch=/^(🚐|🚗)/.test(t.title||''),j=jobOf(t.job);head.innerHTML='';
     var jt=sch?(j?j.name:T('Job')):t.title;
     var addr=t.address||(j&&j.address)||'',when=t.due?dateLabel(t.due)+(t.due===today()?' · '+T('Today'):''):'';
-    var info=el('button',{class:'chinfo',onclick:function(){var tt=cur();closeSheet(true,true);if(tt._arch){if(tt.job)openHist(tt.job);return;}if(isOffice())openEditor(tt);else{S.view='home';render();window.scrollTo(0,0);}}},el('div',{class:'chjob',text:'🏗 '+(j?j.name:jt)+(!sch&&j&&t.title!==j.name?' – '+t.title:'')+' ›'}),addr?el('div',{class:'chsub',text:'📍 '+addr}):null,el('div',{class:'chsub',text:(isOffice()?'👷 '+nameOf(t.owner)+' · ':'')+'📅 '+when}));
+    var info=el('button',{class:'chinfo',onclick:function(){var tt=cur();closeSheet(true,true);if(tt._arch){if(tt.job)openHist(tt.job);return;}openTaskView(tt);}},el('div',{class:'chjob',text:'🏗 '+(j?j.name:jt)+(!sch&&j&&t.title!==j.name?' – '+t.title:'')+' ›'}),addr?el('div',{class:'chsub',text:'📍 '+addr}):null,el('div',{class:'chsub',text:(isOffice()?'👷 '+nameOf(t.owner)+' · ':'')+'📅 '+when}));
     head.appendChild(el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:closeSheet,html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}));
     if(!isOffice()){head.appendChild(el('div',{style:'flex:1;min-width:0'},info));return;}
     head.appendChild(avatar(t.owner,nameOf(t.owner),42));
@@ -2207,7 +2303,17 @@ function openChat(id){
       }
     if(!arch&&last&&last.at&&last.at!==seenSent){seenSent=last.at;call('chatSeen',{id:t.id}).then(function(d){if(d&&d.seen)S.seen=Object.assign({},S.seen||{},d.seen);}).catch(function(){});}
     if(atBottom||l.length!==lastN)setTimeout(function(){sh.scrollTop=sh.scrollHeight;},0);lastN=l.length;}
-  var sendB=icBtn('chatsend','send',T('Send'),function(){var v=input.value.trim();if(!v)return;input.value='';input.style.height='auto';var re=replyTo?replyTo.id:'';replyTo=null;paintComp();sendComment(cur(),v,'',re);});
+  var tagBox=el('div',{class:'tagbox',style:'display:none'});
+  function tagToken(){var v=input.value,c=input.selectionStart==null?v.length:input.selectionStart,m=/(^|\s)@([^\s@]*)$/.exec(v.slice(0,c));return m?{start:c-m[2].length-1,q:m[2].toLowerCase(),end:c}:null;}
+  function paintTags(){var tk=tagToken();tagBox.innerHTML='';if(!tk){tagBox.style.display='none';return;}
+    var l=tagPeople(cur()).filter(function(p){return !tk.q||p.name.toLowerCase().indexOf(tk.q)===0;});if(!l.length){tagBox.style.display='none';return;}
+    l.forEach(function(p){tagBox.appendChild(el('button',{class:'tagi',type:'button',onmousedown:function(e){e.preventDefault();},onclick:function(){var v=input.value,t2=tagToken()||tk;
+      input.value=v.slice(0,t2.start)+'@'+p.name+' '+v.slice(t2.end);var pos=t2.start+p.name.length+2;input.focus();try{input.setSelectionRange(pos,pos);}catch(e){}tagBox.style.display='none';swapMS();}},avatar(p.key,p.name,30),el('b',{text:p.name})));});
+    tagBox.style.display='';}
+  input.addEventListener('input',paintTags);input.addEventListener('click',paintTags);
+  function startTag(){var v=input.value;input.value=v+(v&&!/\s$/.test(v)?' ':'')+'@';input.focus();try{input.setSelectionRange(input.value.length,input.value.length);}catch(e){}paintTags();swapMS();}
+  var sendB=icBtn('chatsend','send',T('Send'),function(){var v=input.value.trim();if(!v)return;var ments=tagPeople(cur()).filter(function(p){return v.indexOf('@'+p.name)>=0;}).map(function(p){return p.key;});
+    input.value='';input.style.height='auto';tagBox.style.display='none';var re=replyTo?replyTo.id:'';replyTo=null;paintComp();sendComment(cur(),v,'',re,ments);});
   function swapMS(){var has=!!input.value.trim();sendB.style.display=has?'':'none';micB.style.display=has?'none':'';}
   input.addEventListener('input',function(){swapMS();});
   var micB=el('button',{class:'chatmic','aria-label':T('Hold to record a voice note'),html:IC.mic});micB.addEventListener('pointerdown',function(e){e.preventDefault();micB.classList.add('pressed');more=false;try{if(navigator.vibrate)navigator.vibrate(35);}catch(e2){}holdVoice(cur(),comp,function(){more=false;paintComp();},e);});micB.addEventListener('touchstart',function(e){e.preventDefault();},{passive:false});micB.addEventListener('contextmenu',function(e){e.preventDefault();});
@@ -2220,9 +2326,10 @@ function openChat(id){
       att('a1','📷',T('Camera'),function(){pickPhoto(cur(),true);}),
       att('a2','🖼',T('Photos'),function(){pickPhoto(cur());}),
       att('a3','🎥',T('Video'),function(){pickVideo(cur(),true,true);}),
-      att('a4','🎞',T('Gallery video'),function(){pickVideo(cur(),false,true);})));
+      att('a4','🎞',T('Gallery video'),function(){pickVideo(cur(),false,true);}),
+      att('a5','@',T('Tag someone'),function(){setTimeout(startTag,50);})));
     if(arch){comp.appendChild(el('div',{class:'archnote',text:'🗄 '+T('Old chat from the history – read only')}));return;}
-    comp.appendChild(el('div',{class:'chatbar'},el('button',{class:'chatplus'+(more?' on':''),'aria-label':T('Add photo'),onclick:function(){more=!more;paintComp();},html:IC.plus}),el('div',{class:'chatpill'},input),sendB,micB));swapMS();}
+    comp.appendChild(tagBox);comp.appendChild(el('div',{class:'chatbar'},el('button',{class:'chatplus'+(more?' on':''),'aria-label':T('Add photo'),onclick:function(){more=!more;paintComp();},html:IC.plus}),el('div',{class:'chatpill'},input),sendB,micB));swapMS();}
   paintHead();paintList();paintComp();
   // Get the newest video ready in the background, so it plays right away when tapped.
   try{var lv=(JSON.parse(x.comments||'[]')||[]).filter(function(m){return m.video;}).pop();if(lv)setTimeout(function(){getMedia(lv.video).catch(function(){});},800);}catch(e){}
@@ -2318,6 +2425,12 @@ function closeViewer(){var v=document.getElementById('viewer');if(!v)return fals
 function openViewer(content){closeViewer();
   var v=el('div',{class:'viewer',id:'viewer'},el('button',{class:'vclose','aria-label':T('Close'),onclick:function(){closeViewer();queueHist();}},'✕'),el('div',{class:'vbody'},content));
   v.addEventListener('click',function(e){if(e.target===v||e.target.classList.contains('vbody')){closeViewer();queueHist();}});
+  var sy=null,sx=0,dy=0,body=v.querySelector('.vbody');
+  v.addEventListener('touchstart',function(e){if(e.touches.length!==1){sy=null;return;}sy=e.touches[0].clientY;sx=e.touches[0].clientX;dy=0;},{passive:true});
+  v.addEventListener('touchmove',function(e){if(sy===null)return;var y=e.touches[0].clientY-sy,x=e.touches[0].clientX-sx;if(Math.abs(y)<Math.abs(x)*1.2&&Math.abs(dy)<10)return;dy=y;
+    if(e.target.closest&&e.target.closest('input[type=range]'))return;body.style.transition='none';body.style.transform='translateY('+dy+'px) scale('+Math.max(.85,1-Math.abs(dy)/1500)+')';v.style.background='rgba(0,0,0,'+Math.max(.25,1-Math.abs(dy)/400)+')';},{passive:true});
+  v.addEventListener('touchend',function(){if(sy===null)return;sy=null;if(Math.abs(dy)>110){body.style.transition='transform .18s ease-in,opacity .18s';body.style.transform='translateY('+(dy>0?'100vh':'-100vh')+')';body.style.opacity='0';setTimeout(function(){closeViewer();queueHist();},170);}
+    else{body.style.transition='transform .18s';body.style.transform='';v.style.background='';}dy=0;});
   document.body.appendChild(v);queueHist();return v;}
 S.thumbs={};var thQ=[],thBusy=0;
 var TH_CACHE=null;try{if(window.caches)TH_CACHE=caches.open('sam-thumbs-v1');}catch(e){}
@@ -2485,13 +2598,44 @@ function showFile(m,url){openSheet([el('h2',{text:fileIcon(m)+' '+(m.name||T('Fi
   el('a',{class:'primary',href:url,target:'_blank',rel:'noopener',style:'display:block;text-align:center;text-decoration:none'},'👁 '+T('Open')),
   el('a',{class:'cbtn',href:url,download:m.name||'file',style:'display:block;text-align:center;text-decoration:none;margin-top:8px'},'⬇ '+T('Save to phone')),
   el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);}
+// Clean video player: big ▶ in the middle, bottom bar with play/pause, time, seek line and speed (1× · 1.5× · 2×). Tap the video to show/hide the controls.
+var VSPEED=1;
+function vPlayer(url,it){
+  var v=el('video',{src:url,autoplay:'',playsinline:'',preload:'auto'}),wrap=el('div',{class:'vp'}),hideT=null;
+  var big=el('button',{class:'vpbig',type:'button','aria-label':T('Play'),html:IC.play});
+  var pp=el('button',{class:'vpbtn',type:'button','aria-label':T('Play'),html:IC.pause});
+  var seek=el('input',{class:'vpseek',type:'range',min:'0',max:'1000',value:'0','aria-label':T('Video')});
+  var tm=el('span',{class:'vptime',text:'0:00 / '+fmtDur(it.dur||0)});
+  var sp=el('button',{class:'vpspeed',type:'button',text:VSPEED+'×'});
+  var bar=el('div',{class:'vpbar'},pp,tm,sp);
+  var ctl=el('div',{class:'vpctl'},seek,bar);
+  wrap.appendChild(v);wrap.appendChild(big);wrap.appendChild(ctl);
+  function fmt(t){t=Math.max(0,Math.round(t||0));return fmtDur(t);}
+  function dur(){return isFinite(v.duration)&&v.duration>0?v.duration:(it.dur||0);}
+  function show(){wrap.classList.add('on');clearTimeout(hideT);if(!v.paused)hideT=setTimeout(function(){wrap.classList.remove('on');},2600);}
+  function paint(){var d=dur();tm.textContent=fmt(v.currentTime)+' / '+fmt(d);if(!seek._drag)seek.value=d?Math.round(v.currentTime/d*1000):0;seek.style.setProperty('--p',(seek.value/10)+'%');}
+  v.playbackRate=VSPEED;
+  v.addEventListener('play',function(){pp.innerHTML=IC.pause;big.style.display='none';show();});
+  v.addEventListener('pause',function(){pp.innerHTML=IC.play;big.style.display='';wrap.classList.add('on');clearTimeout(hideT);});
+  v.addEventListener('ended',function(){pp.innerHTML=IC.play;big.style.display='';wrap.classList.add('on');});
+  v.addEventListener('timeupdate',paint);v.addEventListener('loadedmetadata',paint);
+  function toggle(){if(v.paused)v.play().catch(function(){});else v.pause();}
+  big.onclick=function(e){e.stopPropagation();toggle();};pp.onclick=function(e){e.stopPropagation();toggle();show();};
+  v.addEventListener('click',function(e){e.stopPropagation();if(wrap.classList.contains('on'))toggle();show();});
+  sp.onclick=function(e){e.stopPropagation();VSPEED=VSPEED===1?1.5:VSPEED===1.5?2:1;v.playbackRate=VSPEED;sp.textContent=VSPEED+'×';sp.classList.toggle('fast',VSPEED>1);show();};
+  sp.classList.toggle('fast',VSPEED>1);
+  seek.addEventListener('input',function(e){e.stopPropagation();seek._drag=true;var d=dur();if(d)v.currentTime=seek.value/1000*d;seek.style.setProperty('--p',(seek.value/10)+'%');show();});
+  seek.addEventListener('change',function(){seek._drag=false;});
+  ['click','touchstart','pointerdown'].forEach(function(n){ctl.addEventListener(n,function(e){e.stopPropagation();},{passive:true});});
+  wrap.classList.add('on');setTimeout(show,50);
+  return wrap;}
 function playVideo(it){
   var box=el('div',{class:'vvid'}),bar=el('div',{class:'pbar'},el('div',{class:'pfill'}));
   openViewer(box);
-  if(S.vids[it.id]){box.appendChild(el('video',{src:S.vids[it.id],controls:'',autoplay:'',playsinline:''}));return;}
+  if(S.vids[it.id]){box.appendChild(vPlayer(S.vids[it.id],it));return;}
   box.appendChild(el('p',{class:'muted',style:'text-align:center',text:T('Loading video…')}));box.appendChild(bar);
   getMedia(it.id,function(got,total){bar.firstChild.style.width=Math.round(got*100/total)+'%';},'video/mp4').then(function(url){
-    if(!document.getElementById('viewer'))return;box.innerHTML='';box.appendChild(el('video',{src:url,controls:'',autoplay:'',playsinline:''}));})
+    if(!document.getElementById('viewer'))return;box.innerHTML='';box.appendChild(vPlayer(url,it));})
   .catch(function(err){box.innerHTML='';box.appendChild(el('p',{text:T('Could not load the video.')}));logErr('Video play failed: '+String(err&&err.message||err),it.id);});
 }
 var photoTask=null;
@@ -3449,6 +3593,10 @@ function histView(){
   if(h.days.length&&!shown&&!h.more)wrap.appendChild(el('p',{class:'empty',text:T('Nothing yet.')}));
   if(h.more)wrap.appendChild(el('button',{class:'jhmore',onclick:function(e){e.target.textContent=T('Loading…');loadHist(h.days[h.days.length-1].date);}},h.loading&&h.days.length?T('Loading…'):T('Show older days')+' ›'));
   var cb=jobCloseBtn(jobOf(h.job));if(cb)wrap.appendChild(cb);
+  var jdel=jobOf(h.job);if(jdel&&isOffice()){var armJ=false,db=el('button',{class:'jhdel',onclick:function(){if(!armJ){armJ=true;db.textContent='🗑 '+T('Tap again to delete this job');return;}
+    var was=jdel.active;jdel.active='0';JUSE=null;toast('🗑 '+T('Job deleted')+' · '+jdel.name);navRepl=true;openJobs();
+    call('jobRemove',{id:jdel.id}).then(function(r){apply(r);render();}).catch(function(e){jdel.active=was;render();toast('❗ '+T('Not deleted')+': '+errText(e));});}},'🗑 '+T('Delete job'));wrap.appendChild(db);
+    wrap.appendChild(el('div',{class:'muted',style:'font-size:12px;text-align:center;margin-top:4px',text:T('Deleting hides the job. Its photos and history stay; you can bring it back in App maintenance → Undo.')}));}
   return wrap;
 }
 function openJobManager(){
