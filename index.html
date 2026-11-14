@@ -1245,7 +1245,7 @@ function syncHist(){try{
     // Back goes to the page before, not through every screen: going to the parent = step back; side by side screens (tabs, job → other job) replace each other.
     var pk=function(k){var v=String(k||'').split('|')[0];return (v==='home'||v==='login'||!v)?'':(v==='jobhist'?'jobs':v==='myjobs'||v==='week'||v==='cal'?'more':'home');};
     if(!navRepl&&st.me===s.me&&st.from&&s.k===st.from){navOwn++;history.back();return;}
-    if(!navRepl&&st.me===s.me&&pk(s.k)&&pk(s.k)===pk(st.k))navRepl=true;
+    if(!navRepl&&st.me===s.me&&pk(s.k)&&pk(s.k)===pk(st.k)&&st.k!=='need')navRepl=true;   // opened from "Needs you": Back returns to it
     if(navRepl||st.me!==s.me){s.d=st.me!==s.me?1:st.d;s.from=st.from;history.replaceState(s,'');}
     else{history.replaceState(Object.assign({},st,{y:NAV_Y}),'');s.d=(st.d||1)+1;s.from=st.k;history.pushState(s,'');}
     st=s;
@@ -1944,7 +1944,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140714',lastUpd=0;
+var BUILD='202611140720',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
