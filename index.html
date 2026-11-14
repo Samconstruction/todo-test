@@ -207,7 +207,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .wkday.today{box-shadow:0 0 0 2px var(--acc)}
 .wkday.fut{opacity:.4;background:#fff;border-color:var(--line)}
 .repdate{font-size:18px;font-weight:800;margin:0 0 10px}
-html,body{overflow-x:hidden;max-width:100%}
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
 .sheet{overflow-x:hidden}
 img,video,canvas,table{max-width:100%}
 .list,.sheet,.card,.repcard,.scard{min-width:0;overflow-wrap:anywhere}
@@ -1445,6 +1445,38 @@ main.list{padding-bottom:110px}
 .chst{flex:none;border:0;border-radius:999px;padding:8px 12px;font:inherit;font-weight:800;font-size:13.5px;background:#fff;color:#1B8F7B;box-shadow:0 1px 4px rgba(14,79,69,.15);min-height:36px;white-space:nowrap}
 .chst.s-done{background:#1B8F7B;color:#fff}.chst.s-half{background:#FFF4DC;color:#8A5A00}
 .wgr{display:flex;align-items:center;gap:8px}.wgr .wxmini{margin:0}
+/* icons on green buttons are white */
+.primary .ico-i,.jhgo .ico-i,.jhdone .ico-i,.drvdone .ico-i,.rvsend .ico-i,.utoast .ico-i,.toast .ico-i,.sn-big .ico-i,.chst.s-done .ico-i,.ctile.c-orange .ico-i,.lg3btn .ico-i,.vperr .primary .ico-i{color:currentColor}
+
+.calc .calsh{font-size:9px;line-height:1;color:#2E7D5B;font-weight:700;margin-top:1px}.calc.sel .calsh{color:inherit}.calrow.sh .calbadge{background:#EEF5F2;color:#2E7D5B}
+
+.rxs{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0);transition:background .2s;display:flex;align-items:flex-end}
+.rxs.on{background:rgba(0,0,0,.35)}
+.rxsh{width:100%;max-height:70vh;overflow:auto;background:#fff;border-radius:18px 18px 0 0;padding:6px 0 calc(14px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .22s ease-out}
+.rxs.on .rxsh{transform:none}
+.rxgrab{width:38px;height:4px;border-radius:2px;background:#CFDCD6;margin:4px auto 8px}
+.rxhd{font-weight:700;font-size:16px;padding:0 18px 8px;color:#1F2D27}
+.rxtabs{display:flex;gap:6px;padding:0 14px 8px;overflow-x:auto;border-bottom:1px solid #E3ECE8}
+.rxtab{border:0;background:#EEF5F2;color:#2E4A3F;border-radius:16px;padding:7px 12px;font-size:14px;white-space:nowrap;font-weight:600}
+.rxtab.on{background:#2E7D5B;color:#fff}
+.rxlist{padding:4px 0}
+.rxp{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:9px 18px;text-align:left}
+.rxp.me:active{background:#EEF5F2}
+.rxpn{flex:1;display:flex;flex-direction:column;min-width:0}.rxpn b{font-size:15px;color:#1F2D27}.rxpn span{font-size:12.5px;color:#6B8379}
+.rxpe{font-size:24px}
+.calgrid{grid-template-columns:repeat(7,minmax(0,1fr))}.calc{min-width:0}.calc .calsh{margin-top:-2px}
+.calrow.sh{border-left-color:#2E7D5B}
+/* mint pass 2 */
+.jhstrip .ico,.jhgo .ico,.primary .ico,.jhstrip svg,.jhgo svg{color:#fff;stroke:#fff}
+body.sndark .hav,body.sndark .av{color:#0E4F45}
+.cprev .cpt,.cpt{background:none}
+.cprev,.cmts{background:#EEF5F2;border-color:#D8F5EE}
+.sn-prac{background:#D8F5EE;border-color:#1B8F7B;color:#0E4F45}
+body.sndark .sn-prac{background:#1F3B35;border-color:#7FD1B9;color:#7FD1B9}
+.tchip{border-color:#BDEBDF}
+.qbar{color:#0E4F45;background:#D8F5EE}
+.glc.warn b{color:#0E4F45}
+.satclosed{color:#4F6B62;background:#EEF5F2;border-color:#D8E6E0}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1457,7 +1489,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
-Object.assign(ES,{'Today at a glance':'Hoy de un vistazo','workers out':'trabajadores','arrived':'llegaron','done':'listos','halfway':'a medias','not done yet':'sin terminar','photos':'fotos','Translate to Spanish':'Traducir al español','Translate to English':'Traducir al inglés','Sign out to see it':'Cierra sesión para verlo','Make an estimate for this job:':'Haz un presupuesto para este trabajo:'});
+Object.assign(ES,{'Translate':'Traducir','No name yet':'Sin nombre todavía','Customer name (optional)':'Nombre del cliente (opcional)','Today at a glance':'Hoy de un vistazo','workers out':'trabajadores','arrived':'llegaron','done':'listos','halfway':'a medias','not done yet':'sin terminar','photos':'fotos','Translate to Spanish':'Traducir al español','Translate to English':'Traducir al inglés','Sign out to see it':'Cierra sesión para verlo','Make an estimate for this job:':'Haz un presupuesto para este trabajo:'});
 Object.assign(ES,{'Saturday – closed':'Sábado – cerrado','Officially closed. Only if people are working this Saturday:':'Oficialmente cerrado. Solo si hay gente trabajando este sábado:','Working this Saturday – make the schedule':'Se trabaja este sábado – hacer el horario','Stay closed':'Sigue cerrado'});
 Object.assign(ES,{'Call to':'Llamar a','Tap ▶ again':'Toca ▶ otra vez','No signal – nothing was lost. Tap Save again when you have signal.':'Sin señal – no se perdió nada. Toca Guardar otra vez cuando tengas señal.','I arrived':'Llegué','You arrived':'Llegaste','Your crew leader marks your overtime in the daily report.':'Tu líder marca tus horas extra en el reporte diario.','Absent':'Ausente','DONE':'LISTO','Undo?':'¿Deshacer?','Tap again – do it later':'Toca otra vez – hacerlo después','On this truck':'En este camión','Opening…':'Abriendo…','Truck 1':'Camión 1','Truck 2':'Camión 2','Nobody left – all helpers are on the other truck':'No queda nadie – todos los ayudantes están en el otro camión'});
 Object.assign(ES,{"Time in the app today": "Tiempo en la app hoy", "Compliments preview": "Ver los elogios", "Snow practice (only you)": "Práctica de nieve (solo tú)", "How long each person had the app open on the screen today, and how many times they opened it.": "Cuánto tiempo tuvo cada persona la app abierta hoy y cuántas veces la abrió.", "times": "veces", "Nothing yet today.": "Nada todavía hoy.", "Counting started today, so earlier days are not here.": "Se empezó a contar hoy; los días anteriores no están.", "No": "No", "Waiting for you": "Esperándote", "Estimates": "Presupuestos", "Look at your home screen": "Mira tu pantalla de inicio", "Sign out and back in to try it": "Cierra sesión y vuelve a entrar para probarlo", "New in the test app": "Nuevo en la app de prueba", "Check it out": "Ver", "Later": "Después", "Type your current PIN.": "Escribe tu PIN actual.", "Type the name and the address.": "Escribe el nombre y la dirección.", "Put customers on a route first.": "Primero pon clientes en una ruta.", "A storm is already going on.": "Ya hay una tormenta en curso.", "Google Maps could not plan this route – check the addresses.": "Google Maps no pudo planear esta ruta – revisa las direcciones.", "No snow customers yet.": "Todavía no hay clientes de nieve.", "Not on a route": "Sin ruta", "storm": "tormenta", "Customer or building name": "Nombre del cliente o edificio", "Street, town": "Calle, pueblo", "Notes for the driver (gate code, where to pile the snow…)": "Notas para el chofer (código del portón, dónde amontonar la nieve…)", "No route": "Sin ruta", "Edit snow customer": "Editar cliente de nieve", "New snow customer": "Nuevo cliente de nieve", "Contact phone": "Teléfono de contacto", "What we do": "Qué hacemos", "Must be clear by": "Debe estar limpio antes de", "leave empty = no time limit": "vacío = sin hora límite", "Price per storm (only you see this)": "Precio por tormenta (solo tú lo ves)", "No routes yet – add one for each truck.": "Todavía no hay rutas – agrega una por cada camión.", "no driver": "sin chofer", "Drag to change the order": "Arrastra para cambiar el orden", "No stops – put customers on this route.": "No hay paradas – pon clientes en esta ruta.", "Planning the fastest drive…": "Planeando el camino más rápido…", "Best order": "Mejor orden", "was": "antes", "Best order (fastest drive, ⏰ first)": "Mejor orden (camino más rápido, ⏰ primero)", "Add route": "Agregar ruta", "Edit route": "Editar ruta", "New route": "Nueva ruta", "Route name": "Nombre de la ruta", "Driver (gets the route on his phone when a storm starts)": "Chofer (recibe la ruta en su teléfono cuando empieza una tormenta)", "Remove route": "Quitar ruta", "PRACTICE": "PRÁCTICA", "Only you see this – nobody is notified": "Solo tú ves esto – no se avisa a nadie", "Storm in progress": "Tormenta en curso", "round": "vuelta", "Open the driver screen": "Abrir la pantalla del chofer", "Tap again – send all routes again from the start": "Toca otra vez – mandar todas las rutas otra vez desde el principio", "Second round sent to the drivers": "Segunda vuelta enviada a los choferes", "Second round (heavy snow)": "Segunda vuelta (mucha nieve)", "Tap again – the practice is deleted": "Toca otra vez – se borra la práctica", "Tap again to end the storm": "Toca otra vez para terminar la tormenta", "Practice ended and deleted": "Práctica terminada y borrada", "Storm ended": "Tormenta terminada", "End practice": "Terminar práctica", "End storm": "Terminar tormenta", "Start storm": "Empezar tormenta", "Past storms": "Tormentas pasadas", "None yet.": "Ninguna todavía.", "finished": "terminada", "Fake – nothing is saved. Tap a button to see what pops up.": "De prueba – no se guarda nada. Toca un botón para ver qué aparece.", "A task is done (different each time)": "Una tarea terminada (diferente cada vez)", "The last task of the day (office only)": "La última tarea del día (solo oficina)", "Friday – the last task of the week (office only)": "Viernes – la última tarea de la semana (solo oficina)", "Snow – the last stop of the route": "Nieve – la última parada de la ruta", "Snow practice": "Práctica de nieve", "Try a whole storm from start to end. Only you see it – nobody gets a notification. When you end it, it is deleted (no record, no billing).": "Prueba una tormenta completa de principio a fin. Solo tú la ves – nadie recibe aviso. Al terminarla se borra (sin registro, sin cobro).", "Your customers on a route": "Tus clientes en una ruta", "Practice customers": "Clientes de práctica", "A real storm is going on now – end it first.": "Hay una tormenta real ahora – termínala primero.", "Open the practice storm": "Abrir la tormenta de práctica", "Start a practice storm": "Empezar una tormenta de práctica", "20 practice customers added": "20 clientes de práctica agregados", "Practice customers removed": "Clientes de práctica quitados", "Remove the practice customers": "Quitar los clientes de práctica", "Practice customers are on 2 practice routes and never go into a real storm. Your real customers on a route are in the practice too.": "Los clientes de práctica están en 2 rutas de práctica y nunca entran en una tormenta real. Tus clientes reales en una ruta también están en la práctica.", "How many trucks tonight?": "¿Cuántos camiones esta noche?", "How many trucks today?": "¿Cuántos camiones hoy?", "truck": "camión", "trucks": "camiones", "TRUCK": "CAMIÓN", "WHO DRIVES?": "¿QUIÉN MANEJA?", "HELPERS ON THIS TRUCK (shovel & salt)": "AYUDANTES EN ESTE CAMIÓN (palear y sal)", "customers are on no route – they are not in this storm": "clientes no tienen ruta – no están en esta tormenta", "Pick who drives each truck": "Elige quién maneja cada camión", "Practice storm started – only you see it": "Práctica empezada – solo tú la ves", "Storm started – drivers notified": "Tormenta empezada – se avisó a los choferes", "Storm started": "Tormenta empezada", "Start – send to drivers": "Empezar – mandar a los choferes", "Practice storm": "Tormenta de práctica", "Start storm – tonight": "Empezar tormenta – esta noche", "Start storm – today": "Empezar tormenta – hoy", "Moved to": "Movido a", "Move to": "Mover a", "storm done": "tormenta hecha", "storm ended": "tormenta terminada", "customers": "clientes", "Billing list": "Lista para cobrar", "Plowed": "Limpiado", "your snow was cleared": "se limpió su nieve", "Thank you!": "¡Gracias!", "Send to customer": "Mandar al cliente", "Copied – paste it into QuickBooks or a message": "Copiado – pégalo en QuickBooks o en un mensaje", "Share / copy the list": "Compartir / copiar la lista", "This is what the driver sees": "Esto es lo que ve el chofer", "Type the customer name.": "Escribe el nombre del cliente.", "For Yossi": "Para Yossi", "At Claude": "En Claude", "PDF ✓": "PDF ✓", "New estimate": "Nuevo presupuesto", "No estimates yet. Tap “New estimate” to start one.": "Todavía no hay presupuestos. Toca “Nuevo presupuesto” para empezar uno.", "WAITING FOR CLAUDE": "ESPERANDO A CLAUDE", "READY": "LISTO", "SENT TO CUSTOMER": "ENVIADO AL CLIENTE", "Customer name": "Nombre del cliente", "Phone (optional)": "Teléfono (opcional)", "What is the job? Talk or type…": "¿Cuál es el trabajo? Habla o escribe…", "Add photos": "Agregar fotos", "Talk": "Hablar", "Tap the 🎤 on your keyboard and talk": "Toca el 🎤 de tu teclado y habla", "Edit estimate": "Editar presupuesto", "CUSTOMER": "CLIENTE", "ADDRESS": "DIRECCIÓN", "EMAIL": "CORREO", "PHONE": "TELÉFONO", "WHAT'S THE JOB? – talk or type": "¿CUÁL ES EL TRABAJO? – habla o escribe", "PHOTOS": "FOTOS", "Sent to Yossi": "Enviado a Yossi", "photos added": "fotos agregadas", "Adding photo": "Agregando foto", "A photo could not be added.": "No se pudo agregar una foto.", "Save – send to Yossi": "Guardar – mandar a Yossi", "Getting the photos ready…": "Preparando las fotos…", "Send to Claude": "Mandar a Claude", "Tap below – the text is copied and Claude opens. Go to Projects → Estimates → new chat → paste.": "Toca abajo – se copia el texto y se abre Claude. Ve a Projects → Estimates → nuevo chat → pegar.", "Copy text & open Claude": "Copiar texto y abrir Claude", "Come back here and share the photos – pick the chat you just made (it is on top).": "Vuelve aquí y comparte las fotos – elige el chat que acabas de hacer (está arriba).", "Share the": "Compartir las", "Done? Tap below so Rocky sees it went to Claude.": "¿Listo? Toca abajo para que Rocky vea que se mandó a Claude.", "Marked as sent to Claude": "Marcado como enviado a Claude", "I sent it to Claude": "Ya lo mandé a Claude", "The text is copied. Tap below and pick Claude – then choose your Estimates project, or paste it there.": "El texto está copiado. Toca abajo y elige Claude – luego elige el proyecto Estimates, o pégalo ahí.", "Copied – open Claude and paste": "Copiado – abre Claude y pega", "Share to Claude": "Compartir con Claude", "I already sent it": "Ya lo mandé", "Pick the PDF file": "Elige el archivo PDF", "The PDF is too big": "El PDF es demasiado grande", "Adding the PDF…": "Agregando el PDF…", "PDF added": "PDF agregado", "This estimate is not here anymore.": "Este presupuesto ya no está.", "Started by": "Empezado por", "Sent to Claude": "Enviado a Claude", "Not sent to Claude yet": "Todavía no enviado a Claude", "Waiting for Yossi to send it to Claude": "Esperando que Yossi lo mande a Claude", "PDF back in the app": "El PDF ya está en la app", "PDF not back yet": "El PDF todavía no llega", "Loading the estimate…": "Cargando el presupuesto…", "pages": "páginas", "Getting the PDF ready…": "Preparando el PDF…", "Print": "Imprimir", "Marked as sent to the customer": "Marcado como enviado al cliente", "Not sent to the customer yet": "Todavía no enviado al cliente", "Mark as sent to the customer": "Marcar como enviado al cliente", "Redo in Claude": "Rehacer en Claude", "Replace the PDF": "Cambiar el PDF", "Add the PDF from Claude": "Agregar el PDF de Claude", "THE JOB": "EL TRABAJO", "Delete this estimate": "Borrar este presupuesto", "Edit": "Editar", "Tap below, then pick “Print” in the list.": "Toca abajo y luego elige “Imprimir” en la lista.", "Tap below and pick Gmail, WhatsApp, Drive…": "Toca abajo y elige Gmail, WhatsApp, Drive…", "Share the PDF": "Compartir el PDF", "Only the office can add estimates.": "Solo la oficina puede agregar presupuestos.", "Which estimate is this PDF for?": "¿Para qué presupuesto es este PDF?", "A new estimate": "Un presupuesto nuevo", "person": "persona", "left – tap it to check it out": "queda – tócalo para verlo", "new thing to check out": "novedad para ver", "new things to check out": "novedades para ver", "left – tap each one to check it out": "quedan – toca cada una para verla", "estimates to send to Claude": "presupuestos para mandar a Claude", "estimate to send to Claude": "presupuesto para mandar a Claude"});
@@ -1470,7 +1502,7 @@ Object.assign(ES,{'Skip':'Saltar'});
 Object.assign(ES,{'Tap for photo · hold for video · slide up to zoom':'Toca para foto · mantén para video · desliza arriba para acercar'});
 Object.assign(ES,{'Take photo':'Tomar foto','Flip camera':'Cambiar cámara','Tap for photo · hold for video':'Toca para foto · mantén para video','Camera is blocked. Allow it for this app in your phone settings.':'La cámara está bloqueada. Permítela para esta app en los ajustes del teléfono.'});
 Object.assign(ES,{'My notes':'Mis notas','Only you':'Solo tú','Only you can see this chat':'Solo tú ves este chat','A chat only you can see – notes, photos, reminders':'Un chat que solo tú ves – notas, fotos, recordatorios'});
-Object.assign(ES,{'Calendar':'Calendario','Yom Tov – no work':'Yom Tov – no se trabaja','Jewish holiday':'Fiesta judía','US holiday':'Feriado de EE.UU.','Other':'Otro','This month':'Este mes','No holidays':'Sin fiestas','Chol Hamoed':'Jol Hamoed','Fast day':'Día de ayuno','Erev – short day':'Erev – día corto','US holiday – banks and offices closed':'Feriado – bancos y oficinas cerrados','Previous':'Anterior','Next':'Siguiente'});
+Object.assign(ES,{'test':'prueba','Made-up numbers for a random day':'Números inventados para un día al azar','Nothing is real and nothing is sent.':'Nada es real y no se envía nada.','On a real day this opens Job sites.':'En un día real esto abre Obras.','Where: the top of Home, office only. Hidden on a Saturday or Sunday nobody works, and when no workers have tasks today.':'Dónde: arriba en Inicio, solo oficina. Escondido un sábado o domingo sin trabajo, y cuando nadie tiene tareas hoy.','Another day':'Otro día','Test Today at a glance':'Probar Hoy de un vistazo','1 reaction':'1 reacción','reactions':'reacciones','Tap to remove':'Toca para quitar','Shabbos starts':'Shabbos empieza','Candle lighting – Monroe':'Encendido de velas – Monroe','Calendar':'Calendario','Yom Tov – no work':'Yom Tov – no se trabaja','Jewish holiday':'Fiesta judía','US holiday':'Feriado de EE.UU.','Other':'Otro','This month':'Este mes','No holidays':'Sin fiestas','Chol Hamoed':'Jol Hamoed','Fast day':'Día de ayuno','Erev – short day':'Erev – día corto','US holiday – banks and offices closed':'Feriado – bancos y oficinas cerrados','Previous':'Anterior','Next':'Siguiente'});
 Object.assign(ES,{'Location':'Ubicación','Document':'Documento','Emoji':'Emoji','Attach':'Adjuntar','Open in Google Maps':'Abrir en Google Maps','Finding your location…':'Buscando tu ubicación…','Location does not work on this phone.':'La ubicación no funciona en este teléfono.','Location is blocked. Allow it for this app in your phone settings.':'La ubicación está bloqueada. Permítela para esta app en los ajustes del teléfono.','Could not find your location. Try again outside.':'No se encontró tu ubicación. Intenta afuera.'});
 Object.assign(ES,{'Locked – keep talking, tap ⏹ when done':'Bloqueado – sigue hablando, toca ⏹ al terminar','Slide up to lock':'Desliza arriba para bloquear'});
 Object.assign(ES,{'Vibrate on tap':'Vibrar al tocar','A small buzz when you tap main buttons':'Una pequeña vibración al tocar los botones principales'});
@@ -1754,6 +1786,7 @@ function navBack(parent,fallback){var st=history.state||{};
 window.addEventListener('popstate',function(e){
   if(navOwn>0){navOwn--;syncHist();return;}                 // our own history.back()
   var st=e.state||{};
+  if(window.RXS_CLOSE&&document.getElementById('rxs')){RXS_CLOSE();queueHist();return;} // who-reacted list → close only it
   if(window.MM_CLOSE&&document.getElementById('mmenu')){MM_CLOSE();queueHist();return;} // a held message → only let go of it, stay in the chat
   if(window.RV_BACK&&document.querySelector('.rvwrap')){var rb=RV_BACK;RV_BACK=null;rb();queueHist();return;} // looking at a picture before sending → back to the camera, not out of it
   if(closeViewer()){queueHist();return;}                     // 1) viewer open → close only the viewer
@@ -1844,6 +1877,7 @@ function openMaint(fresh){
     el('button',{class:'cbtn',onclick:openPraisePreview},'✓ '+T('Compliments preview')),
     el('button',{class:'cbtn',onclick:openSnowPractice},'❄️ '+T('Snow practice (only you)')),
     window.SAM_BETA?el('button',{class:'cbtn',onclick:function(){openFpTest(true);}},'🔑 '+T('Test Forgot PIN')):null,
+    window.SAM_BETA?el('button',{class:'cbtn',onclick:function(){openGlanceTest();}},'📊 '+T('Test Today at a glance')):null,
     el('button',{class:'cbtn',onclick:openChanges},'↩ '+T('Undo recent changes')),
     bkB,updB,
     el('div',{class:'muted',style:'font-size:13px;text-align:center;margin-top:6px',text:T('App version')+': '+buildLabel()+(Q.length?' · ⏳ '+Q.length+' '+T('waiting to send'):'')}),
@@ -2028,14 +2062,26 @@ function homeView(){
   return wrap;
 }
 // Today at a glance (office): crews out, who arrived, jobs done / halfway / not started, photos today
-function glanceCard(){if(!isOffice()||S.viewAs)return null;var t=today(),wk=S.tasks.filter(function(x){return x.due===t&&PEOPLE.indexOf(x.owner)<0&&!isDm(x);});if(!wk.length)return null;
+function glanceCard(){if(!isOffice()||S.viewAs)return null;var t=today();if((isSat(t)||isSun(t))&&!schedSent(t))return null;var wk=S.tasks.filter(function(x){return x.due===t&&PEOPLE.indexOf(x.owner)<0&&!isDm(x);});if(!wk.length)return null;
   var ppl={};wk.forEach(function(x){ppl[x.owner]=1;});var np=Object.keys(ppl).length,arr=Object.keys(S.arr||{}).filter(function(k){return ppl[k];}).length;
   var dn=wk.filter(function(x){return x.status==='done';}).length,hf=wk.filter(function(x){return x.status==='half';}).length,ns=wk.length-dn-hf;
   var ph=0;wk.forEach(function(x){chatMsgs(x).forEach(function(m){if((m.photo||m.video)&&String(m.at||'').slice(0,10)===t)ph++;});});
-  function cell(n,l,c){return el('div',{class:'glc'+(c?' '+c:'')},el('b',{text:String(n)}),el('span',{text:l}));}
-  return el('button',{class:'glance',onclick:function(){S.lastTab='home';S.view='sites';render();window.scrollTo(0,0);}},
+  return glanceBox(np,arr,dn,hf,ns,ph,function(){S.lastTab='home';S.view='sites';render();window.scrollTo(0,0);});}
+function glanceBox(np,arr,dn,hf,ns,ph,go){function cell(n,l,c){return el('div',{class:'glc'+(c?' '+c:'')},el('b',{text:String(n)}),el('span',{text:l}));}
+  return el('button',{class:'glance',onclick:go},
     el('div',{class:'glh'},el('b',{text:T('Today at a glance')}),el('span',{class:'hchev',text:'›'})),
     el('div',{class:'glg'},cell(np,T('workers out')),cell(arr+'/'+np,T('arrived'),arr<np?'warn':''),cell(dn,T('done'),'ok'),cell(hf,T('halfway')),cell(ns,T('not done yet'),ns?'warn':''),cell(ph,T('photos'))));}
+// Test: see the "Today at a glance" card with made-up numbers for a random work day
+function openGlanceTest(){var r=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+  function draw(){var np=r(3,9),wk=r(np,np+6),arr=r(Math.max(0,np-3),np),dn=r(0,wk),hf=r(0,wk-dn),ns=wk-dn-hf,ph=r(0,25);
+    var d=new Date();d.setDate(d.getDate()-r(1,60));while(d.getDay()===6||d.getDay()===0)d.setDate(d.getDate()-1);
+    openSheet([el('h2',{text:T('Today at a glance')+' – '+T('test')}),
+      el('p',{class:'hint',text:T('Made-up numbers for a random day')+': '+longDate(ymd(d))+'. '+T('Nothing is real and nothing is sent.')}),
+      el('div',{style:'padding:6px 0'},glanceBox(np,arr,dn,hf,ns,ph,function(){toast(T('On a real day this opens Job sites.'));})),
+      el('p',{class:'hint',text:T('Where: the top of Home, office only. Hidden on a Saturday or Sunday nobody works, and when no workers have tasks today.')}),
+      el('button',{class:'cbtn',onclick:draw},'🔄 '+T('Another day')),
+      el('button',{class:'cbtn',onclick:function(){closeSheet();}},T('Close'))]);}
+  draw();}
 // Full "Needs you now" list + the 3 numbers (one tap from the alert line or from More)
 function needView(){
   var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
@@ -2090,7 +2136,7 @@ function chatsView(){
       else wrap.appendChild(el('div',{class:'nhead',text:'🗄 '+T('From the history (older than 2 months)')}));}}
   if(!l.length&&!q)wrap.appendChild(el('p',{class:'empty',text:sg==='groups'?(isOffice()?T('No groups yet – tap + → New group.'):T('No groups yet.')):sg==='chats'?T('No direct chats yet – tap + to write to someone.'):T('No messages yet.')}));
   l.forEach(function(x){var m=lastMsg(x),un=unreadOf(x),job=jobOf(x.job);if(q){var hit=chatMsgs(x).filter(function(mm){return (mm.text||'').toLowerCase().indexOf(q)>=0;}).pop();if(hit)m=hit;}if(!m)m={by:S.me,at:'',text:T('No messages yet – tap to write')};
-    var dm=isDm(x),title=dm?dmName(x):isOffice()?nameOf(x.owner)+' · '+(isCrewTask(x)?((job||{}).name||x.title):x.title):((job||{}).name||x.title);
+    var dm=isDm(x),title=dm?dmName(x):isOffice()?nameOf(x.owner)+' · '+(isCrewTask(x)?((job||{}).name||x.title):x.title):((job&&job.name&&x.title&&x.title!==job.name&&!isCrewTask(x))?((LANG==='es'&&x.titleEs)||x.title)+' – '+job.name:((job||{}).name||x.title));
     wrap.appendChild(el('button',{class:'inrow'+(un?' un':''),onclick:function(){openChat(x.id);}},dm?(isGroup(x)?grpAv(44):isSelfDm(x)?el('span',{class:'selfav',text:'📝'}):avatar(dmOther(x),nameOf(dmOther(x)),44)):(m.at||isOffice()?avatar(isOffice()?x.owner:m.by,isOffice()?nameOf(x.owner):nameOf(m.by),44):el('span',{class:'nic',text:'🏗'})),
       el('span',{class:'inmid'},el('span',{class:'intop'},el('b',{text:title},dm&&(q||isSelfDm(x))?el('span',{class:'dmtag',text:isGroup(x)?T('Group'):isSelfDm(x)?T('Only you'):T('Direct')}):null),el('span',{class:'inwhen',text:cWhen(m.at)})),
         msgPrevEl(m.at?(m.by===S.me?T('You')+': ':dm&&!isGroup(x)?'':firstName(nameOf(m.by))+': '):'',m,'inprev')),
@@ -2123,6 +2169,16 @@ function usHolidays(y){if(USH_C[y])return USH_C[y];var o={};function add(d,t,k){
   add(new Date(y,9,31),'Halloween','o');var bf=nthDow(y,10,4,4);bf.setDate(bf.getDate()+1);add(bf,'Black Friday','o');add(new Date(y,11,24),'Christmas Eve','o');add(new Date(y,11,31),"New Year's Eve",'o');
   return (USH_C[y]=o);}
 function dayEvents(d){var y=+d.slice(0,4),out=[];(JH[d]||[]).forEach(function(e){out.push({t:LANG==='es'?e[0]:e[0],he:e[2],k:'j'+e[1]});});(usHolidays(y)[d]||[]).forEach(function(e){out.push({t:e[0],k:e[1]});});return out;}
+// Shabbos start (candle lighting) for Monroe NY: NOAA sunset minus 18 minutes
+function shabbosAt(d){var lat=41.3304,lng=-74.1868,r=Math.PI/180,dt=new Date(d+'T12:00:00Z'),jd=dt.getTime()/864e5+2440587.5,T0=(jd-2451545)/36525;
+  var L0=(280.46646+T0*(36000.76983+T0*0.0003032))%360,M=357.52911+T0*(35999.05029-0.0001537*T0),e=0.016708634-T0*(0.000042037+0.0000001267*T0);
+  var C=Math.sin(M*r)*(1.914602-T0*(0.004817+0.000014*T0))+Math.sin(2*M*r)*(0.019993-0.000101*T0)+Math.sin(3*M*r)*0.000289;
+  var lam=L0+C-0.00569-0.00478*Math.sin((125.04-1934.136*T0)*r),eps=23+(26+(21.448-T0*(46.815+T0*(0.00059-T0*0.001813)))/60)/60+0.00256*Math.cos((125.04-1934.136*T0)*r);
+  var dec=Math.asin(Math.sin(eps*r)*Math.sin(lam*r)),yv=Math.tan(eps*r/2);yv*=yv;
+  var eq=4*(yv*Math.sin(2*L0*r)-2*e*Math.sin(M*r)+4*e*yv*Math.sin(M*r)*Math.cos(2*L0*r)-0.5*yv*yv*Math.sin(4*L0*r)-1.25*e*e*Math.sin(2*M*r))/r;
+  var ha=Math.acos(Math.cos(90.833*r)/(Math.cos(lat*r)*Math.cos(dec))-Math.tan(lat*r)*Math.tan(dec))/r;
+  var setUtc=720-4*(lng-ha)-eq-18,at=new Date(Date.UTC(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10))+setUtc*6e4);
+  try{return at.toLocaleTimeString(LANG==='es'?'es-US':'en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'});}catch(x){return at.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}}
 function calView(){
   var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));wrap.classList.add('calv');
   var t=today(),cm=S.calM||t.slice(0,7),sel=S.calSel||'';var y=+cm.slice(0,4),m=+cm.slice(5,7)-1;
@@ -2139,16 +2195,18 @@ function calView(){
     var yt=ev.some(function(e){return e.k==='jy';}),us=ev.some(function(e){return e.k==='u';}),jw=ev.some(function(e){return e.k.charAt(0)==='j'&&e.k!=='jy';}),ob=ev.some(function(e){return e.k==='o';});
     var off=(S.nowork||{})[d]||(isSun(d)&&d<=t&&!schedSent(d));
     var c=el('button',{class:'calc'+(d===t?' today':'')+(d===sel?' sel':'')+(dow===6?' sat':'')+(yt?' yt':'')+(us?' us':''),onclick:function(){S.calSel=sel===d?'':d;render();}},
-      el('span',{class:'caln',text:String(dd)}),el('span',{class:'caldots'},yt?el('i',{class:'dy'}):null,jw?el('i',{class:'dj'}):null,us?el('i',{class:'du'}):null,ob&&!us?el('i',{class:'do'}):null));
+      el('span',{class:'caln',text:String(dd)}),dow===5?el('span',{class:'calsh',text:shabbosAt(d).replace(/\s?[AaPp]\.?\s?[Mm]\.?$/,'')}):null,el('span',{class:'caldots'},yt?el('i',{class:'dy'}):null,jw?el('i',{class:'dj'}):null,us?el('i',{class:'du'}):null,ob&&!us?el('i',{class:'do'}):null));
     grid.appendChild(c);})(dd);
   wrap.appendChild(el('div',{class:'calcard'},grid));
   wrap.appendChild(el('div',{class:'callegend'},el('span',{},el('i',{class:'dy'}),T('Yom Tov – no work')),el('span',{},el('i',{class:'dj'}),T('Jewish holiday')),el('span',{},el('i',{class:'du'}),T('US holiday')),el('span',{},el('i',{class:'do'}),T('Other'))));
   // list: the chosen day, or everything this month
   var list=el('div',{class:'callist'}),keys=[];
-  if(sel)keys=[sel];else for(var k=1;k<=days;k++){var kd=ymd(new Date(y,m,k));if(dayEvents(kd).length)keys.push(kd);}
+  if(sel)keys=[sel];else for(var k=1;k<=days;k++){var kd=ymd(new Date(y,m,k));if(dayEvents(kd).length||new Date(y,m,k).getDay()===5)keys.push(kd);}
   wrap.appendChild(el('h3',{class:'nhead',text:sel?longDate(sel):T('This month')}));
-  if(!keys.length||(sel&&!dayEvents(sel).length))list.appendChild(el('p',{class:'empty',style:'padding:10px 0',text:T('No holidays')}));
-  keys.forEach(function(d){dayEvents(d).forEach(function(e){var dt=new Date(d+'T12:00:00');
+  if(!keys.length||(sel&&!dayEvents(sel).length&&new Date(sel+'T12:00:00').getDay()!==5))list.appendChild(el('p',{class:'empty',style:'padding:10px 0',text:T('No holidays')}));
+  keys.forEach(function(d){var dt0=new Date(d+'T12:00:00');if(dt0.getDay()===5)list.appendChild(el('div',{class:'calrow sh'},el('div',{class:'calbadge'},el('b',{text:String(dt0.getDate())}),el('span',{text:dt0.toLocaleDateString(LANG==='es'?'es-US':'en-US',{weekday:'short'})})),
+      el('div',{class:'calrm'},el('b',{text:T('Shabbos starts')+' '+shabbosAt(d)}),el('span',{text:T('Candle lighting – Monroe')}))));
+    dayEvents(d).forEach(function(e){var dt=new Date(d+'T12:00:00');
     list.appendChild(el('div',{class:'calrow '+e.k},el('div',{class:'calbadge'},el('b',{text:String(dt.getDate())}),el('span',{text:dt.toLocaleDateString(LANG==='es'?'es-US':'en-US',{weekday:'short'})})),
       el('div',{class:'calrm'},el('b',{text:e.t}),el('span',{text:e.k==='jy'?T('Yom Tov – no work'):e.k==='jc'?T('Chol Hamoed'):e.k==='jf'?T('Fast day'):e.k==='je'?T('Erev – short day'):e.k.charAt(0)==='j'?T('Jewish holiday'):e.k==='u'?T('US holiday – banks and offices closed'):T('Other')}),e.he?el('span',{class:'calhe',text:e.he}):null)));});});
   wrap.appendChild(list);
@@ -2255,6 +2313,11 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'autopast',i:'✅',t:'Old worker tasks close by themselves',d:'Worker tasks from before today that were still open are closed automatically (same as the 6 PM close). Office tasks are not touched.',go:function(){goView('home');}},
+ {id:'gltest',i:'📊',t:'Test: Today at a glance',d:'Maintenance → Test Today at a glance shows the card with made-up numbers for a random day, so you can decide if you want to keep it.',go:function(){openGlanceTest();}},
+ {id:'rxsheet',i:'👍',t:'See who reacted',d:'Tap the reactions under a message: a list opens from the bottom, like WhatsApp – All or one emoji at a time. Tap your own to remove it.',go:function(){goView('chats');}},
+ {id:'calshab',i:'📅',t:'Shabbos time on the calendar',d:'Every Friday on the calendar shows when Shabbos starts in Monroe (candle lighting). Tap a Friday to see it.',go:function(){S.lastTab='more';goView('cal');}},
+ {id:'estopt',i:'📄',t:'Estimates: nothing is required',d:'Name, address, email and phone are all optional now – fill in what you have and save.',go:function(){openEst();}},
  {id:'rv_glance',i:'📊',t:'Today at a glance',d:'On Today: workers out, who arrived, done / halfway / not done yet and photos today. Tap it for Job sites.',go:function(){goView('home');}},
  {id:'rv_translate',i:'🌐',t:'Translate messages',d:'Hold a message → Translate (Spanish ⇄ English), free. Spanish workers now also see your task titles and notes in Spanish.',go:function(){goView('chats');}},
  {id:'rv_stamp',i:'📷',t:'Date and job on every photo',d:'Photos from the app camera get a small date · time · job stamp in the corner – proof for the customer.'},
@@ -2476,7 +2539,7 @@ function rememberPin(){try{if(!S.me||!S.pin||S.viewAs)return;var pick=PEOPLE.ind
 function clearSession(){try{var ph=JSON.parse(localStorage.getItem('sam_pinh')||'null'),cd=localStorage.getItem('sam_cache');if(ph&&cd&&!S.badPin){try{var cdo=JSON.parse(cd);(cdo.crew||[]).forEach(function(c){delete c.pin;delete c.workerPin;});cd=JSON.stringify(cdo);}catch(e2){}}if(ph&&cd&&!S.badPin)localStorage.setItem('sam_prev',JSON.stringify({pick:ph.pick,me:ph.me,h:ph.h,data:cd,jall:localStorage.getItem('sam_jall'),snow:localStorage.getItem('sam_snow'),maint:localStorage.getItem('sam_maint'),otw:localStorage.getItem('sam_otw')}));else localStorage.removeItem('sam_prev');localStorage.removeItem('sam_pinh');}catch(e){}['sam_me','sam_pin','sam_tok','sam_role','sam_name','sam_cache','sam_jall','sam_snow','sam_maint','sam_use'].forEach(function(k){store(k,null);});S.jall=null;S.me=null;S.pin=null;S.role=null;S.name=null;S.tasks=[];S.crew=[];S.loaded=false;}
 function dropPush(){try{var tk=store('sam_tok');if(tk&&S.me&&S.pin)call('unregister',{token:String(tk).split('|')[2]}).catch(function(){});}catch(e){}}
 var SAVE_T0=0;function savingLong(){if(!S.saving){SAVE_T0=0;return false;}if(!SAVE_T0){SAVE_T0=Date.now();setTimeout(function(){if(S.saving&&SAVE_T0&&Date.now()-SAVE_T0>=5000){var n=document.querySelector('.sync');if(n)n.textContent=T('Saving…');}},5100);}return Date.now()-SAVE_T0>=5000;}
-function signOut(msg,manual){SESS++;S.badPin=!manual;S.lgPin='';S.lgOther=false;S.lgBioAsked=!!manual;S.lgName=''; // only a normal 'Sign out' keeps the quick sign-in for next time
+function signOut(msg,manual){SESS++;try{if(VCACHE)VCACHE.then(function(c){return c.keys().then(function(ks){ks.forEach(function(k){try{if(new URL(k.url).pathname.indexOf('/m/')===0)c.delete(k);}catch(e){}});});}).catch(function(){});}catch(e){}S.badPin=!manual;S.lgPin='';S.lgOther=false;S.lgBioAsked=!!manual;S.lgName=''; // only a normal 'Sign out' keeps the quick sign-in for next time
 if(S.poll){clearInterval(S.poll);S.poll=null;}dropPush();clearSession();Q=[];qSave();OTW={};try{localStorage.removeItem('sam_otw');}catch(e){}S.loginMsg=msg||'';closeSheet();render();}
 function goLogin(name){SESS++;S.badPin=false;dropPush();clearSession();S.pick=name||null;S.loginMsg='';closeSheet();render();}
 // ---------- New login (test app): Log in · mint letters · number pad · fingerprint / face ----------
@@ -2754,7 +2817,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142145',lastUpd=0;
+var BUILD='202611142200',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2979,7 +3042,7 @@ function workerView(){
     el('div',{class:'txt',text:(LANG==='es'?a.es:a.en)||a.text}),
     el('button',{class:'primary',onclick:function(){S.anns=S.anns.filter(function(q){return q.id!==a.id;});render();call('annSeen',{id:a.id}).catch(function(){});}},'✓ '+T('OK, got it'))));
   if(un){var m=lastMsg(un);wrap.appendChild(alertLine('💬',T('New message from')+' '+nameOf(m.by),msgLabel(m),function(){openChat(un.id);},'green'));}
-  if(more.length)wrap.appendChild(alertLine('🏗','+'+more.length+' '+(more.length===1?T('more job today'):T('more jobs today')),more.map(function(x){return (jobOf(x.job)||{}).name||x.title;}).join(', '),function(){goView('myjobs');},'warn'));
+  if(more.length)wrap.appendChild(alertLine('🏗','+'+more.length+' '+(more.length===1?T('more job today'):T('more jobs today')),more.map(function(x){var jn=(jobOf(x.job)||{}).name||'',tt=(LANG==='es'&&x.titleEs)||x.title||'';return jn&&tt&&tt!==jn?tt+' – '+jn:(tt||jn);}).join(', '),function(){goView('myjobs');},'warn'));
   wrap=wrap0;var big=el('div',{class:'bigs'});
   // Monday: Sunday not answered yet → "Did you work on Sunday?"
   if(isMon(tdy))lead.forEach(function(c){var su=addDays(tdy,-1);if(!reportFor(c.id,su))big.appendChild(workAsk(c,su,true));});
@@ -3415,7 +3478,7 @@ function card(x,opts){
 // ---------- comments ----------
 function parseComments(x){try{return x.comments?JSON.parse(x.comments):[];}catch(e){return [];}}
 function cWhen(iso){var d=new Date(iso);if(isNaN(d))return '';var dd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  return (dd===today()?'':dueLabel(dd)+' ')+d.toLocaleTimeString(LANG==='es'?'es-US':'en-US',{hour:'numeric',minute:'2-digit'});}
+  return (dd===today()?'':dueLabel(dd)+' ')+clockOf(iso);}
 function commentsBox(x){
   var list=parseComments(x);if(!list.length)return null;
   var open=S.openC&&S.openC[x.id],show=open?list:list.slice(-2);
@@ -3521,7 +3584,7 @@ function decodeWave(url,n){return fetch(url).then(function(r){return r.arrayBuff
     for(var i=0;i<n;i++){var sum=0,c=0;for(var j=i*step;j<Math.min(d.length,(i+1)*step);j+=8){sum+=d[j]*d[j];c++;}var r=Math.sqrt(sum/(c||1));out.push(r);if(r>mx)mx=r;}
     try{ac.close();}catch(e){}return out.map(function(v){return Math.round(Math.max(0.12,mx?v/mx:0)*100)/100;});});});}
 // One player per voice note, kept when the chat redraws (so it never plays twice); everything stops when the chat closes.
-var VAU={},VCUR=null;function onWifi(){try{var c=navigator.connection;if(!c)return true;if(c.saveData)return false;return c.type?c.type==='wifi'||c.type==='ethernet':c.effectiveType==='4g';}catch(e){return true;}}
+var VAU={},VCUR=null,TRN={};function onWifi(){try{var c=navigator.connection;if(!c)return true;if(c.saveData)return false;return c.type?c.type==='wifi'||c.type==='ethernet':c.effectiveType==='4g';}catch(e){return true;}}
 function voiceStopAll(){Object.keys(VAU).forEach(function(k){try{VAU[k].pause();}catch(e){}});VCUR=null;}
 function voiceTile(m){var N=32,id=m.voice,box=el('div',{class:'vnote'}),au=VAU[id]||null,playing=!!(au&&!au.paused),loading=false;
   var play=el('button',{class:'vnplay','aria-label':T('Play'),html:IC.play}),bars=waveEl(WAVES[id]||fakeWave(id,N),N),len=el('span',{class:'vnlen',text:fmtDur(m.dur)});
@@ -3546,6 +3609,23 @@ function voiceTile(m){var N=32,id=m.voice,box=el('div',{class:'vnote'}),au=VAU[i
 function reactLocal(x,cid,e){allT().forEach(function(t){if(t.id!==x.id)return;var l=chatMsgs(t),hit=l.filter(function(m){return m.id===cid;})[0];
   if(!hit&&/^[pv]:/.test(cid)){var f=cid.slice(2);hit=cid[0]==='p'?{id:cid,by:t.owner,at:'',photo:f}:{id:cid,by:t.owner,at:'',video:f};var vv=parseVideos(t).filter(function(v){return v.id===f;})[0];if(vv){hit.by=vv.by||t.owner;hit.dur=vv.dur;}l.unshift(hit);}
   if(hit){hit.r=hit.r||{};if(hit.r[S.me]===e)delete hit.r[S.me];else hit.r[S.me]=e;}t.comments=JSON.stringify(l);});}
+// WhatsApp-style "who reacted" sheet: tabs (All / each emoji) and a list; tap your own to remove it
+function openRxSheet(x,m){var old=document.getElementById('rxs');if(old)old.remove();var tab='';
+  var bg=el('div',{class:'rxs',id:'rxs'}),sh=el('div',{class:'rxsh'});bg.appendChild(sh);
+  function close(){bg.classList.remove('on');setTimeout(function(){bg.remove();},200);}
+  bg.addEventListener('click',function(e){if(e.target===bg)close();});
+  function draw(){var r=m.r||{},keys=Object.keys(r);sh.innerHTML='';if(!keys.length){close();return;}
+    var cnt={};keys.forEach(function(k){cnt[r[k]]=(cnt[r[k]]||0)+1;});var em=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];});if(tab&&!cnt[tab])tab='';
+    sh.appendChild(el('div',{class:'rxgrab'}));
+    sh.appendChild(el('div',{class:'rxhd',text:keys.length===1?T('1 reaction'):keys.length+' '+T('reactions')}));
+    var tb=el('div',{class:'rxtabs'});tb.appendChild(el('button',{class:'rxtab'+(tab?'':' on'),onclick:function(){tab='';draw();}},T('All')+' '+keys.length));
+    em.forEach(function(e){tb.appendChild(el('button',{class:'rxtab'+(tab===e?' on':''),onclick:function(){tab=e;draw();}},el('span',{class:'rxte',text:e}),' '+cnt[e]));});sh.appendChild(tb);
+    var ls=el('div',{class:'rxlist'});keys.sort(function(a,b){return (a===S.me?-1:b===S.me?1:0);}).forEach(function(k){if(tab&&r[k]!==tab)return;var me=k===S.me;
+      ls.appendChild(el('button',{class:'rxp'+(me?' me':''),type:'button',onclick:function(){if(!me)return;react(x,m.id,r[k]);setTimeout(draw,30);}},
+        avatar(k,nameOf(k),40),el('div',{class:'rxpn'},el('b',{text:me?T('You'):nameOf(k)}),me?el('span',{text:T('Tap to remove')}):null),el('span',{class:'rxpe',text:r[k]})));});
+    sh.appendChild(ls);}
+  draw();document.body.appendChild(bg);requestAnimationFrame(function(){bg.classList.add('on');});
+  window.RXS_CLOSE=close;}
 function react(x,cid,e){reactLocal(x,cid,e);S.saving++;render();
   call('react',{id:x.id,cid:cid,e:e}).then(function(d){S.saving--;if(!S.saving)apply(d);render();}).catch(function(err){S.saving--;if(isBadPin(err)){signOut('');return;}if(isNet(err)){enqueue('react',{id:x.id,cid:cid,e:e});return;}toast('❗ '+T('Not saved')+': '+errText(err));refresh(true);});}
 var TK1='<svg viewBox="0 0 16 11" width="16" height="11"><path d="M1.5 5.8l3.2 3.2L14.5 1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -3571,8 +3651,8 @@ function msgMenu(x,m,b,acts,onReply){
   item('📤',T('Share'),function(){close();shareMsg(m);});
   if(m.text)item('⧉',m.photo||m.video?T('Copy the words'):T('Copy'),function(){close();copyText(m.text);});
   // free translation English ⇄ Spanish (shown under the message)
-  if(m.text&&!/^(tmp|q)/.test(String(m.id||'')))item('🌐',LANG==='es'?T('Translate to Spanish'):T('Translate to English'),function(){close();var bb=row.querySelector('.bub');if(!bb||bb.querySelector('.btr'))return;var tl=el('div',{class:'btr',text:'…'});bb.appendChild(tl);
-    call('translate',{text:m.text,to:LANG==='es'?'es':'en'}).then(function(r){tl.textContent=(r&&r.text)||m.text;}).catch(function(e){tl.remove();toast('❗ '+errText(e));});});
+  if(m.text&&!/^(tmp|q)/.test(String(m.id||'')))item('🌐',T('Translate'),function(){close();var bb=row.querySelector('.bub');if(!bb||bb.querySelector('.btr'))return;var tl=el('div',{class:'btr',text:'…'});bb.appendChild(tl);
+    call('translate',{text:m.text,to:LANG==='es'?'es':'en'}).then(function(r){tl.textContent=(r&&r.text)||m.text;TRN[m.id]=tl.textContent;}).catch(function(e){tl.remove();toast('❗ '+errText(e));});});
   var del=[].filter.call(acts.querySelectorAll('.del'),function(n){return n;})[0];
   if(del){var armD=false;item('🗑',T('Delete'),function(){var it=this;if(!armD){armD=true;it.firstChild.textContent=T('Tap again to delete');return;}close();del.click();del.click();},'red');}
   ov.appendChild(bar);ov.appendChild(list);
@@ -3658,9 +3738,10 @@ function bubble(x,m,openRx,setRx,all,onReply){
   if(m.file)b.appendChild(el('button',{class:'filetile',onclick:function(){openFile(m);}},el('span',{class:'ficon',text:fileIcon(m)}),el('span',{class:'fname',text:m.name||T('File')}),el('span',{class:'fsize',text:fmtSize(m.size)})));
   if(m.video)b.appendChild(videoTile(m));
   if(m.text&&(m.photo||m.video)&&!m.loc){var ct=mentionText(m.text,m.m);ct.classList.add('bcap');b.appendChild(ct);}
+  if(m.id&&TRN[m.id])b.appendChild(el('div',{class:'btr',text:TRN[m.id]}));
   if(m.voice)b.appendChild(voiceTile(m));
   var r=m.r||{},cnt={};Object.keys(r).forEach(function(k){cnt[r[k]]=(cnt[r[k]]||[]).concat(k===S.me?T('You'):nameOf(k));});
-  var rxRow=el('button',{class:'rxrow',type:'button',onclick:function(ev){ev.stopPropagation();toast(Object.keys(cnt).map(function(e){return e+' '+cnt[e].join(', ');}).join('  ·  '));}});var allE=Object.keys(cnt),tot=0;allE.forEach(function(e){tot+=cnt[e].length;rxRow.appendChild(el('span',{class:'rx',text:e}));});if(tot>1)rxRow.appendChild(el('span',{class:'rxn',text:String(tot)}));
+  var rxRow=el('button',{class:'rxrow',type:'button',onclick:function(ev){ev.stopPropagation();openRxSheet(x,m);}});var allE=Object.keys(cnt),tot=0;allE.forEach(function(e){tot+=cnt[e].length;rxRow.appendChild(el('span',{class:'rx',text:e}));});if(tot>1)rxRow.appendChild(el('span',{class:'rxn',text:String(tot)}));
   var acts=el('div',{class:'bacts'});
   acts.appendChild(el('button',{class:'rxadd','aria-label':T('Reply'),onclick:function(e){e.stopPropagation();setRx(null);if(onReply)onReply(m);}},'↩ '+T('Reply')));
   if((mine||isOffice())&&m.id&&String(m.id).indexOf('tmp')!==0&&String(m.id).indexOf('q')!==0){var armD=false,db=el('button',{class:'rxadd del','aria-label':T('Delete'),onclick:function(){if(!armD){armD=true;db.textContent='🗑 '+T('Delete?');return;}
@@ -4046,7 +4127,7 @@ var ICO_SEL='.cti,.bti,.hi,.sti,.nic,.bbi,.ali,.hsi,.nbi,.pfoi,.pfcam,.selfav';
 var ICO_ON=true;
 function iconize(root){if(!ICO_ON)return;try{(root||document).querySelectorAll(ICO_SEL).forEach(function(n){if(n.dataset.ic)return;var tn=null;for(var i=0;i<n.childNodes.length;i++){if(n.childNodes[i].nodeType===3&&n.childNodes[i].nodeValue.trim()){tn=n.childNodes[i];break;}}
   if(!tn)return;var k=tn.nodeValue.trim(),svg=icoSvg(k);if(!svg)return;var w=document.createElement('span');w.className='icow';w.innerHTML=svg;n.replaceChild(w,tn);n.dataset.ic='1';n.classList.add('hasico');});}catch(e){}}
-var ICO_RE=null,ICO_SKIP='input,textarea,.btxt,.inprev,.cpt,.bcap,.emopanel,.epanel,.yn,.lg3k,.camx,.pinx,.x,.mmbar,.rxrow,.emob,.mme,.rx,.tagbox,.camwhat,script,style,svg,.ico';
+var ICO_RE=null,ICO_SKIP='input,textarea,.rxs,.btxt,.inprev,.cpt,.bcap,.emopanel,.epanel,.yn,.lg3k,.camx,.pinx,.x,.mmbar,.rxrow,.emob,.mme,.rx,.tagbox,.camwhat,script,style,svg,.ico';
 function iconizeText(root){if(!ICO_ON)return;try{if(!ICO_RE)ICO_RE=new RegExp('('+Object.keys(ICO).map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).sort(function(a,b){return b.length-a.length;}).join('|')+')\ufe0f?','g');
   var w=document.createTreeWalker(root||document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){if(!n.nodeValue||!/[\u2190-\u2bff\ud800-\udfff\uff0b]/.test(n.nodeValue))return NodeFilter.FILTER_REJECT;var pe=n.parentElement;if(!pe||pe.closest(ICO_SKIP))return NodeFilter.FILTER_REJECT;ICO_RE.lastIndex=0;return ICO_RE.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}}),list=[];
   while(w.nextNode())list.push(w.currentNode);
@@ -4197,8 +4278,8 @@ function sendInline(atts,id){
       return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);},function(){return false;});})).then(function(r){return upDone(a._mid).then(function(){return r;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}
       if(a.cap){var cmid=lastMineMid(id,kind);if(cmid){allT().forEach(function(t){if(t.id!==id)return;var l=parseComments(t);l.forEach(function(o){if(o.id===cmid)o.text=a.cap;});t.comments=JSON.stringify(l);});call('capSet',{id:id,cid:cmid,text:a.cap,rid:rid()}).then(apply).then(function(){chatRepaint();}).catch(function(){sendComment(allT().filter(function(t){return t.id===id;})[0],a.cap);});}}});
     pr.then(function(r){if(a._mq&&r!=='Q')mqDel(a._mq);pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();
-      if(isNet(err)){if(!a._mq){mqAdd({task:id,kind:a.kind,dur:a.dur||0,cap:a.cap||'',name:a.f.name||'',mime:a.f.type||''},a.f);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}one();return;}
-      if(a._mq)mqDel(a._mq);toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
+      if(isNet(err)){if(!a._mq){mqAdd({task:id,kind:a.kind,dur:a.dur||0,cap:a.cap||'',name:a.f.name||'',mime:a.f.type||''},a.f);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}else delete MQS[a._mq];one();return;}
+      if(a._mq){if(mqRetry(a._mq)){one();return;}mqDel(a._mq);}toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
   one();
 }
 // a first frame of a video that is still uploading (for its tile)
@@ -4214,7 +4295,7 @@ function sendVoice(x,blob,dur,tries,mq){tries=tries||0;
       return readB64(part).then(function(b64){return call('videoChunk',{uid:st.uid,offset:off,data:b64});}).then(function(r){off+=part.size;upProg(mid,Math.round(off*100/blob.size),blob.size);if(r&&r.more&&off<blob.size)return next();return r;});}
     return next();
   }).then(function(r){return upDone(mid).then(function(){return r;});}).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}if(mq)mqDel(mq);render();chatRepaint();})
-  .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();if(isNet(err)){if(!mq){mqAdd({task:x.id,kind:'voice',dur:dur,mime:blob.type||'audio/webm'},blob);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}return;}if(mq)mqDel(mq);toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
+  .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();if(isNet(err)){if(!mq){mqAdd({task:x.id,kind:'voice',dur:dur,mime:blob.type||'audio/webm'},blob);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}else delete MQS[mq];return;}if(mq){if(mqRetry(mq))return;mqDel(mq);}toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
 }
 // ---------- photos ----------
 // Full-screen viewer on top of everything; ✕, a tap outside, or the phone's Back closes it and you're back where you were.
@@ -4403,18 +4484,20 @@ function vidKeep(id,url){S.vids[id]=url;VID_ORDER.push(id);while(VID_ORDER.lengt
 // Videos / voice notes / files stay saved on the phone (last 10), so they open at once the next time.
 var VCACHE=null;try{if(window.caches)VCACHE=caches.open('sam-media-v1');}catch(e){}
 // Videos, voice notes, files and photos that could not go out (no signal) wait here – even if the app is closed – and send by themselves.
-var MQ_BUSY=false,MQN=0;
+var MQ_BUSY=false,MQN=0,MQS={},MQT={};
+// MQS: items being sent right now (never sent twice at once); MQT: server errors per item (tries 3 times before giving up)
+function mqRetry(q){delete MQS[q];MQT[q]=(MQT[q]||0)+1;return MQT[q]<3;}
 function mqAdd(o,blob){if(!VCACHE)return;o.q='q'+rid();o.me=S.me;o.at=Date.now();MQN++;render();VCACHE.then(function(c){return c.put('/q/'+o.q,new Response(blob,{headers:{'Content-Type':blob.type||'application/octet-stream','x-meta':encodeURIComponent(JSON.stringify(o))}}));}).catch(function(){});}
-function mqDel(q){if(!VCACHE||!q)return;MQN=Math.max(0,MQN-1);VCACHE.then(function(c){return c.delete('/q/'+q);}).catch(function(){});}
+function mqDel(q){if(!VCACHE||!q)return;delete MQS[q];delete MQT[q];MQN=Math.max(0,MQN-1);VCACHE.then(function(c){return c.delete('/q/'+q);}).catch(function(){});}
 function mqFlush(){if(MQ_BUSY||!VCACHE||!S.me||S.viewAs||(navigator.onLine===false))return;MQ_BUSY=true;
   VCACHE.then(function(c){return c.keys().then(function(ks){ks=ks.filter(function(k){try{return new URL(k.url).pathname.indexOf('/q/')===0;}catch(e){return false;}});MQN=ks.length;
     return ks.reduce(function(pr,k){return pr.then(function(){return c.match(k).then(function(r){if(!r)return;var o={};try{o=JSON.parse(decodeURIComponent(r.headers.get('x-meta')||'{}'));}catch(e){}
-      if(o.me!==S.me)return;var x=allT().filter(function(t){return t.id===o.task;})[0];if(!x){if(Date.now()-(o.at||0)>3*86400000)c.delete(k);return;}
-      return r.blob().then(function(b){if(o.kind==='voice'){sendVoice(x,b,o.dur||0,0,o.q);return;}
+      if(o.me!==S.me)return;if(MQS[o.q]&&Date.now()-MQS[o.q]<20*60000)return;var x=allT().filter(function(t){return t.id===o.task;})[0];if(!x){if(Date.now()-(o.at||0)>3*86400000)c.delete(k);return;}
+      return r.blob().then(function(b){MQS[o.q]=Date.now();if(o.kind==='voice'){sendVoice(x,b,o.dur||0,0,o.q);return;}
         var f=new File([b],o.name||('file-'+Date.now()),{type:o.mime||b.type||''});sendInline([{kind:o.kind,f:f,dur:o.dur||0,cap:o.cap||'',_mq:o.q}],x.id);});});});},Promise.resolve());});})
   .catch(function(){}).then(function(){MQ_BUSY=false;});}
 window.addEventListener('online',function(){setTimeout(mqFlush,1500);});
-function mediaSave(id,blob){if(!VCACHE)return;VCACHE.then(function(c){return c.put('/m/'+id,new Response(blob,{headers:{'Content-Type':blob.type||'application/octet-stream'}})).then(function(){return c.keys();}).then(function(ks){ks.slice(0,Math.max(0,ks.length-10)).forEach(function(k){c.delete(k);});});}).catch(function(){});}
+function mediaSave(id,blob){if(!VCACHE)return;VCACHE.then(function(c){return c.put('/m/'+id,new Response(blob,{headers:{'Content-Type':blob.type||'application/octet-stream'}})).then(function(){return c.keys();}).then(function(ks){ks=ks.filter(function(k){try{return new URL(k.url).pathname.indexOf('/m/')===0;}catch(e){return false;}});ks.slice(0,Math.max(0,ks.length-10)).forEach(function(k){c.delete(k);});});}).catch(function(){});}
 function mediaFromPhone(id){if(!VCACHE)return Promise.resolve(null);return VCACHE.then(function(c){return c.match('/m/'+id);}).then(function(r){return r?r.blob():null;}).catch(function(){return null;});}
 // Only safe kinds of files can open inside the app; anything else (web pages, scripts, SVG…) is only a download.
 function safeMime(m){m=String(m||'').toLowerCase().split(';')[0].trim();if(/html|xml|svg|javascript|ecmascript|x-sh|json/.test(m))return 'application/octet-stream';return /^(image\/(jpeg|png|gif|webp|heic|heif)|video\/[\w.+-]+|audio\/[\w.+-]+|application\/pdf|text\/plain)$/.test(m)?m:'application/octet-stream';}
@@ -4857,7 +4940,7 @@ function allReps(){var cur=S.steady.reports||[],k={};cur.forEach(function(r){k[r
 function reportFor(crewId,date){return allReps().filter(function(r){return r.crew===crewId&&r.date===date;})[0]||null;}
 function tAct(a){return T(a);}
 function dW(n){return n+' '+(n===1?T('day'):T('days'));}
-function clockOf(iso){var d=new Date(iso);return isNaN(d)?'':d.toLocaleTimeString(LANG==='es'?'es-US':'en-US',{hour:'numeric',minute:'2-digit'});}
+function clockOf(iso){var d=new Date(iso);return isNaN(d)?'':timeLabel(String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'));}
 function crewTitle(c){var m=/^(.+)'s crew$/.exec(c.name||'');return m&&LANG==='es'?'Cuadrilla de '+m[1]:c.name;}
 function leaderCard(c){
   var wk=S.lweek||0,ws=addDays(weekStart(today()),wk*7),t=today();
@@ -5515,7 +5598,7 @@ function estView(){
   if(!S.est){wrap.appendChild(el('p',{class:'empty',text:T('Loading…')}));return wrap;}
   var wait=S.est.filter(function(e){return e.status==='new'||e.status==='claude';}),ready=S.est.filter(function(e){return e.status==='ready';}),sent=S.est.filter(function(e){return e.status==='sent';});
   function card(e){var st=estStat(e);return el('button',{class:'ecard',onclick:function(){openEstOne(e.id);}},el('span',{class:'ic',html:estIco()}),
-    el('span',{class:'m'},el('b',{text:e.customer}),el('span',{text:[e.address,e.by!==S.me?T('by')+' '+e.by:'',dateLabel((e.updatedAt||'').slice(0,10))].filter(Boolean).join(' · ')})),el('span',{class:'pill '+st[1],text:st[0]}));}
+    el('span',{class:'m'},el('b',{text:estName(e)}),el('span',{text:[e.customer?e.address:'',e.by!==S.me?T('by')+' '+e.by:'',dateLabel((e.updatedAt||'').slice(0,10))].filter(Boolean).join(' · ')})),el('span',{class:'pill '+st[1],text:st[0]}));}
   if(!S.est.length)wrap.appendChild(el('p',{class:'empty',text:T('No estimates yet. Tap “New estimate” to start one.')}));
   if(wait.length){wrap.appendChild(el('h3',{text:T('WAITING FOR CLAUDE')}));wait.forEach(function(e){wrap.appendChild(card(e));});}
   if(ready.length){wrap.appendChild(el('h3',{text:T('READY')}));ready.forEach(function(e){wrap.appendChild(card(e));});}
@@ -5524,7 +5607,7 @@ function estView(){
 }
 // New / edit: customer, address, email, what the job is (talk or type), photos
 function estForm(e,dr){var v0=dr||e||{};
-  var nm=el('input',{class:'in',placeholder:T('Customer name'),value:v0.customer||''}),ad=el('input',{class:'in',placeholder:T('Address'),value:v0.address||''}),
+  var nm=el('input',{class:'in',placeholder:T('Customer name (optional)'),value:v0.customer||''}),ad=el('input',{class:'in',placeholder:T('Address'),value:v0.address||''}),
     em=el('input',{class:'in',type:'email',placeholder:'name@email.com',value:v0.email||''}),ph=el('input',{class:'in',type:'tel',placeholder:T('Phone (optional)'),value:v0.phone||''}),
     ds=el('textarea',{class:'in',rows:'5',placeholder:T('What is the job? Talk or type…')});ds.value=v0.desc||'';
   var files=dr&&dr.files?dr.files.slice():[],pbox=el('div',{class:'ph'}),SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null,micB;
@@ -5546,7 +5629,7 @@ function estForm(e,dr){var v0=dr||e||{};
     el('div',{class:'row2'},el('div',{},el('div',{class:'fl',text:T('EMAIL')}),em),el('div',{},el('div',{class:'fl',text:T('PHONE')}),ph)),
     el('div',{class:'fl',text:T("WHAT'S THE JOB? – talk or type")}),el('div',{class:'voice2'},micB,ds),
     el('div',{class:'fl',text:T('PHOTOS')}),pbox,
-    el('button',{class:'primary',style:'margin-top:16px',onclick:function(){micStop();if(!nm.value.trim()){nm.focus();toast(T('Type the customer name.'));return;}
+    el('button',{class:'primary',style:'margin-top:16px',onclick:function(){micStop();
       var fs=files.slice(),draft={customer:nm.value,address:ad.value,email:em.value,phone:ph.value,desc:ds.value,files:fs};S.guard=null;closeSheet(true,true);
       estCall('estSave',{id:e?e.id:'',customer:nm.value,address:ad.value,email:em.value,phone:ph.value,desc:ds.value,quiet:fs.length?1:0}).then(function(r){var id=r.id||(e&&e.id);
         if(!e)openEstOne(id);
@@ -5557,14 +5640,15 @@ function estForm(e,dr){var v0=dr||e||{};
     el('button',{class:'ghost',onclick:function(){micStop();closeSheet();}},T('Cancel'))]);
   S.recStop=micStop;S.guard=function(){return nm.value!==(e?e.customer||'':'')||ad.value!==(e?e.address||'':'')||ds.value!==(e?e.desc||'':'')||em.value!==(e?e.email||'':'')||ph.value!==(e?e.phone||'':'')||files.length>0;};
 }
-function estText(e){return [T('Make an estimate for this job:'),'','Customer: '+e.customer,e.address?'Address: '+e.address:'',e.email?'Email: '+e.email:'',e.phone?'Phone: '+e.phone:'','','Job:',e.desc||'',(e.photos||[]).length?'\n('+e.photos.length+' photos attached)':''].filter(function(l,i,a){return l!==''||a[i-1]!=='';}).join('\n');}
+function estName(e){return e.customer||e.address||T('No name yet');}
+function estText(e){return [T('Make an estimate for this job:'),'',(e.customer?'Customer: '+e.customer:''),e.address?'Address: '+e.address:'',e.email?'Email: '+e.email:'',e.phone?'Phone: '+e.phone:'','','Job:',e.desc||'',(e.photos||[]).length?'\n('+e.photos.length+' photos attached)':''].filter(function(l,i,a){return l!==''||a[i-1]!=='';}).join('\n');}
 function estBlob(id,mime){return getMedia(id,null,mime).then(function(u){return fetch(u).then(function(r){return r.blob();});});}
 // Yossi: everything goes to the Claude app in one share (text + photos); the text is also copied
 function estToClaude(e){
   var txt=estText(e);try{if(navigator.clipboard)navigator.clipboard.writeText(txt).catch(function(){});}catch(x){}
   var ids=e.photos||[];toast(ids.length?T('Getting the photos ready…'):T('Copied'));
   Promise.all(ids.map(function(id,i){return estBlob(id,'image/jpeg').then(function(b){return new File([b],'photo-'+(i+1)+'.jpg',{type:'image/jpeg'});},function(){return null;});})).then(function(fs){fs=fs.filter(Boolean);
-    var data={title:e.customer,text:txt};if(fs.length&&navigator.canShare&&navigator.canShare({files:fs}))data.files=fs;
+    var data={title:estName(e),text:txt};if(fs.length&&navigator.canShare&&navigator.canShare({files:fs}))data.files=fs;
     estShareSheet(e,data);});
 }
 // a tap is needed to open the share list (the phone wants a fresh tap after the photos load)
@@ -5596,12 +5680,12 @@ function estAddPdf(e,f){
   if(f)return go(f);
   var inp=el('input',{type:'file',accept:'application/pdf,.pdf',style:'display:none'});document.body.appendChild(inp);inp.onchange=function(){var x=inp.files&&inp.files[0];inp.remove();go(x);};inp.click();
 }
-function estPdfFile(e){return estBlob(e.pdf,'application/pdf').then(function(b){return new File([b],e.pdfName||(e.customer+' Estimate.pdf'),{type:'application/pdf'});});}
+function estPdfFile(e){return estBlob(e.pdf,'application/pdf').then(function(b){return new File([b],e.pdfName||(estName(e)+' Estimate.pdf'),{type:'application/pdf'});});}
 function estOneView(){
   var e=estOf(S.estId),wrap=el('main',{class:'list es'});
   if(!e){wrap.appendChild(el('p',{class:'empty',text:S.est?T('This estimate is not here anymore.'):T('Loading…')}));return wrap;}
   var yo=S.me==='Yossi';
-  wrap.appendChild(el('div',{class:'esthd'},el('b',{text:e.customer}),e.address?el('a',{href:mapsUrl(e.address),target:'_blank',rel:'noopener',text:'📍 '+e.address}):null,
+  wrap.appendChild(el('div',{class:'esthd'},el('b',{text:estName(e)}),e.address?el('a',{href:mapsUrl(e.address),target:'_blank',rel:'noopener',text:'📍 '+e.address}):null,
     (e.email||e.phone)?el('span',{text:[e.email,e.phone].filter(Boolean).join(' · ')}):null));
   function step(on,t){return el('div',{class:'step'+(on?'':' off')},el('i',{text:on?'✓':'·'}),el('span',{text:t}));}
   wrap.appendChild(step(true,T('Started by')+' '+e.by+' · '+dateLabel((e.createdAt||'').slice(0,10))+' '+clockOf(e.createdAt)));
@@ -5628,7 +5712,7 @@ function estOneView(){
 }
 // share the PDF (Gmail, WhatsApp, Print…) – the phone needs a fresh tap after downloading
 function estShareNow(f,e,print){
-  var data={files:[f],title:e.customer};
+  var data={files:[f],title:estName(e)};
   openSheet([el('h2',{text:print?'🖨 '+T('Print'):'⇪ '+T('Share')}),el('p',{class:'muted',style:'margin:0 0 8px',text:print?T('Tap below, then pick “Print” in the list.'):T('Tap below and pick Gmail, WhatsApp, Drive…')}),
     el('button',{class:'primary',onclick:function(){if(navigator.canShare&&navigator.canShare(data)){navigator.share(data).then(function(){closeSheet(true,true);},function(){});}else{var u=URL.createObjectURL(f);window.open(u,'_blank');closeSheet(true,true);}}},print?T('Print'):T('Share the PDF')),
     el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);
@@ -5638,7 +5722,7 @@ function estIncoming(f){
   if(!isEst()){toast(T('Only the office can add estimates.'));return;}
   var go=function(){var l=(S.est||[]).filter(function(e){return e.status!=='sent';});
     openSheet([el('h2',{text:'📄 '+T('Which estimate is this PDF for?')}),el('p',{class:'muted',style:'margin:0 0 8px',text:f.name||''}),
-      el('div',{},l.map(function(e){return el('button',{class:'ecard',onclick:function(){closeSheet(true,true);openEstOne(e.id);estAddPdf(e,f);}},el('span',{class:'ic',html:estIco()}),el('span',{class:'m'},el('b',{text:e.customer}),el('span',{text:e.address||''})),el('span',{class:'pill '+estStat(e)[1],text:estStat(e)[0]}));})),
+      el('div',{},l.map(function(e){return el('button',{class:'ecard',onclick:function(){closeSheet(true,true);openEstOne(e.id);estAddPdf(e,f);}},el('span',{class:'ic',html:estIco()}),el('span',{class:'m'},el('b',{text:estName(e)}),el('span',{text:e.address||''})),el('span',{class:'pill '+estStat(e)[1],text:estStat(e)[0]}));})),
       el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);estCall('estSave',{customer:(f.name||'Estimate').replace(/\.pdf$/i,'').replace(/[_-]+/g,' ').slice(0,80),quiet:1}).then(function(r){openEstOne(r.id);estAddPdf(estOf(r.id),f);},function(){});}},'＋ '+T('A new estimate')),
       el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);};
   if(S.est)go();else estLoad().then(go);
