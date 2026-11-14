@@ -2133,6 +2133,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'photo1x',i:'🖼',t:'No more double photos',d:'With a weak signal the app tries a photo again – now the office gets it only once, never two times.'},
+ {id:'torch4',i:'🔦',t:'Flashlight off right after the picture or video',d:'The moment the picture is taken or the video stops, the camera and the flashlight turn off – while you look at it before sending. Go back and the camera comes on again.'},
  {id:'viewasdm',i:'👀',t:'See the new-chat button as a worker',d:'When you see the app as a worker, Messages now shows the ＋ too, so you can see that they can write to you, Rocky and Ashley. (Looking only – it does not open a chat for them.)'},
  {id:'groups',i:'👥',t:'Group chats',d:'Messages → ＋ → New group: give it a name and pick the people (office and workers). Everyone in it sees all the messages, photos and videos, with the name of who wrote each one. Tap the group name on top to see who is in it or change the name.',go:function(){goView('chats');}},
  {id:'crewdm',i:'💬',t:'Workers can write to the office',d:'Every worker now has the ＋ in Messages to start a chat with you, Rocky or Ashley (only the office – not with other workers).',go:function(){goView('chats');}},
@@ -2613,7 +2615,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142022',lastUpd=0;
+var BUILD='202611142031',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3796,7 +3798,9 @@ function openCam(x,videoFirst){
   shut.addEventListener('click',function(e){e.stopPropagation();});
   // After the picture / video: look at it, then Send (same spot as the shutter) or Delete (take again).
   function review(att,url){lightOff();box.classList.add('rv');if(att.kind==='video')att.pre=preUp(x.id,att);
-    var rv=reviewScreen(x,att,url,function(sentNow){if(sentNow){stop();closeViewer();queueHist();return;}if(att.pre){att.pre.cancel();att.pre=null;}try{URL.revokeObjectURL(url);}catch(e){}rv.remove();box.classList.remove('rv');});
+    // the camera (and its light) is fully off while you look at the picture / video; it comes back if you go back
+    if(stream){stream.getTracks().forEach(function(t){t.stop();});stream=null;}
+    var rv=reviewScreen(x,att,url,function(sentNow){if(sentNow){stop();closeViewer();queueHist();return;}if(att.pre){att.pre.cancel();att.pre=null;}try{URL.revokeObjectURL(url);}catch(e){}rv.remove();box.classList.remove('rv');if(!stream&&!closed)start();});
     box.appendChild(rv);var vv=document.getElementById('viewer');if(vv)vv._onClose=function(){if(!att.sent&&att.pre){att.pre.cancel();att.pre=null;}};}
   start();
 }
@@ -3972,10 +3976,10 @@ function sendInline(atts,id){
     UPP[mid]=0;upProg(mid,1,a.kind==='photo'?0:a.f.size);a._mid=mid;a._url=url;m._known=knownOf(id,a.kind==='photo'?'photo':a.kind==='video'?'video':'file');pendAdd(id,m);});
   var i=0;
   function one(){if(i>=atts.length)return;var a=atts[i++],kind=a.kind==='photo'?'photo':a.kind==='video'?'video':'file',known=knownOf(id,kind),pr;
-    if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=96;
+    if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}var prid=rid();if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=96;
       // bad signal or a very big picture: try once more a bit smaller
-      return call('photoAdd',{id:id,data:data.split(',')[1]}).catch(function(err){if(!isNet(err))throw err;if(S.me==='Yossi')logErr('Photo upload retry (test)','size '+a.f.size+' sent '+data.length+' '+String(err&&err.message));
-        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1]}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);sendQ('photoAdd',{id:id,data:d2.split(',')[1]},'⏳ '+T('No signal — it will send by itself when the signal is back.'));return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return;var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
+      return call('photoAdd',{id:id,data:data.split(',')[1],rid:prid}).catch(function(err){if(!isNet(err))throw err;if(S.me==='Yossi')logErr('Photo upload retry (test)','size '+a.f.size+' sent '+data.length+' '+String(err&&err.message));
+        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1],rid:prid}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);sendQ('photoAdd',{id:id,data:d2.split(',')[1],rid:prid},'⏳ '+T('No signal — it will send by itself when the signal is back.'));return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return;var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
     else pr=(a.pre?a.pre.go(function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);}):call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
       return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);},function(){return false;});})).then(function(r){return upDone(a._mid).then(function(){return r;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
     pr.then(function(){pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
@@ -4172,7 +4176,7 @@ function sendAttachments(atts,ids,loud,onDone){
   if(ids.length===1&&loud&&document.querySelector('.chatsheet'))return sendInline(atts,ids[0]);
   var id=ids[0],grp=ids.length>1,i=0;
   function one(){if(i>=atts.length){toast('✓ '+(loud?T('Sent'):T('Attachments added')));if(onDone)onDone();return;}var a=atts[i++],pr;
-    if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){S.saving++;return call('photoAdd',{id:id,data:data.split(',')[1],toGroup:grp,quiet:!loud}).catch(function(err){if(!isNet(err))throw err;return shrinkPhoto(a.f,1600,0.8).then(function(d2){return call('photoAdd',{id:id,data:d2.split(',')[1],toGroup:grp,quiet:!loud});});}).then(function(r){S.saving--;apply(r);render();},function(e){S.saving--;throw e;});});
+    var prid2=rid();if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){S.saving++;return call('photoAdd',{id:id,data:data.split(',')[1],toGroup:grp,quiet:!loud,rid:prid2}).catch(function(err){if(!isNet(err))throw err;return shrinkPhoto(a.f,1600,0.8).then(function(d2){return call('photoAdd',{id:id,data:d2.split(',')[1],toGroup:grp,quiet:!loud,rid:prid2});});}).then(function(r){S.saving--;apply(r);render();},function(e){S.saving--;throw e;});});
     else pr=uploadBig(a.f,a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0,toGroup:grp,quiet:!loud}:{id:id,file:true,name:a.f.name,toGroup:grp,quiet:!loud},(a.kind==='video'?'🎥 ':'📎 ')+T('Uploading')+' '+i+'/'+atts.length+'…');
     pr.then(one).catch(function(err){if(onDone)setTimeout(onDone,300);if(String(err&&err.message)==='CANCELLED'){toast(T('Cancelled'));return;}toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),'size '+a.f.size+' type '+a.f.type);});}
   one();
