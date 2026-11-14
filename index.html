@@ -2,7 +2,7 @@
 <html><head><meta charset="utf-8"><base target="_top"><meta name="color-scheme" content="only light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SAM To-Do TEST</title>
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#BDEBDF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SAM TEST">
@@ -778,6 +778,16 @@ body:has(.scrim.chatfull)::after{display:none}
 .vpspeed{min-width:56px;height:36px;border-radius:999px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.08);color:#fff;font-size:15px;font-weight:800}
 .vpspeed.fast{background:#1B8F7B;border-color:#1B8F7B}
 .viewer .vvid{width:100%;height:100%;display:flex;align-items:center}
+.attcard{grid-template-columns:repeat(4,1fr)}
+.vpbig.pz svg{margin-left:0}
+.viewer.vfull{background:#000}.viewer.vfull .vclose{top:calc(12px + env(safe-area-inset-top));background:rgba(255,255,255,.14)}
+.viewer:fullscreen{background:#000}
+.vpre{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.vpre img{width:100%;max-height:100vh;object-fit:contain;filter:brightness(.6)}
+.vring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;--p:0;background:conic-gradient(#4FD1B8 calc(var(--p)*1%),rgba(255,255,255,.2) 0);display:flex;align-items:center;justify-content:center}
+.vring::before{content:'';position:absolute;inset:6px;border-radius:50%;background:rgba(0,0,0,.55)}
+.vrpct{position:relative;color:#fff;font-weight:800;font-size:15px}
+html{background:#F7FCFA}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -790,6 +800,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Gallery':'Galería','File':'Archivo','Too long or too big':'Muy largo o muy pesado'});
 Object.assign(ES,{'No work Saturday':'Sábado no se trabaja'});
 Object.assign(ES,{'Delete job':'Borrar trabajo','Tap again to delete this job':'Toca otra vez para borrar este trabajo','Job deleted':'Trabajo borrado','Deleting hides the job. Its photos and history stay; you can bring it back in App maintenance → Undo.':'Borrar esconde el trabajo. Sus fotos e historial quedan; se puede recuperar en Mantenimiento → Deshacer.'});
 Object.assign(ES,{'Task':'Tarea','Edit task':'Editar tarea','Job page':'Página del trabajo','Notes':'Notas'});
@@ -944,7 +955,12 @@ function mapsUrl(a){return 'https://www.google.com/maps/search/?api=1&query='+en
 function toast(m){[].forEach.call(document.querySelectorAll('.toast'),function(o){o.remove();});var t=el('div',{class:'toast',text:m});document.body.appendChild(t);setTimeout(function(){t.remove();},4000);}
 function openSheet(children){closeSheet(true,true);S.guard=null;S.sheetRefresh=null;var bg=el('div',{class:'scrim',id:'scrim'},el('div',{class:'sheet'},children));bg.addEventListener('click',function(e){if(e.target===bg)closeSheet();});document.body.appendChild(bg);queueHist();}
 // S.guard (set by an editor) says "there are unsaved changes" — then we ask before throwing them away.
+var RET=[],RET_BUSY=false;
+function retMark(){var sc=document.getElementById('scrim');if(sc&&RET.length)sc.dataset.ret=String(RET.length);}
+function childOpen(backFn,openFn,view){RET_BUSY=true;RET.push({fn:backFn,view:view||''});try{openFn();}finally{RET_BUSY=false;}if(!view)retMark();}
+function retBack(){var r=RET.pop();if(!r)return false;RET_BUSY=true;try{closeSheet(true,true);r.fn();}finally{RET_BUSY=false;}retMark();return true;}
 function closeSheet(quiet,force){var s=document.getElementById('scrim');if(!s)return true;
+  if(s.dataset.ret&&!RET_BUSY)RET.length=Math.min(RET.length,(+s.dataset.ret)-1); // closed some other way: forget its way back
   if(!force&&S.guard&&S.guard()&&!confirm(T('Throw away your changes?')))return false;
   if(S.recStop){try{S.recStop();}catch(e){}S.recStop=null;}S.guard=null;S.sheetRefresh=null;if(S.chatPoll){clearInterval(S.chatPoll);S.chatPoll=null;}S.chatId=null;s.remove();queueHist();return true;}
 // ---------- navigation & the phone Back button ----------
@@ -1003,6 +1019,7 @@ window.addEventListener('popstate',function(e){
   if(sc){                                                    // 2) sheet open → step back inside it, or close it
     if(sc.dataset.lock||(S.guard&&S.guard()&&!confirm(T('Throw away your changes?')))){queueHist();return;}
     S.guard=null;
+    if(sc.dataset.ret&&RET.length){retBack();queueHist();return;}
     var bb=[].filter.call(sc.querySelectorAll('button'),function(b){return /^‹ \S/.test(b.textContent);})[0];
     if(bb)bb.click();else closeSheet(true,true);
     queueHist();return;}
@@ -1011,6 +1028,8 @@ window.addEventListener('popstate',function(e){
     if(navKey()!=='home'&&navKey()!=='login|'){S.pick=null;S.view='home';S.tab=S.me;S.snStorm=null;render();window.scrollTo(0,0);return;}
     exitAt=Date.now();toast(T('Press Back again to close the app'));setTimeout(queueHist,2600);return;}
   if((st.me||'')!==(S.me||'')){history.back();return;}      // entry from before sign-in / sign-out: skip it
+  var rt=RET[RET.length-1];
+  if(rt&&rt.view&&S.view===rt.view){RET.pop();navApply(st);RET_BUSY=true;try{rt.fn();}finally{RET_BUSY=false;}retMark();return;} // job page opened from a task → back to that task
   navApply(st);                                              // 4) previous screen
 });
 
@@ -1165,7 +1184,7 @@ function hTile(n,label,fn,cls){return el('button',{class:'htile'+(cls?' '+cls:''
 function needRow(icon,title,sub,right,fn,cls){return el('button',{class:'nrow'+(cls?' '+cls:''),onclick:fn},el('span',{class:'nic',text:icon}),
   el('span',{class:'nmid'},el('b',{text:title}),sub?el('span',{class:'nsub',text:sub}):null),right||el('span',{class:'hchev',text:'›'}));}
 function pill(t,cls){return el('span',{class:'npill'+(cls?' '+cls:''),text:t});}
-function goView(v){S.view=v;if(v==='tasks')S.tab=S.me;if(v==='sched')S.crewDay=today();render();window.scrollTo(0,0);}
+function goView(v){RET.length=0;S.view=v;if(v==='tasks')S.tab=S.me;if(v==='sched')S.crewDay=today();render();window.scrollTo(0,0);}
 function lastMsg(x){var l=chatMsgs(x);return l.length?l[l.length-1]:null;}
 function unreadTasks(){return S.tasks.filter(function(x){return (isOffice()||x.owner===S.me)&&unreadOf(x)>0;}).sort(function(a,b){var A=(lastMsg(a)||{}).at||'',B=(lastMsg(b)||{}).at||'';return A<B?1:-1;});}
 function unreadTotal(){var n=0;S.tasks.forEach(function(x){if(isOffice()||x.owner===S.me)n+=unreadOf(x);});return n;}
@@ -1388,6 +1407,8 @@ var WHATS_NEW=[
  {id:'video2',i:'🎬',t:'Videos like WhatsApp',d:'Videos show big in the chat. Tap to play full screen, swipe up or down to go back.',go:function(){goView('chats');}},
  {id:'tview',i:'📄',t:'Tap the job on top of a chat',d:'Opens the task the way the worker sees it: address, notes, who – with Chat, Edit task and Job page buttons.',go:function(){goView('chats');}},
  {id:'jdel',i:'🗑',t:'Delete a job',d:'Open a job → Delete job (tap twice). Close job is for finished jobs; Delete hides a job you don\'t need.',go:function(){openJobs();}},
+ {id:'attach2',i:'📎',t:'＋ in chat: Camera, Gallery, File',d:'Camera takes a photo or a video. Gallery lets you pick many photos and videos together. File sends any document (plans, PDFs…).',go:function(){goView('chats');}},
+ {id:'vplay',i:'▶️',t:'New video player',d:'Full screen like WhatsApp, play/pause in the middle, speed 1× · 1.5× · 2×, swipe down to close. Videos get ready in the background so they start right away.',go:function(){goView('chats');}},
  {id:'brand',i:'🔤',t:'SAM To-Do name on top',d:'The logo picture at the top is now a clean "SAM To-Do" name, and your photo circle opens the menu.',go:function(){goView('home');}},
  {id:'icon',i:'🟧',t:'Own TEST icon',d:'The test app has its own address and orange TEST icon, so it sits next to the real app.',go:function(){toast('🟧 '+T('Look at your home screen'));}}
 ];
@@ -1411,7 +1432,7 @@ function render_(){
   if(INSTALL_EV&&!S.viewAs&&!isStandalone())app.appendChild(el('button',{class:'instbtn',onclick:doInstall},'📲 '+T('Install the app on this phone'),el('small',{text:T('One tap to open it, like any other app')})));
   if(S.viewAs)app.appendChild(el('button',{class:'viewasbar',onclick:stopViewAs},'👀 '+T('Viewing as')+' '+S.name+' – '+T('tap to go back to Yossi')));
   var v=S.view||'home';
-  if(isOffice()&&v==='jobhist')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('jobs',openJobs);}},'‹ '+T('Jobs')));
+  if(isOffice()&&v==='jobhist'){var rtj=RET[RET.length-1]&&RET[RET.length-1].view==='jobhist';app.appendChild(el('button',{class:'homelink',onclick:function(){if(rtj)history.back();else navBack('jobs',openJobs);}},'‹ '+(rtj?T('Task'):T('Jobs'))));}
   else if(isOffice()&&!/^(home|chats|more|phones|jobs)$/.test(v))app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('home',goHome);}},'‹ '+T('Today')));
   else if(!isOffice()&&v==='myjobs')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   if(isOffice()&&v==='tasks')app.appendChild(tabs());
@@ -1558,7 +1579,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140511',lastUpd=0;
+var BUILD='202611140521',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2268,11 +2289,11 @@ function openTaskView(x){
       x.team&&x.team.length?teamBox(x):null,rideLine(x),sharedLine(x),
       x.urgent==='1'?el('div',{class:'tvurg',text:'❗ '+T('URGENT')}):null,
       photos.length?el('div',{class:'thumbs'},photos.map(function(id){return thumb(id);})):null));
-  var kids=[el('div',{class:'tvtop'},el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:closeSheet,html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}),el('b',{text:T('Task')})),card,
+  var kids=[el('div',{class:'tvtop'},el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:function(){var sc=document.getElementById('scrim');if(sc&&sc.dataset.ret&&RET.length){retBack();queueHist();}else closeSheet();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}),el('b',{text:T('Task')})),card,
     el('div',{class:'tvbtns'},
-      x._arch?null:el('button',{class:'primary',onclick:function(){closeSheet(true,true);openChat(x.id);}},'💬 '+T('Chat')),
-      isOffice()&&!x._arch?el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);openEditor(x);}},'✏️ '+T('Edit task')):null,
-      job?el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);openHist(job.id);}},'🏗 '+T('Job page')):null)];
+      x._arch?null:el('button',{class:'primary',onclick:function(){childOpen(function(){openTaskView(x);},function(){openChat(x.id);});}},'💬 '+T('Chat')),
+      isOffice()&&!x._arch?el('button',{class:'cbtn',onclick:function(){childOpen(function(){openTaskView(x);},function(){openEditor(x);});}},'✏️ '+T('Edit task')):null,
+      job?el('button',{class:'cbtn',onclick:function(){childOpen(function(){openTaskView(x);},function(){closeSheet(true,true);openHist(job.id);},'jobhist');}},'🏗 '+T('Job page')):null)];
   openSheet(kids);var sc=document.getElementById('scrim');if(sc){sc.classList.add('chatfull','tvfull');sc.querySelector('.sheet').classList.add('tvsheet');}
 }
 function openChat(id){
@@ -2284,8 +2305,8 @@ function openChat(id){
   function paintHead(){var t=cur(),sch=/^(🚐|🚗)/.test(t.title||''),j=jobOf(t.job);head.innerHTML='';
     var jt=sch?(j?j.name:T('Job')):t.title;
     var addr=t.address||(j&&j.address)||'',when=t.due?dateLabel(t.due)+(t.due===today()?' · '+T('Today'):''):'';
-    var info=el('button',{class:'chinfo',onclick:function(){var tt=cur();closeSheet(true,true);if(tt._arch){if(tt.job)openHist(tt.job);return;}openTaskView(tt);}},el('div',{class:'chjob',text:'🏗 '+(j?j.name:jt)+(!sch&&j&&t.title!==j.name?' – '+t.title:'')+' ›'}),addr?el('div',{class:'chsub',text:'📍 '+addr}):null,el('div',{class:'chsub',text:(isOffice()?'👷 '+nameOf(t.owner)+' · ':'')+'📅 '+when}));
-    head.appendChild(el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:closeSheet,html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}));
+    var info=el('button',{class:'chinfo',onclick:function(){var tt=cur();if(tt._arch){closeSheet(true,true);if(tt.job)openHist(tt.job);return;}childOpen(function(){openChat(tt.id);},function(){openTaskView(tt);});}},el('div',{class:'chjob',text:'🏗 '+(j?j.name:jt)+(!sch&&j&&t.title!==j.name?' – '+t.title:'')+' ›'}),addr?el('div',{class:'chsub',text:'📍 '+addr}):null,el('div',{class:'chsub',text:(isOffice()?'👷 '+nameOf(t.owner)+' · ':'')+'📅 '+when}));
+    head.appendChild(el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:function(){var sc=document.getElementById('scrim');if(sc&&sc.dataset.ret&&RET.length){retBack();queueHist();}else closeSheet();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}));
     if(!isOffice()){head.appendChild(el('div',{style:'flex:1;min-width:0'},info));return;}
     head.appendChild(avatar(t.owner,nameOf(t.owner),42));
     head.appendChild(el('div',{style:'flex:1;min-width:0'},info));}
@@ -2323,16 +2344,16 @@ function openChat(id){
       el('button',{class:'rbx','aria-label':T('Cancel'),onclick:function(){replyTo=null;paintComp();}},'✕')));
     function att(cls,icon,label,fn){return el('button',{class:'attb',type:'button',onclick:function(){more=false;paintComp();fn();}},el('span',{class:'attic '+cls,text:icon}),el('span',{class:'attl',text:label}));}
     if(more)comp.appendChild(el('div',{class:'attcard'},
-      att('a1','📷',T('Camera'),function(){pickPhoto(cur(),true);}),
-      att('a2','🖼',T('Photos'),function(){pickPhoto(cur());}),
-      att('a3','🎥',T('Video'),function(){pickVideo(cur(),true,true);}),
-      att('a4','🎞',T('Gallery video'),function(){pickVideo(cur(),false,true);}),
+      att('a1','📷',T('Camera'),function(){chatPick(cur(),'cam');}),
+      att('a2','🖼',T('Gallery'),function(){chatPick(cur(),'gal');}),
+      att('a4','📄',T('File'),function(){chatPick(cur(),'file');}),
       att('a5','@',T('Tag someone'),function(){setTimeout(startTag,50);})));
     if(arch){comp.appendChild(el('div',{class:'archnote',text:'🗄 '+T('Old chat from the history – read only')}));return;}
     comp.appendChild(tagBox);comp.appendChild(el('div',{class:'chatbar'},el('button',{class:'chatplus'+(more?' on':''),'aria-label':T('Add photo'),onclick:function(){more=!more;paintComp();},html:IC.plus}),el('div',{class:'chatpill'},input),sendB,micB));swapMS();}
   paintHead();paintList();paintComp();
   // Get the newest video ready in the background, so it plays right away when tapped.
-  try{var lv=(JSON.parse(x.comments||'[]')||[]).filter(function(m){return m.video;}).pop();if(lv)setTimeout(function(){getMedia(lv.video).catch(function(){});},800);}catch(e){}
+  // Get the newest videos ready in the background (newest first, one after another), so they play right away when tapped.
+  try{var lvs=(JSON.parse(x.comments||'[]')||[]).filter(function(m){return m.video;}).slice(-3).reverse();setTimeout(function(){(function nxt(i){if(i>=lvs.length||!document.querySelector('.chatsheet'))return;getMedia(lvs[i].video,null,'video/mp4').then(function(){nxt(i+1);},function(){nxt(i+1);});})(0);},500);}catch(e){}
   openSheet([head,list,comp]);
   var sc=document.getElementById('scrim');if(sc){sc.querySelector('.sheet').classList.add('chatsheet');sc.classList.add('chatfull');}
   S.chatId=id;S.sheetRefresh=function(){paintHead();paintList();};
@@ -2421,7 +2442,7 @@ function sendVoice(x,blob,dur){
 }
 // ---------- photos ----------
 // Full-screen viewer on top of everything; ✕, a tap outside, or the phone's Back closes it and you're back where you were.
-function closeViewer(){var v=document.getElementById('viewer');if(!v)return false;v.querySelectorAll('video,audio').forEach(function(m){try{m.pause();}catch(e){}});v.remove();return true;}
+function closeViewer(){var v=document.getElementById('viewer');if(!v)return false;try{if(document.fullscreenElement)document.exitFullscreen().catch(function(){});}catch(e){}v.querySelectorAll('video,audio').forEach(function(m){try{m.pause();}catch(e){}});v.remove();return true;}
 function openViewer(content){closeViewer();
   var v=el('div',{class:'viewer',id:'viewer'},el('button',{class:'vclose','aria-label':T('Close'),onclick:function(){closeViewer();queueHist();}},'✕'),el('div',{class:'vbody'},content));
   v.addEventListener('click',function(e){if(e.target===v||e.target.classList.contains('vbody')){closeViewer();queueHist();}});
@@ -2554,13 +2575,33 @@ function shrinkPhoto(f){return new Promise(function(res,rej){var url=URL.createO
   im.onload=function(){URL.revokeObjectURL(url);var max=1280,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
     c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.8));};im.src=url;});}
 // After a new task is saved: send its attachments one by one into the task (and every copy of it), without extra notifications.
-function sendAttachments(atts,ids){
+// Chat: one Camera button (photo or video), one Gallery button (pick several photos and videos together), one File button.
+function chatPick(x,mode){
+  var inp=el('input',{type:'file',style:'display:none'});
+  if(mode==='file'){}else{inp.accept='image/*,video/*';}
+  if(mode==='cam')inp.setAttribute('capture','environment');
+  if(mode==='gal')inp.multiple=true;
+  document.body.appendChild(inp);
+  inp.onchange=function(){var fs=[].slice.call(inp.files||[]);inp.remove();if(!fs.length)return;
+    var atts=[],bad=[];
+    Promise.all(fs.map(function(f){var vid=/^video\//.test(f.type||'')||/\.(mp4|mov|m4v|webm|3gp)$/i.test(f.name||'');
+      if(mode==='file'&&!vid&&!/^image\//.test(f.type||'')){if(f.size>150*1048576){bad.push(f.name);return null;}atts.push({kind:'file',f:f});return null;}
+      if(!vid){atts.push({kind:'photo',f:f});return null;}
+      if(f.size>VID_MAX_BYTES){bad.push(f.name||T('Video'));return null;}
+      return new Promise(function(ok){var v=document.createElement('video'),u=URL.createObjectURL(f),done=false;v.preload='metadata';
+        function fin(d){if(done)return;done=true;URL.revokeObjectURL(u);if(d&&d>VID_MAX_SEC+2)bad.push(f.name||T('Video'));else atts.push({kind:'video',f:f,dur:Math.round(d||0)});ok();}
+        v.onloadedmetadata=function(){fin(v.duration);};v.onerror=function(){fin(0);};setTimeout(function(){fin(0);},4000);v.src=u;});}))
+    .then(function(){if(bad.length)toast('❗ '+T('Too long or too big')+': '+bad.join(', '));if(!atts.length)return;
+      atts.sort(function(a,b){return (a.kind==='photo'?0:1)-(b.kind==='photo'?0:1);});
+      toast((atts.length>1?atts.length+' ':'')+T('Sending…'));sendAttachments(atts,[x.id],true,function(){if(!document.getElementById('scrim')||!document.querySelector('.chatsheet'))openChat(x.id);});});};
+  inp.click();}
+function sendAttachments(atts,ids,loud,onDone){
   if(!atts.length)return;if(!ids||!ids.length){toast('❗ '+T('The attachments could not be added. Add them in the task chat.'));return;}
   var id=ids[0],grp=ids.length>1,i=0;
-  function one(){if(i>=atts.length){toast('✓ '+T('Attachments added'));return;}var a=atts[i++],pr;
-    if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){S.saving++;return call('photoAdd',{id:id,data:data.split(',')[1],toGroup:grp,quiet:true}).then(function(r){S.saving--;apply(r);render();},function(e){S.saving--;throw e;});});
-    else pr=uploadBig(a.f,a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0,toGroup:grp,quiet:true}:{id:id,file:true,name:a.f.name,toGroup:grp,quiet:true},(a.kind==='video'?'🎥 ':'📎 ')+T('Uploading')+' '+i+'/'+atts.length+'…');
-    pr.then(one).catch(function(err){if(String(err&&err.message)==='CANCELLED'){toast(T('Cancelled'));return;}toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),'size '+a.f.size+' type '+a.f.type);});}
+  function one(){if(i>=atts.length){toast('✓ '+(loud?T('Sent'):T('Attachments added')));if(onDone)onDone();return;}var a=atts[i++],pr;
+    if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){S.saving++;return call('photoAdd',{id:id,data:data.split(',')[1],toGroup:grp,quiet:!loud}).then(function(r){S.saving--;apply(r);render();},function(e){S.saving--;throw e;});});
+    else pr=uploadBig(a.f,a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0,toGroup:grp,quiet:!loud}:{id:id,file:true,name:a.f.name,toGroup:grp,quiet:!loud},(a.kind==='video'?'🎥 ':'📎 ')+T('Uploading')+' '+i+'/'+atts.length+'…');
+    pr.then(one).catch(function(err){if(onDone)setTimeout(onDone,300);if(String(err&&err.message)==='CANCELLED'){toast(T('Cancelled'));return;}toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),'size '+a.f.size+' type '+a.f.type);});}
   one();
 }
 // Download a video / file from Drive: several pieces at the same time (much faster), kept for the rest of the session.
@@ -2615,9 +2656,9 @@ function vPlayer(url,it){
   function show(){wrap.classList.add('on');clearTimeout(hideT);if(!v.paused)hideT=setTimeout(function(){wrap.classList.remove('on');},2600);}
   function paint(){var d=dur();tm.textContent=fmt(v.currentTime)+' / '+fmt(d);if(!seek._drag)seek.value=d?Math.round(v.currentTime/d*1000):0;seek.style.setProperty('--p',(seek.value/10)+'%');}
   v.playbackRate=VSPEED;
-  v.addEventListener('play',function(){pp.innerHTML=IC.pause;big.style.display='none';show();});
-  v.addEventListener('pause',function(){pp.innerHTML=IC.play;big.style.display='';wrap.classList.add('on');clearTimeout(hideT);});
-  v.addEventListener('ended',function(){pp.innerHTML=IC.play;big.style.display='';wrap.classList.add('on');});
+  v.addEventListener('play',function(){pp.innerHTML=IC.pause;big.innerHTML=IC.pause;big.classList.add('pz');show();});
+  v.addEventListener('pause',function(){pp.innerHTML=IC.play;big.innerHTML=IC.play;big.classList.remove('pz');wrap.classList.add('on');clearTimeout(hideT);});
+  v.addEventListener('ended',function(){pp.innerHTML=IC.play;big.innerHTML=IC.play;big.classList.remove('pz');wrap.classList.add('on');});
   v.addEventListener('timeupdate',paint);v.addEventListener('loadedmetadata',paint);
   function toggle(){if(v.paused)v.play().catch(function(){});else v.pause();}
   big.onclick=function(e){e.stopPropagation();toggle();};pp.onclick=function(e){e.stopPropagation();toggle();show();};
@@ -2631,10 +2672,10 @@ function vPlayer(url,it){
   return wrap;}
 function playVideo(it){
   var box=el('div',{class:'vvid'}),bar=el('div',{class:'pbar'},el('div',{class:'pfill'}));
-  openViewer(box);
+  var vw=openViewer(box);vw.classList.add('vfull');try{var fe=vw.requestFullscreen||vw.webkitRequestFullscreen;if(fe)Promise.resolve(fe.call(vw,{navigationUI:'hide'})).catch(function(){});}catch(e){}
   if(S.vids[it.id]){box.appendChild(vPlayer(S.vids[it.id],it));return;}
-  box.appendChild(el('p',{class:'muted',style:'text-align:center',text:T('Loading video…')}));box.appendChild(bar);
-  getMedia(it.id,function(got,total){bar.firstChild.style.width=Math.round(got*100/total)+'%';},'video/mp4').then(function(url){
+  var ring=el('div',{class:'vring'},el('span',{class:'vrpct',text:''}));box.appendChild(el('div',{class:'vpre'},VTH[it.id]?el('img',{src:VTH[it.id],alt:''}):null,ring));box.appendChild(bar);bar.style.display='none';
+  getMedia(it.id,function(got,total){var pc=Math.round(got*100/total);bar.firstChild.style.width=pc+'%';ring.style.setProperty('--p',pc);ring.firstChild.textContent=pc+'%';},'video/mp4').then(function(url){
     if(!document.getElementById('viewer'))return;box.innerHTML='';box.appendChild(vPlayer(url,it));})
   .catch(function(err){box.innerHTML='';box.appendChild(el('p',{text:T('Could not load the video.')}));logErr('Video play failed: '+String(err&&err.message||err),it.id);});
 }
