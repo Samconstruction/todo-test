@@ -1674,6 +1674,7 @@ window.addEventListener('popstate',function(e){
   if(navOwn>0){navOwn--;syncHist();return;}                 // our own history.back()
   var st=e.state||{};
   if(window.MM_CLOSE&&document.getElementById('mmenu')){MM_CLOSE();queueHist();return;} // a held message → only let go of it, stay in the chat
+  if(window.RV_BACK&&document.querySelector('.rvwrap')){var rb=RV_BACK;RV_BACK=null;rb();queueHist();return;} // looking at a picture before sending → back to the camera, not out of it
   if(closeViewer()){queueHist();return;}                     // 1) viewer open → close only the viewer
   var dd=document.getElementById('discard');if(dd){dd.remove();queueHist();return;}
   if(S.chatSub&&S.chatSub()){queueHist();return;}            // chat: close the + card / tag list / reply first
@@ -2148,6 +2149,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'camback',i:'📷',t:'Back goes to the camera',d:'Not happy with the picture? The phone\'s Back now takes you back to the camera to take another one. Press Back again to leave the camera.'},
+ {id:'iphonecam',i:'📷',t:'iPhone: sharper camera + flashlight',d:'On iPhone the app camera now uses the sharpest picture the phone gives (4K), so photos and zoom are clear, and the flashlight button works on iPhones that allow it (iOS 17.4 and newer). Videos stay a normal size.'},
  {id:'mintvid',i:'🎬',t:'Mint video player + words with the picture',d:'Before you send a video, it now plays with the app\'s own mint buttons (play/pause, a bar to move through it, sound on/off). And the words you type under a picture or video now go together with it in one message, like WhatsApp. Hold it to Copy the words.',go:function(){goView('chats');}},
  {id:'photo1x',i:'🖼',t:'No more double photos',d:'With a weak signal the app tries a photo again – now the office gets it only once, never two times.'},
  {id:'torch4',i:'🔦',t:'Flashlight off right after the picture or video',d:'The moment the picture is taken or the video stops, the camera and the flashlight turn off – while you look at it before sending. Go back and the camera comes on again.'},
@@ -2631,7 +2634,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142037',lastUpd=0;
+var BUILD='202611142042',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3731,6 +3734,7 @@ function reviewScreen(x,att,url,onBack){
   var top=el('div',{class:'rvtop'},el('button',{class:'rvt','aria-label':T('Back'),html:SVG_X,onclick:function(e){e.stopPropagation();onBack(false);}}),
     photo?el('div',{class:'rvtools'},undo,rotB,txtB,penB):el('span',{class:'rvwhat',text:T('Video')+' · '+fmtDur(att.dur||0)}));
   var bot=el('div',{class:'rvbot'},mpBar,el('div',{class:'rvcapw'},cap),el('div',{class:'rvfoot'},el('span',{class:'rvto'},T('To')+' ',el('b',{text:chatTo(x)})),sendB));
+  window.RV_BACK=function(){onBack(false);};
   return el('div',{class:'rvwrap'},stage,top,photo?palette:null,txtBox,bot);
 }
 function openCam(x,videoFirst){
@@ -3755,10 +3759,11 @@ function openCam(x,videoFirst){
   function stop(){closed=true;try{cvStop();}catch(e){}try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
   var obs=new MutationObserver(function(){if(!document.body.contains(vw)){stop();obs.disconnect();}});obs.observe(document.body,{childList:true});
   var camId=null;try{camId=localStorage.getItem('sam_torchcam')||null;}catch(e){}
+  var isIOSc=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   function vSrc(){return (facing==='environment'&&camId)?{deviceId:{exact:camId}}:{facingMode:facing};}
   function start(){if(stream)stream.getTracks().forEach(function(t){t.stop();});stream=null;
-    var vs=vSrc();
-    return navigator.mediaDevices.getUserMedia({video:Object.assign({},vs,{width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}}),audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,sampleRate:48000,channelCount:1}}).catch(function(){return navigator.mediaDevices.getUserMedia({video:Object.assign({},vs,{width:{ideal:1920},height:{ideal:1080}}),audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing}});})
+    var vs=vSrc(),hi=isIOSc&&facing==='environment'; // iPhone: ask for the sharpest picture (4K) – the photo is taken from it, so it must be sharp
+    return navigator.mediaDevices.getUserMedia({video:Object.assign({},vs,{width:{ideal:hi?3840:1920},height:{ideal:hi?2160:1080},frameRate:{ideal:30}}),audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,sampleRate:48000,channelCount:1}}).catch(function(){return navigator.mediaDevices.getUserMedia({video:Object.assign({},vs,{width:{ideal:1920},height:{ideal:1080}}),audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing}});})
       .then(function(st){if(closed){st.getTracks().forEach(function(t){t.stop();});return;}stream=st;vid.srcObject=st;vid.classList.toggle('mirror',facing==='user');vid.play().catch(function(){});sharpen();zoomSetup();torchSetup();if(S.me==='Yossi')setTimeout(function(){try{var ss=st.getVideoTracks()[0].getSettings();var tr0=st.getVideoTracks()[0],cc=tr0.getCapabilities?tr0.getCapabilities():{};logErr('Camera info (test)',JSON.stringify({cam:tr0.label,w:ss.width,h:ss.height,fps:ss.frameRate,zoomNative:zNative,focus:ss.focusMode,torch:!!cc.torch}));}catch(e){}},1500);})
       .catch(function(){stop();closeViewer();toast('❗ '+T('Camera is blocked. Allow it for this app in your phone settings.'));chatPick(x,videoFirst?'vid':'cam');});}
   // keep focus, light and color adjusting by themselves (sharper pictures)
@@ -3784,13 +3789,13 @@ function openCam(x,videoFirst){
   var torchOn=false,torchB=el('button',{class:'camtorch','aria-label':T('Flashlight'),style:'display:none',onclick:function(e){e.stopPropagation();if(torchBusy)return;var tr=stream&&stream.getVideoTracks()[0];if(!tr)return;haptic();
     if(torchOn){torchOn=false;torchB.classList.remove('on');torchApply(tr,false);return;}
     torchOn=true;torchB.classList.add('on');
-    if(hasTorch(tr))torchApply(tr,true).then(function(ok){if(!ok)torchFind();});else torchFind();},
+    if(hasTorch(tr))torchApply(tr,true).then(function(ok){if(!ok){if(isAndroid)torchFind();else torchFail();}});else if(isAndroid)torchFind();else torchFail();},
     html:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-2 5H9z"/><path d="M9 8v11a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8"/><path d="M12 12v3"/></svg>'});
   box.appendChild(torchB);
   var torchBusy=false;
   function hasTorch(tr){try{var c=tr.getCapabilities?tr.getCapabilities():null;return !!(c&&c.torch);}catch(e){return false;}}
   function torchApply(tr,on){return tr.applyConstraints({advanced:[{torch:on}]}).catch(function(){return tr.applyConstraints({torch:on});})
-    .then(function(){try{var st=tr.getSettings();return st.torch===undefined?true:!!st.torch===on;}catch(e){return true;}},function(){return false;});}
+    .then(function(){if(isIOSc)return true;try{var st=tr.getSettings();return st.torch===undefined?true:!!st.torch===on;}catch(e){return true;}},function(){return false;});}
   function lightOff(){if(!torchOn)return;torchOn=false;torchB.classList.remove('on');var tr=stream&&stream.getVideoTracks()[0];if(tr)torchApply(tr,false);}
   // first time on this phone: quietly find the back camera that has the light, so the flashlight button works at once
   function torchPrep(){if(!isAndroid||camId||facing!=='environment'||torchBusy||closed||recording)return;var tr=stream&&stream.getVideoTracks()[0];if(!tr||hasTorch(tr))return;
@@ -3825,8 +3830,8 @@ function openCam(x,videoFirst){
   function recStart(){if(!stream||recording)return;var mime=['video/mp4;codecs=avc1,mp4a','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
     // Phones without camera zoom (iPhone): the video is drawn through a canvas, so the zoom you see is the zoom you get.
     var src=stream;cvStop();
-    if(!zNative&&vid.videoWidth){try{var cw=Math.min(1920,vid.videoWidth),ch2=Math.round(cw*vid.videoHeight/vid.videoWidth),cv=document.createElement('canvas');cv.width=cw;cv.height=ch2;var cg=cv.getContext('2d');
-      (function draw(){if(!cvOn)return;var sw=vid.videoWidth/zCur,sh=vid.videoHeight/zCur;try{cg.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,cw,ch2);}catch(e){}cvRaf=requestAnimationFrame(draw);})(cvOn=true);
+    if((!zNative||vid.videoWidth>1920)&&vid.videoWidth){try{var zz=zNative?1:zCur,cw=Math.min(1920,vid.videoWidth),ch2=Math.round(cw*vid.videoHeight/vid.videoWidth),cv=document.createElement('canvas');cv.width=cw;cv.height=ch2;var cg=cv.getContext('2d');
+      (function draw(){if(!cvOn)return;var sw=vid.videoWidth/zz,sh=vid.videoHeight/zz;try{cg.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,cw,ch2);}catch(e){}cvRaf=requestAnimationFrame(draw);})(cvOn=true);
       var cs=cv.captureStream(30);stream.getAudioTracks().forEach(function(t){cs.addTrack(t);});src=cs;}catch(e){cvStop();src=stream;}}
     try{rec=mime?new MediaRecorder(src,{mimeType:mime,videoBitsPerSecond:6000000,audioBitsPerSecond:128000}):new MediaRecorder(src,{videoBitsPerSecond:6000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(src);}catch(e2){cvStop();return;}}
     chunks=[];rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
