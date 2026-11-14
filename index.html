@@ -981,6 +981,7 @@ html{background:#F7FCFA}
 .upp{font-size:11px;font-weight:800;color:#1B8F7B;margin-right:6px}
 .camzoom{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(132px + env(safe-area-inset-bottom));background:rgba(0,0,0,.5);color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:5px 12px;z-index:4}
 .camlive{transition:transform .05s}
+.lgav-crew .ico{width:26px;height:26px;color:#fff}.lgme .lgav-crew .ico{width:34px;height:34px}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1802,7 +1803,7 @@ function goLogin(name){S.badPin=false;dropPush();clearSession();S.pick=name||nul
 function loginView(){
   var box=el('div',{class:'login lg2'},el('div',{class:'lghero'},el('div',{class:'lglogo'},el('img',{class:'biglogo',src:LOGO,alt:'SAM Construction'})),
     el('div',{class:'lgmark'},el('span',{class:'wm1',text:'SAM'}),el('span',{class:'wm2',text:'To-Do'}))));
-  function lgAv(k,txt){return el('span',{class:'lgav lgav-'+k,text:txt});}
+  function lgAv(k,txt){return k==='crew'?el('span',{class:'lgav lgav-crew',html:icoSvg('👷')}):el('span',{class:'lgav lgav-'+k,text:txt});}
   if(!S.pick){
     box.appendChild(el('p',{class:'lgq',text:T('Who is using this phone?')}));
     box.appendChild(el('div',{class:'whos'},['Rocky','Yossi','Ashley'].filter(function(p){return PEOPLE.indexOf(p)>=0;}).map(function(p){return el('button',{class:'who',onclick:function(){S.pick=p;S.loginMsg='';render();}},lgAv(p,p[0]),el('span',{class:'lgnm',text:p}));})));
@@ -1917,7 +1918,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140653',lastUpd=0;
+var BUILD='202611140654',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
