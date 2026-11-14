@@ -1944,7 +1944,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140720',lastUpd=0;
+var BUILD='202611140726',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2778,7 +2778,6 @@ function openChat(id){
     if(more)comp.appendChild(el('div',{class:'attcard2'},
       att('k1','gal',T('Gallery'),function(){chatPick(cur(),'gal');}),
       att('k2','cam',T('Camera'),function(){openCam(cur());}),
-      att('k3','vid',T('Video'),function(){openCam(cur(),true);}),
       att('k4','pin',T('Location'),function(){sendLocation(cur());}),
       att('k5','doc',T('Document'),function(){chatPick(cur(),'file');}),
       isDm(cur())?null:att('k6','at',T('Tag someone'),function(){setTimeout(startTag,50);})));
@@ -3099,7 +3098,8 @@ function parseVideos(x){try{return x.videos?JSON.parse(x.videos):[];}catch(e){re
 function fmtDur(s){s=Math.round(+s||0);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
 function videosBox(x){var v=parseVideos(x);if(!v.length)return null;
   return el('div',{class:'vids'},v.map(function(it){return el('button',{class:'vidtile',onclick:function(){playVideo(it);}},el('span',{class:'play',text:'▶'}),el('span',{text:T('Video')+(it.dur?' '+fmtDur(it.dur):'')+' · '+nameOf(it.by)}));}));}
-function openMedia(x){openSheet([el('h2',{text:T('Add photo or video')}),el('p',{class:'muted',style:'margin:0',text:x.title}),
+function openMedia(x){if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)return openCam(x);  // same camera as the chat: tap = photo, hold = video, gallery inside
+  openSheet([el('h2',{text:T('Add photo or video')}),el('p',{class:'muted',style:'margin:0',text:x.title}),
   el('div',{class:'lbl',text:'📷 '+T('Photo')}),
   el('div',{class:'row2'},el('button',{class:'primary',onclick:function(){closeSheet();pickPhoto(x,true);}},'📷 '+T('Take photo')),el('button',{class:'cbtn',onclick:function(){closeSheet();pickPhoto(x);}},'🖼 '+T('From gallery'))),
   el('div',{class:'lbl',text:'🎥 '+T('Video (up to 1½ minutes)')}),
