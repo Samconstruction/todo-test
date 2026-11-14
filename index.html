@@ -1133,6 +1133,15 @@ body.sndark #app{min-height:100vh;min-height:100dvh;background:#0F1F1C}
 .sn-stops .sn-stop{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 body.nodragscroll{touch-action:none;overflow:hidden}
 .sn-stop.dragging{opacity:.95;box-shadow:0 10px 26px rgba(14,79,69,.25);transform:scale(1.02);position:relative;z-index:5}
+/* estimate PDF inside the app */
+.pdfprev{display:block;width:100%;margin:12px 0 0;padding:10px;background:#fff;border:2px solid #BDEBDF;border-radius:18px;text-align:center}
+.pdfprev img{display:block;width:100%;border-radius:8px;box-shadow:0 1px 6px rgba(0,0,0,.12)}
+.pdfprev .pdfname{display:block;margin-top:8px;font-size:13.5px;color:#4A8178;font-weight:700}
+.pdfwait{padding:40px 0;color:#4A8178;font-weight:700}
+.viewer.vpdf{background:#2A2F2E;overflow-y:auto}
+.pdfpages{padding:64px 8px 24px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.pdfpages .pdfimg{width:100%;max-width:900px;height:auto;background:#fff;border-radius:4px}
+.viewer.vpdf .pdfwait{color:#fff}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1867,10 +1876,13 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'estview',i:'📄',t:'Estimates show inside the app',d:'The estimate PDF now shows right on the estimate page (the first page as a picture) – tap it to see all pages full screen. No more waiting for another app to open it.',go:function(){openEst();}},
+ {id:'fx_prospweek',i:'📅',t:'Prospect crews: My week to look at',d:'Prospect workers see My week – which days they came and their overtime from the daily report – but they cannot change it.',go:function(){wnPickWorker();}},
+ {id:'sn_drvlist',i:'🚐',t:'Snow drivers: you, Rocky and the van drivers',d:'When you start a storm, the driver choices are only you, Rocky and the daily-crew van drivers.',go:function(){openSnow();}},
  {id:'sn_drag',i:'✋',t:'Drag customers with your finger',d:'Snow → Routes: hold a customer (or grab ☰) and drag it up or down – or into the other route.',go:function(){openSnow();}},
  {id:'sn_daynight',i:'🕓',t:'Today or tonight',d:'Start storm says "today" during the day and "tonight" in the evening and at night, by the clock.',go:function(){openSnow();}},
  {id:'sn_more',i:'❄️',t:'Snow plowing for you and Rocky',d:'Snow plowing moved out of "Only for you" – it is in More for you and Rocky, with the same "Show on Today screen" switch.',go:function(){goView('more');}},
- {id:'fx_prospot',i:'⏱',t:'Prospect crews: overtime by the leader only',d:'Workers in a Prospect crew no longer see My week / overtime. Only the crew leader marks their overtime in the daily report.',go:function(){wnPickWorker();}},
+ {id:'fx_prospot',i:'⏱',t:'Prospect crews: overtime by the leader only',d:'Workers in a Prospect crew see their week – the days they came and their overtime – but cannot change it. Only the crew leader marks overtime in the daily report.',go:function(){wnPickWorker();}},
  {id:'estfast',i:'⚡',t:'Estimate PDFs open right away',d:'The newest estimate PDFs are downloaded quietly in the background, so when you or Rocky tap one it opens at once.',go:function(){openEst();}},
  {id:'fx_mates',i:'📞',t:'Prospect crews: phone list',d:'Workers in a Prospect crew now see everybody in their own crew (and their leader) in the phone list.',go:function(){wnPickWorker();}},
  {id:'sn_rocky',i:'❄️',t:'Rocky runs snow',d:'Rocky has Snow plowing in his More, can start and end storms, and can be picked as a driver. When he drives, his route shows on his Today screen.',go:function(){openSnow();}},
@@ -2151,7 +2163,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140901',lastUpd=0;
+var BUILD='202611140908',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3806,12 +3818,12 @@ function myWeekCard(){
   var rows=el('div',{class:'wkdays'});
   for(var i=0;i<6;i++)(function(d){
     mw.draft=mw.draft||{};
-    var job=mw.jobs[d],saved=+(mw.ot[d]||0),h=mw.draft[d]!==undefined?mw.draft[d]:saved,fut=d>t,can=!fut&&d>=edFrom,changed=h!==saved;tot+=saved;
+    var job=mw.jobs[d],saved=+(mw.ot[d]||0),h=mw.draft[d]!==undefined?mw.draft[d]:saved,fut=d>t,can=!mw.ro&&!fut&&d>=edFrom,changed=h!==saved;tot+=saved;
     function setH(v){mw.draft[d]=Math.max(0,Math.min(12,v));render();}
     function send(b){var op={date:d,hours:h};delete mw.draft[d];sendQ('otSave',op,'✓ '+T('Overtime sent'));return;call('otSave',op).then(function(){mw.ot[d]=h;delete mw.draft[d];render();toast('✓ '+T('Overtime sent'));})
       .catch(function(e){b.disabled=false;b.textContent='✓';if(isBadPin(e)){signOut('');return;}if(isNet(e)){mw.ot[d]=h;delete mw.draft[d];enqueue('otSave',op);return;}toast('❗ '+T('Not saved')+': '+errText(e));});}
     rows.appendChild(el('div',{class:'mwrow'+(d===t?' today':'')+(fut?' fut':'')},
-      el('div',{style:'flex:1;min-width:0'},el('b',{text:dateLabel(d)+(d===t?' · '+T('Today'):'')}),el('div',{class:'muted',style:'font-size:14px',text:job?'🏗 '+job:(fut?'':T('No job'))})),
+      el('div',{style:'flex:1;min-width:0'},el('b',{text:dateLabel(d)+(d===t?' · '+T('Today'):'')}),el('div',{class:'muted',style:'font-size:14px',text:job?'🏗 '+job:(mw.abs&&mw.abs[d]?T('Absent'):(fut?'':T('No job')))})),
       fut?null:(can?el('div',{class:'otbox'},el('button',{class:'ot',onclick:function(){setH(h-0.5);}},'−'),el('b',{class:changed?'otdraft':'',text:h?h+'h':'0'}),el('button',{class:'ot',onclick:function(){setH(h+0.5);}},'+'),
           changed?el('button',{class:'otsend',onclick:function(){send(this);}},'✓'):(mw.ot[d]!==undefined?el('span',{class:'otok',text:'✓'}):null))
         :el('b',{text:saved?saved+' h':'—'}))));
@@ -3822,7 +3834,7 @@ function myWeekCard(){
       el('button',{class:'dayarrow',disabled:wk<=-4?'disabled':null,onclick:function(){S.mweek=wk-1;render();}},'‹'),
       el('button',{class:'daylabel',onclick:function(){S.mweek=0;render();}},el('b',{text:wk===0?T('This week'):(wk===-1?T('Last week'):T('Week of')+' '+dateLabel(ws))})),
       el('button',{class:'dayarrow',disabled:wk>=0?'disabled':null,onclick:function(){S.mweek=wk+1;render();}},'›')),
-    el('div',{class:'muted',style:'font-size:13px;margin-bottom:6px',text:'⏱ '+T('Only if you worked overtime: tap +, then ✓ to send.')}),
+    el('div',{class:'muted',style:'font-size:13px;margin-bottom:6px',text:'⏱ '+(mw.ro?T('Your crew leader marks your overtime in the daily report.'):T('Only if you worked overtime: tap +, then ✓ to send.'))}),
     rows,
     el('div',{class:'wktotal'},el('span',{text:'⏱ '+T('Overtime this week')}),el('b',{text:tot+' '+T('hrs')})));
 }
@@ -4511,12 +4523,27 @@ function isEst(){return EST_PEOPLE.indexOf(S.me)>=0;}
 try{S.est=JSON.parse(localStorage.getItem('sam_est')||'null');}catch(e){S.est=null;}
 function estApply(r){if(r&&r.est){S.est=r.est;try{localStorage.setItem('sam_est',JSON.stringify(r.est));}catch(e){}S.estWait=r.est.filter(function(e){return e.status==='new';}).length;setTimeout(estPrefetch,300);}}
 // the newest PDFs are fetched quietly in the background, so they open right away when tapped
-var EST_PF=0;function estPrefetch(){if(EST_PF)return;var l=(S.est||[]).filter(function(e){return e.pdf&&!S.vids[e.pdf];}).slice(0,5);if(!l.length)return;EST_PF=1;
-  (function nx(i){if(i>=l.length){EST_PF=0;return;}getMedia(l[i].pdf,null,'application/pdf').then(function(){nx(i+1);},function(){nx(i+1);});})(0);}
+// PDFs are shown inside the app (no waiting for another app to open them)
+var PDFJS=null,PDFPREV={};
+function loadPdfJs(){if(PDFJS)return PDFJS;PDFJS=new Promise(function(ok,no){if(window.pdfjsLib)return ok(window.pdfjsLib);var sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  sc.onload=function(){try{pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';ok(pdfjsLib);}catch(e){no(e);}};sc.onerror=function(){PDFJS=null;no(new Error('NO_SIGNAL'));};document.head.appendChild(sc);});return PDFJS;}
+function pdfDoc(id){return Promise.all([loadPdfJs(),getMedia(id,null,'application/pdf').then(function(u){return fetch(u).then(function(r){return r.arrayBuffer();});})]).then(function(a){return a[0].getDocument({data:new Uint8Array(a[1])}).promise;});}
+function pdfPage(doc,n,w){return doc.getPage(n).then(function(pg){var v0=pg.getViewport({scale:1}),sc=w/v0.width,v=pg.getViewport({scale:sc}),c=document.createElement('canvas');c.width=Math.round(v.width);c.height=Math.round(v.height);
+  return pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise.then(function(){return c;});});}
+// first page as a picture, kept in memory → shows at once next time
+function pdfPreview(id){if(PDFPREV[id])return Promise.resolve(PDFPREV[id]);return pdfDoc(id).then(function(doc){return pdfPage(doc,1,900).then(function(c){PDFPREV[id]={img:c.toDataURL('image/jpeg',0.85),pages:doc.numPages};return PDFPREV[id];});});}
+function pdfFull(e){var box=el('div',{class:'pdfpages'},el('div',{class:'pdfwait',text:T('Opening…')}));var vw=openViewer(box);vw.classList.add('vfull','vpdf');
+  vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(ev){ev.stopPropagation();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
+  if(PDFPREV[e.pdf]){box.innerHTML='';box.appendChild(el('img',{class:'pdfimg',src:PDFPREV[e.pdf].img,alt:''}));}
+  pdfDoc(e.pdf).then(function(doc){var w=Math.min(1600,Math.round((window.innerWidth||400)*2));var chain=Promise.resolve();box.innerHTML='';
+    for(var i=1;i<=doc.numPages;i++)(function(i){chain=chain.then(function(){return pdfPage(doc,i,w).then(function(c){c.className='pdfimg';box.appendChild(c);});});})(i);return chain;})
+  .catch(function(er){if(!PDFPREV[e.pdf])box.innerHTML='';toast('❗ '+errText(er));});}
+var EST_PF=0;function estPrefetch(){loadPdfJs().catch(function(){});if(EST_PF)return;var l=(S.est||[]).filter(function(e){return e.pdf&&!PDFPREV[e.pdf];}).slice(0,5);if(!l.length)return;EST_PF=1;
+  (function nx(i){if(i>=l.length){EST_PF=0;return;}pdfPreview(l[i].pdf).then(function(){nx(i+1);},function(){nx(i+1);});})(0);}
 function estLoad(){return call('estList',{}).then(function(r){estApply(r);if(/^est/.test(S.view||''))render();}).catch(function(){});}
 function estCall(a,p,msg){p=p||{};p.rid=p.rid||rid();S.saving++;render();return call(a,p).then(function(r){S.saving--;estApply(r);render();if(msg)toast('✓ '+msg);return r;},function(e){S.saving--;render();toast('❗ '+(String(e&&e.message)==='EST_NEED_NAME'?T('Type the customer name.'):errText(e)));throw e;});}
 function openEst(){S.view='est';S.estId=null;render();window.scrollTo(0,0);estLoad();}
-function openEstOne(id){S.estId=id;S.view='estone';render();window.scrollTo(0,0);var e=estOf(id);if(e&&e.pdf&&!S.vids[e.pdf])getMedia(e.pdf,null,'application/pdf').then(function(){},function(){});}
+function openEstOne(id){S.estId=id;S.view='estone';render();window.scrollTo(0,0);}
 function estOf(id){return (S.est||[]).filter(function(e){return e.id===id;})[0]||null;}
 function estStat(e){return e.status==='new'?[T('For Yossi'),'p1']:e.status==='claude'?[T('At Claude'),'p1']:e.status==='sent'?[T('Sent'),'p3']:[T('PDF ✓'),'p2'];}
 function estIco(){return '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z"/><path d="M14 3.5v4h4M9 12.5h6M9 16h6"/></svg>';}
@@ -4618,12 +4645,13 @@ function estOneView(){
   wrap.appendChild(step(!!e.claudeAt||!!e.pdf,e.claudeAt?T('Sent to Claude')+' · '+clockOf(e.claudeAt):(yo?T('Not sent to Claude yet'):T('Waiting for Yossi to send it to Claude'))));
   wrap.appendChild(step(!!e.pdf,e.pdf?T('PDF back in the app')+' · '+(e.pdfBy||'')+' '+clockOf(e.pdfAt):T('PDF not back yet')));
   if(e.pdf){
-    var pc=el('div',{class:'pdfcard'},el('span',{class:'ic',html:estIco()}),el('span',{class:'m'},el('b',{text:e.pdfName||'Estimate.pdf'}),el('span',{text:T('Tap to open')})));
-    pc.onclick=function(){if(S.vids[e.pdf]){window.open(S.vids[e.pdf],'_blank');return;}toast(T('Opening…'));getMedia(e.pdf,null,'application/pdf').then(function(u){var w=window.open(u,'_blank');if(!w)toast(T('Ready – tap again to open'));},function(er){toast('❗ '+errText(er));});};
-    wrap.appendChild(pc);
+    var pv=PDFPREV[e.pdf],pc=el('button',{class:'pdfprev'},pv?el('img',{src:pv.img,alt:''}):el('div',{class:'pdfwait',text:T('Loading the estimate…')}),el('span',{class:'pdfname',text:(e.pdfName||'Estimate.pdf')+(pv&&pv.pages>1?' · '+pv.pages+' '+T('pages'):'')}));
+    if(!pv)pdfPreview(e.pdf).then(function(){if(S.view==='estone'&&S.estId===e.id)render();},function(){});
+    pc.onclick=function(){pdfFull(e);};
     wrap.appendChild(el('div',{class:'row2b'},
       el('button',{class:'bm',onclick:function(){toast(T('Getting the PDF ready…'));estPdfFile(e).then(function(f){estShareNow(f,e);},function(er){toast('❗ '+errText(er));});}},'⇪ '+T('Share')),
       el('button',{class:'bl',onclick:function(){toast(T('Getting the PDF ready…'));estPdfFile(e).then(function(f){estShareNow(f,e,true);},function(er){toast('❗ '+errText(er));});}},'🖨 '+T('Print'))));
+    wrap.appendChild(pc);
     wrap.appendChild(el('button',{class:'cbtn',style:'margin-top:10px',onclick:function(){estCall('estSent',{id:e.id,undo:e.status==='sent'?1:0},e.status==='sent'?'':T('Marked as sent to the customer'));}},e.status==='sent'?'↩ '+T('Not sent to the customer yet'):'✓ '+T('Mark as sent to the customer')));
   }
   if(yo)wrap.appendChild(el('button',{class:'claude',onclick:function(){estToClaude(e);}},'✦ '+(e.pdf?T('Redo in Claude'):T('Send to Claude'))));
