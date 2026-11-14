@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><base target="_top"><meta name="color-scheme" content="only light">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>SAM To-Do TEST</title>
 <meta name="theme-color" content="#BDEBDF">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -1380,6 +1380,71 @@ img.nocall,.vstrip img{-webkit-touch-callout:none;-webkit-user-select:none;user-
 .csb.on{background:#fff;color:#0E4F45;box-shadow:0 1px 4px rgba(14,79,69,.15)}
 .csb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .csb i{font-style:normal;background:#1B8F7B;color:#fff;font-size:12px;min-width:20px;height:20px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;flex:none}
+.vp{max-height:100dvh}.vp video{max-height:100dvh}.vpre img{max-height:100dvh}
+.vperr{position:absolute;left:20px;right:20px;top:50%;transform:translateY(-50%);background:#fff;border-radius:18px;padding:18px;text-align:center;color:#0E2E28;font-weight:700;display:flex;flex-direction:column;gap:12px}
+.iostop{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 34px);background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left}
+.drvdone{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:3}
+.jhsub{font-size:14px;font-weight:800;color:#1B8F7B;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.utoast{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:9000;background:#0E4F45;color:#fff;border-radius:16px;padding:12px 12px 12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:mmpop .2s ease-out}
+.utoast button{border:0;background:#D8F5EE;color:#0E4F45;font:inherit;font-weight:800;border-radius:12px;padding:10px 16px;min-height:44px}
+.utoast.out{opacity:0;transition:opacity .35s}
+.wgreet{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:2px 2px 10px;color:#0E4F45}
+.wgreet b{font-size:22px;font-weight:800;white-space:nowrap}.wgreet span{font-size:14px;color:#3E6B62;font-weight:700;white-space:nowrap}
+.callofc{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 6px;padding:14px;border-radius:16px;background:#D8F5EE;color:#0E4F45;font-weight:800;font-size:17px;text-decoration:none;min-height:52px}
+.yn{gap:8px}.yn button{width:48px;height:48px;border-radius:12px;font-size:20px;border-color:#CFE3DD}
+.yn .y.on{background:#1B8F7B;border-color:#1B8F7B}
+.camtab{min-height:46px;padding:0 16px}
+.camtabs{gap:10px}
+.praise.low{top:auto;bottom:calc(150px + env(safe-area-inset-bottom))}
+/* ===== Mint everywhere (review pass) ===== */
+:root{--bg:#F4FBF8;--ok:#1B8F7B;--acc:#1B8F7B;--line:#DCE7E3;--soft:#EEF5F2}
+body{background:#F4FBF8}
+/* home tiles: white cards with a mint icon chip, like More */
+.ctile,.ctile.c-green,.ctile.c-blue,.ctile.c-purple,.ctile.c-orange{background:#fff;color:#0E4F45;box-shadow:0 2px 10px rgba(14,79,69,.08)}
+.ctile .cti{background:#E6F6F1;color:#1B8F7B}.ctile .cts{color:#3E6B62;opacity:1}
+.ctile.c-orange{background:#1B8F7B;color:#fff}.ctile.c-orange .cti{background:rgba(255,255,255,.22);color:#fff}.ctile.c-orange .cts{color:#E6F6F1}
+/* Needs you: mint card, red only for the number */
+.needbtn{background:#fff;color:#0E4F45;box-shadow:0 2px 12px rgba(14,79,69,.1);border:2px solid #BDEBDF}
+.needbtn .nbi{background:#E6F6F1;color:#1B8F7B}
+.needbtn .nbm span,.needbtn .nbm small{color:#3E6B62}
+/* one green */
+.jhdone,.drvdone,.jhfull{background:#1B8F7B}
+.inun,.csb i{background:#1B8F7B}
+.telbtn.wa{background:#D8F5EE;color:#0E4F45;border-color:#BDEBDF}
+.pill.p1{background:#D8F5EE;color:#0E4F45}
+.ann .from{color:#0E4F45}
+.sn-chip.pri{background:#E6F6F1;color:#0E4F45}
+/* soft boxes: no beige */
+.nic,.sn-chip.gray,.allbtn,.vbtn,.attbtn,.jhchip,.ot,.sn-edit,.sn-undo,.soffbox,.cmts,.cpt,.tab{background:#EEF5F2}
+/* inputs: mint focus, no resize grip */
+.in:focus,textarea:focus,input:focus,select:focus{outline:none;border-color:#1B8F7B;box-shadow:0 0 0 3px #D8F5EE}
+textarea{resize:none}
+input[type=date],input[type=time]{color:#0E4F45;accent-color:#1B8F7B}
+input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-calendar-picker-indicator{filter:invert(36%) sepia(80%) saturate(500%) hue-rotate(125deg)}
+/* hold menu: Delete icon red */
+.mmi.red .mmic{color:#C92A2A}
+/* snow: Start storm icon readable, dark driver avatar readable */
+.sn-big.storm .ico{color:#fff}
+body.sndark .hav,body.sndark .me{color:#0E4F45;background:#D8F5EE}
+/* TEST badge never covers sheets */
+body::after{pointer-events:none;z-index:50!important}
+/* login avatar keeps its circle on small phones */
+.lg3av,.lg3av.big{flex:none}
+/* + button never covers the last card */
+main.list{padding-bottom:110px}
+/* small text a bit bigger */
+.bmeta{font-size:12px}.btb{font-size:12px}
+.tk{padding:6px;margin:-6px}
+.btr{margin:6px 2px 2px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.65);border-left:3px solid #1B8F7B;font-size:15px;color:#0E2E28;font-style:italic}
+.glance{display:block;width:100%;margin:14px 0 0;padding:14px;border:0;border-radius:20px;background:#fff;box-shadow:0 2px 10px rgba(14,79,69,.08);font:inherit;text-align:left;color:#0E4F45}
+.glh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.glh b{font-size:17px;font-weight:800}
+.glg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.glc{background:#EEF5F2;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.glc b{font-size:22px;font-weight:900;color:#0E4F45}.glc span{font-size:12.5px;font-weight:700;color:#3E6B62;text-align:center}
+.glc.ok b{color:#1B8F7B}.glc.warn b{color:#C9711E}
+.chst{flex:none;border:0;border-radius:999px;padding:8px 12px;font:inherit;font-weight:800;font-size:13.5px;background:#fff;color:#1B8F7B;box-shadow:0 1px 4px rgba(14,79,69,.15);min-height:36px;white-space:nowrap}
+.chst.s-done{background:#1B8F7B;color:#fff}.chst.s-half{background:#FFF4DC;color:#8A5A00}
+.wgr{display:flex;align-items:center;gap:8px}.wgr .wxmini{margin:0}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1392,10 +1457,11 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Today at a glance':'Hoy de un vistazo','workers out':'trabajadores','arrived':'llegaron','done':'listos','halfway':'a medias','not done yet':'sin terminar','photos':'fotos','Translate to Spanish':'Traducir al español','Translate to English':'Traducir al inglés','Sign out to see it':'Cierra sesión para verlo','Make an estimate for this job:':'Haz un presupuesto para este trabajo:'});
 Object.assign(ES,{'Saturday – closed':'Sábado – cerrado','Officially closed. Only if people are working this Saturday:':'Oficialmente cerrado. Solo si hay gente trabajando este sábado:','Working this Saturday – make the schedule':'Se trabaja este sábado – hacer el horario','Stay closed':'Sigue cerrado'});
 Object.assign(ES,{'Call to':'Llamar a','Tap ▶ again':'Toca ▶ otra vez','No signal – nothing was lost. Tap Save again when you have signal.':'Sin señal – no se perdió nada. Toca Guardar otra vez cuando tengas señal.','I arrived':'Llegué','You arrived':'Llegaste','Your crew leader marks your overtime in the daily report.':'Tu líder marca tus horas extra en el reporte diario.','Absent':'Ausente','DONE':'LISTO','Undo?':'¿Deshacer?','Tap again – do it later':'Toca otra vez – hacerlo después','On this truck':'En este camión','Opening…':'Abriendo…','Truck 1':'Camión 1','Truck 2':'Camión 2','Nobody left – all helpers are on the other truck':'No queda nadie – todos los ayudantes están en el otro camión'});
 Object.assign(ES,{"Time in the app today": "Tiempo en la app hoy", "Compliments preview": "Ver los elogios", "Snow practice (only you)": "Práctica de nieve (solo tú)", "How long each person had the app open on the screen today, and how many times they opened it.": "Cuánto tiempo tuvo cada persona la app abierta hoy y cuántas veces la abrió.", "times": "veces", "Nothing yet today.": "Nada todavía hoy.", "Counting started today, so earlier days are not here.": "Se empezó a contar hoy; los días anteriores no están.", "No": "No", "Waiting for you": "Esperándote", "Estimates": "Presupuestos", "Look at your home screen": "Mira tu pantalla de inicio", "Sign out and back in to try it": "Cierra sesión y vuelve a entrar para probarlo", "New in the test app": "Nuevo en la app de prueba", "Check it out": "Ver", "Later": "Después", "Type your current PIN.": "Escribe tu PIN actual.", "Type the name and the address.": "Escribe el nombre y la dirección.", "Put customers on a route first.": "Primero pon clientes en una ruta.", "A storm is already going on.": "Ya hay una tormenta en curso.", "Google Maps could not plan this route – check the addresses.": "Google Maps no pudo planear esta ruta – revisa las direcciones.", "No snow customers yet.": "Todavía no hay clientes de nieve.", "Not on a route": "Sin ruta", "storm": "tormenta", "Customer or building name": "Nombre del cliente o edificio", "Street, town": "Calle, pueblo", "Notes for the driver (gate code, where to pile the snow…)": "Notas para el chofer (código del portón, dónde amontonar la nieve…)", "No route": "Sin ruta", "Edit snow customer": "Editar cliente de nieve", "New snow customer": "Nuevo cliente de nieve", "Contact phone": "Teléfono de contacto", "What we do": "Qué hacemos", "Must be clear by": "Debe estar limpio antes de", "leave empty = no time limit": "vacío = sin hora límite", "Price per storm (only you see this)": "Precio por tormenta (solo tú lo ves)", "No routes yet – add one for each truck.": "Todavía no hay rutas – agrega una por cada camión.", "no driver": "sin chofer", "Drag to change the order": "Arrastra para cambiar el orden", "No stops – put customers on this route.": "No hay paradas – pon clientes en esta ruta.", "Planning the fastest drive…": "Planeando el camino más rápido…", "Best order": "Mejor orden", "was": "antes", "Best order (fastest drive, ⏰ first)": "Mejor orden (camino más rápido, ⏰ primero)", "Add route": "Agregar ruta", "Edit route": "Editar ruta", "New route": "Nueva ruta", "Route name": "Nombre de la ruta", "Driver (gets the route on his phone when a storm starts)": "Chofer (recibe la ruta en su teléfono cuando empieza una tormenta)", "Remove route": "Quitar ruta", "PRACTICE": "PRÁCTICA", "Only you see this – nobody is notified": "Solo tú ves esto – no se avisa a nadie", "Storm in progress": "Tormenta en curso", "round": "vuelta", "Open the driver screen": "Abrir la pantalla del chofer", "Tap again – send all routes again from the start": "Toca otra vez – mandar todas las rutas otra vez desde el principio", "Second round sent to the drivers": "Segunda vuelta enviada a los choferes", "Second round (heavy snow)": "Segunda vuelta (mucha nieve)", "Tap again – the practice is deleted": "Toca otra vez – se borra la práctica", "Tap again to end the storm": "Toca otra vez para terminar la tormenta", "Practice ended and deleted": "Práctica terminada y borrada", "Storm ended": "Tormenta terminada", "End practice": "Terminar práctica", "End storm": "Terminar tormenta", "Start storm": "Empezar tormenta", "Past storms": "Tormentas pasadas", "None yet.": "Ninguna todavía.", "finished": "terminada", "Fake – nothing is saved. Tap a button to see what pops up.": "De prueba – no se guarda nada. Toca un botón para ver qué aparece.", "A task is done (different each time)": "Una tarea terminada (diferente cada vez)", "The last task of the day (office only)": "La última tarea del día (solo oficina)", "Friday – the last task of the week (office only)": "Viernes – la última tarea de la semana (solo oficina)", "Snow – the last stop of the route": "Nieve – la última parada de la ruta", "Snow practice": "Práctica de nieve", "Try a whole storm from start to end. Only you see it – nobody gets a notification. When you end it, it is deleted (no record, no billing).": "Prueba una tormenta completa de principio a fin. Solo tú la ves – nadie recibe aviso. Al terminarla se borra (sin registro, sin cobro).", "Your customers on a route": "Tus clientes en una ruta", "Practice customers": "Clientes de práctica", "A real storm is going on now – end it first.": "Hay una tormenta real ahora – termínala primero.", "Open the practice storm": "Abrir la tormenta de práctica", "Start a practice storm": "Empezar una tormenta de práctica", "20 practice customers added": "20 clientes de práctica agregados", "Practice customers removed": "Clientes de práctica quitados", "Remove the practice customers": "Quitar los clientes de práctica", "Practice customers are on 2 practice routes and never go into a real storm. Your real customers on a route are in the practice too.": "Los clientes de práctica están en 2 rutas de práctica y nunca entran en una tormenta real. Tus clientes reales en una ruta también están en la práctica.", "How many trucks tonight?": "¿Cuántos camiones esta noche?", "How many trucks today?": "¿Cuántos camiones hoy?", "truck": "camión", "trucks": "camiones", "TRUCK": "CAMIÓN", "WHO DRIVES?": "¿QUIÉN MANEJA?", "HELPERS ON THIS TRUCK (shovel & salt)": "AYUDANTES EN ESTE CAMIÓN (palear y sal)", "customers are on no route – they are not in this storm": "clientes no tienen ruta – no están en esta tormenta", "Pick who drives each truck": "Elige quién maneja cada camión", "Practice storm started – only you see it": "Práctica empezada – solo tú la ves", "Storm started – drivers notified": "Tormenta empezada – se avisó a los choferes", "Storm started": "Tormenta empezada", "Start – send to drivers": "Empezar – mandar a los choferes", "Practice storm": "Tormenta de práctica", "Start storm – tonight": "Empezar tormenta – esta noche", "Start storm – today": "Empezar tormenta – hoy", "Moved to": "Movido a", "Move to": "Mover a", "storm done": "tormenta hecha", "storm ended": "tormenta terminada", "customers": "clientes", "Billing list": "Lista para cobrar", "Plowed": "Limpiado", "your snow was cleared": "se limpió su nieve", "Thank you!": "¡Gracias!", "Send to customer": "Mandar al cliente", "Copied – paste it into QuickBooks or a message": "Copiado – pégalo en QuickBooks o en un mensaje", "Share / copy the list": "Compartir / copiar la lista", "This is what the driver sees": "Esto es lo que ve el chofer", "Type the customer name.": "Escribe el nombre del cliente.", "For Yossi": "Para Yossi", "At Claude": "En Claude", "PDF ✓": "PDF ✓", "New estimate": "Nuevo presupuesto", "No estimates yet. Tap “New estimate” to start one.": "Todavía no hay presupuestos. Toca “Nuevo presupuesto” para empezar uno.", "WAITING FOR CLAUDE": "ESPERANDO A CLAUDE", "READY": "LISTO", "SENT TO CUSTOMER": "ENVIADO AL CLIENTE", "Customer name": "Nombre del cliente", "Phone (optional)": "Teléfono (opcional)", "What is the job? Talk or type…": "¿Cuál es el trabajo? Habla o escribe…", "Add photos": "Agregar fotos", "Talk": "Hablar", "Tap the 🎤 on your keyboard and talk": "Toca el 🎤 de tu teclado y habla", "Edit estimate": "Editar presupuesto", "CUSTOMER": "CLIENTE", "ADDRESS": "DIRECCIÓN", "EMAIL": "CORREO", "PHONE": "TELÉFONO", "WHAT'S THE JOB? – talk or type": "¿CUÁL ES EL TRABAJO? – habla o escribe", "PHOTOS": "FOTOS", "Sent to Yossi": "Enviado a Yossi", "photos added": "fotos agregadas", "Adding photo": "Agregando foto", "A photo could not be added.": "No se pudo agregar una foto.", "Save – send to Yossi": "Guardar – mandar a Yossi", "Getting the photos ready…": "Preparando las fotos…", "Send to Claude": "Mandar a Claude", "Tap below – the text is copied and Claude opens. Go to Projects → Estimates → new chat → paste.": "Toca abajo – se copia el texto y se abre Claude. Ve a Projects → Estimates → nuevo chat → pegar.", "Copy text & open Claude": "Copiar texto y abrir Claude", "Come back here and share the photos – pick the chat you just made (it is on top).": "Vuelve aquí y comparte las fotos – elige el chat que acabas de hacer (está arriba).", "Share the": "Compartir las", "Done? Tap below so Rocky sees it went to Claude.": "¿Listo? Toca abajo para que Rocky vea que se mandó a Claude.", "Marked as sent to Claude": "Marcado como enviado a Claude", "I sent it to Claude": "Ya lo mandé a Claude", "The text is copied. Tap below and pick Claude – then choose your Estimates project, or paste it there.": "El texto está copiado. Toca abajo y elige Claude – luego elige el proyecto Estimates, o pégalo ahí.", "Copied – open Claude and paste": "Copiado – abre Claude y pega", "Share to Claude": "Compartir con Claude", "I already sent it": "Ya lo mandé", "Pick the PDF file": "Elige el archivo PDF", "The PDF is too big": "El PDF es demasiado grande", "Adding the PDF…": "Agregando el PDF…", "PDF added": "PDF agregado", "This estimate is not here anymore.": "Este presupuesto ya no está.", "Started by": "Empezado por", "Sent to Claude": "Enviado a Claude", "Not sent to Claude yet": "Todavía no enviado a Claude", "Waiting for Yossi to send it to Claude": "Esperando que Yossi lo mande a Claude", "PDF back in the app": "El PDF ya está en la app", "PDF not back yet": "El PDF todavía no llega", "Loading the estimate…": "Cargando el presupuesto…", "pages": "páginas", "Getting the PDF ready…": "Preparando el PDF…", "Print": "Imprimir", "Marked as sent to the customer": "Marcado como enviado al cliente", "Not sent to the customer yet": "Todavía no enviado al cliente", "Mark as sent to the customer": "Marcar como enviado al cliente", "Redo in Claude": "Rehacer en Claude", "Replace the PDF": "Cambiar el PDF", "Add the PDF from Claude": "Agregar el PDF de Claude", "THE JOB": "EL TRABAJO", "Delete this estimate": "Borrar este presupuesto", "Edit": "Editar", "Tap below, then pick “Print” in the list.": "Toca abajo y luego elige “Imprimir” en la lista.", "Tap below and pick Gmail, WhatsApp, Drive…": "Toca abajo y elige Gmail, WhatsApp, Drive…", "Share the PDF": "Compartir el PDF", "Only the office can add estimates.": "Solo la oficina puede agregar presupuestos.", "Which estimate is this PDF for?": "¿Para qué presupuesto es este PDF?", "A new estimate": "Un presupuesto nuevo", "person": "persona", "left – tap it to check it out": "queda – tócalo para verlo", "new thing to check out": "novedad para ver", "new things to check out": "novedades para ver", "left – tap each one to check it out": "quedan – toca cada una para verla", "estimates to send to Claude": "presupuestos para mandar a Claude", "estimate to send to Claude": "presupuesto para mandar a Claude"});
-Object.assign(ES,{'Chats':'Chats','Groups':'Grupos','No groups yet – tap + → New group.':'Todavía no hay grupos – toca + → Nuevo grupo.','No groups yet.':'Todavía no hay grupos.','No direct chats yet – tap + to write to someone.':'Todavía no hay chats directos – toca + para escribirle a alguien.','Keyboard':'Teclado','Recent':'Recientes','Smileys':'Caritas','Hands & people':'Manos y personas','Work':'Trabajo','Weather':'Clima','Signs':'Señales','Copy the words':'Copiar el texto','Could not copy':'No se pudo copiar','Sound':'Sonido','Only looking – this is what they see':'Solo mirando – esto es lo que ven','Group':'Grupo','Groups':'Grupos','New group':'Nuevo grupo','Pick people and give it a name':'Elige personas y ponle un nombre','Group name – e.g. Prospect Gardens crew':'Nombre del grupo – ej. cuadrilla Prospect Gardens','Type a name for the group.':'Escribe un nombre para el grupo.','Pick at least 2 people.':'Elige al menos 2 personas.','Making the group…':'Haciendo el grupo…','Make the group':'Hacer el grupo','Group made':'Grupo hecho','Save the name':'Guardar el nombre','You':'Tú','Write to the office – Yossi, Rocky or Ashley.':'Escribe a la oficina – Yossi, Rocky o Ashley.','Type the new PIN again':'Escribe el PIN nuevo otra vez','The two PINs were not the same. Try again.':'Los dos PIN no son iguales. Intenta otra vez.','Snow – each address done':'Nieve – cada dirección hecha','Log in with your fingerprint?':'¿Entrar con tu huella?','Next time just touch the fingerprint. You can still use your PIN.':'La próxima vez solo toca la huella. Puedes seguir usando tu PIN.','Fingerprint is on':'Huella activada','Fingerprint is off':'Huella desactivada','Fingerprint log in':'Entrar con huella','Test Forgot PIN':'Probar Olvidé el PIN','TEST – this is what the worker sees':'PRUEBA – esto es lo que ve el trabajador','Now you are the office: you got a notification. Tap it – or tap below – and Approve.':'Ahora eres la oficina: te llegó un aviso. Tócalo – o toca abajo – y Aprueba.','Answer it now':'Responder ahora','Test passed – everything works':'Prueba pasada – todo funciona','No PIN was changed. This was only a test.':'No se cambió ningún PIN. Fue solo una prueba.','Done':'Listo','forgot the PIN':'olvidó el PIN','Asked from the log-in page':'Pedido desde la entrada','Answer':'Responder','Only approve if it is really him or her.':'Aprueba solo si de verdad es esa persona.','Approve':'Aprobar','Decline':'Rechazar','Approved – they can make a new PIN now':'Aprobado – ya puede hacer un PIN nuevo','Declined':'Rechazado','Forgot your PIN?':'¿Olvidaste tu PIN?','No problem – ask the office':'No hay problema – pídelo a la oficina','Type your phone number':'Escribe tu número de teléfono','Sending…':'Enviando…','Ask the office for a new PIN':'Pedir un PIN nuevo a la oficina','Too many tries. Wait an hour or call the office.':'Demasiados intentos. Espera una hora o llama a la oficina.','Check the phone number.':'Revisa el número de teléfono.','Waiting for the office…':'Esperando a la oficina…','Your request was sent':'Tu pedido fue enviado','Approved':'Aprobado','Make your new 4-number PIN':'Haz tu PIN nuevo de 4 números','New PIN saved':'PIN nuevo guardado','Do not use the end of your phone number.':'No uses el final de tu número de teléfono.','This approval ran out. Ask again.':'Esta aprobación venció. Pide otra vez.','The office said no':'La oficina dijo que no','This request ran out':'Este pedido venció','Call the office if you need help.':'Llama a la oficina si necesitas ayuda.','Call the office':'Llamar a la oficina','Forgot PIN?':'¿Olvidaste el PIN?','Phone camera':'Cámara del teléfono','Tap to start · tap again to stop':'Toca para empezar · toca otra vez para parar','Tap for photo · hold for video':'Toca para foto · mantén para video','Add a caption…':'Agrega un texto…','Type on the picture…':'Escribe en la foto…','Draw':'Dibujar','Rotate':'Girar','Text':'Texto','Undo':'Deshacer','To':'Para','Flashlight':'Linterna','This phone does not allow the flashlight here':'Este teléfono no permite la linterna aquí','Work':'Trabajo','Me':'Yo','Message everyone':'Mensaje a todos','people':'personas','for Claude':'para Claude','Make & send':'Hacer y mandar','Storm on':'Tormenta activa','No storm':'Sin tormenta','Holidays':'Días feriados','Log in':'Iniciar sesión','Welcome back':'Bienvenido','Built right':'Bien hecho','Need help? Call the office':'¿Ayuda? Llama a la oficina','Forgot PIN? Call the office':'¿Olvidaste el PIN? Llama a la oficina','Log in with your PIN or fingerprint':'Entra con tu PIN o huella','Not':'¿No eres','Log in with your fingerprint or face?':'¿Entrar con tu huella o cara?','Next time just touch the fingerprint (or look at the phone). You can still use your PIN.':'La próxima vez solo toca la huella (o mira el teléfono). Puedes seguir usando tu PIN.','Yes, turn it on':'Sí, activarlo','Not now':'Ahora no','Fingerprint / face is on':'Huella / cara activada','Fingerprint / face is off':'Huella / cara desactivada','Not turned on – you can try again later in Settings.':'No se activó – puedes intentarlo después en Ajustes.','Fingerprint / face log in':'Entrar con huella / cara','Log in without typing your PIN':'Entra sin escribir tu PIN','Fingerprint':'Huella','Delete':'Borrar','a job there today':'hay trabajo ahí hoy','snow':'de nieve','Snow coming':'Viene nieve','About':'Unas','tap for the weather':'toca para ver el clima','morning':'en la mañana','afternoon':'en la tarde','evening':'al anochecer','night':'en la noche','tonight':'esta noche','today':'hoy','tomorrow':'mañana','Weather':'Clima','Loading the weather…':'Cargando el clima…','this week':'esta semana','feels like':'se siente como','wind':'viento','Tomorrow':'Mañana','Clear':'Despejado','Partly cloudy':'Parcialmente nublado','Cloudy':'Nublado','Fog':'Niebla','Drizzle':'Llovizna','Rain':'Lluvia','Snow':'Nieve','Showers':'Chubascos','Snow showers':'Nevadas','Thunderstorm':'Tormenta eléctrica','Tap a day to see it by the hour.':'Toca un día para verlo por hora.','Could not load the weather – check your signal and try again.':'No se pudo cargar el clima – revisa tu señal e intenta otra vez.'});
+Object.assign(ES,{'Worker…':'Trabajador…','Asked':'Pedido','to check':'para confirmar','the office':'la oficina','Mark ✓ or ✗ for every person':'Marca ✓ o ✗ para cada persona','This video can\'t play on this phone.':'Este video no se puede ver en este teléfono.','No signal — saved on the phone, it will send by itself when the signal is back.':'Sin señal — se guardó en el teléfono y se enviará solo cuando vuelva la señal.','This job was deleted by the office.':'La oficina borró este trabajo.','This was deleted by the office.':'La oficina borró esto.','Something went wrong. Try again.':'Algo salió mal. Intenta otra vez.','This number is not in the app. Call the office.':'Este número no está en la app. Llama a la oficina.','Chats':'Chats','Groups':'Grupos','No groups yet – tap + → New group.':'Todavía no hay grupos – toca + → Nuevo grupo.','No groups yet.':'Todavía no hay grupos.','No direct chats yet – tap + to write to someone.':'Todavía no hay chats directos – toca + para escribirle a alguien.','Keyboard':'Teclado','Recent':'Recientes','Smileys':'Caritas','Hands & people':'Manos y personas','Work':'Trabajo','Weather':'Clima','Signs':'Señales','Copy the words':'Copiar el texto','Could not copy':'No se pudo copiar','Sound':'Sonido','Only looking – this is what they see':'Solo mirando – esto es lo que ven','Group':'Grupo','Groups':'Grupos','New group':'Nuevo grupo','Pick people and give it a name':'Elige personas y ponle un nombre','Group name – e.g. Prospect Gardens crew':'Nombre del grupo – ej. cuadrilla Prospect Gardens','Type a name for the group.':'Escribe un nombre para el grupo.','Pick at least 2 people.':'Elige al menos 2 personas.','Making the group…':'Haciendo el grupo…','Make the group':'Hacer el grupo','Group made':'Grupo hecho','Save the name':'Guardar el nombre','You':'Tú','Write to the office – Yossi, Rocky or Ashley.':'Escribe a la oficina – Yossi, Rocky o Ashley.','Type the new PIN again':'Escribe el PIN nuevo otra vez','The two PINs were not the same. Try again.':'Los dos PIN no son iguales. Intenta otra vez.','Snow – each address done':'Nieve – cada dirección hecha','Log in with your fingerprint?':'¿Entrar con tu huella?','Next time just touch the fingerprint. You can still use your PIN.':'La próxima vez solo toca la huella. Puedes seguir usando tu PIN.','Fingerprint is on':'Huella activada','Fingerprint is off':'Huella desactivada','Fingerprint log in':'Entrar con huella','Test Forgot PIN':'Probar Olvidé el PIN','TEST – this is what the worker sees':'PRUEBA – esto es lo que ve el trabajador','Now you are the office: you got a notification. Tap it – or tap below – and Approve.':'Ahora eres la oficina: te llegó un aviso. Tócalo – o toca abajo – y Aprueba.','Answer it now':'Responder ahora','Test passed – everything works':'Prueba pasada – todo funciona','No PIN was changed. This was only a test.':'No se cambió ningún PIN. Fue solo una prueba.','Done':'Listo','forgot the PIN':'olvidó el PIN','Asked from the log-in page':'Pedido desde la entrada','Answer':'Responder','Only approve if it is really him or her.':'Aprueba solo si de verdad es esa persona.','Approve':'Aprobar','Decline':'Rechazar','Approved – they can make a new PIN now':'Aprobado – ya puede hacer un PIN nuevo','Declined':'Rechazado','Forgot your PIN?':'¿Olvidaste tu PIN?','No problem – ask the office':'No hay problema – pídelo a la oficina','Type your phone number':'Escribe tu número de teléfono','Sending…':'Enviando…','Ask the office for a new PIN':'Pedir un PIN nuevo a la oficina','Too many tries. Wait an hour or call the office.':'Demasiados intentos. Espera una hora o llama a la oficina.','Check the phone number.':'Revisa el número de teléfono.','Waiting for the office…':'Esperando a la oficina…','Your request was sent':'Tu pedido fue enviado','Approved':'Aprobado','Make your new 4-number PIN':'Haz tu PIN nuevo de 4 números','New PIN saved':'PIN nuevo guardado','Do not use the end of your phone number.':'No uses el final de tu número de teléfono.','This approval ran out. Ask again.':'Esta aprobación venció. Pide otra vez.','The office said no':'La oficina dijo que no','This request ran out':'Este pedido venció','Call the office if you need help.':'Llama a la oficina si necesitas ayuda.','Call the office':'Llamar a la oficina','Forgot PIN?':'¿Olvidaste el PIN?','Phone camera':'Cámara del teléfono','Tap to start · tap again to stop':'Toca para empezar · toca otra vez para parar','Tap for photo · hold for video':'Toca para foto · mantén para video','Add a caption…':'Agrega un texto…','Type on the picture…':'Escribe en la foto…','Draw':'Dibujar','Rotate':'Girar','Text':'Texto','Undo':'Deshacer','To':'Para','Flashlight':'Linterna','This phone does not allow the flashlight here':'Este teléfono no permite la linterna aquí','Work':'Trabajo','Me':'Yo','Message everyone':'Mensaje a todos','people':'personas','for Claude':'para Claude','Make & send':'Hacer y mandar','Storm on':'Tormenta activa','No storm':'Sin tormenta','Holidays':'Días feriados','Log in':'Iniciar sesión','Welcome back':'Bienvenido','Built right':'Bien hecho','Need help? Call the office':'¿Ayuda? Llama a la oficina','Forgot PIN? Call the office':'¿Olvidaste el PIN? Llama a la oficina','Log in with your PIN or fingerprint':'Entra con tu PIN o huella','Not':'¿No eres','Log in with your fingerprint or face?':'¿Entrar con tu huella o cara?','Next time just touch the fingerprint (or look at the phone). You can still use your PIN.':'La próxima vez solo toca la huella (o mira el teléfono). Puedes seguir usando tu PIN.','Yes, turn it on':'Sí, activarlo','Not now':'Ahora no','Fingerprint / face is on':'Huella / cara activada','Fingerprint / face is off':'Huella / cara desactivada','Not turned on – you can try again later in Settings.':'No se activó – puedes intentarlo después en Ajustes.','Fingerprint / face log in':'Entrar con huella / cara','Log in without typing your PIN':'Entra sin escribir tu PIN','Fingerprint':'Huella','Delete':'Borrar','a job there today':'hay trabajo ahí hoy','snow':'de nieve','Snow coming':'Viene nieve','About':'Unas','tap for the weather':'toca para ver el clima','morning':'en la mañana','afternoon':'en la tarde','evening':'al anochecer','night':'en la noche','tonight':'esta noche','today':'hoy','tomorrow':'mañana','Weather':'Clima','Loading the weather…':'Cargando el clima…','this week':'esta semana','feels like':'se siente como','wind':'viento','Tomorrow':'Mañana','Clear':'Despejado','Partly cloudy':'Parcialmente nublado','Cloudy':'Nublado','Fog':'Niebla','Drizzle':'Llovizna','Rain':'Lluvia','Snow':'Nieve','Showers':'Chubascos','Snow showers':'Nevadas','Thunderstorm':'Tormenta eléctrica','Tap a day to see it by the hour.':'Toca un día para verlo por hora.','Could not load the weather – check your signal and try again.':'No se pudo cargar el clima – revisa tu señal e intenta otra vez.'});
 Object.assign(ES,{'More emojis':'Más emojis','React':'Reaccionar','Pick an emoji from your keyboard':'Elige un emoji de tu teclado','Tap the 😊 key on your keyboard and choose any emoji.':'Toca la tecla 😊 de tu teclado y elige cualquier emoji.','Tap the 😊 key on your keyboard for emojis':'Toca la tecla 😊 de tu teclado para emojis'});
 Object.assign(ES,{'Are people working on Saturday?':'¿Hay gente trabajando el sábado?','No – closed':'No – cerrado'});
 Object.assign(ES,{'Newest at the top':'Lo más nuevo arriba'});
@@ -1443,7 +1509,7 @@ function isOffice(){return S.role==='office';}
 function setLang(l){LANG=l;store('sam_lang',l);document.documentElement.lang=l;closeSheet();render();if(S.me&&notifState()==='granted')enablePush(false);}
 function langSwitch(){return el('div',{class:'lang'},[['en','English'],['es','Español']].map(function(p){return el('button',{class:'lang-b'+(LANG===p[0]?' on':''),onclick:function(){if(LANG!==p[0])setLang(p[0]);}},p[1]);}));}
 
-var READS={maint:1,list:1,photoGet:1,videoGet:1,avatarGet:1,avatarBig:1,otWeek:1,schedGet:1,reportsRange:1,places:1,logError:1,jobHistory:1,jobsSummary:1,jobsAll:1,snowGet:1,usage:1,estList:1};
+var READS={maint:1,list:1,photoGet:1,videoGet:1,avatarGet:1,avatarBig:1,otWeek:1,schedGet:1,reportsRange:1,places:1,logError:1,jobHistory:1,jobsSummary:1,jobsAll:1,snowGet:1,usage:1,estList:1,translate:1};
 function rid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 var DEV_ID=(function(){try{var d=localStorage.getItem('sam_dv');if(!d){d=Math.random().toString(36).slice(2,12);localStorage.setItem('sam_dv',d);}return d;}catch(e){return 'x';}})(); // this phone, for the wrong-PIN counter
 // ⏱ Time in the app: count the seconds the app is open on screen today (per person); sent along with the normal refresh.
@@ -1463,11 +1529,11 @@ function call(action,payload,as){var ep=SESS;return callRaw(action,payload,as).t
 function callRaw(action,payload,as){
   payload=payload||{};
   if(S.viewAs){if(!READS[action]&&action!=='chatSeen')return Promise.reject(new Error('VIEW_ONLY'));if(action==='chatSeen')return Promise.resolve({});payload.by='Yossi';payload.pin=S.pin;if(action==='list')payload.viewAs=S.viewAs;}
-  else{payload.by=as||S.me;payload.pin=payload.pin||S.pin;}if(!READS[action]&&!payload.rid)payload.rid=rid();payload.dv=DEV_ID;if(action==='list'&&!S.viewAs&&S.me&&!as&&payload.by===S.me){try{payload.use=useNow();}catch(e){}}
+  else{payload.by=as||S.me;payload.pin=payload.pin||S.pin;}if(!READS[action]&&!payload.rid)payload.rid=rid();payload.dv=DEV_ID;if(action==='list'&&!S.viewAs&&S.me&&!as&&payload.by===S.me){try{payload.use=useNow();}catch(e){}payload.lang=LANG==='es'?'es':'en';}
   var ctl=window.AbortController?new AbortController():null,limit=/^(photoAdd|videoChunk|videoStart|videoGet|photoGet)$/.test(action)?90000:30000;
   var timer=ctl?setTimeout(function(){ctl.abort();},limit):0;
   return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:action,payload:payload}),signal:ctl?ctl.signal:undefined})
-    .then(function(r){clearTimeout(timer);return r.json();},function(e){clearTimeout(timer);throw new Error(e&&e.name==='AbortError'?'TIMEOUT':'NO_SIGNAL');}).then(function(j){if(!j.ok){if(action!=='logError'&&!/^(BAD_PIN|NOT_ALLOWED|PIN_TAKEN|LOCKED|PIN_IS_PHONE|BAD_NEW_PIN)$/.test(j.error||''))logErr('Server error on '+action+': '+j.error,'');throw new Error(j.error||'Error');}if(action==='list'&&j.data&&typeof j.data==='object')j.data.__va=payload.viewAs||null;return j.data;});
+    .then(function(r){clearTimeout(timer);if(!r.ok&&r.status>=500)throw new Error('NO_SIGNAL');return r.json().catch(function(){throw new Error('NO_SIGNAL');});},function(e){clearTimeout(timer);throw new Error(e&&e.name==='AbortError'?'TIMEOUT':'NO_SIGNAL');}).then(function(j){if(!j.ok){if(action!=='logError'&&!/^(BAD_PIN|NOT_ALLOWED|PIN_TAKEN|LOCKED|PIN_IS_PHONE|BAD_NEW_PIN)$/.test(j.error||''))logErr('Server error on '+action+': '+j.error,'');throw new Error(j.error||'Error');}if(action==='list'&&j.data&&typeof j.data==='object')j.data.__va=payload.viewAs||null;return j.data;});
 }
 // ---------- waiting to send (bad signal) ----------
 var Q=[],qBusy=false;try{Q=JSON.parse(localStorage.getItem('sam_q')||'[]')||[];}catch(e){Q=[];}
@@ -1475,13 +1541,13 @@ var QABLE={update:1,comment:1,photoAdd:1,otSave:1,react:1,annSeen:1,reportSave:1
 function isNet(e){return /^(NO_SIGNAL|TIMEOUT)$/.test(String(e&&e.message||e));}
 function errText(e){var m=String(e&&e.message||e);
   if(m==='VIEW_ONLY')return T('You are only looking as this worker – nothing can be changed.');
-  if(m==='NO_SIGNAL')return T('No signal right now.');if(m==='TIMEOUT')return T('The signal is too slow.');
+  if(m==='NO_SIGNAL')return T('No signal right now.');if(m==='NOT_FOUND')return T('This was deleted by the office.');if(/[<{]|Unexpected|token|undefined|null|TypeError/.test(m))return T('Something went wrong. Try again.');if(m==='TIMEOUT')return T('The signal is too slow.');
   if(m==='LOCKED')return T('Too many wrong PINs. Try again in 15 minutes.');if(m==='STALE')return T('Someone else just changed this schedule. Close it and open it again to see the new one.');if(m==='NOT_ALLOWED')return T('You are not allowed to do that.');
   if(m==='BAD_DATE')return T('That date is not allowed.');if(m==='PIN_TAKEN')return T('That PIN is taken. Pick another one.');
   return T('Something went wrong')+' ('+m.slice(0,40)+')';}
 function qSave(){try{localStorage.setItem('sam_q',JSON.stringify(Q));}catch(e){try{localStorage.setItem('sam_q',JSON.stringify(Q.filter(function(x){return x.a!=='photoAdd';})));}catch(e2){}}}
-function sendQ(a,p,msg){if(p&&!p.rid)p.rid=rid();var it={a:a,p:p,me:S.me,at:Date.now()};if(a==='scheduleSave'){it.msg=msg;msg='⏳ '+T('Sending the schedule…');}Q.push(it);qSave();try{applyQ();}catch(e){}if(msg)toast(msg);render();setTimeout(flushQ,0);}
-function enqueue(a,p){if(p&&!p.rid)p.rid=rid();Q.push({a:a,p:p,me:S.me,at:Date.now()});qSave();try{applyQ();}catch(e){}toast('⏳ '+T('No signal — it will send by itself when the signal is back.'));render();}
+function sendQ(a,p,msg){if(S.viewAs){toast('👀 '+T('You are only looking as this worker – nothing can be changed.'));return;}if(p&&!p.rid)p.rid=rid();var it={a:a,p:p,me:S.me,at:Date.now()};if(a==='scheduleSave'){it.msg=msg;msg='⏳ '+T('Sending the schedule…');}Q.push(it);qSave();try{applyQ();}catch(e){}if(msg)toast(msg);render();setTimeout(flushQ,0);}
+function enqueue(a,p){if(S.viewAs){toast('👀 '+T('You are only looking as this worker – nothing can be changed.'));return;}if(p&&!p.rid)p.rid=rid();Q.push({a:a,p:p,me:S.me,at:Date.now()});qSave();try{applyQ();}catch(e){}toast('⏳ '+T('No signal — it will send by itself when the signal is back.'));render();}
 function flushQ(){
   if(qBusy||!Q.length||!S.me||!S.pin||S.viewAs)return;var it=Q[0];
   if(it.me!==S.me){Q.shift();qSave();return flushQ();}
@@ -1505,7 +1571,7 @@ function applyQ(){Q.forEach(function(it){if(it.me!==S.me)return;var p=it.p;
   if(it.a==='photoAdd'){allT().forEach(function(x){if(x.id!==p.id)return;var l=parseComments(x),qid='q'+p.rid;if(l.some(function(m){return m.id===qid;}))return;S.photos[qid]='data:image/jpeg;base64,'+p.data;l.push({id:qid,by:S.me,at:new Date(it.at).toISOString(),photo:qid,text:p.text||undefined,_q:1});x.comments=JSON.stringify(l);});}
 });}
 setInterval(flushQ,20000);window.addEventListener('online',function(){setTimeout(flushQ,1500);});
-function qBar(){if(!Q.length)return null;if(!S.offline&&Q.every(function(it){return Date.now()-it.at<12000;})){setTimeout(function(){if(Q.length)render();},12500);return null;}return el('button',{class:'qbar',onclick:function(){flushQ();toast('…');}},'⏳ '+Q.length+' '+T('waiting to send')+' — '+T('tap to try now'));}
+function qBar(){if(!Q.length&&!MQN)return null;if(!MQN&&!S.offline&&Q.every(function(it){return Date.now()-it.at<12000;})){setTimeout(function(){if(Q.length)render();},12500);return null;}return el('button',{class:'qbar',onclick:function(){flushQ();mqFlush();toast('…');}},'⏳ '+(Q.length+MQN)+' '+T('waiting to send')+' — '+T('tap to try now'));}
 var errSent={},errCount=0;
 function logErr(msg,detail){
   try{msg=String(msg||'').slice(0,500);if(!msg||errSent[msg]||errCount>=8)return;errSent[msg]=1;errCount++;
@@ -1527,7 +1593,7 @@ function apply(d){
   if(d&&('__va' in d)&&d.__va!==(S.viewAs||null))return;
   if(d&&d.seen)S.seen=d.seen;if(d&&d.myPush===0&&!d.__cached)setTimeout(pushHeal,1500);
   if(!d||!d.me)return;
-  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if('pinReqs' in d)S.pinReqs=d.pinReqs;if(d.arr)S.arr=d.arr;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
+  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if('pinReqs' in d)S.pinReqs=d.pinReqs;if(d.arr)S.arr=d.arr;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;(d.tasks||[]).forEach(function(t){if(LANG==='es'&&t.titleEs){t.titleEn=t.title;t.title=t.titleEs;}if(LANG==='es'&&t.noteEs){t.noteEn=t.note;t.note=t.noteEs;}});S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
   if(!S.viewAs){store('sam_me',S.me);store('sam_name',S.name);store('sam_role',S.role);
   try{if(d.tasks)localStorage.setItem('sam_cache',JSON.stringify(d));}catch(e){}}
   if(Q.length)applyQ();
@@ -1613,7 +1679,7 @@ var DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],MN=['Jan','Feb','Mar','Apr','
 var DNE=['dom','lun','mar','mié','jue','vie','sáb'],MNE=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 function dateLabel(s){var d=parse(s);return LANG==='es'?DNE[d.getDay()]+', '+d.getDate()+' '+MNE[d.getMonth()]:DN[d.getDay()]+', '+MN[d.getMonth()]+' '+d.getDate();}
 function dueLabel(s){var t=today();if(s===t)return T('Today');if(s===addDays(t,1))return T('Tomorrow');if(s===addDays(t,-1))return T('Yesterday');return dateLabel(s);}
-function timeLabel(hm){if(!hm)return '';var p=hm.split(':'),h=+p[0];return ((h%12)||12)+':'+p[1]+(h<12?' AM':' PM');}
+function timeLabel(hm){if(!hm)return '';var p=hm.split(':'),h=+p[0];return ((h%12)||12)+':'+p[1]+(LANG==='es'?(h<12?' a. m.':' p. m.'):(h<12?' AM':' PM'));}
 function mapsUrl(a){return 'https://www.google.com/maps/search/?api=1&query='+(a&&typeof a==='object'?a.lat+','+a.lng:encodeURIComponent(a));}
 
 function toast(m){[].forEach.call(document.querySelectorAll('.toast'),function(o){o.remove();});var t=el('div',{class:'toast',text:m});document.body.appendChild(t);setTimeout(function(){t.remove();},4000);}
@@ -1629,7 +1695,7 @@ function askDiscard(onThrow){if(document.getElementById('discard'))return;
     el('button',{class:'primary',onclick:function(){d.remove();}},T('Keep editing')),
     el('button',{class:'dthrow',onclick:function(){d.remove();S.guard=null;onThrow();}},T('Throw away'))));
   document.body.appendChild(d);}
-function closeSheet(quiet,force){var s=document.getElementById('scrim');if(!s)return true;
+function closeSheet(quiet,force){var s=document.getElementById('scrim');if(!s)return true;if(s.querySelector('.chatsheet'))voiceStopAll();
   if(s.dataset.ret&&!RET_BUSY)RET.length=Math.min(RET.length,(+s.dataset.ret)-1); // closed some other way: forget its way back
   if(!force&&S.guard&&S.guard()){askDiscard(function(){closeSheet(quiet,true);});return false;}
   if(S.recStop){try{S.recStop();}catch(e){}S.recStop=null;}S.guard=null;S.sheetRefresh=null;if(S.chatPoll){clearInterval(S.chatPoll);S.chatPoll=null;}var hadChat=!!S.chatId;S.chatId=null;s.remove();queueHist();if(hadChat)setTimeout(function(){if(!document.getElementById('scrim'))render();},0);return true;}
@@ -1769,7 +1835,7 @@ function openMaint(fresh){
   var bkB=el('button',{class:'cbtn',onclick:openBackup},'💾 '+T('Backup now'));
   openSheet([el('h2',{id:'maintsheet',text:'🛠 '+T('App maintenance')}),
     el('button',{class:'cbtn',style:'text-align:left;border:0;background:'+(h&&(h.errors||h.pushFail)?'#FFF4DC':'#E6F6EA')+';font-weight:700',onclick:openErrors},health+'  ›'),
-    el('button',{class:'primary',onclick:openProblems},'🐞 '+T('Problems reported')+(probs?' ('+probs+')':'')),
+    el('button',{class:probs?'primary':'cbtn',onclick:openProblems},'🐞 '+T('Problems reported')+(probs?' ('+probs+')':'')),
     el('button',{class:'cbtn',onclick:openTestPush},'🔔 '+T('Send a test notification')),
     el('button',{class:'cbtn',onclick:openDevices},'📱 '+T('Phones signed up for alerts')+(M.devices?' · '+T('yours')+': '+mine:'')),
     el('button',{class:'cbtn',onclick:openNotSetUp},'📲 '+T('Workers alerts on')+' '+on+'/'+crew.length,never?el('small',{class:'muted',style:'display:block;font-weight:600',text:never+' '+T('never opened the app')}):null),
@@ -1843,7 +1909,7 @@ function homeViewOld(){
   wrap.appendChild(el('div',{class:'homegrid'},
     b('✅',T('Tasks'),function(){S.view='tasks';S.tab=S.me;render();window.scrollTo(0,0);}),
     b('🗓',T('Schedule'),function(){S.view='sched';S.crewDay=today();render();window.scrollTo(0,0);}),
-    S.me==='Yossi'&&!S.viewAs?b('📍',T('Job sites today'),function(){S.view='sites';render();window.scrollTo(0,0);}):null,
+    S.me==='Yossi'&&!S.viewAs?b('📍',T('Job sites today'),function(){S.lastTab=S.view||'home';S.view='sites';render();window.scrollTo(0,0);}):null,
     isSnowAdmin()?b('❄️',T('Snow plowing')+(S.snow&&S.snow.active?' · '+T('storm on'):''),openSnow):null,
     b('📋',T('Daily reports'),function(){openReports();}),
     b('📣',T('Announcement'),function(){openAnnounce();}),
@@ -1896,11 +1962,11 @@ function hTile(n,label,fn,cls){return el('button',{class:'htile'+(cls?' '+cls:''
 function needRow(icon,title,sub,right,fn,cls){return el('button',{class:'nrow'+(cls?' '+cls:''),onclick:fn},el('span',{class:'nic',text:icon}),
   el('span',{class:'nmid'},el('b',{text:title}),sub?el('span',{class:'nsub',text:sub}):null),right||el('span',{class:'hchev',text:'›'}));}
 function pill(t,cls){return el('span',{class:'npill'+(cls?' '+cls:''),text:t});}
-function goView(v){RET.length=0;S.view=v;if(v==='tasks')S.tab=S.me;if(v==='sched')S.crewDay=today();render();window.scrollTo(0,0);}
+function goView(v){RET.length=0;if(/^(home|chats|more|phones|jobs)$/.test(S.view||'home'))S.lastTab=S.view||'home';S.view=v;if(v==='tasks')S.tab=S.me;if(v==='sched')S.crewDay=today();render();window.scrollTo(0,0);}
 function lastMsg(x){var l=chatMsgs(x);return l.length?l[l.length-1]:null;}
 function unreadTasks(){return allT().filter(function(x){return (isOffice()||x.owner===S.me||isDm(x))&&unreadOf(x)>0;}).sort(function(a,b){var A=(lastMsg(a)||{}).at||'',B=(lastMsg(b)||{}).at||'';return A<B?1:-1;});}
 // Only messages from the last 24 hours go on the front page; older unread ones wait in Messages.
-function freshUnread(){var cut=new Date(Date.now()-864e5).toISOString();return unreadTasks().filter(function(x){return ((lastMsg(x)||{}).at||'')>=cut;});}
+function freshUnread(){var cut=new Date(Date.now()-864e5).toISOString();return unreadTasks().filter(function(x){var lm=lastMsg(x)||{};if(isOffice()&&!isDm(x)&&lm.by&&lm.by!==S.me&&PEOPLE.indexOf(lm.by)>=0)return false; /* someone in the office already answered */return (lm.at||'')>=cut;});}
 function unreadTotal(){var n=0;allT().forEach(function(x){if(isOffice()||x.owner===S.me||isDm(x))n+=unreadOf(x);});return n;}
 
 // ===== Simple front (proposal A): greeting, at most ONE alert line, at most 3 big buttons. Everything else is under More. =====
@@ -1927,7 +1993,7 @@ function needItems(){
   var tagged=[];freshUnread().forEach(function(x){var seen=((S.seen||{})[x.id]||{})[S.me]||'',tm=chatMsgs(x).filter(function(m){return m.by!==S.me&&m.at>seen&&(m.m||[]).indexOf(S.me)>=0;}).pop();if(tm)tagged.push([x,tm]);});
   tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
   freshUnread().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?dmName(x):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
-  if(S.me==='Yossi'&&!S.viewAs)(S.pinReqs||[]).forEach(function(r){add('🔑',r.name+' '+T('forgot the PIN'),T('Asked from the log-in page')+' · '+cWhen(r.at),pill(T('Answer'),'blue'),function(){pinReqAsk(r);});});
+  if((S.me==='Yossi'||S.me==='Rocky')&&!S.viewAs)(S.pinReqs||[]).forEach(function(r){add('🔑',r.name+' '+T('forgot the PIN'),T('Asked from the log-in page')+' · '+cWhen(r.at),pill(T('Answer'),'blue'),function(){pinReqAsk(r);});});
   if(S.me==='Yossi'&&!S.viewAs&&S.estWait)add('📄',S.estWait+' '+T(S.estWait>1?'estimates to send to Claude':'estimate to send to Claude'),T('Waiting for you'),pill(T('Send'),'blue'),openEst);
   if(schedSent(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
   if(!isSat(t)&&!isSun(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
@@ -1958,8 +2024,18 @@ function homeView(){
     tile('c-purple','📋',T('Reports'),isSat(t)&&!repIn?T('No work Saturday'):(crews.length?repIn+' '+T('of')+' '+crews.length+' '+T('sent today'):''),openReports),
     tile('c-orange','＋',T('New task'),'',function(){openEditor(null);}),
     isSnowAdmin()&&snowHome()?tile('c-snow wide','❄️',T('Snow plowing'),S.snow&&S.snow.active?T('storm on'):T('Customers · routes · storms'),openSnow):null));
+  var gl=glanceCard();if(gl)wrap.appendChild(gl);
   return wrap;
 }
+// Today at a glance (office): crews out, who arrived, jobs done / halfway / not started, photos today
+function glanceCard(){if(!isOffice()||S.viewAs)return null;var t=today(),wk=S.tasks.filter(function(x){return x.due===t&&PEOPLE.indexOf(x.owner)<0&&!isDm(x);});if(!wk.length)return null;
+  var ppl={};wk.forEach(function(x){ppl[x.owner]=1;});var np=Object.keys(ppl).length,arr=Object.keys(S.arr||{}).filter(function(k){return ppl[k];}).length;
+  var dn=wk.filter(function(x){return x.status==='done';}).length,hf=wk.filter(function(x){return x.status==='half';}).length,ns=wk.length-dn-hf;
+  var ph=0;wk.forEach(function(x){chatMsgs(x).forEach(function(m){if((m.photo||m.video)&&String(m.at||'').slice(0,10)===t)ph++;});});
+  function cell(n,l,c){return el('div',{class:'glc'+(c?' '+c:'')},el('b',{text:String(n)}),el('span',{text:l}));}
+  return el('button',{class:'glance',onclick:function(){S.lastTab='home';S.view='sites';render();window.scrollTo(0,0);}},
+    el('div',{class:'glh'},el('b',{text:T('Today at a glance')}),el('span',{class:'hchev',text:'›'})),
+    el('div',{class:'glg'},cell(np,T('workers out')),cell(arr+'/'+np,T('arrived'),arr<np?'warn':''),cell(dn,T('done'),'ok'),cell(hf,T('halfway')),cell(ns,T('not done yet'),ns?'warn':''),cell(ph,T('photos'))));}
 // Full "Needs you now" list + the 3 numbers (one tap from the alert line or from More)
 function needView(){
   var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
@@ -2106,7 +2182,7 @@ function moreView(){
     wrap.appendChild(sec('Me'));
     wrap.appendChild(el('div',{class:'mrows'},rowb('⚙️',T('Settings'),openSettings),rowb('🐞',T('Report a problem'),openReport)));
     if(yo){wrap.appendChild(sec('Only for you'));
-      wrap.appendChild(el('div',{class:'mrows'},rowb('📍',T('Job sites today'),function(){S.view='sites';render();window.scrollTo(0,0);}),rowb('🛠',T('App maintenance'),openMaint),rowb('🆕',T("What's new"),function(){openWhatsNew(true);})));}
+      wrap.appendChild(el('div',{class:'mrows'},rowb('📍',T('Job sites today'),function(){S.lastTab=S.view||'home';S.view='sites';render();window.scrollTo(0,0);}),rowb('🛠',T('App maintenance'),openMaint),rowb('🆕',T("What's new"),function(){openWhatsNew(true);})));}
     return wrap;}
   wrap.appendChild(el('div',{class:'homegrid'},
     b('📣',T('Announcement'),function(){openAnnounce();}),
@@ -2121,30 +2197,37 @@ function moreView(){
     b('🐞',T('Report a problem'),openReport)));
   if(yo){wrap.appendChild(sec('Only for you'));
     wrap.appendChild(el('div',{class:'homegrid'},
-      b('📍',T('Job sites today'),function(){S.view='sites';render();window.scrollTo(0,0);}),
+      b('📍',T('Job sites today'),function(){S.lastTab=S.view||'home';S.view='sites';render();window.scrollTo(0,0);}),
       b('🛠',T('App maintenance'),openMaint),
       b('🆕',T("What's new"),function(){openWhatsNew(true);})));}
   return wrap;
 }
 
 // Worker: big card for the job he is on now
+// a message at the bottom with an Undo button (for a few seconds)
+function undoToast(msg,undo){[].forEach.call(document.querySelectorAll('.utoast'),function(n){n.remove();});var t=el('div',{class:'utoast'},el('span',{text:msg}),el('button',{onclick:function(){t.remove();undo();}},T('Undo')));document.body.appendChild(t);setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove();},400);},9500);}
 function jobHero(x){
   var job=jobOf(x.job),drvN=/^🚐 \d+ · /.test(x.title||'')?x.title.replace(/^🚐 \d+ · /,''):'',drive=!!drvN&&drvN===(S.name||nameOf(S.me));
   var dn=x.status==='done',strip=[(dn?'✓ '+T('Done')+' · ':(x.status==='half'?'🟡 '+T('Halfway')+' · ':''))+(x.due===today()?T('Today'):dueLabel(x.due||today()))];if(x.time)strip.push(timeLabel(x.time));if(drive)strip.push('🚐 '+T('You drive'));
-  var name=job?job.name:x.title.replace(/^(🚐|🚗) ?\d* ?·? ?/,'');
+  // schedule job → the job name; a task the office gave → WHAT to do as the big line, the job small above it
+  var sched=/^(🚐|🚗)/.test(x.title||'')||/^sch-/.test(x.group||''),name=sched?(job?job.name:x.title.replace(/^(🚐|🚗) ?\d* ?·? ?/,'')):x.title,sub=!sched&&job?job.name:'';
+  var addr=x.address||(job&&job.address)||'';
   // front card: what/where/who, then only 3 big buttons (Go · Photo · Done). Halfway is inside Done; chat is in Messages; full card is in "All my jobs".
   return el('div',{class:'jhero s-'+x.status},
     el('div',{class:'jhstrip',text:'🕖 '+strip.join(' · ').toUpperCase()}),
     el('div',{class:'jhbody'},
+      sub?el('div',{class:'jhsub',text:sub}):null,
       el('div',{class:'jhname',text:name}),
-      x.address?el('a',{class:'jhaddr',href:mapsUrl(x.address),target:'_blank',rel:'noopener'},'📍 ',el('span',{text:x.address})):null,
+      addr?el('a',{class:'jhaddr',href:mapsUrl(addr),target:'_blank',rel:'noopener'},'📍 ',el('span',{text:addr})):null,
       x.note?el('div',{class:'jhnote',text:'📝 '+x.note}):null,
       x.team&&x.team.length?teamBox(x):null,rideLine(x),sharedLine(x),
       el('div',{class:'jhbtns'},
-        x.address?el('a',{class:'jhgo',href:mapsUrl(x.address),target:'_blank',rel:'noopener'},'🧭 '+T('Go')):null,
+        addr?el('a',{class:'jhgo',href:mapsUrl(addr),target:'_blank',rel:'noopener'},'🧭 '+T('Go')):null,
         el('button',{class:'jhsec',onclick:function(){openMedia(x);}},'📷 '+T('Photo'))),
       !dn&&!isOffice()&&x.due===today()?((S.arr||{})[S.me]?el('div',{class:'arrok',text:'✓ '+T('You arrived')+' '+clockOf(S.arr[S.me])}):
-        el('button',{class:'arrbtn',onclick:function(e){var b=e.currentTarget;b.disabled=true;S.arr=S.arr||{};var at=new Date().toISOString();S.arr[S.me]=at;haptic();sendQ('arrive',{at:at});}},'📍 '+T('I arrived'))):null),
+        el('button',{class:'arrbtn',onclick:function(e){if(S.viewAs){toast('👀 '+T('You are only looking as this worker – nothing can be changed.'));return;}S.arr=S.arr||{};var at=new Date().toISOString();S.arr[S.me]=at;haptic();render();
+          var undone=false,tm=setTimeout(function(){if(!undone)sendQ('arrive',{at:at});},10000);
+          undoToast('✓ '+T('You arrived')+' '+clockOf(at),function(){undone=true;clearTimeout(tm);delete S.arr[S.me];render();});}},'📍 '+T('I arrived'))):null),
     dn?el('div',{class:'jhdoneinfo',text:x.updatedBy==='Auto 6 PM'?'✓ '+T('Closed automatically at 6 PM – still working? Add your overtime in My week'):'✓ '+T('Marked done')}):
       el('button',{class:'jhdone jhfull',onclick:function(){openDone(x);}},'✓ '+T('Done')));
 }
@@ -2172,6 +2255,16 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'rv_glance',i:'📊',t:'Today at a glance',d:'On Today: workers out, who arrived, done / halfway / not done yet and photos today. Tap it for Job sites.',go:function(){goView('home');}},
+ {id:'rv_translate',i:'🌐',t:'Translate messages',d:'Hold a message → Translate (Spanish ⇄ English), free. Spanish workers now also see your task titles and notes in Spanish.',go:function(){goView('chats');}},
+ {id:'rv_stamp',i:'📷',t:'Date and job on every photo',d:'Photos from the app camera get a small date · time · job stamp in the corner – proof for the customer.'},
+ {id:'rv_chatst',i:'✅',t:'Done button in the job chat',d:'The job chat shows the job\'s status on top – tap it to mark Done or Halfway.'},
+ {id:'rv_offline',i:'⏳',t:'Nothing is lost with no signal',d:'Videos, voice notes, files and photos sent with no signal are saved on the phone (even if the app is closed) and send by themselves when the signal is back. Long chats keep their old messages in an archive (Search all history finds them).'},
+ {id:'rv_notif',i:'🔔',t:'Smarter notifications',d:'On a day off (Saturday / Yom Tov) the app is quiet unless people are working (working Saturday, snow, or a schedule / task for the next day) – then everyone gets them, you too. A worker\'s message or Done now goes to whoever made the task and the office people already in that chat – not all 3 phones. "Your job was changed" now says what changed.'},
+ {id:'rv_worker',i:'👷',t:'Worker screen cleaner',d:'Workers see WHAT to do as the big line (job name small above), the address and Go even when only the job has one, all alerts under the job, a big Call the office button, weather, and Undo after "I arrived". Install / PIN tips moved under the job.'},
+ {id:'rv_security',i:'🔒',t:'Safety fixes',d:'Files can\'t run inside the app, worker PIN guessing is blocked, removed workers get nothing, Forward only for files of that chat, the AI key can\'t change PINs, worker PINs show only to you. Rocky can also approve a Forgot PIN.'},
+ {id:'rv_mint',i:'🎨',t:'Mint everywhere',d:'Home tiles and Needs you in mint, one green, no beige, mint focus on text boxes, the app\'s icons instead of emojis in many more places, Back goes to the right page.'},
+ {id:'rv_smooth',i:'⚡',t:'Smoother on iPhone and Samsung',d:'Voice notes never play twice, the camera comes back after a call, chats don\'t download when the phone sleeps, scrolling never waits for the swipe, Samsung keyboard keeps the chat header, iPhone log-in always fits.'},
  {id:'cseg',i:'💬',t:'Messages: Jobs · Chats · Groups',d:'Under the search box in Messages: Jobs (all the job chats), Chats (direct messages) and Groups. The small number shows new messages in each. Search still looks through everything.',go:function(){goView('chats');}},
  {id:'emopanel',i:'😊',t:'Emojis open right away',d:'Tap 😊 in a chat and the app\'s own emoji panel opens at once (Recent, Smileys, Hands, Work, Weather, Signs) – no more note about the keyboard. Tap the keyboard icon to type again. Holding a message → ＋ opens the same panel to react.',go:function(){goView('chats');}},
  {id:'camback',i:'📷',t:'Back goes to the camera',d:'Not happy with the picture? The phone\'s Back now takes you back to the camera to take another one. Press Back again to leave the camera.'},
@@ -2182,7 +2275,7 @@ var WHATS_NEW=[
  {id:'viewasdm',i:'👀',t:'See the new-chat button as a worker',d:'When you see the app as a worker, Messages now shows the ＋ too, so you can see that they can write to you, Rocky and Ashley. (Looking only – it does not open a chat for them.)'},
  {id:'groups',i:'👥',t:'Group chats',d:'Messages → ＋ → New group: give it a name and pick the people (office and workers). Everyone in it sees all the messages, photos and videos, with the name of who wrote each one. Tap the group name on top to see who is in it or change the name.',go:function(){goView('chats');}},
  {id:'crewdm',i:'💬',t:'Workers can write to the office',d:'Every worker now has the ＋ in Messages to start a chat with you, Rocky or Ashley (only the office – not with other workers).',go:function(){goView('chats');}},
- {id:'satsites',i:'📍',t:'Job sites: no Prospect crews on Saturday',d:'On Saturday (and Sunday) Job sites today no longer shows the Prospect crews as working. They show only if the crew leader taps "Working this Saturday?" and sends the report.',go:function(){S.view='sites';render();}},
+ {id:'satsites',i:'📍',t:'Job sites: no Prospect crews on Saturday',d:'On Saturday (and Sunday) Job sites today no longer shows the Prospect crews as working. They show only if the crew leader taps "Working this Saturday?" and sends the report.',go:function(){S.lastTab=S.view||'home';S.view='sites';render();}},
  {id:'torch3',i:'🔦',t:'Flashlight: on at once, off after the picture',d:'The flashlight now turns on right away when you tap it, and turns off the moment the picture is taken or the video stops.'},
  {id:'holdopen',i:'🖼',t:'Hold an open photo',d:'When a photo is open full screen, holding it now shows the same menu as in the chat (react, Reply, Forward, Share, Delete) – not the Chrome menu.'},
  {id:'pin2x',i:'🔑',t:'New PIN typed twice',d:'After you approve a Forgot PIN, the worker types the new PIN two times to make sure it is right. If they are not the same, they try again. Try it: Maintenance → Test Forgot PIN.',go:function(){openMaint();}},
@@ -2339,11 +2432,11 @@ var WN_POP=0;function wnPop(){if(Date.now()-WN_POP<600000||!wnLeft().length||doc
 document.addEventListener('visibilitychange',function(){if(!document.hidden&&S.me&&S.loaded)wnPop();});
 function render_(){
   var app=document.getElementById('app'),y=window.scrollY;app.innerHTML='';
-  if(!S.me){document.body.classList.remove('hasbt');var ioc0=iosInstallCard();if(ioc0)app.appendChild(ioc0);if(INSTALL_EV&&!isStandalone())app.appendChild(el('button',{class:'instbtn',onclick:doInstall},'📲 '+T('Install the app on this phone'),el('small',{text:T('One tap to open it, like any other app')})));app.appendChild(loginView());return;}
+  if(!S.me){document.body.classList.remove('hasbt');/* the install tip waits until after log-in, so the PIN pad always fits */if(INSTALL_EV&&!isStandalone())app.appendChild(el('button',{class:'instbtn',onclick:doInstall},'📲 '+T('Install the app on this phone'),el('small',{text:T('One tap to open it, like any other app')})));app.appendChild(loginView());return;}
   app.appendChild(header());
   var qb=qBar();if(qb)app.appendChild(qb);
   var wb=wnBar();if(wb){app.appendChild(wb);if(S.loaded)wnPop();}
-  var ioc=!S.viewAs&&(S.view||'home')==='home'&&iosInstallCard();if(ioc)app.appendChild(ioc);
+  var ioc=!S.viewAs&&isOffice()&&(S.view||'home')==='home'&&iosInstallCard();if(ioc)app.appendChild(ioc);
   if(INSTALL_EV&&!S.viewAs&&!isStandalone())app.appendChild(el('button',{class:'instbtn',onclick:doInstall},'📲 '+T('Install the app on this phone'),el('small',{text:T('One tap to open it, like any other app')})));
   if(S.viewAs)app.appendChild(el('button',{class:'viewasbar',onclick:stopViewAs},'👀 '+T('Viewing as')+' '+S.name+' – '+T('tap to go back to Yossi')));
   var v=S.view||'home';
@@ -2351,10 +2444,11 @@ function render_(){
   else if(v==='cal')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   else if(v==='est')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   else if(v==='estone')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('est',openEst);}},'‹ '+T('Estimates')));
+  else if(/^(sites|snow|cal|week)$/.test(v)&&(S.lastTab==='more'||!isOffice()))app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   else if(isOffice()&&!/^(home|chats|more|phones|jobs|snowdrv)$/.test(v))app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('home',goHome);}},'‹ '+T('Today')));
   else if(!isOffice()&&v==='myjobs')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   if(isOffice()&&v==='tasks')app.appendChild(tabs());
-  var nb=notifBanner();if(nb)app.appendChild(nb);var pb=pinBanner();if(pb)app.appendChild(pb);
+  var nb=notifBanner();if(nb)app.appendChild(nb);var pb=isOffice()?pinBanner():null;if(pb)app.appendChild(pb);
   if(!isOffice()){if(S.snow&&S.snow.stops&&S.view==='snowdrv')app.appendChild(snowDriverView());else if(v==='chats')app.appendChild(chatsView());else if(v==='week')app.appendChild(weekView());else if(v==='more')app.appendChild(moreView());else if(v==='myjobs')app.appendChild(myJobsView());else app.appendChild(workerView());}
   else if(v==='snow'&&isSnowAdmin())app.appendChild(snowView());
   else if(v==='snowdrv'&&isSnowAdmin()&&(S.snDrv||(S.snow&&S.snow.stops)))app.appendChild(snowDriverView());
@@ -2377,9 +2471,9 @@ function render_(){
 }
 
 function isBadPin(e){return String((e&&e.message)||e).indexOf('BAD_PIN')>=0;}
-function pinHash(who,p){var str='sam|'+DEV_ID+'|'+who+'|'+p,h=2166136261;for(var r=0;r<500;r++)for(var i=0;i<str.length;i++){h^=str.charCodeAt(i)+r;h=Math.imul(h,16777619)>>>0;}return 'b'+(h%256);}
+function pinHash(who,p){var str='sam|'+DEV_ID+'|'+who+'|'+p,h=2166136261;for(var r=0;r<500;r++)for(var i=0;i<str.length;i++){h^=str.charCodeAt(i)+r;h=Math.imul(h,16777619)>>>0;}return 'c'+h.toString(36);}
 function rememberPin(){try{if(!S.me||!S.pin||S.viewAs)return;var pick=PEOPLE.indexOf(S.me)>=0?S.me:'crew';localStorage.setItem('sam_pinh',JSON.stringify({pick:pick,me:S.me,h:pinHash(pick,S.pin)}));}catch(e){}}
-function clearSession(){try{var ph=JSON.parse(localStorage.getItem('sam_pinh')||'null'),cd=localStorage.getItem('sam_cache');if(ph&&cd&&!S.badPin)localStorage.setItem('sam_prev',JSON.stringify({pick:ph.pick,me:ph.me,h:ph.h,data:cd,jall:localStorage.getItem('sam_jall'),snow:localStorage.getItem('sam_snow'),maint:localStorage.getItem('sam_maint'),otw:localStorage.getItem('sam_otw')}));else localStorage.removeItem('sam_prev');localStorage.removeItem('sam_pinh');}catch(e){}['sam_me','sam_pin','sam_tok','sam_role','sam_name','sam_cache','sam_jall','sam_snow','sam_maint','sam_use'].forEach(function(k){store(k,null);});S.jall=null;S.me=null;S.pin=null;S.role=null;S.name=null;S.tasks=[];S.crew=[];S.loaded=false;}
+function clearSession(){try{var ph=JSON.parse(localStorage.getItem('sam_pinh')||'null'),cd=localStorage.getItem('sam_cache');if(ph&&cd&&!S.badPin){try{var cdo=JSON.parse(cd);(cdo.crew||[]).forEach(function(c){delete c.pin;delete c.workerPin;});cd=JSON.stringify(cdo);}catch(e2){}}if(ph&&cd&&!S.badPin)localStorage.setItem('sam_prev',JSON.stringify({pick:ph.pick,me:ph.me,h:ph.h,data:cd,jall:localStorage.getItem('sam_jall'),snow:localStorage.getItem('sam_snow'),maint:localStorage.getItem('sam_maint'),otw:localStorage.getItem('sam_otw')}));else localStorage.removeItem('sam_prev');localStorage.removeItem('sam_pinh');}catch(e){}['sam_me','sam_pin','sam_tok','sam_role','sam_name','sam_cache','sam_jall','sam_snow','sam_maint','sam_use'].forEach(function(k){store(k,null);});S.jall=null;S.me=null;S.pin=null;S.role=null;S.name=null;S.tasks=[];S.crew=[];S.loaded=false;}
 function dropPush(){try{var tk=store('sam_tok');if(tk&&S.me&&S.pin)call('unregister',{token:String(tk).split('|')[2]}).catch(function(){});}catch(e){}}
 var SAVE_T0=0;function savingLong(){if(!S.saving){SAVE_T0=0;return false;}if(!SAVE_T0){SAVE_T0=Date.now();setTimeout(function(){if(S.saving&&SAVE_T0&&Date.now()-SAVE_T0>=5000){var n=document.querySelector('.sync');if(n)n.textContent=T('Saving…');}},5100);}return Date.now()-SAVE_T0>=5000;}
 function signOut(msg,manual){SESS++;S.badPin=!manual;S.lgPin='';S.lgOther=false;S.lgBioAsked=!!manual;S.lgName=''; // only a normal 'Sign out' keeps the quick sign-in for next time
@@ -2415,16 +2509,17 @@ function lgTry(who,p,fail){
   try{var prev=JSON.parse(localStorage.getItem('sam_prev')||'null');
     if(prev&&prev.pick===who&&prev.h===pinHash(who,p)&&prev.data){var dd=JSON.parse(prev.data);
       if(dd&&dd.me&&dd.me.key===prev.me){S.pin=p;S.quickIn=prev.me;try{if(prev.jall){S.jall=JSON.parse(prev.jall);localStorage.setItem('sam_jall',prev.jall);}if(prev.snow){S.sn=JSON.parse(prev.snow);localStorage.setItem('sam_snow',prev.snow);}if(prev.maint){MAINT=JSON.parse(prev.maint);localStorage.setItem('sam_maint',prev.maint);}if(prev.otw){OTW=JSON.parse(prev.otw);localStorage.setItem('sam_otw',prev.otw);}}catch(e1){}
-        store('sam_pin',p);dd.__cached=1;apply(dd);S.pick=null;S.lgPin='';S.lgOther=false;S.loginMsg='';S.tab=isOffice()?S.me:'Yossi';S.loaded=true;S.err='';rememberPin();render();startPolling();refresh(true);runGo();if(notifState()==='granted')enablePush(false);setTimeout(bioOffer,1200);return;}}}catch(e0){}
+        store('sam_pin',p);dd.__cached=1;apply(dd);S.pick=null;S.lgPin='';S.lgOther=false;S.loginMsg='';S.tab=isOffice()?S.me:'Yossi';S.loaded=true;S.err='';rememberPin();render();window.scrollTo(0,0);startPolling();refresh(true);runGo();if(notifState()==='granted')enablePush(false);setTimeout(bioOffer,1200);return;}}}catch(e0){}
   S.lgBusy=true;render();
   call('list',{pin:p},who).then(function(d){S.lgBusy=false;S.pin=p;store('sam_pin',p);apply(d);rememberPin();var b=bioGet();if(b&&b.me===S.me&&b.pin!==p){b.pin=p;bioSet(b);}
-    S.pick=null;S.lgPin='';S.lgOther=false;S.loginMsg='';S.tab=isOffice()?S.me:'Yossi';S.loaded=true;S.err='';render();runGo();startPolling();if(notifState()==='granted')enablePush(false);setTimeout(bioOffer,1200);})
+    S.pick=null;S.lgPin='';S.lgOther=false;S.loginMsg='';S.tab=isOffice()?S.me:'Yossi';S.loaded=true;S.err='';render();window.scrollTo(0,0);runGo();startPolling();if(notifState()==='granted')enablePush(false);setTimeout(bioOffer,1200);})
   .catch(function(e){S.lgBusy=false;S.lgPin='';if(fail)fail(e);S.loginMsg=/LOCKED/.test(String(e&&e.message))?T('Too many wrong PINs. Try again in 15 minutes.'):isBadPin(e)?T('Wrong PIN. Try again.'):T('Could not connect. Check your signal and try again.');render();
     var pd=document.querySelector('.lg3dots');if(pd){pd.classList.remove('shake');void pd.offsetWidth;pd.classList.add('shake');}if(navigator.vibrate)try{navigator.vibrate(120);}catch(x){}});}
 function lgBio(){bioUnlock().then(function(b){lgTry(b.pick,b.pin,function(e){if(isBadPin(e))bioSet(null);});}).catch(function(e){if(e&&e.message!=='nobio')S.loginMsg='';});}
 function pinReqAsk(r){openSheet([el('div',{class:'bioic',html:icoSvg('🔑')||'🔑'}),el('h2',{style:'text-align:center',text:r.name+' '+T('forgot the PIN')}),
-  el('p',{class:'muted',style:'text-align:center',text:T('Only approve if it is really him or her.')}),
-  el('div',{style:'display:flex;gap:10px'},el('button',{class:'primary',style:'flex:1',onclick:function(){dec(true);}},T('Approve')),el('button',{class:'ghost',style:'flex:1;border:1.5px solid #CFE3DD',onclick:function(){dec(false);}},T('Decline')))]);
+  el('p',{class:'muted',style:'text-align:center',text:T('Asked')+' '+cWhen(r.at)+' · '+T('Only approve if it is really him or her.')}),
+  (function(){var w=(S.crew||[]).filter(function(c){return c.name===r.name;})[0];return w&&w.phone?el('a',{class:'cbtn',href:'tel:'+String(w.phone).replace(/[^\d+]/g,''),style:'display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;margin-bottom:10px'},el('span',{class:'lg3pi',html:PHSVG}),T('Call')+' '+firstName(r.name)+' '+T('to check')):null;})(),
+  el('div',{style:'display:flex;gap:10px'},el('button',{class:'primary',style:'flex:1',onclick:function(){dec(true);}},T('Approve')),el('button',{class:'cbtn',style:'flex:1;margin:0',onclick:function(){dec(false);}},T('Decline')))]);
   function dec(ok){closeSheet();S.pinReqs=(S.pinReqs||[]).filter(function(x){return x.rid!==r.rid;});render();call('pinReqDecide',{rid:r.rid,ok:ok?1:0}).then(function(d){apply(d);render();toast(ok?'✓ '+T('Approved – they can make a new PIN now'):T('Declined'));if(r.test&&FPTEST&&FPTEST.rid===r.rid){FPTEST.st=ok?'ok':'no';setTimeout(openFpTest,500);}}).catch(function(e){toast('❗ '+errText(e));});}}
 // Maintenance → Test Forgot PIN: Yossi plays the worker AND the office. Nothing real changes.
 var FPTEST=null,FPTT=0;
@@ -2446,7 +2541,7 @@ function openFpTest(fresh){if(fresh)FPTEST={st:'ask'};if(!FPTEST)return;closeShe
       el('button',{class:'lg3btn',onclick:function(){var r=(S.pinReqs||[]).filter(function(x){return x.rid===f.rid;})[0]||{rid:f.rid,name:'Test worker',test:1};fpTestClose();pinReqAsk(r);}},T('Answer it now'))));
     fpTestPoll();}
   else if(f.st==='ok'){box.appendChild(el('div',{class:'lg3wait ok',html:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'}));
-    box.appendChild(el('h1',{class:'lg3t sm',text:T('Approved')+', Test!'}));box.appendChild(el('div',{class:'lg3s',text:f.first?T('Type the new PIN again'):T('Make your new 4-number PIN')}));
+    box.appendChild(el('h1',{class:'lg3t sm',text:(LANG==='es'?'¡':'')+T('Approved')+', Test!'}));box.appendChild(el('div',{class:'lg3s',text:f.first?T('Type the new PIN again'):T('Make your new 4-number PIN')}));
     var dots=el('div',{class:'lg3dots'});for(var i=0;i<4;i++)dots.appendChild(el('i',{}));box.appendChild(dots);
     if(f.err)box.appendChild(el('div',{class:'err',style:'text-align:center;margin:0 0 6px',text:f.err}));
     box.appendChild(lgPad(function(p){f.err='';
@@ -2475,11 +2570,11 @@ function fpView(box){var f=fpGet();
     box.appendChild(el('h1',{class:'lg3t',text:T('Forgot your PIN?')}));box.appendChild(el('div',{class:'lg3s',text:T('No problem – ask the office')}));
     box.appendChild(el('div',{class:'lg3phw'},el('span',{text:'+1'}),ph));box.appendChild(er);
     var go=el('button',{class:'lg3btn',onclick:function(){var d=ph.value.replace(/\D/g,'');if(d.length<10){er.textContent=T('Type your phone number');ph.focus();return;}go.disabled=true;go.textContent=T('Sending…');
-      call('pinReq',{phone:d},'-').then(function(r){fpSet({rid:r.rid,st:'wait'});render();fpPoll();}).catch(function(e){go.disabled=false;go.textContent=T('Ask the office for a new PIN');er.textContent=/LOCKED/.test(String(e&&e.message))?T('Too many tries. Wait an hour or call the office.'):isNet(e)?T('No signal right now.'):T('Check the phone number.');});}},T('Ask the office for a new PIN'));
+      call('pinReq',{phone:d},'-').then(function(r){if(r&&r.unknown){go.disabled=false;go.textContent=T('Ask the office for a new PIN');er.textContent=T('This number is not in the app. Call the office.');return;}fpSet({rid:r.rid,st:'wait'});render();fpPoll();}).catch(function(e){go.disabled=false;go.textContent=T('Ask the office for a new PIN');er.textContent=/LOCKED/.test(String(e&&e.message))?T('Too many tries. Wait an hour or call the office.'):isNet(e)?T('No signal right now.'):T('Check the phone number.');});}},T('Ask the office for a new PIN'));
     box.appendChild(go);setTimeout(function(){ph.focus();},60);}
   else if(f.st==='wait'){box.appendChild(el('div',{class:'lg3wait'},el('span',{class:'lg3spin'})));box.appendChild(el('h1',{class:'lg3t sm',text:T('Waiting for the office…')}));box.appendChild(el('div',{class:'lg3s',text:T('Your request was sent')}));if(!FPT)fpPoll();}
   else if(f.st==='ok'){box.appendChild(el('div',{class:'lg3wait ok',html:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'}));
-    box.appendChild(el('h1',{class:'lg3t sm',text:T('Approved')+(f.name?', '+f.name+'!':'!')}));box.appendChild(el('div',{class:'lg3s',text:S.lgBusy?T('Saving…'):S.fpFirst?T('Type the new PIN again'):T('Make your new 4-number PIN')}));
+    box.appendChild(el('h1',{class:'lg3t sm',text:(LANG==='es'?'¡':'')+T('Approved')+(f.name?', '+f.name+'!':'!')}));box.appendChild(el('div',{class:'lg3s',text:S.lgBusy?T('Saving…'):S.fpFirst?T('Type the new PIN again'):T('Make your new 4-number PIN')}));
     var dots=el('div',{class:'lg3dots'});for(var i=0;i<4;i++)dots.appendChild(el('i',{class:i<S.lgPin.length?'f':''}));box.appendChild(dots);
     if(S.loginMsg)box.appendChild(el('div',{class:'err',style:'text-align:center;margin:0 0 6px',text:S.loginMsg}));
     box.appendChild(lgPad(function(p){
@@ -2659,7 +2754,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142113',lastUpd=0;
+var BUILD='202611142145',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2864,23 +2959,28 @@ function openWorkerDay(k,d){
   S.sheetRefresh=function(){var sh=document.querySelector('#scrim .sheet');if(!sh)return;var y=sh.scrollTop;sh.innerHTML='';build().forEach(function(n){sh.appendChild(n);});sh.scrollTop=y;};
 }
 function workerJobs(){var tdy=today(),myAll=S.tasks.filter(function(x){return x.owner===S.me;});
-  var nowJobs=myAll.filter(function(x){return !crewClosed(x)&&x.due===tdy;}).sort(crewOrder),heroX=nowJobs[0]||myAll.filter(function(x){return x.status==='done'&&x.due===tdy&&isCrewTask(x);}).sort(crewOrder)[0]||null;
+  var nowJobs=myAll.filter(function(x){return !crewClosed(x)&&x.due===tdy;}).sort(crewOrder);
+  // snow helper: during a storm the snow task is the big card
+  var snowT=nowJobs.filter(function(x){return /^❄️/.test(x.title||'');})[0];if(snowT)nowJobs=[snowT].concat(nowJobs.filter(function(x){return x!==snowT;}));
+  var heroX=nowJobs[0]||myAll.filter(function(x){return x.status==='done'&&x.due===tdy&&isCrewTask(x);}).sort(crewOrder)[0]||null;
   return {tdy:tdy,all:myAll,now:nowJobs,hero:heroX};}
 // Worker front: greeting, at most ONE alert, and the big things for today (job card / report button). Everything else: More → All my jobs.
 function workerView(){
   var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
   var J=workerJobs(),tdy=J.tdy,heroX=J.hero,lead=(S.steady&&S.steady.crews||[]).filter(function(c){return c.leader===S.me;});
-  wrap.appendChild(heroBox(T('Hi')+', '+firstName(S.name||S.me)+' 👋',longDate(tdy),null));
-  // the ONE alert: snow route > announcement > new message > a second job today
-  var a=(S.anns||[])[0],un=freshUnread()[0],more=J.now.filter(function(x){return x!==heroX;});
+  // small one-line greeting, so today's job (with Go / Photo / Done) is on the screen right away
+  wrap.appendChild(el('div',{class:'wgreet'},el('b',{text:T('Hi')+', '+firstName(S.name||S.me)}),el('span',{class:'wgr'},el('span',{text:new Date(tdy+'T12:00:00').toLocaleDateString(LANG==='es'?'es-US':'en-US',{weekday:'short',month:'short',day:'numeric'})}),wxMini())));
+  // snow first; then the job card; then every alert (announcement, new message, more jobs) under it
+  var a=(S.anns||[])[0],un=freshUnread()[0],more=J.now.filter(function(x){return x!==heroX;}),after=el('div',{});
   if(S.snow&&S.snow.stops)wrap.appendChild(snowBannerBtn());
-  else if(a)wrap.appendChild(el('div',{class:'ann'},
+  var wrap0=wrap;wrap=after;
+  if(a)wrap.appendChild(el('div',{class:'ann'},
     el('div',{class:'from',text:'📣 '+T('Announcement from ')+a.from+' · '+annWhen(a.createdAt)}),
     el('div',{class:'txt',text:(LANG==='es'?a.es:a.en)||a.text}),
     el('button',{class:'primary',onclick:function(){S.anns=S.anns.filter(function(q){return q.id!==a.id;});render();call('annSeen',{id:a.id}).catch(function(){});}},'✓ '+T('OK, got it'))));
-  else if(un){var m=lastMsg(un);wrap.appendChild(alertLine('💬',T('New message from')+' '+nameOf(m.by),msgLabel(m),function(){openChat(un.id);},'green'));}
-  else if(more.length)wrap.appendChild(alertLine('🏗','+'+more.length+' '+(more.length===1?T('more job today'):T('more jobs today')),more.map(function(x){return (jobOf(x.job)||{}).name||x.title;}).join(', '),function(){goView('myjobs');},'warn'));
-  var big=el('div',{class:'bigs'});
+  if(un){var m=lastMsg(un);wrap.appendChild(alertLine('💬',T('New message from')+' '+nameOf(m.by),msgLabel(m),function(){openChat(un.id);},'green'));}
+  if(more.length)wrap.appendChild(alertLine('🏗','+'+more.length+' '+(more.length===1?T('more job today'):T('more jobs today')),more.map(function(x){return (jobOf(x.job)||{}).name||x.title;}).join(', '),function(){goView('myjobs');},'warn'));
+  wrap=wrap0;var big=el('div',{class:'bigs'});
   // Monday: Sunday not answered yet → "Did you work on Sunday?"
   if(isMon(tdy))lead.forEach(function(c){var su=addDays(tdy,-1);if(!reportFor(c.id,su))big.appendChild(workAsk(c,su,true));});
   // Sunday: ask first – "Are you working today?"
@@ -2904,7 +3004,10 @@ function workerView(){
     if(J.all.some(function(x){return !crewClosed(x);}))big.appendChild(bigBtn('🏗',T('See my jobs'),'',function(){goView('myjobs');}));
     if(S.myweek)big.appendChild(bigBtn('⏱',T('My week'),T('Overtime'),function(){goView('week');}));
   }
-  wrap.appendChild(big);
+  wrap.appendChild(big);if(after.childNodes.length)wrap.appendChild(after);
+  // always one tap to call the office
+  wrap.appendChild(el('a',{class:'callofc',href:'tel:+18458372271'},el('span',{class:'lg3pi',html:PHSVG}),T('Call the office')));
+  var pb2=pinBanner();if(pb2)wrap.appendChild(pb2);var ioc2=!S.viewAs&&iosInstallCard();if(ioc2)wrap.appendChild(ioc2);
   return wrap;
 }
 // Worker: every job (today, tomorrow, later, done) with the full cards – Halfway, Chat, Comment, photos
@@ -3048,7 +3151,7 @@ function openSnowSwitch(){var on=snowHome();
     el('button',{class:'primary',onclick:function(){closeSheet(true,true);openSnow();}},'❄️ '+T('Open snow plowing')),
     el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);}
 function phonesView(){var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
-  var q=el('input',{class:'in',placeholder:'🔎 '+T('Search name'),style:'margin:4px 0 8px'}),list=el('div',{});
+  var q=el('input',{class:'in',placeholder:T('Search name'),style:'margin:4px 0 8px'}),list=el('div',{});
   function paint(){var f=q.value.trim().toLowerCase();list.innerHTML='';phoneRows(list,f);}
   q.addEventListener('input',paint);paint();wrap.appendChild(q);wrap.appendChild(list);return wrap;}
 function phoneRows(list,f){
@@ -3062,7 +3165,7 @@ function phoneRows(list,f){
     if(!isOffice()&&!mine.length&&(S.mates||[]).length){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:(S.mycrew?crewTitle(S.mycrew):T('Crew'))+' ('+S.mates.length+')'}));
       S.mates.forEach(function(c){if(f&&c.name.toLowerCase().indexOf(f)<0)return;list.appendChild(telRow(c.name,c.phone,'',c.id));});}}
 function openPhones(){if(isOffice()){closeSheet(true,true);goView('phones');return;}
-  var q=el('input',{class:'in',placeholder:'🔎 '+T('Search name')}),list=el('div',{});
+  var q=el('input',{class:'in',placeholder:T('Search name')}),list=el('div',{});
   function paint(){var f=q.value.trim().toLowerCase();list.innerHTML='';
     list.appendChild(el('div',{class:'lbl',style:'margin:6px 0',text:T('Office')}));
     (S.office||[]).forEach(function(o){if(f&&o.name.toLowerCase().indexOf(f)<0)return;list.appendChild(telRow(o.name,o.phone,'',o.name));});
@@ -3099,7 +3202,7 @@ function sitesView(){
   var seen=function(g){return g.job&&V[g.job]&&V[g.job].times&&V[g.job].times.length;};
   var people=list.reduce(function(n,g){return n+g.drivers.length+g.people.length+g.steady.reduce(function(m,c){return m+(c.members||[]).length;},0);},0);
   var done=list.filter(seen).length;
-  wrap.appendChild(el('div',{style:'font-size:24px;font-weight:800;margin:2px 0 2px',text:'📍 '+T('Job sites today')}));
+  // (title is in the header)
   wrap.appendChild(el('div',{class:'muted',style:'font-size:14px;margin:0 0 12px'},dateLabel(d)+' · '+list.length+' '+T(list.length===1?'job':'jobs')+' · '+people+' '+T(people===1?'person':'people')+' · ',el('b',{style:'color:var(--ok)',text:done+' '+T('of')+' '+list.length+' '+T('checked')})));
   if(!list.length){wrap.appendChild(el('p',{class:'empty',text:T('No schedule yet for today.')}));return wrap;}
   function tb(id,label){return el('button',{style:'flex:1;padding:10px;border-radius:10px;font-weight:700;'+(tab===id?'background:var(--acc);color:#fff':'background:#EFECE5'),onclick:function(){S.sitesTab=id;render();}},label);}
@@ -3202,7 +3305,7 @@ function crewOfWorker(c){
   return sc?sc.id:'daily';
 }
 function inviteLink(c){
-  var msg='Hola '+c.name+' 👋\nEsta es la app de SAM Construction para ver tus trabajos:\nhttps://samconstruction.github.io/todo/\n\n1. Ábrela en Chrome (iPhone: en Safari).\n2. Toca "👷 Estoy en la cuadrilla".\n3. Tu PIN: '+c.pin+'\n4. Toca "Permitir" para recibir avisos.\n5. Para tenerla como app: menú ⋮ → "Agregar a pantalla de inicio" (iPhone: botón Compartir → "Agregar a inicio").';
+  var msg='Hola '+c.name+' 👋\nEsta es la app de SAM Construction para ver tus trabajos:\nhttps://samconstruction.github.io/todo/\n\n1. Ábrela en Chrome (iPhone: en Safari).\n2. Toca "👷 Estoy en la cuadrilla".\n3. Tu PIN: '+(c.pin||'(te lo da Yossi)')+'\n4. Toca "Permitir" para recibir avisos.\n5. Para tenerla como app: menú ⋮ → "Agregar a pantalla de inicio" (iPhone: botón Compartir → "Agregar a inicio").';
   return 'https://wa.me/1'+String(c.phone).replace(/\D/g,'').slice(-10)+'?text='+encodeURIComponent(msg);
 }
 function openCrewManager(){
@@ -3312,7 +3415,7 @@ function card(x,opts){
 // ---------- comments ----------
 function parseComments(x){try{return x.comments?JSON.parse(x.comments):[];}catch(e){return [];}}
 function cWhen(iso){var d=new Date(iso);if(isNaN(d))return '';var dd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  return (dd===today()?'':dueLabel(dd)+' ')+d.toLocaleTimeString(LANG==='es'?'es':'en-US',{hour:'numeric',minute:'2-digit'});}
+  return (dd===today()?'':dueLabel(dd)+' ')+d.toLocaleTimeString(LANG==='es'?'es-US':'en-US',{hour:'numeric',minute:'2-digit'});}
 function commentsBox(x){
   var list=parseComments(x);if(!list.length)return null;
   var open=S.openC&&S.openC[x.id],show=open?list:list.slice(-2);
@@ -3360,7 +3463,7 @@ function praisePick(kind,lg,l){var key=kind+'_'+lg,bag={},used;try{bag=JSON.pars
 function praise(kind,lang){kind=kind||'task';var lg=lang||(LANG==='es'?'es':'en'),l=(PRAISE[lg]||PRAISE.en)[kind]||PRAISE.en.task,w=l[praisePick(kind,lg,l)];if(S.me==='Yossi'&&lg==='en')w=w.replace('enjoy the weekend','enjoy Shabbos');PRAISE_LAST=w;
   var il=PRAISE_ICO[kind]||PRAISE_ICO.task,ik=il[Math.floor(Math.random()*il.length)];
   [].forEach.call(document.querySelectorAll('.praise'),function(o){o.remove();});
-  var b=el('div',{class:'praise'+((kind!=='task'&&kind!=='stop')?' big':''),role:'status'},el('span',{class:'prck',html:ik==='✓'?'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>':icoSvg(ik)}),el('b',{text:w}));
+  var b=el('div',{class:'praise'+((kind!=='task'&&kind!=='stop')?' big':'')+(kind==='stop'?' low':''),role:'status'},el('span',{class:'prck',html:ik==='✓'?'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>':icoSvg(ik)}),el('b',{text:w}));
   document.body.appendChild(b);setTimeout(function(){b.classList.add('out');},(kind!=='task'&&kind!=='stop')?2300:1500);setTimeout(function(){b.remove();},(kind!=='task'&&kind!=='stop')?2800:2000);}
 // which compliment: the last open task of the day (Friday = the week) gets a special one
 function praiseDone(){if(!isOffice()){praise('task');return;}try{var t=today(),left=S.tasks.filter(function(q){return q.owner===S.me&&q.status!=='done'&&(!q.due||q.due<=t);}).length;
@@ -3372,7 +3475,7 @@ function sendComment(x,text,status,re,ments){
   S.saving++;render();if(status==='done')setTimeout(praiseDone,120);
   var cp={id:x.id,text:text,status:status||'',re:re||'',rid:crid};if(ments&&ments.length)cp.mentions=ments;
   call('comment',cp).then(function(d){S.saving--;if(!S.saving)apply(d);render();})
-  .catch(function(e){S.saving--;if(isBadPin(e)){signOut(T('Wrong PIN. Try again.'));return;}if(isNet(e)){enqueue('comment',cp);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
+  .catch(function(e){S.saving--;if(isBadPin(e)){signOut(T('Wrong PIN. Try again.'));return;}if(isNet(e)){enqueue('comment',cp);return;}if(String(e&&e.message)==='NOT_FOUND'){if(document.querySelector('.chatsheet'))closeSheet(true,true);toast('❗ '+T('This job was deleted by the office.'));refresh(true);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
 }
 function taskLabel(x){try{var j=isCrewTask(x)&&jobOf(x.job);return j?j.name:x.title;}catch(e){return x.title;}}
 function openDone(x){
@@ -3417,20 +3520,24 @@ function decodeWave(url,n){return fetch(url).then(function(r){return r.arrayBuff
   return new Promise(function(ok,no){ac.decodeAudioData(buf,ok,no);}).then(function(ab){var d=ab.getChannelData(0),step=Math.floor(d.length/n)||1,out=[],mx=0;
     for(var i=0;i<n;i++){var sum=0,c=0;for(var j=i*step;j<Math.min(d.length,(i+1)*step);j+=8){sum+=d[j]*d[j];c++;}var r=Math.sqrt(sum/(c||1));out.push(r);if(r>mx)mx=r;}
     try{ac.close();}catch(e){}return out.map(function(v){return Math.round(Math.max(0.12,mx?v/mx:0)*100)/100;});});});}
-function voiceTile(m){var N=32,id=m.voice,box=el('div',{class:'vnote'}),au=null,playing=false,loading=false;
+// One player per voice note, kept when the chat redraws (so it never plays twice); everything stops when the chat closes.
+var VAU={},VCUR=null;function onWifi(){try{var c=navigator.connection;if(!c)return true;if(c.saveData)return false;return c.type?c.type==='wifi'||c.type==='ethernet':c.effectiveType==='4g';}catch(e){return true;}}
+function voiceStopAll(){Object.keys(VAU).forEach(function(k){try{VAU[k].pause();}catch(e){}});VCUR=null;}
+function voiceTile(m){var N=32,id=m.voice,box=el('div',{class:'vnote'}),au=VAU[id]||null,playing=!!(au&&!au.paused),loading=false;
   var play=el('button',{class:'vnplay','aria-label':T('Play'),html:IC.play}),bars=waveEl(WAVES[id]||fakeWave(id,N),N),len=el('span',{class:'vnlen',text:fmtDur(m.dur)});
   if(!WAVES[id])bars.classList.add('guess');
   function redraw(lv){var nb=waveEl(lv,N);nb.onclick=bars.onclick;box.replaceChild(nb,bars);bars=nb;}
   function ensure(){if(au&&au.src)return Promise.resolve(au);loading=true;play.classList.add('busy');
     // iPhone: the player is made inside the tap (so the phone allows it to play), the sound is put in when it arrives
-    if(!au){au=new Audio();try{var pr0=au.play();if(pr0&&pr0.catch)pr0.catch(function(){});}catch(e){}}
-    return fetchMedia(id).then(function(u){loading=false;play.classList.remove('busy');au.src=u;
-      au.ontimeupdate=function(){var d=au.duration&&isFinite(au.duration)?au.duration:(m.dur||1);bars.setF(Math.min(1,au.currentTime/d));len.textContent=fmtDur(Math.round(au.currentTime));};
-      au.onplay=function(){playing=true;play.innerHTML=IC.pause;};au.onpause=function(){playing=false;play.innerHTML=IC.play;};
-      au.onended=function(){playing=false;play.innerHTML=IC.play;bars.setF(0);len.textContent=fmtDur(m.dur);};
+    if(!au){au=VAU[id]=new Audio();try{var pr0=au.play();if(pr0&&pr0.catch)pr0.catch(function(){});}catch(e){}}
+    return fetchMedia(id).then(function(u){loading=false;play.classList.remove('busy');au.src=u;bind(au);
       if(!WAVES[id])decodeWave(u,N).then(function(lv){WAVES[id]=lv;waveSave();redraw(lv);}).catch(function(){});
       return au;});}
-  play.onclick=function(e){e.stopPropagation();if(loading)return;ensure().then(function(a){if(playing)a.pause();else a.play().catch(function(){toast(T('Tap ▶ again'));});}).catch(function(){loading=false;play.classList.remove('busy');toast(T('Could not load — check signal'));});};
+  function bind(a){a.ontimeupdate=function(){var d=a.duration&&isFinite(a.duration)?a.duration:(m.dur||1);bars.setF(Math.min(1,a.currentTime/d));len.textContent=fmtDur(Math.round(a.currentTime));};
+    a.onplay=function(){playing=true;play.innerHTML=IC.pause;};a.onpause=function(){playing=false;play.innerHTML=IC.play;};
+    a.onended=function(){playing=false;play.innerHTML=IC.play;bars.setF(0);len.textContent=fmtDur(m.dur);};}
+  if(au&&au.src){bind(au);if(playing)play.innerHTML=IC.pause;}
+  play.onclick=function(e){e.stopPropagation();if(loading)return;ensure().then(function(a){if(VCUR&&VCUR!==a){try{VCUR.pause();}catch(er){}}VCUR=a;if(!a.paused)a.pause();else a.play().catch(function(){toast(T('Tap ▶ again'));});}).catch(function(){loading=false;play.classList.remove('busy');toast(T('Could not load — check signal'));});};
   bars.onclick=function(e){e.stopPropagation();var r=bars.getBoundingClientRect(),f=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));ensure().then(function(a){var d=a.duration&&isFinite(a.duration)?a.duration:(m.dur||1);a.currentTime=f*d;bars.setF(f);if(!playing)a.play().catch(function(){});});};
   box.appendChild(play);box.appendChild(bars);box.appendChild(len);
   // small files: get the real sound bars in the background
@@ -3463,6 +3570,9 @@ function msgMenu(x,m,b,acts,onReply){
   if(m.at&&!pend)item('↪',T('Forward'),function(){close();childOpen(function(){openChat(x.id);},function(){openForward(x,m);});});
   item('📤',T('Share'),function(){close();shareMsg(m);});
   if(m.text)item('⧉',m.photo||m.video?T('Copy the words'):T('Copy'),function(){close();copyText(m.text);});
+  // free translation English ⇄ Spanish (shown under the message)
+  if(m.text&&!/^(tmp|q)/.test(String(m.id||'')))item('🌐',LANG==='es'?T('Translate to Spanish'):T('Translate to English'),function(){close();var bb=row.querySelector('.bub');if(!bb||bb.querySelector('.btr'))return;var tl=el('div',{class:'btr',text:'…'});bb.appendChild(tl);
+    call('translate',{text:m.text,to:LANG==='es'?'es':'en'}).then(function(r){tl.textContent=(r&&r.text)||m.text;}).catch(function(e){tl.remove();toast('❗ '+errText(e));});});
   var del=[].filter.call(acts.querySelectorAll('.del'),function(n){return n;})[0];
   if(del){var armD=false;item('🗑',T('Delete'),function(){var it=this;if(!armD){armD=true;it.firstChild.textContent=T('Tap again to delete');return;}close();del.click();del.click();},'red');}
   ov.appendChild(bar);ov.appendChild(list);
@@ -3611,9 +3721,11 @@ function openChat(id){
     var addr=t.address||(j&&j.address)||'',when=t.due?dateLabel(t.due)+(t.due===today()?' · '+T('Today'):''):'';
     var info=el('button',{class:'chinfo',onclick:function(){var tt=cur();if(tt._arch){closeSheet(true,true);if(tt.job)openHist(tt.job);return;}childOpen(function(){openChat(tt.id);},function(){openTaskView(tt);});}},el('div',{class:'chjob',text:'🏗 '+(j?j.name:jt)+(!sch&&j&&t.title!==j.name?' – '+t.title:'')+' ›'}),addr?el('div',{class:'chsub',text:'📍 '+addr}):null,el('div',{class:'chsub',text:(isOffice()?'👷 '+nameOf(t.owner)+' · ':'')+'📅 '+when}));
     head.appendChild(el('button',{class:'chatx chatback','aria-label':T('Back'),onclick:function(){var sc=document.getElementById('scrim');if(sc&&sc.dataset.ret&&RET.length){retBack();queueHist();}else closeSheet();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.3a1 1 0 0 1 0 1.4L10.1 12l5.3 5.3a1 1 0 1 1-1.4 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.4 0z"/></svg>'}));
-    if(!isOffice()){head.appendChild(el('div',{style:'flex:1;min-width:0'},info));return;}
+    // status right in the chat header (tap = Done / Halfway)
+    var stB=t._arch?null:el('button',{class:'chst s-'+(t.status||'todo'),onclick:function(e){e.stopPropagation();var tt=cur();if(tt.status==='done'){toast('✓ '+T('Done'));return;}childOpen(function(){openChat(tt.id);},function(){openDone(tt);});}},t.status==='done'?'✓ '+T('Done'):t.status==='half'?T('Halfway'):T('Done')+'?');
+    if(!isOffice()){head.appendChild(el('div',{style:'flex:1;min-width:0'},info));if(stB&&t.owner===S.me)head.appendChild(stB);return;}
     head.appendChild(avatar(t.owner,nameOf(t.owner),42));
-    head.appendChild(el('div',{style:'flex:1;min-width:0'},info));}
+    head.appendChild(el('div',{style:'flex:1;min-width:0'},info));if(stB)head.appendChild(stB);}
   var lastSig='';
   function paintList(force){var t=cur(),l=chatMsgs(t),sh=list,sig=(t&&t.comments||'')+'|'+JSON.stringify((S.seen||{})[t&&t.id]||{})+'|'+(rxOpen||'')+'|'+(t&&t.photos||'');
     if(!force&&sig===lastSig&&list.childNodes.length)return;lastSig=sig;
@@ -3640,7 +3752,8 @@ function openChat(id){
   var sendB=icBtn('chatsend','send',T('Send'),function(){var v=input.value.trim();if(!v)return;var ments=isDm(cur())?[]:tagPeople(cur()).filter(function(p){return v.indexOf('@'+p.name)>=0;}).map(function(p){return p.key;});
     input.value='';input.style.height='auto';tagBox.style.display='none';var re=replyTo?replyTo.id:'';replyTo=null;paintComp();sendComment(cur(),v,'',re,ments);});
   var emo=false,camB=null;
-  document.addEventListener('pointerdown',function od(e){if(!document.body.contains(comp)){document.removeEventListener('pointerdown',od,true);return;}
+  if(window.CHAT_OD)document.removeEventListener('pointerdown',window.CHAT_OD,true);
+  document.addEventListener('pointerdown',window.CHAT_OD=function od(e){if(!document.body.contains(comp)){document.removeEventListener('pointerdown',od,true);window.CHAT_OD=null;return;}
     if(!(more||emo))return;if(e.target.closest&&e.target.closest('.attcard2,.emopanel,.epanel,.cpi'))return;more=false;emo=false;paintComp();},true);
   function swapMS(){var has=!!input.value.trim();sendB.style.display=has?'':'none';micB.style.display=has?'none':'';if(camB)camB.style.display=has?'none':'';}
   input.addEventListener('input',function(){swapMS();});
@@ -3666,13 +3779,13 @@ function openChat(id){
   paintHead();paintList();paintComp();
   // Get the newest video ready in the background, so it plays right away when tapped.
   // Get the newest videos ready in the background (newest first, one after another), so they play right away when tapped.
-  try{var lvs=(JSON.parse(x.comments||'[]')||[]).filter(function(m){return m.video||m.voice;}).slice(-4).reverse().map(function(m){return m.voice?{video:m.voice,_au:1}:m;});setTimeout(function(){(function nxt(i){if(i>=lvs.length||!document.querySelector('.chatsheet'))return;getMedia(lvs[i].video,null,'video/mp4').then(function(){nxt(i+1);},function(){nxt(i+1);});})(0);},500);}catch(e){}
+  if(isOffice()||onWifi())try{var lvs=(JSON.parse(x.comments||'[]')||[]).filter(function(m){return m.video||m.voice;}).slice(-4).reverse().map(function(m){return m.voice?{video:m.voice,_au:1}:m;});setTimeout(function(){(function nxt(i){if(i>=lvs.length||!document.querySelector('.chatsheet'))return;getMedia(lvs[i].video,null,'video/mp4').then(function(){nxt(i+1);},function(){nxt(i+1);});})(0);},500);}catch(e){}
   openSheet([head,list,comp]);
   var sc=document.getElementById('scrim');if(sc){sc.querySelector('.sheet').classList.add('chatsheet');sc.classList.add('chatfull');}
   S.chatId=id;S.sheetRefresh=function(){paintHead();paintList();};
   S.chatSub=function(){if(!document.querySelector('.chatsheet'))return false;if(comp.querySelector('.recbar2,.recprev')){if(S.recStop)S.recStop();else{more=false;paintComp();}return true;}if(more||emo){more=false;emo=false;paintComp();return true;}if(tagBox.style.display!=='none'){tagBox.style.display='none';return true;}if(replyTo){replyTo=null;paintComp();return true;}return false;};
   setTimeout(function(){list.scrollTop=list.scrollHeight;},30);
-  S.chatPoll=setInterval(function(){if(!S.chatId||!document.getElementById('scrim')){clearInterval(S.chatPoll);S.chatPoll=null;return;}refresh();},10000);
+  S.chatPoll=setInterval(function(){if(!S.chatId||!document.getElementById('scrim')){clearInterval(S.chatPoll);S.chatPoll=null;return;}if(document.hidden)return;refresh();},10000);
 }
 var EMO_CATS=[
  {k:'rec',t:'🕘',n:'Recent'},
@@ -3767,11 +3880,16 @@ function reviewScreen(x,att,url,onBack){
   var sent=false;
   function go(){if(sent)return;sent=true;var text=cap.value.trim();
     function fin(a){att.sent=1;if(text)a.cap=text;onBack(true);sendNow(x,a);}
-    if(photo&&dirty&&cv){draw();cv.toBlob(function(b){if(!b){fin(att);return;}fin({kind:'photo',f:new File([b],'photo-'+Date.now()+'.jpg',{type:'image/jpeg'})});},'image/jpeg',0.9);}
+    // every photo gets a small date · time · job stamp in the corner (proof for the customer)
+    if(photo&&cv&&g&&base){draw();try{var fs=Math.max(14,Math.round(Math.max(cv.width,cv.height)/55)),jn=((jobOf(x.job)||{}).name||(isDm(x)?'':x.title)||'').slice(0,40),
+        st=new Date().toLocaleString(LANG==='es'?'es-US':'en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'})+(jn?' · '+jn:'');
+      g.font='700 '+fs+'px system-ui,-apple-system,Roboto,sans-serif';g.textBaseline='middle';var tw=g.measureText(st).width,pd=Math.round(fs*0.5),bh=Math.round(fs*1.7),bx=pd,by=cv.height-bh-pd;
+      g.fillStyle='rgba(14,46,40,.55)';g.fillRect(bx,by,tw+pd*2,bh);g.fillStyle='#fff';g.fillText(st,bx+pd,by+bh/2);}catch(e){}
+      cv.toBlob(function(b){if(!b){fin(att);return;}fin({kind:'photo',f:new File([b],'photo-'+Date.now()+'.jpg',{type:'image/jpeg'})});},'image/jpeg',0.9);}
     else fin(att);}
   var top=el('div',{class:'rvtop'},el('button',{class:'rvt','aria-label':T('Back'),html:SVG_X,onclick:function(e){e.stopPropagation();onBack(false);}}),
     photo?el('div',{class:'rvtools'},undo,rotB,txtB,penB):el('span',{class:'rvwhat',text:T('Video')+' · '+fmtDur(att.dur||0)}));
-  var bot=el('div',{class:'rvbot'},mpBar,el('div',{class:'rvcapw'},cap),el('div',{class:'rvfoot'},el('span',{class:'rvto'},T('To')+' ',el('b',{text:chatTo(x)})),sendB));
+  var bot=el('div',{class:'rvbot'},mpBar,el('div',{class:'rvcapw'},cap),el('div',{class:'rvfoot'},el('span',{class:'rvto'},T('To')+' ',el('b',{text:isDm(x)?dmName(x):!isOffice()?T('the office')+' · '+((jobOf(x.job)||{}).name||x.title):chatTo(x)})),sendB));
   window.RV_BACK=function(){onBack(false);};
   return el('div',{class:'rvwrap'},stage,top,photo?palette:null,txtBox,bot);
 }
@@ -3794,7 +3912,11 @@ function openCam(x,videoFirst){
   if(camMode==='video'){hint.textContent=T('Tap to start · tap again to stop');shut.classList.add('vmode');}else hint.textContent=T('Tap for photo · hold for video');
   var vw=openViewer(box);vw.classList.add('vfull','vcam');
   if(false)vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
-  function stop(){closed=true;try{cvStop();}catch(e){}try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
+  function stop(){closed=true;document.removeEventListener('visibilitychange',camVis);try{cvStop();}catch(e){}try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
+  // Phone call / another app: finish a recording cleanly; when you come back the camera comes back on (no black screen)
+  function camVis(){if(closed)return;if(document.hidden){if(recording){try{recStop();}catch(e){}}return;}
+    var tr=stream&&stream.getVideoTracks()[0];if(!box.classList.contains('rv')&&(!tr||tr.readyState==='ended'||tr.muted))start();}
+  document.addEventListener('visibilitychange',camVis);
   var obs=new MutationObserver(function(){if(!document.body.contains(vw)){stop();obs.disconnect();}});obs.observe(document.body,{childList:true});
   var camId=null;try{camId=localStorage.getItem('sam_torchcam')||null;}catch(e){}
   var isIOSc=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
@@ -3869,7 +3991,7 @@ function openCam(x,videoFirst){
     // Phones without camera zoom (iPhone): the video is drawn through a canvas, so the zoom you see is the zoom you get.
     var src=stream;cvStop();
     if((!zNative||vid.videoWidth>1920)&&vid.videoWidth){try{var zz=zNative?1:zCur,cw=Math.min(1920,vid.videoWidth),ch2=Math.round(cw*vid.videoHeight/vid.videoWidth),cv=document.createElement('canvas');cv.width=cw;cv.height=ch2;var cg=cv.getContext('2d');
-      (function draw(){if(!cvOn)return;var sw=vid.videoWidth/zz,sh=vid.videoHeight/zz;try{cg.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,cw,ch2);}catch(e){}cvRaf=requestAnimationFrame(draw);})(cvOn=true);
+      (function draw(){if(!cvOn)return;var sw=vid.videoWidth/zz,sh=vid.videoHeight/zz;try{cg.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,cw,ch2);}catch(e){}cvRaf=setTimeout(draw,33);})(cvOn=true);
       var cs=cv.captureStream(30);stream.getAudioTracks().forEach(function(t){cs.addTrack(t);});src=cs;}catch(e){cvStop();src=stream;}}
     try{rec=mime?new MediaRecorder(src,{mimeType:mime,videoBitsPerSecond:6000000,audioBitsPerSecond:128000}):new MediaRecorder(src,{videoBitsPerSecond:6000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(src);}catch(e2){cvStop();return;}}
     chunks=[];rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
@@ -3878,7 +4000,7 @@ function openCam(x,videoFirst){
       review({kind:'video',f:f,dur:dur},URL.createObjectURL(b));};
     rec.start(500);recording=true;t0=Date.now();shut.classList.add('rec');clock.style.display='';hint.style.display='none';try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}
     recT=setInterval(function(){var s2=Math.round((Date.now()-t0)/1000);clock.lastChild.textContent=fmtDur(s2);if(s2>=VID_MAX_SEC)recStop();},250);}
-  var cvOn=false,cvRaf=0;function cvStop(){cvOn=false;try{cancelAnimationFrame(cvRaf);}catch(e){}}
+  var cvOn=false,cvRaf=0;function cvStop(){cvOn=false;try{clearTimeout(cvRaf);}catch(e){}}
   function recStop(){try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}}
   shut.addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();if(recording){recStop();return;}if(camMode==='video'){recStart();return;}holdT=setTimeout(function(){holdT=null;recStart();},350);});
   shut.addEventListener('pointerup',function(e){e.stopPropagation();if(camMode==='video')return;if(holdT){clearTimeout(holdT);holdT=null;photo();}else if(recording&&Date.now()-t0>600)recStop();});
@@ -3914,17 +4036,17 @@ function sendLocation(x){
     allT().forEach(function(t){if(t.id!==x.id)return;var l=parseComments(t);l.push({id:'tmp'+Date.now(),by:S.me,at:now,text:txt,loc:{lat:lat,lng:lng}});t.comments=JSON.stringify(l);});
     S.saving++;render();if(S.sheetRefresh)S.sheetRefresh();
     var cp={id:x.id,text:txt,loc:{lat:lat,lng:lng}};
-    call('comment',cp).then(function(d){S.saving--;if(!S.saving)apply(d);render();if(S.sheetRefresh)S.sheetRefresh();}).catch(function(e){S.saving--;if(isNet(e)){enqueue('comment',cp);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
+    call('comment',cp).then(function(d){S.saving--;if(!S.saving)apply(d);render();if(S.sheetRefresh)S.sheetRefresh();}).catch(function(e){S.saving--;if(isNet(e)){enqueue('comment',cp);return;}if(String(e&&e.message)==='NOT_FOUND'){if(document.querySelector('.chatsheet'))closeSheet(true,true);toast('❗ '+T('This job was deleted by the office.'));refresh(true);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
   },function(err){toast('❗ '+(err&&err.code===1?T('Location is blocked. Allow it for this app in your phone settings.'):T('Could not find your location. Try again outside.')));},{enableHighAccuracy:true,timeout:15000,maximumAge:30000});}
 
 // ---------- Modern line icons instead of emoji on buttons, tiles, tabs and lists ----------
-var ICO={"🎉":"<path d=\"M4 20l5-13 8 8-13 5z\"/><path d=\"M14 4c.5 1.5 0 2.5-1 3M18 8c1-.6 2.2-.6 3 .2M17 3v2M21 12h-2M20 4l-1.5 1.5\"/>","🏆":"<path d=\"M8 4h8v5a4 4 0 0 1-8 0V4z\"/><path d=\"M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4\"/>","☕":"<path d=\"M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9z\"/><path d=\"M16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5\"/>","⭐":"<path d=\"M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z\"/>","🌤":"<circle cx=\"8\" cy=\"8\" r=\"3\"/><path d=\"M8 2.5v1M2.5 8h1M4.1 4.1l.7.7M11.9 4.1l-.7.7\"/><path d=\"M9 19.5h8.5a3.5 3.5 0 0 0 .4-6.98A4.8 4.8 0 0 0 9 13a3.25 3.25 0 0 0 0 6.5z\"/>","⛅":"<circle cx=\"8\" cy=\"8\" r=\"3\"/><path d=\"M8 2.5v1M2.5 8h1M4.1 4.1l.7.7M11.9 4.1l-.7.7\"/><path d=\"M9 19.5h8.5a3.5 3.5 0 0 0 .4-6.98A4.8 4.8 0 0 0 9 13a3.25 3.25 0 0 0 0 6.5z\"/>","☁️":"<path d=\"M7 18.5h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 11.5a3.5 3.5 0 0 0 0 7z\"/>","🌧":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M8.5 17l-1 3M12.5 17l-1 3M16.5 17l-1 3\"/>","🌦":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M8.5 17.5v.6M12.5 18.5v.6M16.5 17.5v.6M10.5 20.8v.6M14.5 20.8v.6\"/>","🌨":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M8 16v6M5.4 17.5l5.2 3M5.4 20.5l5.2-3M16 16v6M13.4 17.5l5.2 3M13.4 20.5l5.2-3\"/>","🌫":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M4 17.5h16M6 21h12\"/>","⛈":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M12.5 15.5l-2 3h3l-2 3.5\"/>","💧":"<path d=\"M12 3.5c3 3.8 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.5-6.2 5.5-10z\"/>","🌡":"<path d=\"M10 4a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z\"/><path d=\"M12 9v6\"/>","\ud83d\udc65":"<circle cx=\"9\" cy=\"8\" r=\"3.4\"/><path d=\"M2.8 20a6.2 6.2 0 0 1 12.4 0\"/><path d=\"M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.2a6.2 6.2 0 0 1 3.2 5.8\"/>","\ud83d\uddfa":"<path d=\"M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z\"/><path d=\"M9 4v13.5M15 6.5V20\"/>","\ud83d\ude9c":"<path d=\"M3 16.5V11h9l2-4h4v9.5\"/><path d=\"M7 11V7.5h4.5\"/><circle cx=\"7\" cy=\"17\" r=\"2.4\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"2\"/><path d=\"M9.4 17h6.1M18 7v4\"/>","\u2728":"<path d=\"M12 3.5 13.6 9l5.4 1.6-5.4 1.6L12 17.5l-1.6-5.3L5 10.6 10.4 9z\"/><path d=\"M19 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z\"/>","\ud83c\udf3f":"<path d=\"M5 19c0-8 6-13.5 14-14-0.5 8-6 14-14 14z\"/><path d=\"M5 19 13 11\"/>","\u2713\u2713":"<path d=\"m2.5 12.5 3.5 3.5 7.5-8M10 15.5l.8.8 8.7-9\"/>","\ud83d\udc4d":"<path d=\"M7.5 10.5V20h-3v-9.5zM7.5 10.5 11 4a2 2 0 0 1 3 1.8V9h5a1.5 1.5 0 0 1 1.5 1.8l-1.5 7.5A2 2 0 0 1 17 20H7.5\"/>","\ud83d\udc65":"<circle cx=\"9\" cy=\"8\" r=\"3.4\"/><path d=\"M2.8 20a6.2 6.2 0 0 1 12.4 0\"/><path d=\"M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.2a6.2 6.2 0 0 1 3.2 5.8\"/>","\ud83c\udf99":"<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6\"/>","\ud83e\uddf9":"<path d=\"M14.5 3.5 10 12M6.5 12.5h7.5l2 8H4.5zM8.5 16.5v4M12 16.5v4\"/>","\ud83d\udd55":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12v4.5\"/>","\u2611\ufe0f":"<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"4\"/><path d=\"m8 12.3 2.8 2.8L16.5 9\"/>","\ud83d\udce4":"<path d=\"M12 15V4M7.5 8.5 12 4l4.5 4.5\"/><path d=\"M5 13.5v5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5v-5\"/>","\ud83d\udcf2":"<rect x=\"6.5\" y=\"2.5\" width=\"11\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18h2\"/>","\ud83d\udd13":"<rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"2.2\"/><path d=\"M8 10.5V7.8a4 4 0 0 1 7.7-1.5\"/>","\ud83d\ude80":"<path d=\"M13 3.5c3.5 1 6.5 4 7.5 7.5L14 17.5 6.5 10z\"/><path d=\"M6.5 10 4 11.5l2.5 2.5M14 17.5 12.5 20 10 17.5M8.5 15.5 5 19\"/><circle cx=\"14.5\" cy=\"9.5\" r=\"1.4\"/>","\ud83e\udeaa":"<rect x=\"3\" y=\"5.5\" width=\"18\" height=\"13\" rx=\"2.2\"/><circle cx=\"8.5\" cy=\"11\" r=\"2\"/><path d=\"M5.8 15.5a2.8 2.8 0 0 1 5.4 0M14 10h4M14 13.5h3\"/>","\u2b07\ufe0f":"<path d=\"M12 5v14M6 13l6 6 6-6\"/>","\ud83c\udfa8":"<path d=\"M12 3.5a8.5 8.5 0 1 0 0 17c1 0 1.6-.8 1.6-1.7 0-1.3-1-1.6-1-2.6 0-.9.7-1.6 1.6-1.6h2.2a4.1 4.1 0 0 0 4.1-4.1c0-3.8-3.8-7-8.5-7z\"/><circle cx=\"7.5\" cy=\"11\" r=\"1\"/><circle cx=\"10\" cy=\"7.5\" r=\"1\"/><circle cx=\"14.5\" cy=\"7.5\" r=\"1\"/>","\u25b6\ufe0f":"<path d=\"M8 5.5v13l10-6.5z\"/>","\ud83c\udfac":"<rect x=\"3\" y=\"6\" width=\"13\" height=\"12\" rx=\"2.5\"/><path d=\"m16 10.5 5-3v9l-5-3\"/>","\ud83d\udfe7":"<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3.5\"/>","\ud83d\udd24":"<path d=\"M3.5 18 8 6l4.5 12M5.2 13.5h5.6M14.5 18v-7.5M14.5 14a3 3 0 1 0 6 0 3 3 0 1 0-6 0\"/>","\u23f9":"<rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2.5\"/>","\ud83c\udf10":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M3.5 12h17M12 3.5c2.5 2.6 3.7 5.4 3.7 8.5s-1.2 5.9-3.7 8.5c-2.5-2.6-3.7-5.4-3.7-8.5s1.2-5.9 3.7-8.5z\"/>","\ud83d\udeaa":"<path d=\"M14 4.5h4.5v15H14\"/><path d=\"M10 8l-4 4 4 4M6 12h9\"/>","\u2b06":"<path d=\"M12 19V5M6 11l6-6 6 6\"/>","\ud83d\uddd1":"<path d=\"M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 12.5a1.5 1.5 0 0 0 1.5 1.4h6a1.5 1.5 0 0 0 1.5-1.4l1-12.5M10 11v6M14 11v6\"/>","\ud83c\udfa5":"<rect x=\"3\" y=\"6\" width=\"13\" height=\"12\" rx=\"2.5\"/><path d=\"m16 10.5 5-3v9l-5-3\"/>","\ud83c\udfa4":"<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6\"/>","\ud83d\udcce":"<path d=\"M20.5 11.5 12.3 19.7a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8\"/>","\ud83d\uddbc":"<rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"15\" rx=\"2.5\"/><circle cx=\"9\" cy=\"9.5\" r=\"1.6\"/><path d=\"m20.5 16-5-5-8.5 8.5\"/>","\ud83d\udcc4":"<path d=\"M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z\"/><path d=\"M14 3.5v4h4M9 12.5h6M9 16h6\"/>","\ud83d\ude97":"<path d=\"M5 16.5v-4l2-5h10l2 5v4\"/><path d=\"M3.5 12.5h17v4h-17z\"/><circle cx=\"7.5\" cy=\"16.5\" r=\"1.6\"/><circle cx=\"16.5\" cy=\"16.5\" r=\"1.6\"/>","\ud83d\uddc4":"<rect x=\"3.5\" y=\"4\" width=\"17\" height=\"5\" rx=\"1.2\"/><path d=\"M5 9v10.5h14V9M10 13h4\"/>","\ud83d\udd0d":"<circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m20.5 20.5-5.3-5.3\"/>","\ud83d\udd53":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12l3 2\"/>","\u21aa":"<path d=\"M20 10.5 15 5.5M20 10.5 15 15.5M20 10.5H10a6 6 0 0 0-6 6v2\"/>","\ud83c\udfe0":"<path d=\"M3.5 10.5 12 3.8l8.5 6.7\"/><path d=\"M5.5 9.2V20h13V9.2\"/><path d=\"M10 20v-5.5h4V20\"/>","\ud83d\udcde":"<path d=\"M6.6 3.8h2.7l1.4 4.1-2 1.4a12 12 0 0 0 6 6l1.4-2 4.1 1.4v2.7a1.8 1.8 0 0 1-1.9 1.8A16.6 16.6 0 0 1 4.8 5.7a1.8 1.8 0 0 1 1.8-1.9z\"/>","\ud83d\udcac":"<path d=\"M20.5 12a8 8 0 0 1-11.6 7.1L4 20.3l1.3-4.5A8 8 0 1 1 20.5 12z\"/>","\ud83c\udfd7":"<path d=\"M3 21h18\"/><path d=\"M5 21V9l7-5 7 5v12\"/><path d=\"M9.5 21v-6h5v6\"/><path d=\"M9 11h.01M15 11h.01\"/>","\ud83d\udccb":"<rect x=\"5\" y=\"4.5\" width=\"14\" height=\"16.5\" rx=\"2\"/><path d=\"M9 4.5V3h6v1.5\"/><path d=\"M8.5 11h7M8.5 14.5h7M8.5 18h4\"/>","\ud83d\uddd3":"<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/><path d=\"M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01\"/>","\ud83d\udcc5":"<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/><path d=\"M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01\"/>","\ud83d\udc77":"<circle cx=\"9\" cy=\"8\" r=\"3.4\"/><path d=\"M2.8 20a6.2 6.2 0 0 1 12.4 0\"/><path d=\"M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.2a6.2 6.2 0 0 1 3.2 5.8\"/>","\ud83d\udce3":"<path d=\"M4 10v4a1 1 0 0 0 1 1h2l6 4V5L7 9H5a1 1 0 0 0-1 1z\"/><path d=\"M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12\"/>","\ud83d\udc1e":"<rect x=\"7\" y=\"7.5\" width=\"10\" height=\"12.5\" rx=\"5\"/><path d=\"M9.5 7.5a2.5 2.5 0 0 1 5 0M12 11v9M3.5 13H7M17 13h3.5M4.5 8.5 7.3 10M19.5 8.5 16.7 10M4.5 18.5l2.8-1.5M19.5 18.5l-2.8-1.5\"/>","\u2705":"<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"4\"/><path d=\"m8 12.3 2.8 2.8L16.5 9\"/>","\ud83d\udee0":"<path d=\"M14.7 6.3a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3z\"/><path d=\"M14.7 6.3 17.5 3.5a4 4 0 0 1 3 3l-2.8 2.8\"/><path d=\"M4 5l3 3M3 9l2-2\"/>","\ud83d\udccd":"<path d=\"M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.4\"/>","\ud83d\udc64":"<circle cx=\"12\" cy=\"8\" r=\"3.8\"/><path d=\"M4.5 20.5a7.5 7.5 0 0 1 15 0\"/>","\u2630":"<path d=\"M4 7h16M4 12h16M4 17h16\"/>","\ud83e\udd16":"<rect x=\"4.5\" y=\"8\" width=\"15\" height=\"11\" rx=\"3\"/><path d=\"M12 8V4.5M9 13h.01M15 13h.01M9.5 16.5h5M2.5 12.5v2M21.5 12.5v2\"/><circle cx=\"12\" cy=\"4\" r=\"1\"/>","\ud83d\udd33":"<rect x=\"3.5\" y=\"3.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"13.5\" y=\"3.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3.5\" y=\"13.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><path d=\"M14 14h2.5v2.5H14zM18.5 18.5H20.5M18.5 14h2M14 19h2.5v1.5\"/>","\ud83d\udd14":"<path d=\"M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z\"/><path d=\"M10 20.5a2.2 2.2 0 0 0 4 0\"/>","\ud83d\udd12":"<rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"2.2\"/><path d=\"M8 10.5V7.8a4 4 0 0 1 8 0v2.7M12 14.5v2.5\"/>","\ud83d\udd11":"<circle cx=\"8\" cy=\"15\" r=\"4.2\"/><path d=\"m11 12 9-9M16.5 6.5l2.5 2.5M14 9l2 2\"/>","\ud83c\udff7":"<path d=\"M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z\"/><circle cx=\"8\" cy=\"8\" r=\"1.3\"/>","\ud83c\udd95":"<path d=\"M12 3.5 13.8 9l5.7.5-4.3 3.7 1.3 5.6L12 15.8l-4.5 3 1.3-5.6-4.3-3.7L10.2 9z\"/>","\u23f1":"<circle cx=\"12\" cy=\"13.5\" r=\"7.5\"/><path d=\"M12 9.5v4l2.5 2M9.5 2.5h5M19 6.5l1.5-1.5\"/>","\u26a1":"<path d=\"M13 2.5 4.5 13.5H12l-1 8 8.5-11H12z\"/>","\u26a0\ufe0f":"<path d=\"M10.3 4.3 2.8 17.5A2 2 0 0 0 4.5 20.5h15a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9.5v4.5M12 17h.01\"/>","\u23f0":"<circle cx=\"12\" cy=\"13\" r=\"7.5\"/><path d=\"M12 9v4l2.5 2M4 5.5 7 3M20 5.5 17 3\"/>","\u2744\ufe0f":"<path d=\"M12 2.5v19M4 7l16 10M20 7 4 17M9.5 4.5 12 7l2.5-2.5M9.5 19.5 12 17l2.5 2.5\"/>","\u2600\ufe0f":"<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4\"/>","\u2699\ufe0f":"<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7\"/><circle cx=\"12\" cy=\"12\" r=\"6.5\"/>","\ud83d\udcdd":"<path d=\"M14.5 4.5h-8a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-8\"/><path d=\"m19.5 3.5 1 1L12 13l-2.2.6.6-2.2z\"/>","\ud83d\udd20":"<path d=\"M3.5 18 8 6l4.5 12M5.2 13.5h5.6M14.5 18v-7.5M14.5 14a3 3 0 1 0 6 0 3 3 0 1 0-6 0\"/>","\ud83d\udcf3":"<rect x=\"7.5\" y=\"3.5\" width=\"9\" height=\"17\" rx=\"2\"/><path d=\"M4 8v8M20 8v8M11 17h2\"/>","\ud83d\ude90":"<path d=\"M3 16.5V8.5a2 2 0 0 1 2-2h9.5l4 4.5h1.5a1 1 0 0 1 1 1v4.5\"/><circle cx=\"7.5\" cy=\"17\" r=\"1.8\"/><circle cx=\"16.5\" cy=\"17\" r=\"1.8\"/><path d=\"M9.3 17h5.4M14.5 6.5V11h4\"/>","\ud83d\udd04":"<path d=\"M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5\"/><path d=\"M5 3v3.8h3.8M19 21v-3.8h-3.8\"/>","\ud83d\udcca":"<path d=\"M4 20.5h16M7 17V11M12 17V6.5M17 17v-4\"/>","\ud83e\uddfe":"<path d=\"M6 3h12v18l-2.5-1.5L13 21l-2.5-1.5L8 21l-2-1.2z\"/><path d=\"M9 8h6M9 11.5h6M9 15h4\"/>","\ud83d\udcf7":"<path d=\"M4 8.5A1.5 1.5 0 0 1 5.5 7h2.2l1.5-2h5.6l1.5 2h2.2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z\"/><circle cx=\"12\" cy=\"13\" r=\"3.4\"/>","\u23e9":"<path d=\"M4 6.5v11l7.5-5.5zM12.5 6.5v11L20 12z\"/>","\uff0b":"<path d=\"M12 5v14M5 12h14\"/>"};
+var ICO={"✓":"<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>","✕":"<path d=\"M6 6l12 12M18 6L6 18\"/>","✗":"<path d=\"M6 6l12 12M18 6L6 18\"/>","❗":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7.5v5.5M12 16.5h.01\"/>","⏳":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>","📱":"<rect x=\"6.5\" y=\"2.5\" width=\"11\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>","👀":"<path d=\"M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>","👁":"<path d=\"M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>","💾":"<ellipse cx=\"12\" cy=\"5.5\" rx=\"8\" ry=\"3\"/><path d=\"M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3\"/>","↩":"<path d=\"M9 14L4 9l5-5\"/><path d=\"M4 9h10.5a5.5 5.5 0 0 1 0 11H11\"/>","🔕":"<path d=\"M8.7 3.6A6 6 0 0 1 18 8.5c0 3.4.8 5.4 1.6 6.6M6.3 6.6A6 6 0 0 0 6 8.5c0 4.5-1.5 6.8-2.5 8h13M10 20.5a2 2 0 0 0 4 0M3 3l18 18\"/>","✏️":"<path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z\"/>","✎":"<path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z\"/>","🕖":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l-3 3\"/>","🧭":"<path d=\"M3 11l18-8-8 18-2-8z\"/>","➕":"<path d=\"M12 5v14M5 12h14\"/>","➖":"<path d=\"M5 12h14\"/>","🔸":"<path d=\"M12 3c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z\"/>","🚶":"<circle cx=\"13\" cy=\"4\" r=\"2\"/><path d=\"M10.5 21l2-6-2.5-2.5V9l-3 2.5V15M13 9l3 3h3M12.5 15l3 6\"/>","⏭":"<path d=\"M5 5l9 7-9 7zM18 5v14\"/>","▶":"<path d=\"M7 4.5v15l12-7.5z\"/>","⚪":"<circle cx=\"12\" cy=\"12\" r=\"8\" stroke-dasharray=\"3 3\"/>","🔁":"<path d=\"M17 2l3 3-3 3\"/><path d=\"M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3\"/><path d=\"M20 13v2a4 4 0 0 1-4 4H4\"/>","🏁":"<path d=\"M5 21V4M5 4h11l-2 4 2 4H5\"/>","🤝":"<circle cx=\"8.5\" cy=\"8\" r=\"3\"/><circle cx=\"16\" cy=\"9\" r=\"2.5\"/><path d=\"M3 20a5.5 5.5 0 0 1 11 0M14.5 14.5A4.5 4.5 0 0 1 21 18.5\"/>","🚫":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M5.6 5.6l12.8 12.8\"/>","🖨":"<path d=\"M7 9V3.5h10V9\"/><rect x=\"3.5\" y=\"9\" width=\"17\" height=\"8\" rx=\"2\"/><path d=\"M7 14h10v6.5H7z\"/>","✉️":"<rect x=\"3\" y=\"5.5\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M3.5 7l8.5 6.5L20.5 7\"/>","🎞":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4\"/>","🟡":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 3.5v17A8.5 8.5 0 0 0 12 3.5z\" fill=\"currentColor\"/>","✦":"<path d=\"M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z\"/>","👋":"<path d=\"M7 11.5V6a1.5 1.5 0 0 1 3 0v5M10 10.5V4.5a1.5 1.5 0 0 1 3 0v6M13 10.5V5.5a1.5 1.5 0 0 1 3 0V12M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-12.6 4.2L4 14.7a1.6 1.6 0 0 1 2.4-2.1L7 13.3\"/>","🔎":"<circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M16 16l4.5 4.5\"/>","⬇":"<path d=\"M12 4v12M7 11l5 5 5-5M5 20h14\"/>","📌":"<path d=\"M9 3h6l-1 6 4 4H6l4-4zM12 13v8\"/>","🧾":"<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 8h6M9 12h6\"/>","🔄":"<path d=\"M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5\"/><path d=\"M5 3v3.8h3.8M19 21v-3.8h-3.8\"/>","🗑️":"<path d=\"M4 7h16M10 11v6M14 11v6M5.5 7l1 13h11l1-13M9 7V4h6v3\"/>","⛔":"<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M7.5 12h9\"/>","🎉":"<path d=\"M4 20l5-13 8 8-13 5z\"/><path d=\"M14 4c.5 1.5 0 2.5-1 3M18 8c1-.6 2.2-.6 3 .2M17 3v2M21 12h-2M20 4l-1.5 1.5\"/>","🏆":"<path d=\"M8 4h8v5a4 4 0 0 1-8 0V4z\"/><path d=\"M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4\"/>","☕":"<path d=\"M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9z\"/><path d=\"M16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5\"/>","⭐":"<path d=\"M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z\"/>","🌤":"<circle cx=\"8\" cy=\"8\" r=\"3\"/><path d=\"M8 2.5v1M2.5 8h1M4.1 4.1l.7.7M11.9 4.1l-.7.7\"/><path d=\"M9 19.5h8.5a3.5 3.5 0 0 0 .4-6.98A4.8 4.8 0 0 0 9 13a3.25 3.25 0 0 0 0 6.5z\"/>","⛅":"<circle cx=\"8\" cy=\"8\" r=\"3\"/><path d=\"M8 2.5v1M2.5 8h1M4.1 4.1l.7.7M11.9 4.1l-.7.7\"/><path d=\"M9 19.5h8.5a3.5 3.5 0 0 0 .4-6.98A4.8 4.8 0 0 0 9 13a3.25 3.25 0 0 0 0 6.5z\"/>","☁️":"<path d=\"M7 18.5h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 11.5a3.5 3.5 0 0 0 0 7z\"/>","🌧":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M8.5 17l-1 3M12.5 17l-1 3M16.5 17l-1 3\"/>","🌦":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M8.5 17.5v.6M12.5 18.5v.6M16.5 17.5v.6M10.5 20.8v.6M14.5 20.8v.6\"/>","🌨":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M8 16v6M5.4 17.5l5.2 3M5.4 20.5l5.2-3M16 16v6M13.4 17.5l5.2 3M13.4 20.5l5.2-3\"/>","🌫":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M4 17.5h16M6 21h12\"/>","⛈":"<path d=\"M7 14h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 7a3.5 3.5 0 0 0 0 7z\"/><path d=\"M12.5 15.5l-2 3h3l-2 3.5\"/>","💧":"<path d=\"M12 3.5c3 3.8 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.5-6.2 5.5-10z\"/>","🌡":"<path d=\"M10 4a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z\"/><path d=\"M12 9v6\"/>","\ud83d\udc65":"<circle cx=\"9\" cy=\"8\" r=\"3.4\"/><path d=\"M2.8 20a6.2 6.2 0 0 1 12.4 0\"/><path d=\"M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.2a6.2 6.2 0 0 1 3.2 5.8\"/>","\ud83d\uddfa":"<path d=\"M3.5 6.5 9 4l6 2.5L20.5 4v13.5L15 20l-6-2.5-5.5 2.5z\"/><path d=\"M9 4v13.5M15 6.5V20\"/>","\ud83d\ude9c":"<path d=\"M3 16.5V11h9l2-4h4v9.5\"/><path d=\"M7 11V7.5h4.5\"/><circle cx=\"7\" cy=\"17\" r=\"2.4\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"2\"/><path d=\"M9.4 17h6.1M18 7v4\"/>","\u2728":"<path d=\"M12 3.5 13.6 9l5.4 1.6-5.4 1.6L12 17.5l-1.6-5.3L5 10.6 10.4 9z\"/><path d=\"M19 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z\"/>","\ud83c\udf3f":"<path d=\"M5 19c0-8 6-13.5 14-14-0.5 8-6 14-14 14z\"/><path d=\"M5 19 13 11\"/>","\u2713\u2713":"<path d=\"m2.5 12.5 3.5 3.5 7.5-8M10 15.5l.8.8 8.7-9\"/>","\ud83d\udc4d":"<path d=\"M7.5 10.5V20h-3v-9.5zM7.5 10.5 11 4a2 2 0 0 1 3 1.8V9h5a1.5 1.5 0 0 1 1.5 1.8l-1.5 7.5A2 2 0 0 1 17 20H7.5\"/>","\ud83d\udc65":"<circle cx=\"9\" cy=\"8\" r=\"3.4\"/><path d=\"M2.8 20a6.2 6.2 0 0 1 12.4 0\"/><path d=\"M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.2a6.2 6.2 0 0 1 3.2 5.8\"/>","\ud83c\udf99":"<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6\"/>","\ud83e\uddf9":"<path d=\"M14.5 3.5 10 12M6.5 12.5h7.5l2 8H4.5zM8.5 16.5v4M12 16.5v4\"/>","\ud83d\udd55":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12v4.5\"/>","\u2611\ufe0f":"<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"4\"/><path d=\"m8 12.3 2.8 2.8L16.5 9\"/>","\ud83d\udce4":"<path d=\"M12 15V4M7.5 8.5 12 4l4.5 4.5\"/><path d=\"M5 13.5v5a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5v-5\"/>","\ud83d\udcf2":"<rect x=\"6.5\" y=\"2.5\" width=\"11\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18h2\"/>","\ud83d\udd13":"<rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"2.2\"/><path d=\"M8 10.5V7.8a4 4 0 0 1 7.7-1.5\"/>","\ud83d\ude80":"<path d=\"M13 3.5c3.5 1 6.5 4 7.5 7.5L14 17.5 6.5 10z\"/><path d=\"M6.5 10 4 11.5l2.5 2.5M14 17.5 12.5 20 10 17.5M8.5 15.5 5 19\"/><circle cx=\"14.5\" cy=\"9.5\" r=\"1.4\"/>","\ud83e\udeaa":"<rect x=\"3\" y=\"5.5\" width=\"18\" height=\"13\" rx=\"2.2\"/><circle cx=\"8.5\" cy=\"11\" r=\"2\"/><path d=\"M5.8 15.5a2.8 2.8 0 0 1 5.4 0M14 10h4M14 13.5h3\"/>","\u2b07\ufe0f":"<path d=\"M12 5v14M6 13l6 6 6-6\"/>","\ud83c\udfa8":"<path d=\"M12 3.5a8.5 8.5 0 1 0 0 17c1 0 1.6-.8 1.6-1.7 0-1.3-1-1.6-1-2.6 0-.9.7-1.6 1.6-1.6h2.2a4.1 4.1 0 0 0 4.1-4.1c0-3.8-3.8-7-8.5-7z\"/><circle cx=\"7.5\" cy=\"11\" r=\"1\"/><circle cx=\"10\" cy=\"7.5\" r=\"1\"/><circle cx=\"14.5\" cy=\"7.5\" r=\"1\"/>","\u25b6\ufe0f":"<path d=\"M8 5.5v13l10-6.5z\"/>","\ud83c\udfac":"<rect x=\"3\" y=\"6\" width=\"13\" height=\"12\" rx=\"2.5\"/><path d=\"m16 10.5 5-3v9l-5-3\"/>","\ud83d\udfe7":"<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"3.5\"/>","\ud83d\udd24":"<path d=\"M3.5 18 8 6l4.5 12M5.2 13.5h5.6M14.5 18v-7.5M14.5 14a3 3 0 1 0 6 0 3 3 0 1 0-6 0\"/>","\u23f9":"<rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2.5\"/>","\ud83c\udf10":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M3.5 12h17M12 3.5c2.5 2.6 3.7 5.4 3.7 8.5s-1.2 5.9-3.7 8.5c-2.5-2.6-3.7-5.4-3.7-8.5s1.2-5.9 3.7-8.5z\"/>","\ud83d\udeaa":"<path d=\"M14 4.5h4.5v15H14\"/><path d=\"M10 8l-4 4 4 4M6 12h9\"/>","\u2b06":"<path d=\"M12 19V5M6 11l6-6 6 6\"/>","\ud83d\uddd1":"<path d=\"M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 12.5a1.5 1.5 0 0 0 1.5 1.4h6a1.5 1.5 0 0 0 1.5-1.4l1-12.5M10 11v6M14 11v6\"/>","\ud83c\udfa5":"<rect x=\"3\" y=\"6\" width=\"13\" height=\"12\" rx=\"2.5\"/><path d=\"m16 10.5 5-3v9l-5-3\"/>","\ud83c\udfa4":"<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6\"/>","\ud83d\udcce":"<path d=\"M20.5 11.5 12.3 19.7a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8\"/>","\ud83d\uddbc":"<rect x=\"3.5\" y=\"4.5\" width=\"17\" height=\"15\" rx=\"2.5\"/><circle cx=\"9\" cy=\"9.5\" r=\"1.6\"/><path d=\"m20.5 16-5-5-8.5 8.5\"/>","\ud83d\udcc4":"<path d=\"M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z\"/><path d=\"M14 3.5v4h4M9 12.5h6M9 16h6\"/>","\ud83d\ude97":"<path d=\"M5 16.5v-4l2-5h10l2 5v4\"/><path d=\"M3.5 12.5h17v4h-17z\"/><circle cx=\"7.5\" cy=\"16.5\" r=\"1.6\"/><circle cx=\"16.5\" cy=\"16.5\" r=\"1.6\"/>","\ud83d\uddc4":"<rect x=\"3.5\" y=\"4\" width=\"17\" height=\"5\" rx=\"1.2\"/><path d=\"M5 9v10.5h14V9M10 13h4\"/>","\ud83d\udd0d":"<circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m20.5 20.5-5.3-5.3\"/>","\ud83d\udd53":"<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12l3 2\"/>","\u21aa":"<path d=\"M20 10.5 15 5.5M20 10.5 15 15.5M20 10.5H10a6 6 0 0 0-6 6v2\"/>","\ud83c\udfe0":"<path d=\"M3.5 10.5 12 3.8l8.5 6.7\"/><path d=\"M5.5 9.2V20h13V9.2\"/><path d=\"M10 20v-5.5h4V20\"/>","\ud83d\udcde":"<path d=\"M6.6 3.8h2.7l1.4 4.1-2 1.4a12 12 0 0 0 6 6l1.4-2 4.1 1.4v2.7a1.8 1.8 0 0 1-1.9 1.8A16.6 16.6 0 0 1 4.8 5.7a1.8 1.8 0 0 1 1.8-1.9z\"/>","\ud83d\udcac":"<path d=\"M20.5 12a8 8 0 0 1-11.6 7.1L4 20.3l1.3-4.5A8 8 0 1 1 20.5 12z\"/>","\ud83c\udfd7":"<path d=\"M3 21h18\"/><path d=\"M5 21V9l7-5 7 5v12\"/><path d=\"M9.5 21v-6h5v6\"/><path d=\"M9 11h.01M15 11h.01\"/>","\ud83d\udccb":"<rect x=\"5\" y=\"4.5\" width=\"14\" height=\"16.5\" rx=\"2\"/><path d=\"M9 4.5V3h6v1.5\"/><path d=\"M8.5 11h7M8.5 14.5h7M8.5 18h4\"/>","\ud83d\uddd3":"<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/><path d=\"M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01\"/>","\ud83d\udcc5":"<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"15.5\" rx=\"2.5\"/><path d=\"M3.5 10h17M8 3v4M16 3v4\"/><path d=\"M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01\"/>","\ud83d\udc77":"<circle cx=\"9\" cy=\"8\" r=\"3.4\"/><path d=\"M2.8 20a6.2 6.2 0 0 1 12.4 0\"/><path d=\"M16 4.8a3.4 3.4 0 0 1 0 6.4M18 14.2a6.2 6.2 0 0 1 3.2 5.8\"/>","\ud83d\udce3":"<path d=\"M4 10v4a1 1 0 0 0 1 1h2l6 4V5L7 9H5a1 1 0 0 0-1 1z\"/><path d=\"M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12\"/>","\ud83d\udc1e":"<rect x=\"7\" y=\"7.5\" width=\"10\" height=\"12.5\" rx=\"5\"/><path d=\"M9.5 7.5a2.5 2.5 0 0 1 5 0M12 11v9M3.5 13H7M17 13h3.5M4.5 8.5 7.3 10M19.5 8.5 16.7 10M4.5 18.5l2.8-1.5M19.5 18.5l-2.8-1.5\"/>","\u2705":"<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"4\"/><path d=\"m8 12.3 2.8 2.8L16.5 9\"/>","\ud83d\udee0":"<path d=\"M14.7 6.3a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3z\"/><path d=\"M14.7 6.3 17.5 3.5a4 4 0 0 1 3 3l-2.8 2.8\"/><path d=\"M4 5l3 3M3 9l2-2\"/>","\ud83d\udccd":"<path d=\"M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.4\"/>","\ud83d\udc64":"<circle cx=\"12\" cy=\"8\" r=\"3.8\"/><path d=\"M4.5 20.5a7.5 7.5 0 0 1 15 0\"/>","\u2630":"<path d=\"M4 7h16M4 12h16M4 17h16\"/>","\ud83e\udd16":"<rect x=\"4.5\" y=\"8\" width=\"15\" height=\"11\" rx=\"3\"/><path d=\"M12 8V4.5M9 13h.01M15 13h.01M9.5 16.5h5M2.5 12.5v2M21.5 12.5v2\"/><circle cx=\"12\" cy=\"4\" r=\"1\"/>","\ud83d\udd33":"<rect x=\"3.5\" y=\"3.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"13.5\" y=\"3.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3.5\" y=\"13.5\" width=\"7\" height=\"7\" rx=\"1.5\"/><path d=\"M14 14h2.5v2.5H14zM18.5 18.5H20.5M18.5 14h2M14 19h2.5v1.5\"/>","\ud83d\udd14":"<path d=\"M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z\"/><path d=\"M10 20.5a2.2 2.2 0 0 0 4 0\"/>","\ud83d\udd12":"<rect x=\"5\" y=\"10.5\" width=\"14\" height=\"10\" rx=\"2.2\"/><path d=\"M8 10.5V7.8a4 4 0 0 1 8 0v2.7M12 14.5v2.5\"/>","\ud83d\udd11":"<circle cx=\"8\" cy=\"15\" r=\"4.2\"/><path d=\"m11 12 9-9M16.5 6.5l2.5 2.5M14 9l2 2\"/>","\ud83c\udff7":"<path d=\"M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z\"/><circle cx=\"8\" cy=\"8\" r=\"1.3\"/>","\ud83c\udd95":"<path d=\"M12 3.5 13.8 9l5.7.5-4.3 3.7 1.3 5.6L12 15.8l-4.5 3 1.3-5.6-4.3-3.7L10.2 9z\"/>","\u23f1":"<circle cx=\"12\" cy=\"13.5\" r=\"7.5\"/><path d=\"M12 9.5v4l2.5 2M9.5 2.5h5M19 6.5l1.5-1.5\"/>","\u26a1":"<path d=\"M13 2.5 4.5 13.5H12l-1 8 8.5-11H12z\"/>","\u26a0\ufe0f":"<path d=\"M10.3 4.3 2.8 17.5A2 2 0 0 0 4.5 20.5h15a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9.5v4.5M12 17h.01\"/>","\u23f0":"<circle cx=\"12\" cy=\"13\" r=\"7.5\"/><path d=\"M12 9v4l2.5 2M4 5.5 7 3M20 5.5 17 3\"/>","\u2744\ufe0f":"<path d=\"M12 2.5v19M4 7l16 10M20 7 4 17M9.5 4.5 12 7l2.5-2.5M9.5 19.5 12 17l2.5 2.5\"/>","\u2600\ufe0f":"<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4\"/>","\u2699\ufe0f":"<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7\"/><circle cx=\"12\" cy=\"12\" r=\"6.5\"/>","\ud83d\udcdd":"<path d=\"M14.5 4.5h-8a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-8\"/><path d=\"m19.5 3.5 1 1L12 13l-2.2.6.6-2.2z\"/>","\ud83d\udd20":"<path d=\"M3.5 18 8 6l4.5 12M5.2 13.5h5.6M14.5 18v-7.5M14.5 14a3 3 0 1 0 6 0 3 3 0 1 0-6 0\"/>","\ud83d\udcf3":"<rect x=\"7.5\" y=\"3.5\" width=\"9\" height=\"17\" rx=\"2\"/><path d=\"M4 8v8M20 8v8M11 17h2\"/>","\ud83d\ude90":"<path d=\"M3 16.5V8.5a2 2 0 0 1 2-2h9.5l4 4.5h1.5a1 1 0 0 1 1 1v4.5\"/><circle cx=\"7.5\" cy=\"17\" r=\"1.8\"/><circle cx=\"16.5\" cy=\"17\" r=\"1.8\"/><path d=\"M9.3 17h5.4M14.5 6.5V11h4\"/>","\ud83d\udd04":"<path d=\"M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5\"/><path d=\"M5 3v3.8h3.8M19 21v-3.8h-3.8\"/>","\ud83d\udcca":"<path d=\"M4 20.5h16M7 17V11M12 17V6.5M17 17v-4\"/>","\ud83e\uddfe":"<path d=\"M6 3h12v18l-2.5-1.5L13 21l-2.5-1.5L8 21l-2-1.2z\"/><path d=\"M9 8h6M9 11.5h6M9 15h4\"/>","\ud83d\udcf7":"<path d=\"M4 8.5A1.5 1.5 0 0 1 5.5 7h2.2l1.5-2h5.6l1.5 2h2.2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z\"/><circle cx=\"12\" cy=\"13\" r=\"3.4\"/>","\u23e9":"<path d=\"M4 6.5v11l7.5-5.5zM12.5 6.5v11L20 12z\"/>","\uff0b":"<path d=\"M12 5v14M5 12h14\"/>"};
 function icoSvg(k){var d=ICO[k]||ICO[k.replace(/️/g,'')];return d?'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>':'';}
 var ICO_SEL='.cti,.bti,.hi,.sti,.nic,.bbi,.ali,.hsi,.nbi,.pfoi,.pfcam,.selfav';
 var ICO_ON=true;
 function iconize(root){if(!ICO_ON)return;try{(root||document).querySelectorAll(ICO_SEL).forEach(function(n){if(n.dataset.ic)return;var tn=null;for(var i=0;i<n.childNodes.length;i++){if(n.childNodes[i].nodeType===3&&n.childNodes[i].nodeValue.trim()){tn=n.childNodes[i];break;}}
   if(!tn)return;var k=tn.nodeValue.trim(),svg=icoSvg(k);if(!svg)return;var w=document.createElement('span');w.className='icow';w.innerHTML=svg;n.replaceChild(w,tn);n.dataset.ic='1';n.classList.add('hasico');});}catch(e){}}
-var ICO_RE=null,ICO_SKIP='input,textarea,.btxt,.emopanel,.epanel,.mmbar,.rxrow,.emob,.mme,.rx,.tagbox,.camwhat,script,style,svg,.ico';
+var ICO_RE=null,ICO_SKIP='input,textarea,.btxt,.inprev,.cpt,.bcap,.emopanel,.epanel,.yn,.lg3k,.camx,.pinx,.x,.mmbar,.rxrow,.emob,.mme,.rx,.tagbox,.camwhat,script,style,svg,.ico';
 function iconizeText(root){if(!ICO_ON)return;try{if(!ICO_RE)ICO_RE=new RegExp('('+Object.keys(ICO).map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).sort(function(a,b){return b.length-a.length;}).join('|')+')\ufe0f?','g');
   var w=document.createTreeWalker(root||document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){if(!n.nodeValue||!/[\u2190-\u2bff\ud800-\udfff\uff0b]/.test(n.nodeValue))return NodeFilter.FILTER_REJECT;var pe=n.parentElement;if(!pe||pe.closest(ICO_SKIP))return NodeFilter.FILTER_REJECT;ICO_RE.lastIndex=0;return ICO_RE.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}}),list=[];
   while(w.nextNode())list.push(w.currentNode);
@@ -4070,18 +4192,20 @@ function sendInline(atts,id){
     if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}var prid=rid();if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=96;
       // bad signal or a very big picture: try once more a bit smaller
       return call('photoAdd',{id:id,data:data.split(',')[1],rid:prid,text:a.cap||''}).catch(function(err){if(!isNet(err))throw err;if(S.me==='Yossi')logErr('Photo upload retry (test)','size '+a.f.size+' sent '+data.length+' '+String(err&&err.message));
-        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1],rid:prid,text:a.cap||''}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);sendQ('photoAdd',{id:id,data:d2.split(',')[1],rid:prid,text:a.cap||''},'⏳ '+T('No signal — it will send by itself when the signal is back.'));return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return;var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
+        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1],rid:prid,text:a.cap||''}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);if(!a._mq)mqAdd({task:id,kind:'photo',cap:a.cap||'',name:a.f.name||'photo.jpg'},a.f);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return;var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
     else pr=(a.pre?a.pre.go(function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);}):call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
       return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);},function(){return false;});})).then(function(r){return upDone(a._mid).then(function(){return r;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}
       if(a.cap){var cmid=lastMineMid(id,kind);if(cmid){allT().forEach(function(t){if(t.id!==id)return;var l=parseComments(t);l.forEach(function(o){if(o.id===cmid)o.text=a.cap;});t.comments=JSON.stringify(l);});call('capSet',{id:id,cid:cmid,text:a.cap,rid:rid()}).then(apply).then(function(){chatRepaint();}).catch(function(){sendComment(allT().filter(function(t){return t.id===id;})[0],a.cap);});}}});
-    pr.then(function(){pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
+    pr.then(function(r){if(a._mq&&r!=='Q')mqDel(a._mq);pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();
+      if(isNet(err)){if(!a._mq){mqAdd({task:id,kind:a.kind,dur:a.dur||0,cap:a.cap||'',name:a.f.name||'',mime:a.f.type||''},a.f);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}one();return;}
+      if(a._mq)mqDel(a._mq);toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
   one();
 }
 // a first frame of a video that is still uploading (for its tile)
 function vidFrame(mid,url){try{var v=document.createElement('video');v.muted=true;v.playsInline=true;v.preload='auto';v.src=url;
   v.addEventListener('loadeddata',function(){try{v.currentTime=Math.min(0.2,(v.duration||1)/2);}catch(e){}});
   v.addEventListener('seeked',function(){try{var c=document.createElement('canvas'),w=Math.min(480,v.videoWidth||480);c.width=w;c.height=Math.round(w*(v.videoHeight||640)/(v.videoWidth||480));c.getContext('2d').drawImage(v,0,0,c.width,c.height);VTH[mid]=c.toDataURL('image/jpeg',0.7);document.querySelectorAll('img.vtimg[data-v="'+mid+'"]').forEach(function(n){n.src=VTH[mid];n.parentNode.classList.add('has');});}catch(e){}},{once:true});}catch(e){}}
-function sendVoice(x,blob,dur,tries){tries=tries||0;
+function sendVoice(x,blob,dur,tries,mq){tries=tries||0;
   var mid='q'+rid(),url=URL.createObjectURL(blob),known=knownOf(x.id,'voice');S.vids[mid]=url;UPP[mid]=0;upProg(mid,1,blob.size);
   pendAdd(x.id,{id:mid,by:S.me,at:new Date().toISOString(),voice:mid,dur:dur,_q:1,_known:known});S.saving++;
   call('videoStart',{id:x.id,size:Math.max(blob.size,1000),mime:blob.type||'audio/webm',dur:dur,voice:true}).then(function(st){
@@ -4089,8 +4213,8 @@ function sendVoice(x,blob,dur,tries){tries=tries||0;
     function next(){var part=blob.slice(off,Math.min(blob.size,off+CH));
       return readB64(part).then(function(b64){return call('videoChunk',{uid:st.uid,offset:off,data:b64});}).then(function(r){off+=part.size;upProg(mid,Math.round(off*100/blob.size),blob.size);if(r&&r.more&&off<blob.size)return next();return r;});}
     return next();
-  }).then(function(r){return upDone(mid).then(function(){return r;});}).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}render();chatRepaint();})
-  .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();if(isNet(err)&&tries<60){if(!tries)toast('⏳ '+T('No signal — it will send by itself when the signal is back.'));var go=function(){window.removeEventListener('online',go);clearTimeout(tm);sendVoice(x,blob,dur,tries+1);},tm=setTimeout(go,20000);window.addEventListener('online',go);return;}toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
+  }).then(function(r){return upDone(mid).then(function(){return r;});}).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}if(mq)mqDel(mq);render();chatRepaint();})
+  .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();if(isNet(err)){if(!mq){mqAdd({task:x.id,kind:'voice',dur:dur,mime:blob.type||'audio/webm'},blob);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}return;}if(mq)mqDel(mq);toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
 }
 // ---------- photos ----------
 // Full-screen viewer on top of everything; ✕, a tap outside, or the phone's Back closes it and you're back where you were.
@@ -4278,8 +4402,22 @@ var MEDIA_GET={},VID_ORDER=[];
 function vidKeep(id,url){S.vids[id]=url;VID_ORDER.push(id);while(VID_ORDER.length>3){var old=VID_ORDER.shift();try{URL.revokeObjectURL(S.vids[old]);}catch(e){}delete S.vids[old];}} // cheap phones: keep only the 3 newest videos in memory
 // Videos / voice notes / files stay saved on the phone (last 10), so they open at once the next time.
 var VCACHE=null;try{if(window.caches)VCACHE=caches.open('sam-media-v1');}catch(e){}
+// Videos, voice notes, files and photos that could not go out (no signal) wait here – even if the app is closed – and send by themselves.
+var MQ_BUSY=false,MQN=0;
+function mqAdd(o,blob){if(!VCACHE)return;o.q='q'+rid();o.me=S.me;o.at=Date.now();MQN++;render();VCACHE.then(function(c){return c.put('/q/'+o.q,new Response(blob,{headers:{'Content-Type':blob.type||'application/octet-stream','x-meta':encodeURIComponent(JSON.stringify(o))}}));}).catch(function(){});}
+function mqDel(q){if(!VCACHE||!q)return;MQN=Math.max(0,MQN-1);VCACHE.then(function(c){return c.delete('/q/'+q);}).catch(function(){});}
+function mqFlush(){if(MQ_BUSY||!VCACHE||!S.me||S.viewAs||(navigator.onLine===false))return;MQ_BUSY=true;
+  VCACHE.then(function(c){return c.keys().then(function(ks){ks=ks.filter(function(k){try{return new URL(k.url).pathname.indexOf('/q/')===0;}catch(e){return false;}});MQN=ks.length;
+    return ks.reduce(function(pr,k){return pr.then(function(){return c.match(k).then(function(r){if(!r)return;var o={};try{o=JSON.parse(decodeURIComponent(r.headers.get('x-meta')||'{}'));}catch(e){}
+      if(o.me!==S.me)return;var x=allT().filter(function(t){return t.id===o.task;})[0];if(!x){if(Date.now()-(o.at||0)>3*86400000)c.delete(k);return;}
+      return r.blob().then(function(b){if(o.kind==='voice'){sendVoice(x,b,o.dur||0,0,o.q);return;}
+        var f=new File([b],o.name||('file-'+Date.now()),{type:o.mime||b.type||''});sendInline([{kind:o.kind,f:f,dur:o.dur||0,cap:o.cap||'',_mq:o.q}],x.id);});});});},Promise.resolve());});})
+  .catch(function(){}).then(function(){MQ_BUSY=false;});}
+window.addEventListener('online',function(){setTimeout(mqFlush,1500);});
 function mediaSave(id,blob){if(!VCACHE)return;VCACHE.then(function(c){return c.put('/m/'+id,new Response(blob,{headers:{'Content-Type':blob.type||'application/octet-stream'}})).then(function(){return c.keys();}).then(function(ks){ks.slice(0,Math.max(0,ks.length-10)).forEach(function(k){c.delete(k);});});}).catch(function(){});}
 function mediaFromPhone(id){if(!VCACHE)return Promise.resolve(null);return VCACHE.then(function(c){return c.match('/m/'+id);}).then(function(r){return r?r.blob():null;}).catch(function(){return null;});}
+// Only safe kinds of files can open inside the app; anything else (web pages, scripts, SVG…) is only a download.
+function safeMime(m){m=String(m||'').toLowerCase().split(';')[0].trim();if(/html|xml|svg|javascript|ecmascript|x-sh|json/.test(m))return 'application/octet-stream';return /^(image\/(jpeg|png|gif|webp|heic|heif)|video\/[\w.+-]+|audio\/[\w.+-]+|application\/pdf|text\/plain)$/.test(m)?m:'application/octet-stream';}
 function getMedia(id,prog,mime0){
   if(S.vids[id])return Promise.resolve(S.vids[id]);
   var job=MEDIA_GET[id];
@@ -4288,7 +4426,7 @@ function getMedia(id,prog,mime0){
     function dec(r){var bin=atob(r.data),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
     function tell(){job.ls.forEach(function(f){try{f(job.got,job.total||job.got);}catch(e){}});}
     job.p=fromPhone.then(function(bl){if(bl&&bl.size){var u0=URL.createObjectURL(bl);vidKeep(id,u0);delete MEDIA_GET[id];return {cached:u0};}return call('videoGet',{fileId:id,start:0});}).then(function(r){if(r&&r.cached)return r.cached;
-      var first=dec(r),total=r.total||first.length,CH=first.length,mime=r.mime||mime0||'application/octet-stream',parts=[first],starts=[];
+      var first=dec(r),total=r.total||first.length,CH=first.length,mime=safeMime(r.mime||mime0),parts=[first],starts=[];
       job.total=total;job.got=first.length;tell();
       for(var s=CH;s<total&&CH>0;s+=CH)starts.push(s);
       var idx=0;
@@ -4309,8 +4447,8 @@ function openFile(m){
   getMedia(m.file,function(got,total){var p=Math.round(got*100/total);bar.firstChild.style.width=p+'%';pct.textContent=p+'% · '+fmtSize(total);},m.mime)
     .then(function(url){showFile(m,url);}).catch(function(e){closeSheet();toast('❗ '+T('Could not open the file.')+' '+errText(e));});
 }
-function showFile(m,url){openSheet([el('h2',{text:fileIcon(m)+' '+(m.name||T('File'))}),el('p',{class:'muted',text:fmtSize(m.size)}),
-  el('a',{class:'primary',href:url,target:'_blank',rel:'noopener',style:'display:block;text-align:center;text-decoration:none'},'👁 '+T('Open')),
+function showFile(m,url){var canOpen=safeMime(m.mime)!=='application/octet-stream';openSheet([el('h2',{text:fileIcon(m)+' '+(m.name||T('File'))}),el('p',{class:'muted',text:fmtSize(m.size)}),
+  canOpen?el('a',{class:'primary',href:url,target:'_blank',rel:'noopener',style:'display:block;text-align:center;text-decoration:none'},'👁 '+T('Open')):null,
   el('a',{class:'cbtn',href:url,download:m.name||'file',style:'display:block;text-align:center;text-decoration:none;margin-top:8px'},'⬇ '+T('Save to phone')),
   el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);}
 // Clean video player: big ▶ in the middle, bottom bar with play/pause, time, seek line and speed (1× · 1.5× · 2×). Tap the video to show/hide the controls.
@@ -4326,6 +4464,8 @@ function vPlayer(url,it){
   var bar=el('div',{class:'vpbar'},pp,tm,sp);
   var ctl=el('div',{class:'vpctl'},seek,bar);
   wrap.appendChild(v);wrap.appendChild(big);wrap.appendChild(ctl);
+  // a video this phone can't play (e.g. an old Android video on iPhone): say so, offer to share / save it
+  v.addEventListener('error',function(){if(wrap.querySelector('.vperr'))return;wrap.appendChild(el('div',{class:'vperr'},el('div',{text:T('This video can\'t play on this phone.')}),el('a',{class:'primary',href:url,download:'video'+(/webm/.test(url)?'.webm':'.mp4'),style:'display:block;text-decoration:none'},T('Save to phone'))));});
   function fmt(t){t=Math.max(0,Math.round(t||0));return fmtDur(t);}
   function dur(){return isFinite(v.duration)&&v.duration>0?v.duration:(it.dur||0);}
   function show(){wrap.classList.add('on');clearTimeout(hideT);if(!v.paused)hideT=setTimeout(function(){wrap.classList.remove('on');},2600);}
@@ -4401,7 +4541,7 @@ function refresh(force){
   var goAt=GO_GEN,sg=SAVE_GEN;call('list').then(function(d){S.offline=false;S.quickIn=null;S.lastOk=new Date().toISOString();if(S.saving||sg!==SAVE_GEN)return;apply(d);S.loaded=true;S.err='';if(goAt===GO_GEN)GO_FRESH=true;if(!document.getElementById('scrim'))render();else if(S.sheetRefresh){try{S.sheetRefresh();}catch(e){}}runGo();})
   .catch(function(e){if(isBadPin(e)){var qi=S.quickIn,pk=qi?(PEOPLE.indexOf(qi)>=0?qi:'crew'):null;signOut(qi?T('Your PIN was changed – enter the new one'):'');if(pk){S.pick=pk;render();}return;}if(/LOCKED/.test(String(e&&e.message)))toast('🔒 '+errText(e));if(isNet(e))S.offline=true;S.loaded=true;if(!S.tasks.length)S.err=T('Could not load the list. Check your signal.');render();});
 }
-function startPolling(){
+function startPolling(){setTimeout(mqFlush,3000);clearInterval(window.MQT);window.MQT=setInterval(function(){if(MQN&&!document.hidden)mqFlush();},45000);
   if(S.poll)return;
   S.poll=setInterval(function(){if(!document.hidden&&!document.getElementById('scrim'))refresh();},isOffice()?60000:180000);
   document.addEventListener('visibilitychange',function(){if(!document.hidden){refresh();checkUpdate();}});
@@ -4417,10 +4557,10 @@ function openEditor(x,preset){
   var sibs=!isNew&&!forCrew?officeSibs(x):[];
   var sel=isNew?(forCrew?(preset.owner?[preset.owner]:[]):[PEOPLE.indexOf(S.tab)<0?S.me:S.tab]):(forCrew?[x.owner]:sibs.map(function(t){return t.owner;}));
   var title=el('input',{class:'in',placeholder:T('What needs to be done?')+(forCrew?' '+T('(optional)'):''),maxlength:'200'});title.value=x?x.title:'';if(schT){title.disabled=true;title.title=T('Set by the schedule');}
-  var address=el('input',{class:'in',placeholder:'📍 '+T('Address (optional)'),maxlength:'300',autocomplete:'off'});address.value=x?(x.address||''):'';
+  var address=el('input',{class:'in',placeholder:T('Address (optional)'),maxlength:'300',autocomplete:'off'});address.value=x?(x.address||''):'';
   var addrBox=addressPicker(address);
   var note=el('textarea',{class:'in',rows:'2',placeholder:T('Note — details (optional)'),maxlength:'1000'});note.value=x?x.note:'';
-  var due=el('input',{class:'in',type:'date'});due.value=x?x.due:(preset.due||today());
+  var due=el('input',{class:'in',type:'date'});due.value=x?x.due:(preset.due||(isSat(today())||(typeof offDayJ==='function'&&offDayJ(today()))?nextWorkDay(today()):today()));
   var time=el('input',{class:'in',type:'time'});time.value=x?(x.time||''):'';
   var ob={},whoRow=el('div',{class:'seg wide'});
   var jp=jobPicker(x?(x.job||''):(preset.job||''),address);
@@ -4429,7 +4569,9 @@ function openEditor(x,preset){
   function paint(){whoList.forEach(function(p){if(ob[p])ob[p].classList.toggle('on',sel.indexOf(p)>=0);});}
   if(forCrew&&!isNew)whoRow=el('div',{class:'lbl',style:'font-size:17px;color:var(--ink)',text:'👷 '+nameOf(x.owner)});
   else{if(forCrew)whoRow=el('div',{class:'pickgrid'});
-    whoList.forEach(function(p){ob[p]=el('button',{class:forCrew?'pk':'seg-b',type:'button',onclick:function(){var i=sel.indexOf(p);if(i>=0)sel.splice(i,1);else sel.push(p);paint();}},forCrew?nameOf(p):p);whoRow.appendChild(ob[p]);});}
+    whoList.forEach(function(p){ob[p]=el('button',{class:forCrew?'pk':'seg-b',type:'button',onclick:function(){var i=sel.indexOf(p);if(i>=0)sel.splice(i,1);else sel.push(p);paint();}},forCrew?nameOf(p):p);whoRow.appendChild(ob[p]);});
+    // a one-off job for a worker right from here
+    if(isNew&&!forCrew&&isOffice())whoRow.appendChild(el('button',{class:'seg-b',type:'button',onclick:function(){closeSheet(true,true);openEditor(null,{crew:1,due:due.value,job:jp.get()||''});}},'👷 '+T('Worker…')));}
   var ub=el('button',{class:'urgbtn'+(urgent?' on':''),onclick:function(){urgent=!urgent;ub.classList.toggle('on',urgent);}},el('span',{text:'❗ '+T('Mark as urgent')}),el('span',{class:'sw'}));
   // 📎 Attach photos, videos and files (plans…) to a new task. They go into the task's chat after it is saved.
   var atts=[],attBox=null;
@@ -4715,7 +4857,7 @@ function allReps(){var cur=S.steady.reports||[],k={};cur.forEach(function(r){k[r
 function reportFor(crewId,date){return allReps().filter(function(r){return r.crew===crewId&&r.date===date;})[0]||null;}
 function tAct(a){return T(a);}
 function dW(n){return n+' '+(n===1?T('day'):T('days'));}
-function clockOf(iso){var d=new Date(iso);return isNaN(d)?'':d.toLocaleTimeString(LANG==='es'?'es':'en-US',{hour:'numeric',minute:'2-digit'});}
+function clockOf(iso){var d=new Date(iso);return isNaN(d)?'':d.toLocaleTimeString(LANG==='es'?'es-US':'en-US',{hour:'numeric',minute:'2-digit'});}
 function crewTitle(c){var m=/^(.+)'s crew$/.exec(c.name||'');return m&&LANG==='es'?'Cuadrilla de '+m[1]:c.name;}
 function leaderCard(c){
   var wk=S.lweek||0,ws=addDays(weekStart(today()),wk*7),t=today();
@@ -4753,7 +4895,7 @@ function openReportEditor(c,date){
   function present(){return mem.filter(function(n){return ppl[n].present;});}
   function paint(){
     body.innerHTML='';
-    var pr=present().length,left=mem.filter(function(n){return ppl[n].present===null;}).length+acts.filter(function(a){return aSt[a]===null;}).length;
+    var pr=present().length,left=mem.filter(function(n){return ppl[n].present===null;}).length; // activities can stay unmarked
     body.appendChild(el('div',{class:'lbl',text:'👷 '+T('Who came?')+' ('+pr+'/'+mem.length+')'}));
     mem.forEach(function(n){var p=ppl[n];
       body.appendChild(el('div',{class:'reprow'+(p.present===false?' off':'')},
@@ -4770,9 +4912,9 @@ function openReportEditor(c,date){
     body.appendChild(el('div',{style:'display:flex;gap:6px;margin-top:6px'},other,el('button',{class:'cbtn',onclick:function(){var v=other.value.trim();if(!v)return;if(acts.indexOf(v)<0)acts.push(v);aSt[v]=true;other.value='';dirty=true;paint();}},'+ '+T('Add'))));}
     body.appendChild(el('div',{class:'lbl',style:'margin-top:14px',text:'📝 '+T('Notes for the day')}));
     body.appendChild(note);
-    if(left)body.appendChild(el('div',{class:'muted',style:'margin-top:10px;font-weight:700;color:#C92A2A',text:T('Mark ✓ or ✗ on every line')+' ('+left+' '+T('left')+')'}));
+    if(left)body.appendChild(el('div',{class:'muted',style:'margin-top:10px;font-weight:700;color:#C92A2A',text:T('Mark ✓ or ✗ for every person')+' ('+left+' '+T('left')+')'}));
     var send=el('button',{class:'primary repsend',style:'margin-top:10px'+(left?';opacity:.45':''),onclick:function(){
-      if(left){toast(T('Mark ✓ or ✗ on every line'));return;}
+      if(left){toast(T('Mark ✓ or ✗ for every person'));return;}
       dayActs=acts.filter(function(a){return aSt[a]===true;});var noActs=acts.filter(function(a){return aSt[a]===false;});
       var data={people:mem.map(function(n){var p=ppl[n];return{name:n,present:p.present,ot:p.present?p.ot:0};}),acts:dayActs,no:noActs,note:note.value.trim()};
       S.guard=null;closeSheet();sendQ('reportSave',{crew:c.id,date:date,data:data},'✓ '+T('Report sent'));if(isOffice())openReportDay(c.id,date);return;
@@ -4885,7 +5027,7 @@ function openCrewSetup(c){
 }
 
 // ---------- announcements ----------
-function annWhen(iso){var d=new Date(iso);if(isNaN(d))return '';var t=d.toLocaleTimeString(LANG==='es'?'es':'en-US',{hour:'numeric',minute:'2-digit'});
+function annWhen(iso){var d=new Date(iso);if(isNaN(d))return '';var t=d.toLocaleTimeString(LANG==='es'?'es-US':'en-US',{hour:'numeric',minute:'2-digit'});
   var ds=today(),dd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
   return (dd===ds?T('Today'):dateLabel(dd))+' '+t;}
 function openAnnounce(){
@@ -4893,7 +5035,7 @@ function openAnnounce(){
   var all=true,sel=[];
   var msg=el('textarea',{class:'in',rows:'4',placeholder:T('Write the message…'),maxlength:'1000'});
   var allB=el('button',{class:'allbtn',type:'button'}),pickB=el('button',{class:'allbtn',type:'button'});
-  var q=el('input',{class:'in',placeholder:'🔎 '+T('Search name')}),list=el('div',{class:'crewlist'}),box=el('div',{class:'crewbox'},q,list);
+  var q=el('input',{class:'in',placeholder:T('Search name')}),list=el('div',{class:'crewlist'}),box=el('div',{class:'crewbox'},q,list);
   var people=PEOPLE.filter(function(k){return k!==S.me;}).map(function(k){return {id:k,name:k};}).concat(S.crew);
   function paint(){
     allB.textContent='👷 '+T('Everyone')+' ('+people.length+')';allB.classList.toggle('on',all);
@@ -4940,7 +5082,7 @@ function jobPicker(initial,addressInput){
     var av=addressInput.value.trim(),fromOld=old&&old.address&&av===old.address;
     if(nj&&nj.address&&(!av||fromOld))addressInput.value=nj.address;else if(fromOld)addressInput.value='';
     paint();}
-  var q=el('input',{class:'in',placeholder:'🔎 '+T('Search job')});
+  var q=el('input',{class:'in',placeholder:T('Search job')});
   q.addEventListener('input',function(){paintList();});
   var list=el('div',{class:'joblist'});
   function paintList(){
@@ -4961,7 +5103,7 @@ function jobPicker(initial,addressInput){
 }
 function jobForm(j,onSaved,onCancel){
   var name=el('input',{class:'in',placeholder:T('Job name'),maxlength:'80'});name.value=j?j.name:'';
-  var addr=el('input',{class:'in',placeholder:'📍 '+T('Job address (optional)'),maxlength:'300',autocomplete:'off'});addr.value=j?(j.address||''):'';
+  var addr=el('input',{class:'in',placeholder:T('Job address (optional)'),maxlength:'300',autocomplete:'off'});addr.value=j?(j.address||''):'';
   var err=el('div',{class:'err'});
   var b=el('button',{class:'primary',type:'button',onclick:function(){
     var n=name.value.trim();if(!n){err.textContent=T('Type the job name.');name.focus();return;}
@@ -4977,19 +5119,21 @@ Object.assign(ES,{"Sent to": "Enviado a", "Job sites today": "Obras de hoy", "st
 // ---------- Getting people set up (install help, invites, QR, who still isn't set up) ----------
 var APP_LINK='https://samconstruction.github.io/todo/',QR_APP='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQgAAAEIAQAAAACLjVdSAAABpklEQVR4Xu1Z267CMAxrEP//yznyJVV3JNj7TEBolAmpxrHdUL1u6nV3w++Of/UkxN5rlbbXtcQVvu9ZfdRu73+5N/ZuFIABrrv46tX773jcHVVgg6BY1avJEa0+b7dfC/xwqUOKYBwq+7hf/2sdu22pRlVfPCcLD/Jj9s9OabQJFMSrWXisTQaAcT7sOp2FB61ENZfw3WM5C48X8kbhWRQPdg8R8Qd5eCCIbQ2VdsBqi8YbiIccFvSYhKooQqtJw0NCwcRRzZZxGnN2T8vrwGOA2CHdeiq6ZOkp+UEB8QFOjSJESJssPJDHuHtgYigGIdlwFh7YLROpznAW160hcXrKfMqM2nPZ9NlZCsunL3Khujn0MEkc1cWYrH7BfEzK6bkY3o/XUmyz8JC/2GQmjYy1hOKxB6g8uWzfdRwJ5IfPt8JCgLiH4vIHzrcqOoxe1D5eyOIH8weKEOigv/02MI9xXqgBsqfqO6r7f4c8flzm6xoEkSIaBMTioeDBYCZJlbJm4XHM15XQAUpzEMQ5QCIeThwahYy37MrixzFI/1BZePx2e60/2B26824VLcwAAAAASUVORK5CYII=';
 // iPhones have no "install" button: show exactly where to tap.
+var IOS_OPEN=false;
 function iosInstallCard(){
   if(!isIOS||isStandalone())return null;try{if(+(localStorage.getItem('sam_ios_x')||0)>Date.now())return null;}catch(e){}
-  var share='<svg viewBox="0 0 24 24" width="22" height="22" style="vertical-align:-5px"><path d="M12 3v12M7 8l5-5 5 5" fill="none" stroke="#1F6FB2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="#1F6FB2" stroke-width="2" stroke-linecap="round"/></svg>';
-  return el('div',{class:'iosinst'},el('b',{text:'📲 '+T('Put the app on your home screen')}),
+  var share='<svg viewBox="0 0 24 24" width="22" height="22" style="vertical-align:-5px"><path d="M12 3v12M7 8l5-5 5 5" fill="none" stroke="#1B8F7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="#1B8F7B" stroke-width="2" stroke-linecap="round"/></svg>';
+  var steps=el('div',{class:'iossteps',style:IOS_OPEN?'':'display:none'},
     el('div',{class:'iosrow',html:'1. '+T('Tap')+' '+share+' '+T('at the bottom of Safari')}),
     el('div',{class:'iosrow',text:'2. '+T('Scroll down and tap “Add to Home Screen”')}),
-    el('div',{class:'iosrow',text:'3. '+T('Tap “Add” – then open SAM To-Do from your home screen')}),
+    el('div',{class:'iosrow',text:'3. '+T('Tap “Add” – then open SAM To-Do from your home screen')}));
+  return el('div',{class:'iosinst'},el('button',{class:'iostop',onclick:function(){IOS_OPEN=!IOS_OPEN;steps.style.display=IOS_OPEN?'':'none';}},el('b',{text:T('Put the app on your home screen')}),el('span',{class:'hchev',text:'›'})),steps,
     el('button',{class:'x','aria-label':T('Close'),onclick:function(){try{localStorage.setItem('sam_ios_x',String(Date.now()+7*864e5));}catch(e){}render();}},'✕'));
 }
 function inviteMsg(c){
   return 'Hola '+c.name+' 👋\nEsta es la app de SAM Construction para ver tus trabajos:\n'+APP_LINK+'\n\n'+
     '📱 Android: ábrela en Chrome y toca "📲 Instalar".\n🍎 iPhone: ábrela en Safari, toca Compartir ⬆️ y "Agregar a inicio".\n\n'+
-    'Entrar: toca "👷 Estoy en la cuadrilla" y pon tu PIN: '+c.pin+'\nDespués toca "Permitir" para recibir avisos de tus trabajos.\n¡Gracias!';
+    'Entrar: toca "👷 Estoy en la cuadrilla" y pon tu PIN: '+(c.pin||'(te lo da Yossi)')+'\nDespués toca "Permitir" para recibir avisos de tus trabajos.\n¡Gracias!';
 }
 // Send the app (link + PIN + install steps in Spanish) by WhatsApp or text message.
 function openSendApp(c,back){
@@ -5055,7 +5199,7 @@ function snowApply(r){if(!r)return;if('mine' in r)S.snow=r.mine;else if(r.custs)
 try{var _sn=JSON.parse(localStorage.getItem('sam_snow')||'null');if(_sn&&_sn.custs)S.sn=_sn;}catch(e){}
 function snowLoad(){return call('snowGet',{}).then(function(r){snowApply(r);try{localStorage.setItem('sam_snow',JSON.stringify(S.sn));}catch(e){}if(S.view==='snow')render();}).catch(function(e){if(S.view==='snow'&&!S.sn){S.snErr=errText(e);render();}});}
 var SNOW_TIMER=null;
-function openSnow(){S.view='snow';S.snTab=S.snTab||'Customers';S.snStorm=null;S.snErr='';render();window.scrollTo(0,0);snowLoad();
+function openSnow(){if(S.view!=='snow')S.lastTab=S.view||'home';S.view='snow';S.snTab=S.snTab||'Customers';S.snStorm=null;S.snErr='';render();window.scrollTo(0,0);snowLoad();
   clearInterval(SNOW_TIMER);SNOW_TIMER=setInterval(function(){if(S.view!=='snow'||document.hidden){if(S.view!=='snow')clearInterval(SNOW_TIMER);return;}if(S.snTab==='Storms'&&S.sn&&S.sn.active&&!S.snDrag&&!document.getElementById('scrim'))snowLoad();},20000);}
 function snowCall(a,p,msg){S.saving++;render();return call(a,p).then(function(r){S.saving--;snowApply(r);render();if(msg)toast('✓ '+msg);return r;}).catch(function(e){S.saving--;render();toast('❗ '+snowErr(e));throw e;});}
 function snowErr(e){var m=String(e&&e.message||e);return ({SNOW_NEED_NAME:T('Type the name and the address.'),SNOW_NO_STOPS:T('Put customers on a route first.'),SNOW_ALREADY:T('A storm is already going on.'),ROUTE_FAILED:T('Google Maps could not plan this route – check the addresses.')})[m]||errText(e);}
@@ -5519,7 +5663,7 @@ function histFrom(h,c){h.loading=false;h.err='';h.info=c.job;h.first=c.first;h.c
 function shortDay(s){if(!s)return '';if(s===today())return T('today');var d=parse(s);return LANG==='es'?d.getDate()+' '+MNE[d.getMonth()]:MN[d.getMonth()]+' '+d.getDate();}
 function jobsView(){
   var outer=listShell();if(!outer)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
-  outer.appendChild(el('div',{class:'jhtitle',text:'🏗 '+T('Jobs')}));
+  // (title is in the header)
   var inp=el('input',{class:'jhsearch',type:'search',placeholder:T('Search a job or address…'),value:S.jobQ||''}),res=el('div',{}),tmr=null,comp=false;
   inp.addEventListener('compositionstart',function(){comp=true;});
   inp.addEventListener('compositionend',function(){comp=false;S.jobQ=inp.value;clearTimeout(tmr);tmr=setTimeout(paintRes,150);});
@@ -5747,14 +5891,15 @@ if(S.me){refresh(true);startPolling();if(notifState()==='granted')enablePush(fal
       if(n.scrollWidth>n.clientWidth+4){var ox=getComputedStyle(n).overflowX;if(ox==='auto'||ox==='scroll')return false;}}
     return true;}
   function nb(d){var o=order(),i=o.indexOf(S.view||'home')+d;return i>=0&&i<o.length?o[i]:null;}
-  document.addEventListener('touchstart',function(e){x0=null;if(e.touches.length!==1||!canStart(e))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY;dx=0;lock=0;t0=Date.now();W=window.innerWidth||360;},{passive:true});
-  document.addEventListener('touchmove',function(e){if(x0==null)return;if(e.touches.length!==1){end(true);return;}
+  // the "move" listener is only attached while a swipe could start, so normal scrolling never waits for the app
+  document.addEventListener('touchstart',function(e){x0=null;if(e.touches.length!==1||!canStart(e))return;x0=e.touches[0].clientX;y0=e.touches[0].clientY;dx=0;lock=0;t0=Date.now();W=window.innerWidth||360;document.addEventListener('touchmove',mv,{passive:false});},{passive:true});
+  function mv(e){if(x0==null){document.removeEventListener('touchmove',mv,{passive:false});return;}if(e.touches.length!==1){end(true);return;}
     var mx=e.touches[0].clientX-x0,my=e.touches[0].clientY-y0;
     if(!lock){if(Math.abs(mx)<10&&Math.abs(my)<10)return;if(Math.abs(mx)>Math.abs(my)*1.5){lock=1;els=pageEls();}else{x0=null;return;}}
-    if(e.cancelable)e.preventDefault();dx=mx;var has=nb(dx<0?1:-1);setX(has?dx:dx*0.25);},{passive:false});
-  function end(cancel){if(x0==null)return;x0=null;if(!lock)return;lock=0;
+    if(e.cancelable)e.preventDefault();dx=mx;var has=nb(dx<0?1:-1);setX(has?dx:dx*0.25);}
+  function end(cancel){document.removeEventListener('touchmove',mv,{passive:false});if(x0==null)return;x0=null;if(!lock)return;lock=0;
     var dir=dx<0?1:-1,to=nb(dir),v=Math.abs(dx)/Math.max(1,Date.now()-t0);
-    if(cancel||!to||(Math.abs(dx)<W*0.28&&v<0.45)){setX(0,'transform .2s ease-out');return;}
+    if(cancel||!to||Math.abs(dx)<60||(Math.abs(dx)<W*0.28&&v<0.45)){setX(0,'transform .2s ease-out');return;}
     haptic();setX(-dir*W,'transform .16s ease-in');
     setTimeout(function(){els.forEach(function(n){n.style.transition='';n.style.transform='';});
       if(to==='jobs')openJobs();else goView(to);
