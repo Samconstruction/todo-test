@@ -1805,7 +1805,7 @@ function loginView(){
   function lgAv(k,txt){return el('span',{class:'lgav lgav-'+k,text:txt});}
   if(!S.pick){
     box.appendChild(el('p',{class:'lgq',text:T('Who is using this phone?')}));
-    box.appendChild(el('div',{class:'whos'},PEOPLE.map(function(p){return el('button',{class:'who',onclick:function(){S.pick=p;S.loginMsg='';render();}},lgAv(p,p[0]),el('span',{class:'lgnm',text:p}));})));
+    box.appendChild(el('div',{class:'whos'},['Rocky','Yossi','Ashley'].filter(function(p){return PEOPLE.indexOf(p)>=0;}).map(function(p){return el('button',{class:'who',onclick:function(){S.pick=p;S.loginMsg='';render();}},lgAv(p,p[0]),el('span',{class:'lgnm',text:p}));})));
     box.appendChild(el('button',{class:'who crewbtn',onclick:function(){S.pick='crew';S.loginMsg='';render();}},lgAv('crew','👷'),el('span',{class:'lgnm',text:T("I'm on the crew")}),el('span',{class:'lgchev',text:'›'})));
     if(S.loginMsg)box.appendChild(el('div',{class:'err',style:'text-align:center',text:S.loginMsg}));
   } else {
@@ -1917,7 +1917,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140652',lastUpd=0;
+var BUILD='202611140653',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
