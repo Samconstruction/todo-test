@@ -1019,6 +1019,44 @@ input[type=search].in,input.chatsearch{padding-left:40px;background:#fff url("da
 @keyframes prOut{from{opacity:1;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(.96)}}
 .camhd{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:3;padding:9px 14px;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;font-size:14px;font-weight:800;backdrop-filter:blur(6px)}
 .vcam.rvon .camhd,.cambox.rv .camhd{display:none}
+/* snow in mint – only "Start storm" stays red */
+.sn-big{background:#1B8F7B}
+.sn-big.storm{background:#D64545}
+.sn-big.ghostb{background:#E6F6F1;color:#0E4F45}
+.sn-ad{color:#1B8F7B}.sn-ad.green{color:#1B8F7B}
+.sn-stop .n{background:#1B8F7B}.sn-stop.dragging{border-color:#1B8F7B}
+.sn-row .now{color:#1B8F7B}
+.sn-next{border-color:#1B8F7B}.sn-next .lab{color:#1B8F7B}
+.sn-grid .nav{background:#1B8F7B}.sn-grid .on{background:#0E4F45}
+.sn-grid button{background:#E6F6F1;color:#0E4F45}
+.sn-banner{background:#E6F6F1;color:#0E4F45}
+.sn-prog{background:#E6F6F1}.sn-prog i{background:#1B8F7B}
+.sn-done{background:#1B8F7B}
+.sn-dbanner{background:#1B8F7B}
+/* estimates */
+.es{padding-bottom:110px}.es h3{margin:16px 2px 8px;font-size:13px;letter-spacing:.08em;color:#4A8178}
+.newb{width:100%;min-height:56px;border-radius:18px;background:#1B8F7B;color:#fff;font-size:17px;font-weight:800;margin:4px 0 4px}
+.ecard{width:100%;text-align:left;background:#fff;border-radius:18px;padding:14px 14px;margin:0 0 10px;box-shadow:0 2px 10px rgba(14,79,69,.08);display:flex;gap:12px;align-items:center}
+.ecard .ic,.pdfcard .ic{width:44px;height:44px;border-radius:14px;background:#E6F6F1;color:#1B8F7B;display:flex;align-items:center;justify-content:center;flex:none}
+.ecard .m,.pdfcard .m{flex:1;min-width:0}.ecard b,.pdfcard b{display:block;font-size:16px;color:#14302B;overflow:hidden;text-overflow:ellipsis}.ecard .m span,.pdfcard .m span{display:block;font-size:13.5px;color:#5E7A74;margin-top:2px}
+.es .pill{font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;white-space:nowrap}.pill.p1{background:#FFF1E3;color:#B5651D}.pill.p2{background:#E6F6F1;color:#1B8F7B}.pill.p3{background:#EEF0F2;color:#5B6670}
+.fl{font-size:12.5px;font-weight:800;color:#4A8178;margin:12px 2px 6px;letter-spacing:.04em}
+.voice2{display:flex;gap:10px;align-items:flex-start}.voice2 textarea{flex:1;margin:0}
+.voice2 .mic{width:54px;height:54px;border-radius:50%;background:#1B8F7B;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.voice2 .mic.on{background:#D64545;animation:micp 1.2s infinite}@keyframes micp{50%{box-shadow:0 0 0 10px rgba(214,69,69,.15)}}
+.ph{display:flex;gap:8px;flex-wrap:wrap}.ph .phi{position:relative;width:74px;height:74px;border-radius:14px;overflow:hidden;background:#E6F6F1}.ph .phi img{width:100%;height:100%;object-fit:cover}
+.ph .phx{position:absolute;top:3px;right:3px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:13px}
+.ph .add{width:74px;height:74px;border-radius:14px;background:#E6F6F1;color:#1B8F7B;font-size:30px;font-weight:300}
+.claude{width:100%;min-height:56px;border-radius:18px;background:#14302B;color:#fff;font-size:17px;font-weight:800;margin-top:14px}
+.esthd{background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 10px rgba(14,79,69,.08);margin:0 0 6px;display:flex;flex-direction:column;gap:4px}
+.esthd b{font-size:21px;color:#14302B}.esthd a{color:#1B8F7B;font-weight:600;text-decoration:none}.esthd span{color:#5E7A74;font-size:14px}
+.step{display:flex;gap:12px;align-items:center;margin:10px 2px}.step i{font-style:normal;width:28px;height:28px;border-radius:50%;background:#1B8F7B;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.step.off i{background:#DCE7E3;color:#5E7A74}.step span{font-size:15px;color:#14302B}.step.off span{color:#5E7A74}
+.pdfcard{width:100%;text-align:left;display:flex;gap:12px;align-items:center;background:#fff;border:2px solid #BDEBDF;border-radius:18px;padding:14px;margin:12px 0 0}
+.row2b{display:flex;gap:10px;margin-top:10px}.row2b button{flex:1;min-height:52px;border-radius:16px;font-weight:800;font-size:16px}
+.row2b .bm{background:#1B8F7B;color:#fff}.row2b .bl{background:#E6F6F1;color:#0E4F45}
+.estdesc{background:#fff;border-radius:16px;padding:4px 14px 14px;margin-top:14px;white-space:pre-wrap;font-size:15px;line-height:1.45;color:#14302B}
+.es>.primary,.es>.cbtn{display:block;width:100%}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1156,7 +1194,7 @@ function apply(d){
   if(d&&('__va' in d)&&d.__va!==(S.viewAs||null))return;
   if(d&&d.seen)S.seen=d.seen;if(d&&d.myPush===0&&!d.__cached)setTimeout(pushHeal,1500);
   if(!d||!d.me)return;
-  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
+  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
   if(!S.viewAs){store('sam_me',S.me);store('sam_name',S.name);store('sam_role',S.role);
   try{if(d.tasks)localStorage.setItem('sam_cache',JSON.stringify(d));}catch(e){}}
   if(Q.length)applyQ();
@@ -1245,9 +1283,9 @@ function navKey(){
   if(!S.me)return 'login|'+(S.pick||'');
   var v=S.view||'home';
   if(!isOffice())v=(v==='snowdrv'&&S.snow&&S.snow.stops)?'snowdrv':/^(chats|week|more|myjobs)$/.test(v)?v:'home';
-  return v+(v==='jobhist'&&S.hist?'|'+S.hist.job:v==='snow'?'|'+(S.snStorm||''):'');
+  return v+(v==='estone'?'|'+(S.estId||''):v==='jobhist'&&S.hist?'|'+S.hist.job:v==='snow'?'|'+(S.snStorm||''):'');
 }
-function navSnap(){return {sam:1,k:navKey(),me:S.me||'',pick:S.pick||'',v:S.view||'home',tab:S.tab,cd:S.crewDay,ctd:S.crewTaskDay,snTab:S.snTab,snStorm:S.snStorm||'',job:(S.hist&&S.hist.job)||'',y:window.scrollY};}
+function navSnap(){return {sam:1,k:navKey(),me:S.me||'',pick:S.pick||'',v:S.view||'home',tab:S.tab,cd:S.crewDay,ctd:S.crewTaskDay,snTab:S.snTab,snStorm:S.snStorm||'',job:(S.hist&&S.hist.job)||'',est:S.estId||'',y:window.scrollY};}
 function queueHist(){if(histQ)return;histQ=true;setTimeout(function(){histQ=false;syncHist();},0);}
 // Small things open inside a chat (held message, + card, emoji, tags, reply, recording): each gets its own Back step.
 function subUI(){return !!(document.getElementById('mmenu')||document.querySelector('.chatsheet .attcard2,.chatsheet .emopanel,.chatsheet .replybar,.chatsheet .recbar2,.chatsheet .recprev')||[].some.call(document.querySelectorAll('.chatsheet .tagbox'),function(n){return n.style.display!=='none';}));}
@@ -1261,7 +1299,7 @@ function syncHist(){try{
   }
   else if(st.k!==s.k){                                                                 // went to another screen
     // Back goes to the page before, not through every screen: going to the parent = step back; side by side screens (tabs, job → other job) replace each other.
-    var pk=function(k){var v=String(k||'').split('|')[0];return (v==='home'||v==='login'||!v)?'':(v==='jobhist'?'jobs':v==='snowdrv'?'snow':v==='myjobs'||v==='week'||v==='cal'||v==='sites'?'more':'home');};
+    var pk=function(k){var v=String(k||'').split('|')[0];return (v==='home'||v==='login'||!v)?'':(v==='jobhist'?'jobs':v==='snowdrv'?'snow':v==='estone'?'est':v==='est'?'more':v==='myjobs'||v==='week'||v==='cal'||v==='sites'?'more':'home');};
     if(!navRepl&&st.me===s.me&&st.from&&s.k===st.from){navOwn++;history.back();return;}
     if(!navRepl&&st.me===s.me&&pk(s.k)&&pk(s.k)===pk(st.k)&&st.k!=='need')navRepl=true;   // opened from "Needs you": Back returns to it
     if(navRepl||st.me!==s.me){s.d=st.me!==s.me?1:st.d;s.from=st.from;history.replaceState(s,'');}
@@ -1277,7 +1315,7 @@ function syncHist(){try{
 }catch(e){}}
 function navApply(st){
   if(!S.me){S.pick=st.pick||null;render();return;}
-  var was=S.view;S.view=st.v||'home';if(st.tab)S.tab=st.tab;if(st.cd)S.crewDay=st.cd;if(st.ctd)S.crewTaskDay=st.ctd;if(st.snTab)S.snTab=st.snTab;S.snStorm=st.snStorm||null;
+  var was=S.view;S.view=st.v||'home';if(S.view==='estone'&&st.est)S.estId=st.est;if(st.tab)S.tab=st.tab;if(st.cd)S.crewDay=st.cd;if(st.ctd)S.crewTaskDay=st.ctd;if(st.snTab)S.snTab=st.snTab;S.snStorm=st.snStorm||null;
   if(S.view==='jobhist'&&!(S.hist&&S.hist.job===st.job)){if(st.job)openHist(st.job);else{navRepl=true;openJobs();}}
   else if(S.view==='snow'&&was!=='snow'){var t=S.snTab,sm=S.snStorm;openSnow();S.snTab=t;S.snStorm=sm;render();}
   else render();
@@ -1523,6 +1561,7 @@ function needItems(){
   var tagged=[];freshUnread().forEach(function(x){var seen=((S.seen||{})[x.id]||{})[S.me]||'',tm=chatMsgs(x).filter(function(m){return m.by!==S.me&&m.at>seen&&(m.m||[]).indexOf(S.me)>=0;}).pop();if(tm)tagged.push([x,tm]);});
   tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
   freshUnread().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?dmName(x):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
+  if(S.me==='Yossi'&&!S.viewAs&&S.estWait)add('📄',S.estWait+' '+T(S.estWait>1?'estimates to send to Claude':'estimate to send to Claude'),T('From Rocky'),pill(T('Send'),'blue'),openEst);
   if(schedSent(t)&&!isSat(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
   if(!isSat(t)&&!isSun(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
   return it;
@@ -1678,7 +1717,8 @@ function moreView(){
   wrap.appendChild(el('div',{class:'homegrid'},
     b('📣',T('Announcement'),function(){openAnnounce();}),
     b('👷',T('Workers'),openCrewManager),
-    b('📅',T('Calendar'),function(){goView('cal');})));
+    b('📅',T('Calendar'),function(){goView('cal');}),
+    isEst()?b('📄',T('Estimates'),openEst,S.me==='Yossi'?S.estWait:0):null));
   wrap.appendChild(sec('Settings'));
   wrap.appendChild(el('div',{class:'homegrid'},
     b('⚙️',T('Settings'),openSettings),
@@ -1736,6 +1776,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'estimates',i:'📄',t:'Estimates',d:'More → Estimates (you and Rocky). Rocky adds the customer, the job (talk or type) and photos – it comes to you. You tap "Send to Claude" and pick your Estimates project. Then share the PDF from Claude back into the app (or tap "Add the PDF") – Rocky sees it too, with Share and Print.',go:function(){openEst();}},
  {id:'sharp',i:'📷',t:'Sharper photos and videos',d:'Photos are sent almost twice as big and sharp, the camera keeps focusing by itself, videos are clearer. For the very best picture, tap "Phone camera" at the top of the camera – it opens your Samsung camera.',go:function(){goView('chats');}},
  {id:'praise',i:'✓',t:'A compliment when you finish',d:'Mark a task done and a small "Nice work!" pops up – different every time, in Spanish for the workers. For you, Rocky and Ashley the last task of the day and Friday get a special one. See them all: Maintenance → Compliments preview.',go:function(){openPraisePreview();}},
  {id:'snowprac',i:'❄️',t:'Snow practice',d:'Maintenance → Snow practice: add 20 practice customers and run a whole storm. Only you see it, nobody gets a notification, and ending it deletes it. Tap "Open the driver screen" to see what the driver sees.',go:function(){openMaint();}},
@@ -1823,6 +1864,8 @@ function render_(){
   var v=S.view||'home';
   if(isOffice()&&v==='jobhist'){var rtj=RET[RET.length-1]&&RET[RET.length-1].view==='jobhist';app.appendChild(el('button',{class:'homelink',onclick:function(){if(rtj)history.back();else navBack('jobs',openJobs);}},'‹ '+(rtj?T('Task'):T('Jobs'))));}
   else if(v==='cal')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
+  else if(v==='est')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
+  else if(v==='estone')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('est',openEst);}},'‹ '+T('Estimates')));
   else if(isOffice()&&!/^(home|chats|more|phones|jobs|snowdrv)$/.test(v))app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('home',goHome);}},'‹ '+T('Today')));
   else if(!isOffice()&&v==='myjobs')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   if(isOffice()&&v==='tasks')app.appendChild(tabs());
@@ -1830,6 +1873,8 @@ function render_(){
   if(!isOffice()){if(S.snow&&S.snow.stops&&S.view==='snowdrv')app.appendChild(snowDriverView());else if(v==='chats')app.appendChild(chatsView());else if(v==='week')app.appendChild(weekView());else if(v==='more')app.appendChild(moreView());else if(v==='myjobs')app.appendChild(myJobsView());else{if(S.snow&&S.snow.stops)app.appendChild(snowBannerBtn());app.appendChild(workerView());}}
   else if(v==='snow'&&isSnowAdmin())app.appendChild(snowView());
   else if(v==='snowdrv'&&isSnowAdmin())app.appendChild(snowDriverView());
+  else if(v==='est'&&isEst())app.appendChild(estView());
+  else if(v==='estone'&&isEst())app.appendChild(estOneView());
   else if(v==='home')app.appendChild(homeView());
   else if(v==='chats')app.appendChild(chatsView());
   else if(v==='more')app.appendChild(moreView());
@@ -1973,7 +2018,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140750',lastUpd=0;
+var BUILD='202611140754',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2002,6 +2047,7 @@ function goSnap(id){var g=PENDING_GT;if(!g||g.id!==id||(g.owner!==S.me&&!isOffic
 function runGo(){
   if(!PENDING_GO||!S.me||!S.loaded)return;var go=PENDING_GO;PENDING_GO=null;var p=go.split(':');
   try{closeSheet();}catch(e){}
+  if(p[0]==='est'&&isEst()){openEst();return;}
   if(p[0]==='snow'){if(isSnowAdmin()){openSnow();S.snTab='Storms';render();}else if(S.snow&&S.snow.stops){S.view='snowdrv';render();window.scrollTo(0,0);}return;}
   if(p[0]==='task'){var t=allT().filter(function(x){return x.id===p[1];})[0]||(!GO_FRESH&&goSnap(p[1]));
     if(!t){if(!GO_FRESH){PENDING_GO=go;return;}toast(T('That task is no longer open.'));return;}
@@ -2027,7 +2073,7 @@ function applyBig(){document.documentElement.classList.toggle('big',store('sam_b
 applyBig();
 function header(){
   return el('header',{class:'top'},
-    el('div',{class:'hl'},el('div',{class:'wmark'},el('span',{class:'wm1',text:'SAM'}),el('span',{class:'wm2',text:'To-Do'})),el('div',{class:'title'},isOffice()?T(({home:'Today',phones:'Phones',need:'Needs you now',tasks:'Tasks',sched:'Schedule',sites:'Job sites',jobs:'Jobs',jobhist:'Jobs',snow:'Snow plowing',chats:'Messages',more:'More',cal:'Calendar',need:'Needs you now'})[S.view||'home']||'To-Do'):T(({chats:'Messages',week:'My week',more:'More',cal:'Calendar',myjobs:'My jobs'})[S.view]||'Today'))),
+    el('div',{class:'hl'},el('div',{class:'wmark'},el('span',{class:'wm1',text:'SAM'}),el('span',{class:'wm2',text:'To-Do'})),el('div',{class:'title'},isOffice()?T(({est:'Estimates',estone:'Estimates',home:'Today',phones:'Phones',need:'Needs you now',tasks:'Tasks',sched:'Schedule',sites:'Job sites',jobs:'Jobs',jobhist:'Jobs',snow:'Snow plowing',chats:'Messages',more:'More',cal:'Calendar',need:'Needs you now'})[S.view||'home']||'To-Do'):T(({chats:'Messages',week:'My week',more:'More',cal:'Calendar',myjobs:'My jobs'})[S.view]||'Today'))),
     el('div',{class:'right'},el('span',{class:'sync'+(S.offline?' off':'')},savingLong()?T('Saving…'):(S.offline?'📵 '+T('Offline')+(S.lastOk?' · '+clockOf(S.lastOk):''):'')),
       el('button',{class:'me meav','aria-label':S.name||S.me,onclick:openMenu},avatar(S.me,S.name||S.me,38))));
 }
@@ -4245,6 +4291,141 @@ function snowDriverView(){
 }
 function snowProblem(m,x){var ta=el('textarea',{class:'in',rows:'3',placeholder:T('e.g. car parked in the lot, gate locked'),maxlength:'300'});ta.value=x.prob||'';
   openSheet([el('h2',{text:'⚠️ '+T('What is the problem?')}),el('div',{class:'sn-ad',text:x.n}),ta,el('button',{class:'primary',onclick:function(){if(!ta.value.trim())return;closeSheet(true,true);x.prob=ta.value.trim();render();snowCall('snowStop',{storm:m.storm,c:x.c,op:'prob',text:ta.value.trim()},T('Sent'));}},T('Send')),el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);}
+// ---------- 📄 Estimates (Yossi + Rocky): collect the job → Yossi sends it to Claude → the PDF comes back to both ----------
+var EST_PEOPLE=['Yossi','Rocky'];
+function isEst(){return EST_PEOPLE.indexOf(S.me)>=0&&!S.viewAs;}
+try{S.est=JSON.parse(localStorage.getItem('sam_est')||'null');}catch(e){S.est=null;}
+function estApply(r){if(r&&r.est){S.est=r.est;try{localStorage.setItem('sam_est',JSON.stringify(r.est));}catch(e){}S.estWait=r.est.filter(function(e){return e.status==='new';}).length;}}
+function estLoad(){return call('estList',{}).then(function(r){estApply(r);if(/^est/.test(S.view||''))render();}).catch(function(){});}
+function estCall(a,p,msg){p=p||{};p.rid=p.rid||rid();S.saving++;render();return call(a,p).then(function(r){S.saving--;estApply(r);render();if(msg)toast('✓ '+msg);return r;},function(e){S.saving--;render();toast('❗ '+(String(e&&e.message)==='EST_NEED_NAME'?T('Type the customer name.'):errText(e)));throw e;});}
+function openEst(){S.view='est';S.estId=null;render();window.scrollTo(0,0);estLoad();}
+function openEstOne(id){S.estId=id;S.view='estone';render();window.scrollTo(0,0);}
+function estOf(id){return (S.est||[]).filter(function(e){return e.id===id;})[0]||null;}
+function estStat(e){return e.status==='new'?[T('For Yossi'),'p1']:e.status==='claude'?[T('At Claude'),'p1']:e.status==='sent'?[T('Sent'),'p3']:[T('PDF ✓'),'p2'];}
+function estIco(){return '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z"/><path d="M14 3.5v4h4M9 12.5h6M9 16h6"/></svg>';}
+function estView(){
+  var wrap=el('main',{class:'list es'});
+  wrap.appendChild(el('button',{class:'newb',onclick:function(){estForm(null);}},'＋ '+T('New estimate')));
+  if(!S.est){wrap.appendChild(el('p',{class:'empty',text:T('Loading…')}));return wrap;}
+  var wait=S.est.filter(function(e){return e.status==='new'||e.status==='claude';}),ready=S.est.filter(function(e){return e.status==='ready';}),sent=S.est.filter(function(e){return e.status==='sent';});
+  function card(e){var st=estStat(e);return el('button',{class:'ecard',onclick:function(){openEstOne(e.id);}},el('span',{class:'ic',html:estIco()}),
+    el('span',{class:'m'},el('b',{text:e.customer}),el('span',{text:[e.address,e.by!==S.me?T('by')+' '+e.by:'',dateLabel((e.updatedAt||'').slice(0,10))].filter(Boolean).join(' · ')})),el('span',{class:'pill '+st[1],text:st[0]}));}
+  if(!S.est.length)wrap.appendChild(el('p',{class:'empty',text:T('No estimates yet. Tap “New estimate” to start one.')}));
+  if(wait.length){wrap.appendChild(el('h3',{text:T('WAITING FOR CLAUDE')}));wait.forEach(function(e){wrap.appendChild(card(e));});}
+  if(ready.length){wrap.appendChild(el('h3',{text:T('READY')}));ready.forEach(function(e){wrap.appendChild(card(e));});}
+  if(sent.length){wrap.appendChild(el('h3',{text:T('SENT TO CUSTOMER')}));sent.slice(0,40).forEach(function(e){wrap.appendChild(card(e));});}
+  return wrap;
+}
+// New / edit: customer, address, email, what the job is (talk or type), photos
+function estForm(e){
+  var nm=el('input',{class:'in',placeholder:T('Customer name'),value:e?e.customer:''}),ad=el('input',{class:'in',placeholder:T('Address'),value:e?e.address||'':''}),
+    em=el('input',{class:'in',type:'email',placeholder:'name@email.com',value:e?e.email||'':''}),ph=el('input',{class:'in',type:'tel',placeholder:T('Phone (optional)'),value:e?e.phone||'':''}),
+    ds=el('textarea',{class:'in',rows:'5',placeholder:T('What is the job? Talk or type…')});ds.value=e?e.desc||'':'';
+  var files=[],pbox=el('div',{class:'ph'}),SR=window.SpeechRecognition||window.webkitSpeechRecognition,rec=null,micB;
+  function paintP(){pbox.innerHTML='';(e?e.photos||[]:[]).forEach(function(id){pbox.appendChild(el('div',{class:'phi'},thumb(id)));});
+    files.forEach(function(f,i){var u=URL.createObjectURL(f);pbox.appendChild(el('div',{class:'phi'},el('img',{src:u,alt:''}),el('button',{class:'phx','aria-label':T('Remove'),onclick:function(){files.splice(i,1);paintP();}},'✕')));});
+    pbox.appendChild(el('button',{class:'add','aria-label':T('Add photos'),onclick:function(){var inp=el('input',{type:'file',accept:'image/*',multiple:'',style:'display:none'});document.body.appendChild(inp);inp.onchange=function(){[].slice.call(inp.files||[]).forEach(function(f){files.push(f);});inp.remove();paintP();};inp.click();}},'＋'));}
+  function micStop(){if(rec){try{rec.stop();}catch(x){}rec=null;}micB.classList.remove('on');}
+  micB=el('button',{class:'mic',type:'button','aria-label':T('Talk'),html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg>',onclick:function(){
+    if(rec){micStop();return;}
+    if(!SR){ds.focus();toast(T('Tap the 🎤 on your keyboard and talk'));return;}
+    var base=ds.value?ds.value.replace(/\s*$/,' '):'';rec=new SR();rec.lang=LANG==='es'?'es-US':'en-US';rec.continuous=true;rec.interimResults=true;
+    rec.onresult=function(ev){var fin='',tmp='';for(var i=0;i<ev.results.length;i++){if(ev.results[i].isFinal)fin+=ev.results[i][0].transcript;else tmp+=ev.results[i][0].transcript;}ds.value=base+fin+tmp;};
+    rec.onerror=function(){micStop();};rec.onend=function(){if(rec){micStop();}};
+    try{rec.start();micB.classList.add('on');haptic();}catch(x){micStop();ds.focus();}}});
+  paintP();
+  var rocky=S.me!=='Yossi';
+  openSheet([el('h2',{text:e?T('Edit estimate'):T('New estimate')}),
+    el('div',{class:'fl',text:T('CUSTOMER')}),nm,el('div',{class:'fl',text:T('ADDRESS')}),ad,
+    el('div',{class:'row2'},el('div',{},el('div',{class:'fl',text:T('EMAIL')}),em),el('div',{},el('div',{class:'fl',text:T('PHONE')}),ph)),
+    el('div',{class:'fl',text:T("WHAT'S THE JOB? – talk or type")}),el('div',{class:'voice2'},micB,ds),
+    el('div',{class:'fl',text:T('PHOTOS')}),pbox,
+    el('button',{class:'primary',style:'margin-top:16px',onclick:function(){micStop();if(!nm.value.trim()){nm.focus();toast(T('Type the customer name.'));return;}
+      var fs=files.slice();closeSheet(true,true);
+      estCall('estSave',{id:e?e.id:'',customer:nm.value,address:ad.value,email:em.value,phone:ph.value,desc:ds.value,quiet:fs.length?1:0}).then(function(r){var id=r.id||(e&&e.id);
+        if(!e)openEstOne(id);
+        if(!fs.length){toast('✓ '+(rocky&&!e?T('Sent to Yossi'):T('Saved')));return;}
+        var i=0;(function nx(){if(i>=fs.length){toast('✓ '+fs.length+' '+T('photos added')+(rocky&&!e?' · '+T('Sent to Yossi'):''));if(rocky&&!e)call('estSave',{id:id,customer:nm.value,address:ad.value,email:em.value,phone:ph.value,desc:ds.value,rid:rid()}).catch(function(){});return;}
+          var f=fs[i++];toast(T('Adding photo')+' '+i+'/'+fs.length+'…');shrinkPhoto(f).then(function(d){return call('estPhoto',{id:id,data:d.split(',')[1],rid:rid()});}).then(function(r2){estApply(r2);render();nx();},function(){toast('❗ '+T('A photo could not be added.'));nx();});})();
+      },function(){});}},e?T('Save'):(rocky?T('Save – send to Yossi'):T('Save'))),
+    el('button',{class:'ghost',onclick:function(){micStop();closeSheet();}},T('Cancel'))]);
+}
+function estText(e){return [T('Make an estimate for this job:'),'','Customer: '+e.customer,e.address?'Address: '+e.address:'',e.email?'Email: '+e.email:'',e.phone?'Phone: '+e.phone:'','','Job:',e.desc||'',(e.photos||[]).length?'\n('+e.photos.length+' photos attached)':''].filter(function(l,i,a){return l!==''||a[i-1]!=='';}).join('\n');}
+function estBlob(id,mime){return getMedia(id,null,mime).then(function(u){return fetch(u).then(function(r){return r.blob();});});}
+// Yossi: everything goes to the Claude app in one share (text + photos); the text is also copied
+function estToClaude(e){
+  var txt=estText(e);try{if(navigator.clipboard)navigator.clipboard.writeText(txt).catch(function(){});}catch(x){}
+  var ids=e.photos||[];toast(ids.length?T('Getting the photos ready…'):T('Copied'));
+  Promise.all(ids.map(function(id,i){return estBlob(id,'image/jpeg').then(function(b){return new File([b],'photo-'+(i+1)+'.jpg',{type:'image/jpeg'});},function(){return null;});})).then(function(fs){fs=fs.filter(Boolean);
+    var data={title:e.customer,text:txt};if(fs.length&&navigator.canShare&&navigator.canShare({files:fs}))data.files=fs;
+    estShareSheet(e,data);});
+}
+// a tap is needed to open the share list (the phone wants a fresh tap after the photos load)
+function estShareSheet(e,data){
+  openSheet([el('h2',{text:'✦ '+T('Send to Claude')}),
+    el('p',{class:'muted',style:'margin:0 0 8px',text:T('The text is copied. Tap below and pick Claude – then choose your Estimates project, or paste it there.')}),
+    el('button',{class:'claude',onclick:function(){if(navigator.share){navigator.share(data).then(function(){closeSheet(true,true);estCall('estClaude',{id:e.id},T('Marked as sent to Claude'));},function(){});}else toast(T('Copied – open Claude and paste'));}},'✦ '+T('Share to Claude')+((data.files||[]).length?' · '+data.files.length+' '+T('photos'):'')),
+    el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);estCall('estClaude',{id:e.id},T('Marked as sent to Claude'));}},T('I already sent it')),
+    el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);
+}
+function estAddPdf(e,f){
+  var go=function(f){if(!f)return;if(!/pdf$/i.test(f.type||'')&&!/\.pdf$/i.test(f.name||'')){toast('❗ '+T('Pick the PDF file'));return;}
+    if(f.size>10*1048576){toast('❗ '+T('The PDF is too big'));return;}
+    toast(T('Adding the PDF…'));readB64(f).then(function(b){return estCall('estPdf',{id:e.id,name:f.name||'',data:b},T('PDF added'));}).then(function(r){var ne=estOf(e.id);if(ne&&ne.pdf){S.vids[ne.pdf]=URL.createObjectURL(f);}},function(){});};
+  if(f)return go(f);
+  var inp=el('input',{type:'file',accept:'application/pdf,.pdf',style:'display:none'});document.body.appendChild(inp);inp.onchange=function(){var x=inp.files&&inp.files[0];inp.remove();go(x);};inp.click();
+}
+function estPdfFile(e){return estBlob(e.pdf,'application/pdf').then(function(b){return new File([b],e.pdfName||(e.customer+' Estimate.pdf'),{type:'application/pdf'});});}
+function estOneView(){
+  var e=estOf(S.estId),wrap=el('main',{class:'list es'});
+  if(!e){wrap.appendChild(el('p',{class:'empty',text:S.est?T('This estimate is not here anymore.'):T('Loading…')}));return wrap;}
+  var yo=S.me==='Yossi';
+  wrap.appendChild(el('div',{class:'esthd'},el('b',{text:e.customer}),e.address?el('a',{href:mapsUrl(e.address),target:'_blank',rel:'noopener',text:'📍 '+e.address}):null,
+    (e.email||e.phone)?el('span',{text:[e.email,e.phone].filter(Boolean).join(' · ')}):null));
+  function step(on,t){return el('div',{class:'step'+(on?'':' off')},el('i',{text:on?'✓':'·'}),el('span',{text:t}));}
+  wrap.appendChild(step(true,T('Started by')+' '+e.by+' · '+dateLabel((e.createdAt||'').slice(0,10))+' '+clockOf(e.createdAt)));
+  wrap.appendChild(step(!!e.claudeAt||!!e.pdf,e.claudeAt?T('Sent to Claude')+' · '+clockOf(e.claudeAt):(yo?T('Not sent to Claude yet'):T('Waiting for Yossi to send it to Claude'))));
+  wrap.appendChild(step(!!e.pdf,e.pdf?T('PDF back in the app')+' · '+(e.pdfBy||'')+' '+clockOf(e.pdfAt):T('PDF not back yet')));
+  if(e.pdf){
+    var pc=el('div',{class:'pdfcard'},el('span',{class:'ic',html:estIco()}),el('span',{class:'m'},el('b',{text:e.pdfName||'Estimate.pdf'}),el('span',{text:T('Tap to open')})));
+    pc.onclick=function(){toast(T('Opening…'));estBlob(e.pdf,'application/pdf').then(function(b){var u=URL.createObjectURL(new Blob([b],{type:'application/pdf'}));window.open(u,'_blank');},function(er){toast('❗ '+errText(er));});};
+    wrap.appendChild(pc);
+    wrap.appendChild(el('div',{class:'row2b'},
+      el('button',{class:'bm',onclick:function(){toast(T('Getting the PDF ready…'));estPdfFile(e).then(function(f){estShareNow(f,e);},function(er){toast('❗ '+errText(er));});}},'⇪ '+T('Share')),
+      el('button',{class:'bl',onclick:function(){toast(T('Getting the PDF ready…'));estPdfFile(e).then(function(f){estShareNow(f,e,true);},function(er){toast('❗ '+errText(er));});}},'🖨 '+T('Print'))));
+    wrap.appendChild(el('button',{class:'cbtn',style:'margin-top:10px',onclick:function(){estCall('estSent',{id:e.id,undo:e.status==='sent'?1:0},e.status==='sent'?'':T('Marked as sent to the customer'));}},e.status==='sent'?'↩ '+T('Not sent to the customer yet'):'✓ '+T('Mark as sent to the customer')));
+  }
+  if(yo)wrap.appendChild(el('button',{class:'claude',onclick:function(){estToClaude(e);}},'✦ '+(e.pdf?T('Redo in Claude'):T('Send to Claude'))));
+  wrap.appendChild(el('button',{class:e.pdf?'cbtn':'primary',style:'margin-top:10px',onclick:function(){estAddPdf(e);}},'📄 '+(e.pdf?T('Replace the PDF'):T('Add the PDF from Claude'))));
+  if(e.desc)wrap.appendChild(el('div',{class:'estdesc'},el('div',{class:'fl',text:T('THE JOB')}),el('div',{text:e.desc})));
+  if((e.photos||[]).length)wrap.appendChild(el('div',{},el('div',{class:'fl',text:T('PHOTOS')+' · '+e.photos.length}),el('div',{class:'jhmedia'},e.photos.map(function(id){return thumb(id);}))));
+  var armed=false,del=el('button',{class:'ghost',style:'color:#C0392B;margin-top:14px',onclick:function(){if(!armed){armed=true;del.textContent=T('Tap again to delete');return;}estCall('estDelete',{id:e.id},T('Deleted')).then(function(){navBack('est',openEst);},function(){});}},T('Delete this estimate'));
+  wrap.appendChild(el('div',{class:'row2b'},el('button',{class:'bl',onclick:function(){estForm(e);}},'✎ '+T('Edit'))));
+  wrap.appendChild(del);
+  return wrap;
+}
+// share the PDF (Gmail, WhatsApp, Print…) – the phone needs a fresh tap after downloading
+function estShareNow(f,e,print){
+  var data={files:[f],title:e.customer};
+  openSheet([el('h2',{text:print?'🖨 '+T('Print'):'⇪ '+T('Share')}),el('p',{class:'muted',style:'margin:0 0 8px',text:print?T('Tap below, then pick “Print” in the list.'):T('Tap below and pick Gmail, WhatsApp, Drive…')}),
+    el('button',{class:'primary',onclick:function(){if(navigator.canShare&&navigator.canShare(data)){navigator.share(data).then(function(){closeSheet(true,true);},function(){});}else{var u=URL.createObjectURL(f);window.open(u,'_blank');closeSheet(true,true);}}},print?T('Print'):T('Share the PDF')),
+    el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);
+}
+// a PDF shared into the app from Claude (Samsung: Share → SAM To-Do): pick which estimate it belongs to
+function estIncoming(f){
+  if(!isEst()){toast(T('Only Yossi and Rocky can add estimates.'));return;}
+  var go=function(){var l=(S.est||[]).filter(function(e){return e.status!=='sent';});
+    openSheet([el('h2',{text:'📄 '+T('Which estimate is this PDF for?')}),el('p',{class:'muted',style:'margin:0 0 8px',text:f.name||''}),
+      el('div',{},l.map(function(e){return el('button',{class:'ecard',onclick:function(){closeSheet(true,true);openEstOne(e.id);estAddPdf(e,f);}},el('span',{class:'ic',html:estIco()}),el('span',{class:'m'},el('b',{text:e.customer}),el('span',{text:e.address||''})),el('span',{class:'pill '+estStat(e)[1],text:estStat(e)[0]}));})),
+      el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);estCall('estSave',{customer:(f.name||'Estimate').replace(/\.pdf$/i,'').replace(/[_-]+/g,' ').slice(0,80),quiet:1}).then(function(r){openEstOne(r.id);estAddPdf(estOf(r.id),f);},function(){});}},'＋ '+T('A new estimate')),
+      el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);};
+  if(S.est)go();else estLoad().then(go);
+}
+// the service worker keeps a shared PDF until the app is open
+function estCheckShare(){if(!/[?&]share=1/.test(location.search)||!window.caches)return;
+  try{history.replaceState(history.state,'',location.pathname);}catch(e){}
+  caches.open('sam-share').then(function(c){return c.match('shared-file').then(function(r){if(!r)return;return r.blob().then(function(b){var nm=decodeURIComponent(r.headers.get('x-name')||'Estimate.pdf');c.delete('shared-file');var f=new File([b],nm,{type:'application/pdf'});var t=setInterval(function(){if(S.loaded){clearInterval(t);estIncoming(f);}},300);});});}).catch(function(){});}
+setTimeout(estCheckShare,500);
 // ---------- 🏗 Jobs list + 🕓 job history (office) ----------
 Object.assign(ES,{'Edit jobs':'Editar obras','Tap again to sign out':'Toca otra vez para salir','Your PIN (4 numbers)':'Tu PIN (4 números)','Someone else just changed this schedule. Close it and open it again to see the new one.':'Otra persona acaba de cambiar este horario. Ciérralo y ábrelo otra vez para ver el nuevo.','Press Back again to close the app':'Toca Atrás otra vez para cerrar la app','Last work':'Último trabajo','No work yet':'Sin trabajo todavía','Job sites':'Obras','Snow plowing':'Quitar nieve','Sent – not seen yet':'Enviado – no visto todavía','Sending…':'Enviando…','Previous':'Anterior','Next':'Siguiente','Video from gallery':'Video de la galería','Photo from gallery':'Foto de la galería','Add or edit jobs':'Agregar o editar obras','Search a job or address…':'Buscar obra o dirección…','No job found.':'No se encontró la obra.','last work':'último trabajo','no work yet':'sin trabajo todavía','History':'Historial','started':'empezó','Photos':'Fotos','Videos':'Videos','Files':'Archivos','All':'Todo','checked in':'pasó a las','Show older days':'Ver días anteriores','today':'hoy'});
 function openJobs(){S.view='jobs';S.jobQ='';render();window.scrollTo(0,0);loadJobsAll(60000);}

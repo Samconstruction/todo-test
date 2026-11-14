@@ -30,3 +30,9 @@ self.addEventListener('fetch',function(e){
     net.then(give,function(){saved.then(function(m){give(m);if(!over)caches.match('/todo-test/').then(function(m2){give(m2||Response.error());});});});
     setTimeout(function(){saved.then(give);},nav?2000:4000);}));
 });
+
+// A PDF shared into the app (Share → SAM TEST): keep it, then open the app to pick the estimate
+self.addEventListener('fetch',function(e){var u=new URL(e.request.url);if(e.request.method!=='POST'||u.pathname.slice(-13)!=="/share-target")return;
+  e.respondWith(e.request.formData().then(function(fd){var f=fd.get('file');if(!f||typeof f==='string')return null;
+    return caches.open('sam-share').then(function(c){return c.put('shared-file',new Response(f,{headers:{'content-type':f.type||'application/pdf','x-name':encodeURIComponent(f.name||'Estimate.pdf')}}));});
+  }).catch(function(){}).then(function(){return Response.redirect(new URL('./?share=1',self.registration.scope).href,303);}));});
