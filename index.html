@@ -1904,7 +1904,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140638',lastUpd=0;
+var BUILD='202611140639',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2536,7 +2536,7 @@ var TK_CLOCK='<svg viewBox="0 0 12 12" width="12" height="12"><circle cx="6" cy=
 function msgMenu(x,m,b,acts,onReply){
   var old=document.getElementById('mmenu');if(old)old.remove();
   var mine=m.by===S.me,r=m.r||{},row=b.parentNode;row.classList.add('lift');
-  if(m.photo&&!S.photos[m.photo])call('photoGet',{fileId:m.photo}).then(function(b64){S.photos[m.photo]='data:image/jpeg;base64,'+b64;}).catch(function(){}); // ready for Share
+  if(!/^(tmp|q)/.test(String(m.id||'')))sharePrep(m).catch(function(){}); // ready for Share
   var ov=el('div',{class:'mmenu',id:'mmenu'});
   var closed=false;
   function close(){if(closed)return;closed=true;ov.removeAttribute('id');window.MM_CLOSE=null;document.removeEventListener('pointerdown',outside,true);ov.classList.add('out');row.classList.remove('lift');setTimeout(function(){ov.remove();},120);}
@@ -2580,16 +2580,26 @@ function openForward(x,m){
   q.addEventListener('input',paint);paint();
   openSheet([el('h2',{text:'↪ '+T('Forward to…')}),el('div',{class:'fwprev',text:msgLabel(m)}),q,box,el('button',{class:'ghost',onclick:function(){if(!retBack()){closeSheet(true,true);openChat(x.id);}queueHist();}},T('Cancel'))]);
 }
-// Share a message out of the app (WhatsApp, text message, email…).
+// Share a message out of the app (WhatsApp, text message, email…) – the phone's own share list.
+function shareFileOf(m){return m.photo?{id:m.photo,name:'SAM-photo.jpg',mime:'image/jpeg'}:m.video?{id:m.video,name:'SAM-video.mp4',mime:'video/mp4'}:m.voice?{id:m.voice,name:'SAM-voice.webm',mime:'audio/webm'}:m.file?{id:m.file,name:m.name||'file',mime:m.mime||'application/octet-stream'}:null;}
+// get the file ready in the background (when a message is held), so Share opens the phone's list at once
+var SHARE_READY={};
+function sharePrep(m){var sf=shareFileOf(m);if(!sf)return Promise.resolve(null);if(SHARE_READY[sf.id])return Promise.resolve(SHARE_READY[sf.id]);
+  var pr=m.photo?(S.photos[m.photo]?Promise.resolve(S.photos[m.photo]):call('photoGet',{fileId:m.photo}).then(function(b){return S.photos[m.photo]='data:image/jpeg;base64,'+b;})).then(function(u){return fetch(u).then(function(r){return r.blob();});})
+    :getMedia(sf.id,null,sf.mime).then(function(u){return fetch(u).then(function(r){return r.blob();});});
+  return pr.then(function(bl){var f=new File([bl],sf.name,{type:bl.type||sf.mime});SHARE_READY[sf.id]=f;return f;});}
+function shareNow(m,f){try{if(f){if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:m.text||undefined}).catch(function(){});return true;}
+    var a=el('a',{href:URL.createObjectURL(f),download:f.name});document.body.appendChild(a);a.click();a.remove();return true;}
+  if(navigator.share){navigator.share({text:m.text}).catch(function(){});return true;}}catch(e){}
+  try{navigator.clipboard.writeText(m.text||'');toast('✓ '+T('Copied'));}catch(e){}return true;}
 function shareMsg(m){
-  function shareFile(blob,name){try{var f=new File([blob],name,{type:blob.type||'application/octet-stream'});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f]}).catch(function(){});return;}}catch(e){}
-    var a=el('a',{href:URL.createObjectURL(blob),download:name});document.body.appendChild(a);a.click();a.remove();}
-  if(m.text&&!m.photo&&!m.video&&!m.voice&&!m.file){if(navigator.share)navigator.share({text:m.text}).catch(function(){});else{try{navigator.clipboard.writeText(m.text);toast('✓ '+T('Copied'));}catch(e){}}return;}
-  if(m.photo){var go=function(){sharePhoto(m.photo);};if(S.photos[m.photo])go();else{toast('⏳ '+T('Getting it ready…'));call('photoGet',{fileId:m.photo}).then(function(b){S.photos[m.photo]='data:image/jpeg;base64,'+b;toast('📤 '+T('Ready – tap Share again'));}).catch(function(e){toast('❗ '+errText(e));});}return;}
-  var id=m.video||m.voice||m.file,name=m.file?(m.name||'file'):m.video?'SAM-video.mp4':'SAM-voice.webm',mime=m.file?m.mime:m.video?'video/mp4':'audio/webm';
-  if(S.vids[id]){fetch(S.vids[id]).then(function(r){return r.blob();}).then(function(bl){shareFile(bl,name);});return;}
-  toast('⏳ '+T('Getting it ready…'));getMedia(id,null,mime).then(function(){toast('📤 '+T('Ready – tap Share again'));}).catch(function(e){toast('❗ '+errText(e));});
+  var sf=shareFileOf(m);if(!sf){shareNow(m,null);return;}
+  if(SHARE_READY[sf.id]){shareNow(m,SHARE_READY[sf.id]);return;}
+  // not ready yet: a small card with one big Share button that lights up when the file is ready
+  var btn=el('button',{class:'primary',disabled:'disabled'},'⏳ '+T('Getting it ready…')),f0=null;
+  btn.onclick=function(){if(f0){closeSheet();shareNow(m,f0);}};
+  openSheet([el('h2',{text:'📤 '+T('Share')}),el('div',{class:'fwprev',text:msgLabel(m)}),btn,el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);
+  sharePrep(m).then(function(f){f0=f;btn.disabled=false;btn.textContent='📤 '+T('Share');}).catch(function(e){btn.textContent='❗ '+errText(e);});
 }
 var VTH={};try{VTH=JSON.parse(localStorage.getItem('sam_vth')||'{}')||{};}catch(e){VTH={};}
 function vthSave(){try{var ks=Object.keys(VTH);if(ks.length>60)ks.slice(0,ks.length-60).forEach(function(k){delete VTH[k];});localStorage.setItem('sam_vth',JSON.stringify(VTH));}catch(e){try{VTH={};localStorage.removeItem('sam_vth');}catch(e2){}}}
