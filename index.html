@@ -713,6 +713,23 @@ body:has(.scrim.chatfull)::after{display:none}
 .attl{font-size:12px;font-weight:700;color:#4A6A64}
 .chatplus.on{background:#D4F3EA;transform:rotate(45deg);transition:transform .15s}
 .vmic{color:#1B8F7B;display:inline-flex}
+/* WhatsApp-style message menu + reactions on the edge of the bubble */
+.bub{position:relative;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.brow.hasrx{margin-bottom:16px}
+.bub .rxrow{position:absolute;bottom:-17px;left:10px;margin:0;display:flex;align-items:center;gap:1px;background:#fff;border:1px solid #DCE7E3;border-radius:999px;padding:1px 6px;box-shadow:0 2px 6px rgba(14,79,69,.15);font-size:15px;line-height:22px;z-index:1}
+.bub.mine .rxrow{left:auto;right:10px}
+.bub .rxrow .rx{background:none;padding:0;font-size:15px}.rxn{font-size:12px;font-weight:700;color:#4A6A64;margin-left:3px}
+.mmenu{position:fixed;inset:0;z-index:60;background:rgba(14,40,36,.28);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);animation:mmin .14s ease-out}
+.mmenu.out{opacity:0;transition:opacity .12s}
+@keyframes mmin{from{opacity:0}to{opacity:1}}
+.brow.lift{position:relative;z-index:61}.brow.lift .bub{box-shadow:0 8px 24px rgba(14,40,36,.25);transform:scale(1.02);transition:transform .12s}
+.mmbar{position:fixed;display:flex;gap:2px;background:#fff;border-radius:999px;padding:6px 8px;box-shadow:0 8px 24px rgba(14,40,36,.25);animation:mmpop .16s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes mmpop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.mme{width:44px;height:44px;border:none;background:none;border-radius:50%;font-size:28px;line-height:1;padding:0;transition:transform .1s}
+.mme:active{transform:scale(1.3)}.mme.on{background:#D4F3EA}
+.mmlist{position:fixed;min-width:200px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(14,40,36,.25);animation:mmpop .16s ease-out}
+.mmi{display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;background:none;border:none;border-bottom:1px solid #EEF2F0;padding:14px 16px;font-size:16px;font-weight:600;color:var(--ink);text-align:left}
+.mmi:last-child{border-bottom:none}.mmi.red{color:#D9342B}.mmic{font-size:18px;color:#4A8178}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -725,6 +742,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Copy':'Copiar','Tap again to delete':'Toca otra vez para borrar'});
 Object.assign(ES,{'Camera':'Cámara','Photos':'Fotos','Gallery video':'Video de galería'});
 Object.assign(ES,{'Taken off':'Quitado'});
 Object.assign(ES,{'Hold to record a voice note':'Mantén para grabar una nota de voz'});
@@ -946,7 +964,7 @@ window.addEventListener('popstate',function(e){
 
 // ---------- render ----------
 function savePage(){try{if(S.me)sessionStorage.setItem('sam_page',JSON.stringify({me:S.me,v:S.view||'home',tab:S.tab,cd:S.crewDay,ctd:S.crewTaskDay}));}catch(e){}}
-function render(){if(S.snDrag)return;render_();savePage();if(S.sheetRefresh&&document.getElementById('scrim')){try{S.sheetRefresh();}catch(e){}}queueHist();setTimeout(avLoad,0);}
+function render(){if(S.snDrag)return;var ae=document.activeElement;if(ae&&ae.classList&&(ae.classList.contains('chatsearch')||ae.classList.contains('jhsearch'))&&!document.getElementById('scrim')){if(ae.classList.contains('chatsearch')&&S.view==='chats'&&S.searchRepaint){try{S.searchRepaint();}catch(e){}return;}if(ae.classList.contains('jhsearch')&&S.view==='jobs'&&S.jobsRepaint){try{S.jobsRepaint();}catch(e){}return;}}S.searchRepaint=null;S.jobsRepaint=null;render_();savePage();if(S.sheetRefresh&&document.getElementById('scrim')){try{S.sheetRefresh();}catch(e){}}queueHist();setTimeout(avLoad,0);}
 function goHome(){S.view='home';S.tab=S.me;render();window.scrollTo(0,0);}
 // Only for Yossi: everything to look after the app in one place.
 function startViewAs(c){closeSheet();S.viewAs=c.id;S.view='home';S.loaded=false;render();
@@ -1169,20 +1187,24 @@ function chatHay(x){var j=jobOf(x.job),parts=[nameOf(x.owner),x.title,x.address,
   chatMsgs(x).forEach(function(m){parts.push(m.text,nameOf(m.by));if(m.at){parts.push(m.at.slice(0,10));try{parts.push(dateLabel(m.at.slice(0,10)));}catch(e){}}});
   return parts.filter(Boolean).join(' | ').toLowerCase();}
 function chatsView(){
-  var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
+  var outer=listShell();if(!outer)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
+  if(!isOffice())outer.appendChild(heroBox(T('Messages'),T('Chats about your jobs'),null));
+  // Only the results redraw while typing (voice typing on the keyboard keeps working).
+  var sIn=el('input',{class:'in chatsearch',type:'search',placeholder:'🔍 '+T('Name, job, address, date or words'),value:S.chatQ||''}),res=el('div',{}),tmr=null,comp=false;
+  sIn.addEventListener('compositionstart',function(){comp=true;});
+  sIn.addEventListener('compositionend',function(){comp=false;S.chatQ=sIn.value;clearTimeout(tmr);tmr=setTimeout(paintRes,150);});
+  sIn.addEventListener('input',function(){S.chatQ=sIn.value;clearTimeout(tmr);tmr=setTimeout(function(){if(!comp)paintRes();},comp?900:250);});
+  outer.appendChild(sIn);outer.appendChild(res);
+  function paintRes(){res.innerHTML='';var wrap=res;
   var q=(S.chatQ||'').trim().toLowerCase();
   var l=S.tasks.filter(function(x){return (isOffice()||x.owner===S.me)&&(lastMsg(x)||(!q&&!isOffice()&&x.due===today()&&!crewClosed(x)));});
   if(q)l=l.filter(function(x){return chatHay(x).indexOf(q)>=0;});
   l=l.sort(function(a,b){var A=(lastMsg(a)||{}).at||'9',B=(lastMsg(b)||{}).at||'9';return A<B?1:-1;}).slice(0,q?300:80);
-  if(!isOffice())wrap.appendChild(heroBox(T('Messages'),T('Chats about your jobs'),null));
-  var sIn=el('input',{class:'in chatsearch',type:'search',placeholder:'🔍 '+T('Name, job, address, date or words'),value:S.chatQ||''});
-  sIn.addEventListener('input',function(){S.chatQ=sIn.value;var y=window.scrollY;render();var n=document.querySelector('.chatsearch');if(n){n.focus();try{n.setSelectionRange(n.value.length,n.value.length);}catch(e){}}window.scrollTo(0,y);});
-  wrap.appendChild(sIn);
   if(q)wrap.appendChild(el('div',{class:'srchttl',text:l.length+' '+T('found in the last 2 months')}));
   if(q&&!l.length)wrap.appendChild(el('p',{class:'empty',style:'padding:14px 0',text:T('Nothing in the last 2 months.')}));
   if(q){var aq=S.archQ===q;
-    wrap.appendChild(el('button',{class:'archbtn',onclick:function(){S.archQ=q;S.archHits=null;S.archBusy=true;render();
-      call('chatSearch',{q:q}).then(function(r){if(S.archQ!==q)return;S.archBusy=false;S.archHits=(r&&r.tasks)||[];render();}).catch(function(e){S.archBusy=false;S.archHits=[];render();toast('❗ '+errText(e));});}},
+    wrap.appendChild(el('button',{class:'archbtn',onclick:function(){S.archQ=q;S.archHits=null;S.archBusy=true;paintRes();
+      call('chatSearch',{q:q}).then(function(r){if(S.archQ!==q)return;S.archBusy=false;S.archHits=(r&&r.tasks)||[];paintRes();}).catch(function(e){S.archBusy=false;S.archHits=[];paintRes();toast('❗ '+errText(e));});}},
       '🗄 '+T('Search all history')+(aq&&S.archHits?' · '+S.archHits.length+' '+T('found'):'')));
     if(aq&&S.archBusy)wrap.appendChild(el('p',{class:'empty',text:T('Searching the history…')}));
     if(aq&&S.archHits){if(!S.archHits.length)wrap.appendChild(el('p',{class:'empty',text:T('Nothing found in the history either.')}));
@@ -1199,7 +1221,9 @@ function chatsView(){
     wrap.appendChild(el('button',{class:'inrow arch',onclick:function(){openChat(x.id);}},el('span',{class:'nic',text:'🗄'}),
       el('span',{class:'inmid'},el('span',{class:'intop'},el('b',{text:title}),el('span',{class:'inwhen',text:x.due?dateLabel(x.due)+' '+String(x.due).slice(0,4):''})),
         el('span',{class:'inprev',text:(m.by?nameOf(m.by)+': ':'')+msgLabel(m)}))));});
-  return wrap;
+  }
+  paintRes();S.searchRepaint=paintRes;
+  return outer;
 }
 
 // More = every button that is not on the front (office and workers)
@@ -1302,6 +1326,9 @@ var WHATS_NEW=[
  {id:'mic2',i:'🎙',t:'New voice note look',d:'Clean mic like WhatsApp: the mic turns into Send when you type. Hold to record (sound bars show), let go to listen, then Send or 🗑.',go:function(){goView('chats');}},
  {id:'hist',i:'🗄',t:'Search all history',d:'Messages has a search bar. It searches the last 2 months; tap "Search all history" to look through older chats too. Tap the job name on top of a chat to open that task.',go:function(){goView('chats');}},
  {id:'share',i:'👥',t:'Add or take off people on a task',d:'Open a task: tap Rocky or Ashley to give it to them too, tap your own name to take it off you.',go:function(){goView('tasks');}},
+ {id:'chatpage',i:'💬',t:'Chat is a full page',d:'Chats open as a full page with ‹ back on top, mint colors, and a new ＋ menu (Camera, Photos, Video, Gallery video).',go:function(){goView('chats');}},
+ {id:'react',i:'👍',t:'Reactions like WhatsApp',d:'Hold a message: the emoji bar pops up on top, Reply / Copy / Delete under it. The reaction sits on the corner of the message.',go:function(){goView('chats');}},
+ {id:'ticks',i:'✓✓',t:'Blue ticks only from the right person',d:'A message to a worker turns blue only when that worker saw it – not when another office person looked.',go:function(){goView('chats');}},
  {id:'brand',i:'🔤',t:'SAM To-Do name on top',d:'The logo picture at the top is now a clean "SAM To-Do" name, and your photo circle opens the menu.',go:function(){goView('home');}},
  {id:'icon',i:'🟧',t:'Own TEST icon',d:'The test app has its own address and orange TEST icon, so it sits next to the real app.',go:function(){toast('🟧 '+T('Look at your home screen'));}}
 ];
@@ -1472,7 +1499,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140451',lastUpd=0;
+var BUILD='202611140458',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2097,6 +2124,27 @@ function react(x,cid,e){reactLocal(x,cid,e);S.saving++;render();
 var TK1='<svg viewBox="0 0 16 11" width="16" height="11"><path d="M1.5 5.8l3.2 3.2L14.5 1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var TK2='<svg viewBox="0 0 20 11" width="20" height="11"><path d="M1.2 5.8l3.2 3.2L13.8 1M8.2 8.6l.6.5L18.6 1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var TK_CLOCK='<svg viewBox="0 0 12 12" width="12" height="12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 3v3.2l2 1.3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+function msgMenu(x,m,b,acts,onReply){
+  var old=document.getElementById('mmenu');if(old)old.remove();
+  var mine=m.by===S.me,r=m.r||{},row=b.parentNode;row.classList.add('lift');
+  var ov=el('div',{class:'mmenu',id:'mmenu'});
+  function close(){ov.classList.add('out');row.classList.remove('lift');setTimeout(function(){ov.remove();},120);}
+  ov.addEventListener('click',function(e){if(e.target===ov)close();});
+  var bar=el('div',{class:'mmbar'},REACTS.map(function(e){return el('button',{class:'mme'+(r[S.me]===e?' on':''),onclick:function(){close();react(x,m.id,e);}},e);}));
+  var list=el('div',{class:'mmlist'});
+  function item(icon,label,fn,cls){list.appendChild(el('button',{class:'mmi'+(cls?' '+cls:''),onclick:fn},el('span',{text:label}),el('span',{class:'mmic',text:icon})));}
+  item('↩',T('Reply'),function(){close();if(onReply)onReply(m);});
+  if(m.text)item('⧉',T('Copy'),function(){close();try{navigator.clipboard.writeText(m.text);toast('✓ '+T('Copied'));}catch(e){}});
+  var del=[].filter.call(acts.querySelectorAll('.del'),function(n){return n;})[0];
+  if(del){var armD=false;item('🗑',T('Delete'),function(){var it=this;if(!armD){armD=true;it.firstChild.textContent=T('Tap again to delete');return;}close();del.click();del.click();},'red');}
+  ov.appendChild(bar);ov.appendChild(list);
+  var host=document.querySelector('#scrim .sheet')||document.body;host.appendChild(ov);
+  var rc=b.getBoundingClientRect(),H=window.innerHeight,W=window.innerWidth;
+  var top=Math.max(12,rc.top-62),lt=mine?Math.max(8,rc.right-300):Math.max(8,rc.left);
+  bar.style.top=top+'px';bar.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
+  var lTop=Math.min(H-list.offsetHeight-16,rc.bottom+10);if(lTop<top+64)lTop=top+64;
+  list.style.top=lTop+'px';list.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
+}
 function bubble(x,m,openRx,setRx,all,onReply){
   var mine=m.by===S.me,b=el('div',{class:'bub'+(mine?' mine':'')+(PEOPLE.indexOf(m.by)>=0?' off':'')});
   if(!mine)b.appendChild(el('div',{class:'bwho',text:nameOf(m.by)}));
@@ -2109,7 +2157,7 @@ function bubble(x,m,openRx,setRx,all,onReply){
   if(m.video)b.appendChild(el('button',{class:'vidtile',onclick:function(){playVideo({id:m.video,dur:m.dur,by:m.by});}},el('span',{class:'play',text:'▶'}),el('span',{text:T('Video')+(m.dur?' '+fmtDur(m.dur):'')})));
   if(m.voice)b.appendChild(voiceTile(m));
   var r=m.r||{},cnt={};Object.keys(r).forEach(function(k){cnt[r[k]]=(cnt[r[k]]||[]).concat(k===S.me?T('You'):nameOf(k));});
-  var rxRow=el('div',{class:'rxrow'});Object.keys(cnt).forEach(function(e){rxRow.appendChild(el('span',{class:'rx',title:cnt[e].join(', ')},e+(cnt[e].length>1?' '+cnt[e].length:'')));});
+  var rxRow=el('button',{class:'rxrow',type:'button',onclick:function(ev){ev.stopPropagation();toast(Object.keys(cnt).map(function(e){return e+' '+cnt[e].join(', ');}).join('  ·  '));}});var allE=Object.keys(cnt),tot=0;allE.forEach(function(e){tot+=cnt[e].length;rxRow.appendChild(el('span',{class:'rx',text:e}));});if(tot>1)rxRow.appendChild(el('span',{class:'rxn',text:String(tot)}));
   var acts=el('div',{class:'bacts'});
   acts.appendChild(el('button',{class:'rxadd','aria-label':T('Reply'),onclick:function(e){e.stopPropagation();setRx(null);if(onReply)onReply(m);}},'↩ '+T('Reply')));
   if((mine||isOffice())&&m.id&&String(m.id).indexOf('tmp')!==0&&String(m.id).indexOf('q')!==0){var armD=false,db=el('button',{class:'rxadd del','aria-label':T('Delete'),onclick:function(){if(!armD){armD=true;db.textContent='🗑 '+T('Delete?');return;}
@@ -2117,16 +2165,19 @@ function bubble(x,m,openRx,setRx,all,onReply){
     render();call('chatDelete',{id:x.id,cid:m.id}).then(function(d){apply(d);render();toast('✓ '+T('Deleted'));}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}},'🗑');acts.appendChild(db);}
   // Time + ticks at the bottom right, like WhatsApp: 🕓 sending · ✓ sent · blue ✓✓ seen (tap to see who).
   var meta=el('div',{class:'bmeta'},el('span',{text:m.at?cWhen(m.at):''}));
-  if(mine){var pend=!m.at||(m.id&&(String(m.id).indexOf('tmp')===0||String(m.id).indexOf('q')===0)),sn=(S.seen||{})[x.id]||{},by=m.at?Object.keys(sn).filter(function(k){return k!==S.me&&sn[k]>=m.at;}):[];
+  if(mine){var pend=!m.at||(m.id&&(String(m.id).indexOf('tmp')===0||String(m.id).indexOf('q')===0)),sn=(S.seen||{})[x.id]||{},toOwner=m.by!==x.owner,by=m.at?Object.keys(sn).filter(function(k){return k!==m.by&&sn[k]>=m.at&&(toOwner?k===x.owner:PEOPLE.indexOf(k)>=0);}):[]; // blue only when the person it was meant for saw it
     meta.appendChild(el('button',{class:'tk'+(by.length?' seen':''),'aria-label':by.length?T('Seen by')+' '+by.map(nameOf).join(', '):T('Sent'),
       onclick:function(e){e.stopPropagation();toast(pend?'🕓 '+T('Sending…'):by.length?'✓✓ '+T('Seen by')+' '+by.map(nameOf).join(', '):'✓ '+T('Sent – not seen yet'));},html:pend?TK_CLOCK:(by.length?TK2:TK1)}));}
   b.appendChild(meta);
-  if(rxRow.childNodes.length)b.appendChild(rxRow);
-  // Tap a message (like WhatsApp) to react, reply or delete; tap again to close.
-  b.addEventListener('click',function(e){if(e.target.closest('img,button,a,audio,video'))return;setRx(openRx?null:m.id);});
-  b.addEventListener('contextmenu',function(e){e.preventDefault();setRx(m.id);}); // long-press (also on photos)
-  if(openRx){b.appendChild(el('div',{class:'rxpick'},REACTS.map(function(e){return el('button',{class:'rxp'+(r[S.me]===e?' on':''),onclick:function(ev){ev.stopPropagation();setRx(null);react(x,m.id,e);}},e);})));b.appendChild(acts);b.classList.add('open');}
-  return el('div',{class:'brow'+(mine?' mine':''),'data-mid':m.id},b);
+  if(allE.length)b.appendChild(rxRow);
+  // Hold a message (like WhatsApp): emoji bar on top, Reply / Copy / Delete under it.
+  var holdT=null,hx=0,hy=0;
+  function openMenu(){holdT=null;try{if(navigator.vibrate)navigator.vibrate(25);}catch(e){}msgMenu(x,m,b,acts,onReply);}
+  b.addEventListener('pointerdown',function(e){if(e.target.closest('.vnote button,.vnote .wave,.tk,.bquote,.rxrow,video,audio'))return;hx=e.clientX;hy=e.clientY;clearTimeout(holdT);holdT=setTimeout(openMenu,420);});
+  b.addEventListener('pointermove',function(e){if(holdT&&(Math.abs(e.clientX-hx)>10||Math.abs(e.clientY-hy)>10)){clearTimeout(holdT);holdT=null;}});
+  ['pointerup','pointercancel','pointerleave'].forEach(function(n){b.addEventListener(n,function(){clearTimeout(holdT);holdT=null;});});
+  b.addEventListener('contextmenu',function(e){e.preventDefault();clearTimeout(holdT);openMenu();});
+  return el('div',{class:'brow'+(mine?' mine':'')+(allE.length?' hasrx':''),'data-mid':m.id},b);
 }
 function openChat(id){
   var x=S.tasks.filter(function(t){return t.id===id;})[0]||(S.archHits||[]).filter(function(t){return t.id===id;})[0];if(!x){toast(T('That task is no longer open.'));return;}var arch=!!x._arch;
@@ -2211,9 +2262,9 @@ function holdVoice(x,comp,restore,ev){
   window.addEventListener('pointerup',up);window.addEventListener('pointercancel',up);window.addEventListener('pointermove',mv);
   stopB.onclick=function(){finish();};
   S.recStop=function(){cancel=true;finish();};
-  navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){stream=st;if(cancel||done){cleanup();restore();return;}
+  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true,channelCount:1}}).catch(function(){return navigator.mediaDevices.getUserMedia({audio:true});}).then(function(st){stream=st;if(cancel||done){cleanup();restore();return;}
     var mime=['audio/webm;codecs=opus','audio/mp4','audio/webm','audio/ogg'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
-    try{rec=mime?new MediaRecorder(st,{mimeType:mime}):new MediaRecorder(st);}catch(e){rec=new MediaRecorder(st);}
+    try{rec=new MediaRecorder(st,mime?{mimeType:mime,audioBitsPerSecond:96000}:{audioBitsPerSecond:96000});}catch(e){try{rec=mime?new MediaRecorder(st,{mimeType:mime}):new MediaRecorder(st);}catch(e2){rec=new MediaRecorder(st);}}
     rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
     try{var AC=window.AudioContext||window.webkitAudioContext;actx=new AC();an=actx.createAnalyser();an.fftSize=512;actx.createMediaStreamSource(st).connect(an);var buf=new Uint8Array(an.fftSize);
       lvT=setInterval(function(){an.getByteTimeDomainData(buf);var sum=0;for(var i=0;i<buf.length;i++){var v=(buf[i]-128)/128;sum+=v*v;}var r=Math.min(1,Math.sqrt(sum/buf.length)*4);lv.push(r);
@@ -3325,13 +3376,16 @@ function loadJobsAll(age){if(JOBS_BUSY||Date.now()-JOBS_AT<(age||300000))return;
 function histFrom(h,c){h.loading=false;h.err='';h.info=c.job;h.first=c.first;h.counts=c.counts||{};h.more=c.more;h.days=c.days||[];}
 function shortDay(s){if(!s)return '';if(s===today())return T('today');var d=parse(s);return LANG==='es'?d.getDate()+' '+MNE[d.getMonth()]:MN[d.getMonth()]+' '+d.getDate();}
 function jobsView(){
-  var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
-  var sum=jall()||{},q=(S.jobQ||'').trim().toLowerCase();
-  wrap.appendChild(el('div',{class:'jhtitle',text:'🏗 '+T('Jobs')}));
-  var inp=el('input',{class:'jhsearch',type:'search',placeholder:'🔍 '+T('Search a job or address…'),value:S.jobQ||''});
-  inp.addEventListener('input',function(){S.jobQ=inp.value;var y=window.scrollY;render();var n=document.querySelector('.jhsearch');if(n){n.focus();try{n.setSelectionRange(n.value.length,n.value.length);}catch(e){}}window.scrollTo(0,y);});
-  wrap.appendChild(inp);
-  wrap.appendChild(el('button',{class:'jhedit',onclick:openJobManager},'＋ '+T('Add or edit jobs')));
+  var outer=listShell();if(!outer)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
+  outer.appendChild(el('div',{class:'jhtitle',text:'🏗 '+T('Jobs')}));
+  var inp=el('input',{class:'jhsearch',type:'search',placeholder:'🔍 '+T('Search a job or address…'),value:S.jobQ||''}),res=el('div',{}),tmr=null,comp=false;
+  inp.addEventListener('compositionstart',function(){comp=true;});
+  inp.addEventListener('compositionend',function(){comp=false;S.jobQ=inp.value;clearTimeout(tmr);tmr=setTimeout(paintRes,150);});
+  inp.addEventListener('input',function(){S.jobQ=inp.value;clearTimeout(tmr);tmr=setTimeout(function(){if(!comp)paintRes();},comp?900:200);});
+  outer.appendChild(inp);
+  outer.appendChild(el('button',{class:'jhedit',onclick:openJobManager},'＋ '+T('Add or edit jobs')));
+  outer.appendChild(res);
+  function paintRes(){res.innerHTML='';var wrap=res,sum=jall()||{},q=(S.jobQ||'').trim().toLowerCase();
   function qf(j){return !q||(j.name+' '+(j.address||'')).toLowerCase().indexOf(q)>=0;}
   var jobs=activeJobs().filter(qf),past=pastJobs().filter(qf);
   if(!jobs.length&&!past.length)wrap.appendChild(el('p',{class:'empty',text:q?T('No job found.'):T('No jobs yet.')}));
@@ -3346,7 +3400,9 @@ function jobsView(){
   if(past.length){var open=S.showPast||!!q;
     wrap.appendChild(el('button',{class:'donetoggle',onclick:function(){S.showPast=!S.showPast;render();}},(open?'▾ ':'▸ ')+T('Past jobs')+' · '+past.length));
     if(open)past.forEach(function(j){jcard(j,true);});}
-  return wrap;
+  }
+  paintRes();S.jobsRepaint=paintRes;
+  return outer;
 }
 function openHist(jobId){var c=(jall()||{})[jobId];S.view='jobhist';S.hist={job:jobId,f:'all',days:[],loading:true};if(c)histFrom(S.hist,c);render();window.scrollTo(0,0);if(!c)loadHist();else loadJobsAll(120000);}
 function loadHist(before){var h=S.hist;if(!h)return;h.loading=true;var job=h.job;
