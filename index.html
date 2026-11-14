@@ -1533,6 +1533,7 @@ body:has(.chatsheet) .updbar{display:none}
 .wx-cloud{color:#4F8A7D!important}.wx-storm,.wx-snow{color:#0E6B5C!important}
 .wxday.snow{background:#D8F5EE}.wxsn,.wxday.snow .wxds{color:#0E4F45}
 .wxpp,.wxpp .ico,.wxpp svg,.wxh .ico{color:#1B8F7B!important}.wxpp{color:#3F7168}
+.vp video,.vvid video{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -2348,6 +2349,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'vhold',i:'🎥',t:'Hold a video like a photo',d:'Hold an open video: you get the same menu as in the chat (react, reply, forward, share, delete) – not the phone\'s video menu. Holding a tall video in the chat now shrinks it a little so the menu never hides behind it.',go:function(){goView('chats');}},
+ {id:'voicefast',i:'🎤',t:'Voice notes send faster',d:'Voice notes now go to the server in one trip instead of three – about twice as fast. The sound quality is exactly the same.',go:function(){goView('chats');}},
  {id:'wxmint',i:'⛅',t:'Weather in mint',d:'The weather icons now use the same mint line style as the rest of the app (sun, clouds, rain, snow).',go:function(){goView('home');}},
  {id:'final1114',i:'🛠',t:'Last fixes before the main app',d:'A group can never open in place of a private chat · nobody but Yossi can take Yossi out of a group · the driver\'s "job changed" message says he drives · too many wrong PINs now says to call the office and unlocks sooner · Sign out warns if photos are still waiting to send · the update bar no longer covers a chat · a photo sent on bad signal never arrives twice.',go:function(){goView('home');}},
  {id:'wxjobs',i:'⛅',t:'Weather follows new jobs',d:'A new job or task with an address in a new town shows up in the weather by itself – also when the address has no "NY" in it.',go:function(){goView('home');}},
@@ -2860,7 +2863,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142245',lastUpd=0;
+var BUILD='202611142251',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3704,11 +3707,16 @@ function msgMenu(x,m,b,acts,onReply){
   var del=[].filter.call(acts.querySelectorAll('.del'),function(n){return n;})[0];
   if(del){var armD=false;item('🗑',T('Delete'),function(){var it=this;if(!armD){armD=true;it.firstChild.textContent=T('Tap again to delete');return;}close();del.click();del.click();},'red');}
   ov.appendChild(bar);ov.appendChild(list);
-  var onV=!!document.querySelector('#viewer.vphoto');
+  var onV=!!document.querySelector('#viewer.vphoto,#viewer.vhold');
   if(onV){ov.classList.add('onv');list.addEventListener('click',function(e){var it=e.target.closest('.mmi');if(it&&!it.hasAttribute('data-keep')&&!(it.classList.contains('red')&&it.firstChild.textContent!==T('Tap again to delete')))closeViewer();},true);
     [].forEach.call(list.children,function(it){var t=it.firstChild&&it.firstChild.textContent;if(t===T('Share')||t===T('Copy')||t===T('Copy the words'))it.setAttribute('data-keep','');});}
   var host=onV?document.body:(document.querySelector('#scrim .sheet')||document.body);host.appendChild(ov);
   var rc=b.getBoundingClientRect(),H=window.innerHeight,W=window.innerWidth;
+  // tall message (a video or a big photo): shrink it a little and move it so the emoji bar, the message and the menu all fit – like WhatsApp
+  if(!onV){var lh0=list.offsetHeight,aTop=12+56,aBot=H-lh0-26;if(rc.top<aTop||rc.bottom>aBot){var sc=Math.min(1,(aBot-aTop)/rc.height),dy=sc<1?aTop-rc.top:(rc.bottom>aBot?aBot-rc.bottom:aTop-rc.top);
+    b.style.transformOrigin=mine?'top right':'top left';b.style.transition='transform .16s ease-out';b.style.transform='translateY('+dy+'px) scale('+sc+')';
+    rc={top:rc.top+dy,bottom:rc.top+dy+rc.height*sc,left:mine?rc.right-rc.width*sc:rc.left,right:mine?rc.right:rc.left+rc.width*sc,height:rc.height*sc};
+    var restore=close;close=function(){b.style.transform='';setTimeout(function(){b.style.transition='';b.style.transformOrigin='';},200);restore();};window.MM_CLOSE=close;}}
   var top=Math.max(12,rc.top-62),lt=mine?Math.max(8,rc.right-300):Math.max(8,rc.left);
   bar.style.top=top+'px';bar.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
   var lTop=Math.min(H-list.offsetHeight-16,rc.bottom+10);if(lTop<top+64)lTop=top+64;
@@ -3764,7 +3772,7 @@ function shareMsg(m){
 var VTH={};try{VTH=JSON.parse(localStorage.getItem('sam_vth')||'{}')||{};}catch(e){VTH={};}
 function vthSave(){try{var ks=Object.keys(VTH);if(ks.length>60)ks.slice(0,ks.length-60).forEach(function(k){delete VTH[k];});localStorage.setItem('sam_vth',JSON.stringify(VTH));}catch(e){try{VTH={};localStorage.removeItem('sam_vth');}catch(e2){}}}
 var VTH_ASK={};
-function videoTile(m){var id=m.video,img=el('img',{class:'vtimg',alt:''}),t=el('button',{class:'vtile',type:'button',onclick:function(e){e.stopPropagation();playVideo({id:id,dur:m.dur,by:m.by});}},img,
+function videoTile(m){var id=m.video,img=el('img',{class:'vtimg',alt:''}),t=el('button',{class:'vtile',type:'button','data-vid':id,onclick:function(e){e.stopPropagation();playVideo({id:id,dur:m.dur,by:m.by});}},img,
     el('span',{class:'vtplay',html:IC.play}),el('span',{class:'vtdur'},el('span',{html:'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h7A2.5 2.5 0 0 1 16 6.5v1.3l3.4-2.2a1 1 0 0 1 1.6.8v11.2a1 1 0 0 1-1.6.8L16 16.2v1.3a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 17.5z"/></svg>'}),el('span',{text:m.dur?fmtDur(m.dur):T('Video')})));
   if(VTH[id]){img.src=VTH[id];t.classList.add('has');}
   else if(String(id).charAt(0)==='q'){}
@@ -4386,12 +4394,14 @@ function vidFrame(mid,url){try{var v=document.createElement('video');v.muted=tru
 function sendVoice(x,blob,dur,tries,mq){tries=tries||0;
   var mid='q'+rid(),url=URL.createObjectURL(blob),known=knownOf(x.id,'voice');S.vids[mid]=url;UPP[mid]=0;upProg(mid,1,blob.size);
   pendAdd(x.id,{id:mid,by:S.me,at:new Date().toISOString(),voice:mid,dur:dur,_q:1,_known:known});S.saving++;
+  // short voice note (almost all): one trip to the server, the sound goes with it – same quality, about twice as fast
+  (blob.size<4000000?readB64(blob).then(function(b64){upProg(mid,40,blob.size);return call('voiceAdd',{id:x.id,data:b64,mime:blob.type||'audio/webm',dur:dur,rid:mq?'v'+mq:mid});}):
   call('videoStart',{id:x.id,size:Math.max(blob.size,1000),mime:blob.type||'audio/webm',dur:dur,voice:true}).then(function(st){
     var off=0,CH=st.chunk;
     function next(){var part=blob.slice(off,Math.min(blob.size,off+CH));
       return readB64(part).then(function(b64){return call('videoChunk',{uid:st.uid,offset:off,data:b64});}).then(function(r){off+=part.size;upProg(mid,Math.round(off*100/blob.size),blob.size);if(r&&r.more&&off<blob.size)return next();return r;});}
     return next();
-  }).then(function(r){return upDone(mid).then(function(){return r;});}).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}if(mq)mqDel(mq);render();chatRepaint();})
+  })).then(function(r){UPS[mid]=100;return upDone(mid).then(function(){return r;});}).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}if(mq)mqDel(mq);render();chatRepaint();})
   .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();if(isNet(err)){if(!mq){mqAdd({task:x.id,kind:'voice',dur:dur,mime:blob.type||'audio/webm'},blob);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}else{delete MQS[mq];mqShow({q:mq,task:x.id,kind:'voice',dur:dur},blob);}return;}if(mq){if(mqRetry(mq)){mqShow({q:mq,task:x.id,kind:'voice',dur:dur},blob);return;}mqDel(mq);}toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
 }
 // ---------- photos ----------
@@ -4643,7 +4653,7 @@ function showFile(m,url){var canOpen=safeMime(m.mime)!=='application/octet-strea
 // Clean video player: big ▶ in the middle, bottom bar with play/pause, time, seek line and speed (1× · 1.5× · 2×). Tap the video to show/hide the controls.
 var VSPEED=1;
 function vPlayer(url,it){
-  var v=el('video',{src:url,autoplay:'',playsinline:'',preload:'auto'}),wrap=el('div',{class:'vp'}),hideT=null;
+  var v=el('video',{src:url,autoplay:'',playsinline:'',preload:'auto',controlslist:'nodownload noplaybackrate',disablepictureinpicture:''}),wrap=el('div',{class:'vp'}),hideT=null;v.addEventListener('contextmenu',function(e){e.preventDefault();});
   v.disableRemotePlayback=true;v.addEventListener('play',function(){try{if(navigator.mediaSession&&window.MediaMetadata)navigator.mediaSession.metadata=new MediaMetadata({title:T('Video'),artist:'SAM To-Do'});}catch(e){}});
   var big=el('button',{class:'vpbig',type:'button','aria-label':T('Play'),html:IC.play});
   var pp=el('button',{class:'vpbtn',type:'button','aria-label':T('Play'),html:IC.pause});
@@ -4676,7 +4686,14 @@ function vPlayer(url,it){
   return wrap;}
 function playVideo(it){
   var box=el('div',{class:'vvid'}),bar=el('div',{class:'pbar'},el('div',{class:'pfill'}));
-  var vw=openViewer(box);vw.classList.add('vfull');
+  var vw=openViewer(box);vw.classList.add('vfull','vhold');
+  // hold the open video: the same menu as holding it in the chat (React, Reply, Forward, Share, Delete) – not the phone's own video menu
+  (function(){var ht=null,x0=0,y0=0,held=0;function bub(){var t=document.querySelector('#scrim .brow [data-vid="'+it.id+'"]');var row=t&&t.closest('.brow');return row&&row.firstChild;}
+    box.addEventListener('contextmenu',function(e){e.preventDefault();e.stopPropagation();},true);
+    box.addEventListener('pointerdown',function(e){if(e.target.closest('.vpctl'))return;x0=e.clientX;y0=e.clientY;clearTimeout(ht);ht=setTimeout(function(){ht=null;var b=bub();if(!b)return;held=Date.now();try{if(navigator.vibrate)navigator.vibrate(25);}catch(er){}var vv=box.querySelector('video');if(vv&&!vv.paused)vv.pause();b.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true}));},450);});
+    box.addEventListener('pointermove',function(e){if(ht&&(Math.abs(e.clientX-x0)>10||Math.abs(e.clientY-y0)>10)){clearTimeout(ht);ht=null;}});
+    ['pointerup','pointercancel'].forEach(function(n){box.addEventListener(n,function(){clearTimeout(ht);ht=null;if(Date.now()-held<3000){held=Date.now();swallowClick();}});});
+    box.addEventListener('click',function(e){if(Date.now()-held<800){e.stopPropagation();e.preventDefault();}},true);})();
   vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));/* full screen inside the app (no phone 'exit full screen' message) */
   if(S.vids[it.id]){box.appendChild(vPlayer(S.vids[it.id],it));return;}
   var ring=el('div',{class:'vring'},el('span',{class:'vrpct',text:''}));box.appendChild(el('div',{class:'vpre'},VTH[it.id]?el('img',{src:VTH[it.id],alt:''}):null,ring));box.appendChild(bar);bar.style.display='none';
