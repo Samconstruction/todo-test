@@ -1780,6 +1780,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'estaddr',i:'📍',t:'Estimate address from Google Maps',d:'Start typing the address in a New estimate – pick the exact address from the list.',go:function(){openEst();}},
+ {id:'estproj',i:'✦',t:'Send to Claude – into your Estimates project',d:'Send to Claude now copies the text and opens Claude: go to Projects → Estimates → new chat → paste. Then share the photos into that chat (it is on top of the list).',go:function(){openEst();}},
  {id:'phonevid',i:'🎥',t:'Phone photo and Phone video',d:'In the in-app camera, top right: "Phone photo" and "Phone video" open your Samsung camera for full quality – photo or video.',go:function(){goView('chats');}},
  {id:'photoretry',i:'📷',t:'Photos send more safely',d:'Photos are a bit smaller than last time (still about 2½ times sharper than before), and if one fails to send, the app tries again by itself.',go:function(){goView('chats');}},
  {id:'snowmint2',i:'❄️',t:'Snow buttons in mint',d:'"Add snow customer" and all snow buttons are mint now. Only "Start storm" stays red.',go:function(){openSnow();}},
@@ -2026,7 +2028,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140812',lastUpd=0;
+var BUILD='202611140814',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -4347,7 +4349,7 @@ function estForm(e){
   paintP();
   var rocky=S.me!=='Yossi';
   openSheet([el('h2',{text:e?T('Edit estimate'):T('New estimate')}),
-    el('div',{class:'fl',text:T('CUSTOMER')}),nm,el('div',{class:'fl',text:T('ADDRESS')}),ad,
+    el('div',{class:'fl',text:T('CUSTOMER')}),nm,el('div',{class:'fl',text:T('ADDRESS')}),addressPicker(ad),
     el('div',{class:'row2'},el('div',{},el('div',{class:'fl',text:T('EMAIL')}),em),el('div',{},el('div',{class:'fl',text:T('PHONE')}),ph)),
     el('div',{class:'fl',text:T("WHAT'S THE JOB? – talk or type")}),el('div',{class:'voice2'},micB,ds),
     el('div',{class:'fl',text:T('PHOTOS')}),pbox,
@@ -4372,7 +4374,21 @@ function estToClaude(e){
     estShareSheet(e,data);});
 }
 // a tap is needed to open the share list (the phone wants a fresh tap after the photos load)
+function estOpenClaude(){var fb='https://claude.ai/projects';
+  if(/Android/i.test(navigator.userAgent))location.href='intent://claude.ai/projects#Intent;scheme=https;package=com.anthropic.claude;S.browser_fallback_url='+encodeURIComponent(fb)+';end';
+  else window.open(fb,'_blank');}
 function estShareSheet(e,data){
+  var fs=data.files||[];
+  openSheet([el('h2',{text:'✦ '+T('Send to Claude')}),
+    el('div',{class:'step'},el('i',{text:'1'}),el('span',{text:T('Tap below – the text is copied and Claude opens. Go to Projects → Estimates → new chat → paste.')})),
+    el('button',{class:'claude',onclick:function(){try{if(navigator.clipboard)navigator.clipboard.writeText(data.text).catch(function(){});}catch(x){}estOpenClaude();}},'✦ '+T('Copy text & open Claude')),
+    fs.length?el('div',{class:'step'},el('i',{text:'2'}),el('span',{text:T('Come back here and share the photos – pick the chat you just made (it is on top).')})):null,
+    fs.length?el('button',{class:'cbtn',onclick:function(){navigator.share({files:fs}).catch(function(){});}},'📷 '+T('Share the')+' '+fs.length+' '+T('photos')):null,
+    el('div',{class:'step'},el('i',{text:fs.length?'3':'2'}),el('span',{text:T('Done? Tap below so Rocky sees it went to Claude.')})),
+    el('button',{class:'primary',onclick:function(){closeSheet(true,true);estCall('estClaude',{id:e.id},T('Marked as sent to Claude'));}},'✓ '+T('I sent it to Claude')),
+    el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);
+}
+function estShareSheetOld(e,data){
   openSheet([el('h2',{text:'✦ '+T('Send to Claude')}),
     el('p',{class:'muted',style:'margin:0 0 8px',text:T('The text is copied. Tap below and pick Claude – then choose your Estimates project, or paste it there.')}),
     el('button',{class:'claude',onclick:function(){if(navigator.share){navigator.share(data).then(function(){closeSheet(true,true);estCall('estClaude',{id:e.id},T('Marked as sent to Claude'));},function(){});}else toast(T('Copied – open Claude and paste'));}},'✦ '+T('Share to Claude')+((data.files||[]).length?' · '+data.files.length+' '+T('photos'):'')),
