@@ -956,8 +956,8 @@ function homeView(){
     hTile(crews.length?repIn+'/'+crews.length:'—',T('Reports in'),openReports,crews.length&&repIn===crews.length?'ok':'')]));
   var need=[];
   if(!isSat(t)&&!schedSent(t)&&h<15)need.push(needRow('🗓',T("Today's schedule"),T('Not sent yet'),pill(T('Send'),'blue'),function(){openSchedule(t);},'warn'));
-  var nw=nextWorkDay(t);
-  if(h>=12&&!schedSent(nw))need.push(needRow('🗓',(nw===addDays(t,1)?T("Tomorrow's schedule"):T('Schedule')+' · '+dateLabel(nw)),T('Not sent yet'),pill(T('Make it'),'blue'),function(){openSchedule(nw);},'warn'));
+  var nw=addDays(t,1); // only tomorrow, only if tomorrow is a work day; Friday: nothing for Sunday; Saturday: only after 7 PM
+  if(!isSat(nw)&&(isSat(t)?h>=19:h>=12)&&!schedSent(nw))need.push(needRow('🗓',T("Tomorrow's schedule"),T('Not sent yet'),pill(T('Make it'),'blue'),function(){openSchedule(nw);},'warn'));
   if(schedSent(t)&&!isSat(t)){var up=unplaced(sc);if(up.length&&h<15)need.push(needRow('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');}));}
   if(!isSat(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))need.push(needRow('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();}));});
   unreadTasks().slice(0,4).forEach(function(x){var m=lastMsg(x);need.push(needRow('💬',(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);}));});
@@ -1238,7 +1238,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140301',lastUpd=0;
+var BUILD='202611140308',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
