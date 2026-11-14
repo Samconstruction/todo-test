@@ -1268,6 +1268,72 @@ body.sndark .toast{bottom:auto;top:calc(70px + env(safe-area-inset-top))}
 .upring circle{fill:none;stroke-width:4}.upring .uprb{stroke:rgba(255,255,255,.3)}.upring .uprc{stroke:#fff;stroke-linecap:round;stroke-dasharray:113.1;transition:stroke-dashoffset .08s linear}
 .upring b{position:relative;color:#fff;font-size:13px;font-weight:700}
 .wxbox{transition:opacity .2s}.wxbox.wxwait{opacity:.45}
+/* camera v2 */
+.cambox.nc .camtorch{left:auto;right:14px;transform:none;top:calc(14px + env(safe-area-inset-top))}
+.camx{position:absolute;top:calc(14px + env(safe-area-inset-top));left:14px;z-index:4;width:48px;height:48px;border-radius:50%;border:0;background:rgba(0,0,0,.45);color:#fff;display:flex;align-items:center;justify-content:center}
+.cambox.nc .cambar{bottom:calc(64px + env(safe-area-inset-bottom))}
+.cambox.nc .camhint{bottom:calc(152px + env(safe-area-inset-bottom))}
+.camtabs{position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:8px;z-index:4}
+.camtab{border:0;background:none;color:#d8e4e0;font:inherit;font-size:15px;font-weight:700;padding:8px 14px;border-radius:18px;min-height:38px}
+.camtab.on{background:#1B8F7B;color:#fff}
+.camshut.vmode span{background:#E03131;transform:scale(.8)}
+.cambox.rv .camx,.cambox.rv .camtabs,.cambox.rv .camtorch{display:none}
+.cambox.nc .camzoom{bottom:calc(200px + env(safe-area-inset-bottom))}
+/* after the picture */
+.rvwrap{position:absolute;inset:0;z-index:6;background:#000;touch-action:none}
+.rvstage{position:absolute;left:0;right:0;top:0;bottom:calc(124px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center}
+.rvcv,.rvvid{max-width:100%;max-height:100%;width:auto;height:auto;display:block;touch-action:none}
+.rvvid{width:100%;height:100%;object-fit:contain}
+.rvtop{position:absolute;top:calc(12px + env(safe-area-inset-top));left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;z-index:3;pointer-events:none}
+.rvtop>*{pointer-events:auto}
+.rvtools{display:flex;gap:8px}
+.rvt{width:46px;height:46px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;display:flex;align-items:center;justify-content:center;font:inherit;transition:transform .1s,background .15s}
+.rvt:active{transform:scale(.9)}.rvt.on{background:#1B8F7B}.rvt b{font-size:19px;font-weight:700}
+.rvwhat{color:#fff;font-weight:700;font-size:15px;background:rgba(0,0,0,.5);padding:8px 14px;border-radius:18px}
+.rvpal{display:flex;gap:10px;justify-content:center}
+.rvwrap>.rvpal{position:absolute;top:calc(70px + env(safe-area-inset-top));right:14px;flex-direction:column;z-index:3}
+.rvcol{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.8);box-shadow:0 1px 4px rgba(0,0,0,.5)}
+.rvcol.on{transform:scale(1.2);border:3px solid #fff}
+.rvtxt{position:absolute;left:0;right:0;top:0;bottom:0;z-index:7;background:rgba(0,0,0,.6);display:flex;flex-direction:column;justify-content:center;gap:18px;padding:0 20px}
+.rvtin{background:none;border:0;border-bottom:2px solid rgba(255,255,255,.6);color:#fff;font-size:28px;font-weight:700;text-align:center;padding:8px;outline:none;font-family:inherit}
+.rvtin::placeholder{color:rgba(255,255,255,.5)}
+.rvtrow{display:flex;justify-content:space-between;align-items:center}
+.rvok{border:0;background:#1B8F7B;color:#fff;font:inherit;font-weight:700;font-size:16px;padding:10px 20px;border-radius:20px}
+.rvbot{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:0 10px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.7) 30%,#000)}
+.rvcapw{background:rgba(28,34,32,.95);border-radius:26px;padding:0 18px;margin-bottom:10px}
+.rvcap{width:100%;height:50px;background:none;border:0;outline:none;color:#fff;font:inherit;font-size:16px}
+.rvcap::placeholder{color:#9fb0ab}
+.rvfoot{display:flex;justify-content:space-between;align-items:center}
+.rvto{background:#1d2523;border-radius:18px;padding:7px 14px;font-size:14px;color:#cfdcd8;max-width:68%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rvto b{color:#7fe0c9}
+.rvsend{width:58px;height:58px;border-radius:50%;border:0;background:#1B8F7B;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.4);transition:transform .1s}
+.rvsend:active{transform:scale(.92)}.rvsend svg{width:26px;height:26px}
+.viewer.vcam .rvcap,.viewer.vcam .rvtin{touch-action:manipulation}
+.lg3phw{margin-top:16px;width:100%;max-width:360px;height:58px;border-radius:18px;background:#fff;border:2px solid #1B8F7B;display:flex;align-items:center;padding:0 14px;gap:10px;font-size:20px;font-weight:600;color:#3F7168}
+.lg3phw span{padding-right:10px;border-right:1.5px solid #CFE3DD}
+.lg3ph{flex:1;min-width:0;border:0;outline:none;background:none;font:inherit;font-size:20px;color:#0E4F45}
+.lg3btn{margin-top:14px;width:100%;max-width:360px;height:56px;border:0;border-radius:18px;background:#1B8F7B;color:#fff;font:inherit;font-size:17px;font-weight:700}
+.lg3btn:disabled{opacity:.7}
+.lg3wait{width:76px;height:76px;border-radius:50%;background:#E6F6F1;color:#1B8F7B;display:flex;align-items:center;justify-content:center;margin-top:22px}
+.lg3wait.ok .ico{width:40px;height:40px}
+.lg3spin{width:34px;height:34px;border-radius:50%;border:4px solid #BDEBDF;border-top-color:#1B8F7B;animation:lgspin 1s linear infinite}
+@keyframes lgspin{to{transform:rotate(360deg)}}
+.upring.done{background:rgba(27,143,123,.85)}.upring.done b{font-size:24px}
+/* login fits one screen (no scrolling) */
+.lg3{height:100vh;height:100dvh;min-height:0;overflow:hidden;box-sizing:border-box;padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:calc(8px + env(safe-area-inset-bottom))}
+.lg3 .lang{margin:clamp(6px,2vh,16px) auto clamp(6px,1.4vh,14px)}
+.lg3logo{width:clamp(50px,9vh,80px);height:clamp(50px,9vh,80px);padding:clamp(5px,1vh,8px);border-radius:clamp(14px,2.6vh,22px)}
+.lg3mark{margin-top:clamp(4px,1vh,10px);font-size:clamp(21px,3.3vh,26px)}
+.lg3t{margin-top:clamp(8px,2.4vh,20px);font-size:clamp(23px,3.6vh,28px)}
+.lg3t.sm{margin-top:clamp(4px,1.2vh,10px);font-size:clamp(19px,2.9vh,22px)}
+.lg3av.big{width:clamp(52px,9vh,80px);height:clamp(52px,9vh,80px);font-size:clamp(24px,4vh,34px);margin-top:clamp(6px,1.8vh,16px)}
+.lg3dots{margin:clamp(6px,1.6vh,14px) 0 clamp(4px,1.2vh,10px)}
+.lg3pad{grid-template-columns:repeat(3,clamp(52px,8.6vh,70px));gap:clamp(6px,1.2vh,10px) clamp(20px,6vw,28px)}
+.lg3k{width:clamp(52px,8.6vh,70px);height:clamp(52px,8.6vh,70px);font-size:clamp(22px,3.5vh,28px)}
+.lg3k.t .ico{width:clamp(26px,4.2vh,34px);height:clamp(26px,4.2vh,34px)}
+.lg3whos{margin-top:clamp(10px,2.2vh,18px)}
+.lg3bot{padding-top:6px}
+@media (max-height:700px){.lg3pad{grid-template-columns:repeat(3,clamp(48px,8.2vh,62px))}.lg3k{width:clamp(48px,8.2vh,62px);height:clamp(48px,8.2vh,62px)}}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1283,7 +1349,7 @@ var LANG=null;
 Object.assign(ES,{'Saturday – closed':'Sábado – cerrado','Officially closed. Only if people are working this Saturday:':'Oficialmente cerrado. Solo si hay gente trabajando este sábado:','Working this Saturday – make the schedule':'Se trabaja este sábado – hacer el horario','Stay closed':'Sigue cerrado'});
 Object.assign(ES,{'Call to':'Llamar a','Tap ▶ again':'Toca ▶ otra vez','No signal – nothing was lost. Tap Save again when you have signal.':'Sin señal – no se perdió nada. Toca Guardar otra vez cuando tengas señal.','I arrived':'Llegué','You arrived':'Llegaste','Your crew leader marks your overtime in the daily report.':'Tu líder marca tus horas extra en el reporte diario.','Absent':'Ausente','DONE':'LISTO','Undo?':'¿Deshacer?','Tap again – do it later':'Toca otra vez – hacerlo después','On this truck':'En este camión','Opening…':'Abriendo…','Truck 1':'Camión 1','Truck 2':'Camión 2','Nobody left – all helpers are on the other truck':'No queda nadie – todos los ayudantes están en el otro camión'});
 Object.assign(ES,{"Time in the app today": "Tiempo en la app hoy", "Compliments preview": "Ver los elogios", "Snow practice (only you)": "Práctica de nieve (solo tú)", "How long each person had the app open on the screen today, and how many times they opened it.": "Cuánto tiempo tuvo cada persona la app abierta hoy y cuántas veces la abrió.", "times": "veces", "Nothing yet today.": "Nada todavía hoy.", "Counting started today, so earlier days are not here.": "Se empezó a contar hoy; los días anteriores no están.", "No": "No", "Waiting for you": "Esperándote", "Estimates": "Presupuestos", "Look at your home screen": "Mira tu pantalla de inicio", "Sign out and back in to try it": "Cierra sesión y vuelve a entrar para probarlo", "New in the test app": "Nuevo en la app de prueba", "Check it out": "Ver", "Later": "Después", "Type your current PIN.": "Escribe tu PIN actual.", "Type the name and the address.": "Escribe el nombre y la dirección.", "Put customers on a route first.": "Primero pon clientes en una ruta.", "A storm is already going on.": "Ya hay una tormenta en curso.", "Google Maps could not plan this route – check the addresses.": "Google Maps no pudo planear esta ruta – revisa las direcciones.", "No snow customers yet.": "Todavía no hay clientes de nieve.", "Not on a route": "Sin ruta", "storm": "tormenta", "Customer or building name": "Nombre del cliente o edificio", "Street, town": "Calle, pueblo", "Notes for the driver (gate code, where to pile the snow…)": "Notas para el chofer (código del portón, dónde amontonar la nieve…)", "No route": "Sin ruta", "Edit snow customer": "Editar cliente de nieve", "New snow customer": "Nuevo cliente de nieve", "Contact phone": "Teléfono de contacto", "What we do": "Qué hacemos", "Must be clear by": "Debe estar limpio antes de", "leave empty = no time limit": "vacío = sin hora límite", "Price per storm (only you see this)": "Precio por tormenta (solo tú lo ves)", "No routes yet – add one for each truck.": "Todavía no hay rutas – agrega una por cada camión.", "no driver": "sin chofer", "Drag to change the order": "Arrastra para cambiar el orden", "No stops – put customers on this route.": "No hay paradas – pon clientes en esta ruta.", "Planning the fastest drive…": "Planeando el camino más rápido…", "Best order": "Mejor orden", "was": "antes", "Best order (fastest drive, ⏰ first)": "Mejor orden (camino más rápido, ⏰ primero)", "Add route": "Agregar ruta", "Edit route": "Editar ruta", "New route": "Nueva ruta", "Route name": "Nombre de la ruta", "Driver (gets the route on his phone when a storm starts)": "Chofer (recibe la ruta en su teléfono cuando empieza una tormenta)", "Remove route": "Quitar ruta", "PRACTICE": "PRÁCTICA", "Only you see this – nobody is notified": "Solo tú ves esto – no se avisa a nadie", "Storm in progress": "Tormenta en curso", "round": "vuelta", "Open the driver screen": "Abrir la pantalla del chofer", "Tap again – send all routes again from the start": "Toca otra vez – mandar todas las rutas otra vez desde el principio", "Second round sent to the drivers": "Segunda vuelta enviada a los choferes", "Second round (heavy snow)": "Segunda vuelta (mucha nieve)", "Tap again – the practice is deleted": "Toca otra vez – se borra la práctica", "Tap again to end the storm": "Toca otra vez para terminar la tormenta", "Practice ended and deleted": "Práctica terminada y borrada", "Storm ended": "Tormenta terminada", "End practice": "Terminar práctica", "End storm": "Terminar tormenta", "Start storm": "Empezar tormenta", "Past storms": "Tormentas pasadas", "None yet.": "Ninguna todavía.", "finished": "terminada", "Fake – nothing is saved. Tap a button to see what pops up.": "De prueba – no se guarda nada. Toca un botón para ver qué aparece.", "A task is done (different each time)": "Una tarea terminada (diferente cada vez)", "The last task of the day (office only)": "La última tarea del día (solo oficina)", "Friday – the last task of the week (office only)": "Viernes – la última tarea de la semana (solo oficina)", "Snow – the last stop of the route": "Nieve – la última parada de la ruta", "Snow practice": "Práctica de nieve", "Try a whole storm from start to end. Only you see it – nobody gets a notification. When you end it, it is deleted (no record, no billing).": "Prueba una tormenta completa de principio a fin. Solo tú la ves – nadie recibe aviso. Al terminarla se borra (sin registro, sin cobro).", "Your customers on a route": "Tus clientes en una ruta", "Practice customers": "Clientes de práctica", "A real storm is going on now – end it first.": "Hay una tormenta real ahora – termínala primero.", "Open the practice storm": "Abrir la tormenta de práctica", "Start a practice storm": "Empezar una tormenta de práctica", "20 practice customers added": "20 clientes de práctica agregados", "Practice customers removed": "Clientes de práctica quitados", "Remove the practice customers": "Quitar los clientes de práctica", "Practice customers are on 2 practice routes and never go into a real storm. Your real customers on a route are in the practice too.": "Los clientes de práctica están en 2 rutas de práctica y nunca entran en una tormenta real. Tus clientes reales en una ruta también están en la práctica.", "How many trucks tonight?": "¿Cuántos camiones esta noche?", "How many trucks today?": "¿Cuántos camiones hoy?", "truck": "camión", "trucks": "camiones", "TRUCK": "CAMIÓN", "WHO DRIVES?": "¿QUIÉN MANEJA?", "HELPERS ON THIS TRUCK (shovel & salt)": "AYUDANTES EN ESTE CAMIÓN (palear y sal)", "customers are on no route – they are not in this storm": "clientes no tienen ruta – no están en esta tormenta", "Pick who drives each truck": "Elige quién maneja cada camión", "Practice storm started – only you see it": "Práctica empezada – solo tú la ves", "Storm started – drivers notified": "Tormenta empezada – se avisó a los choferes", "Storm started": "Tormenta empezada", "Start – send to drivers": "Empezar – mandar a los choferes", "Practice storm": "Tormenta de práctica", "Start storm – tonight": "Empezar tormenta – esta noche", "Start storm – today": "Empezar tormenta – hoy", "Moved to": "Movido a", "Move to": "Mover a", "storm done": "tormenta hecha", "storm ended": "tormenta terminada", "customers": "clientes", "Billing list": "Lista para cobrar", "Plowed": "Limpiado", "your snow was cleared": "se limpió su nieve", "Thank you!": "¡Gracias!", "Send to customer": "Mandar al cliente", "Copied – paste it into QuickBooks or a message": "Copiado – pégalo en QuickBooks o en un mensaje", "Share / copy the list": "Compartir / copiar la lista", "This is what the driver sees": "Esto es lo que ve el chofer", "Type the customer name.": "Escribe el nombre del cliente.", "For Yossi": "Para Yossi", "At Claude": "En Claude", "PDF ✓": "PDF ✓", "New estimate": "Nuevo presupuesto", "No estimates yet. Tap “New estimate” to start one.": "Todavía no hay presupuestos. Toca “Nuevo presupuesto” para empezar uno.", "WAITING FOR CLAUDE": "ESPERANDO A CLAUDE", "READY": "LISTO", "SENT TO CUSTOMER": "ENVIADO AL CLIENTE", "Customer name": "Nombre del cliente", "Phone (optional)": "Teléfono (opcional)", "What is the job? Talk or type…": "¿Cuál es el trabajo? Habla o escribe…", "Add photos": "Agregar fotos", "Talk": "Hablar", "Tap the 🎤 on your keyboard and talk": "Toca el 🎤 de tu teclado y habla", "Edit estimate": "Editar presupuesto", "CUSTOMER": "CLIENTE", "ADDRESS": "DIRECCIÓN", "EMAIL": "CORREO", "PHONE": "TELÉFONO", "WHAT'S THE JOB? – talk or type": "¿CUÁL ES EL TRABAJO? – habla o escribe", "PHOTOS": "FOTOS", "Sent to Yossi": "Enviado a Yossi", "photos added": "fotos agregadas", "Adding photo": "Agregando foto", "A photo could not be added.": "No se pudo agregar una foto.", "Save – send to Yossi": "Guardar – mandar a Yossi", "Getting the photos ready…": "Preparando las fotos…", "Send to Claude": "Mandar a Claude", "Tap below – the text is copied and Claude opens. Go to Projects → Estimates → new chat → paste.": "Toca abajo – se copia el texto y se abre Claude. Ve a Projects → Estimates → nuevo chat → pegar.", "Copy text & open Claude": "Copiar texto y abrir Claude", "Come back here and share the photos – pick the chat you just made (it is on top).": "Vuelve aquí y comparte las fotos – elige el chat que acabas de hacer (está arriba).", "Share the": "Compartir las", "Done? Tap below so Rocky sees it went to Claude.": "¿Listo? Toca abajo para que Rocky vea que se mandó a Claude.", "Marked as sent to Claude": "Marcado como enviado a Claude", "I sent it to Claude": "Ya lo mandé a Claude", "The text is copied. Tap below and pick Claude – then choose your Estimates project, or paste it there.": "El texto está copiado. Toca abajo y elige Claude – luego elige el proyecto Estimates, o pégalo ahí.", "Copied – open Claude and paste": "Copiado – abre Claude y pega", "Share to Claude": "Compartir con Claude", "I already sent it": "Ya lo mandé", "Pick the PDF file": "Elige el archivo PDF", "The PDF is too big": "El PDF es demasiado grande", "Adding the PDF…": "Agregando el PDF…", "PDF added": "PDF agregado", "This estimate is not here anymore.": "Este presupuesto ya no está.", "Started by": "Empezado por", "Sent to Claude": "Enviado a Claude", "Not sent to Claude yet": "Todavía no enviado a Claude", "Waiting for Yossi to send it to Claude": "Esperando que Yossi lo mande a Claude", "PDF back in the app": "El PDF ya está en la app", "PDF not back yet": "El PDF todavía no llega", "Loading the estimate…": "Cargando el presupuesto…", "pages": "páginas", "Getting the PDF ready…": "Preparando el PDF…", "Print": "Imprimir", "Marked as sent to the customer": "Marcado como enviado al cliente", "Not sent to the customer yet": "Todavía no enviado al cliente", "Mark as sent to the customer": "Marcar como enviado al cliente", "Redo in Claude": "Rehacer en Claude", "Replace the PDF": "Cambiar el PDF", "Add the PDF from Claude": "Agregar el PDF de Claude", "THE JOB": "EL TRABAJO", "Delete this estimate": "Borrar este presupuesto", "Edit": "Editar", "Tap below, then pick “Print” in the list.": "Toca abajo y luego elige “Imprimir” en la lista.", "Tap below and pick Gmail, WhatsApp, Drive…": "Toca abajo y elige Gmail, WhatsApp, Drive…", "Share the PDF": "Compartir el PDF", "Only the office can add estimates.": "Solo la oficina puede agregar presupuestos.", "Which estimate is this PDF for?": "¿Para qué presupuesto es este PDF?", "A new estimate": "Un presupuesto nuevo", "person": "persona", "left – tap it to check it out": "queda – tócalo para verlo", "new thing to check out": "novedad para ver", "new things to check out": "novedades para ver", "left – tap each one to check it out": "quedan – toca cada una para verla", "estimates to send to Claude": "presupuestos para mandar a Claude", "estimate to send to Claude": "presupuesto para mandar a Claude"});
-Object.assign(ES,{'Flashlight':'Linterna','This phone does not allow the flashlight here':'Este teléfono no permite la linterna aquí','Work':'Trabajo','Me':'Yo','Message everyone':'Mensaje a todos','people':'personas','for Claude':'para Claude','Make & send':'Hacer y mandar','Storm on':'Tormenta activa','No storm':'Sin tormenta','Holidays':'Días feriados','Log in':'Iniciar sesión','Welcome back':'Bienvenido','Built right':'Bien hecho','Need help? Call the office':'¿Ayuda? Llama a la oficina','Forgot PIN? Call the office':'¿Olvidaste el PIN? Llama a la oficina','Log in with your PIN or fingerprint':'Entra con tu PIN o huella','Not':'¿No eres','Log in with your fingerprint or face?':'¿Entrar con tu huella o cara?','Next time just touch the fingerprint (or look at the phone). You can still use your PIN.':'La próxima vez solo toca la huella (o mira el teléfono). Puedes seguir usando tu PIN.','Yes, turn it on':'Sí, activarlo','Not now':'Ahora no','Fingerprint / face is on':'Huella / cara activada','Fingerprint / face is off':'Huella / cara desactivada','Not turned on – you can try again later in Settings.':'No se activó – puedes intentarlo después en Ajustes.','Fingerprint / face log in':'Entrar con huella / cara','Log in without typing your PIN':'Entra sin escribir tu PIN','Fingerprint':'Huella','Delete':'Borrar','a job there today':'hay trabajo ahí hoy','snow':'de nieve','Snow coming':'Viene nieve','About':'Unas','tap for the weather':'toca para ver el clima','morning':'en la mañana','afternoon':'en la tarde','evening':'al anochecer','night':'en la noche','tonight':'esta noche','today':'hoy','tomorrow':'mañana','Weather':'Clima','Loading the weather…':'Cargando el clima…','this week':'esta semana','feels like':'se siente como','wind':'viento','Tomorrow':'Mañana','Clear':'Despejado','Partly cloudy':'Parcialmente nublado','Cloudy':'Nublado','Fog':'Niebla','Drizzle':'Llovizna','Rain':'Lluvia','Snow':'Nieve','Showers':'Chubascos','Snow showers':'Nevadas','Thunderstorm':'Tormenta eléctrica','Tap a day to see it by the hour.':'Toca un día para verlo por hora.','Could not load the weather – check your signal and try again.':'No se pudo cargar el clima – revisa tu señal e intenta otra vez.'});
+Object.assign(ES,{'Sent':'Enviado','forgot the PIN':'olvidó el PIN','Asked from the log-in page':'Pedido desde la entrada','Answer':'Responder','Only approve if it is really him or her.':'Aprueba solo si de verdad es esa persona.','Approve':'Aprobar','Decline':'Rechazar','Approved – they can make a new PIN now':'Aprobado – ya puede hacer un PIN nuevo','Declined':'Rechazado','Forgot your PIN?':'¿Olvidaste tu PIN?','No problem – ask the office':'No hay problema – pídelo a la oficina','Type your phone number':'Escribe tu número de teléfono','Sending…':'Enviando…','Ask the office for a new PIN':'Pedir un PIN nuevo a la oficina','Too many tries. Wait an hour or call the office.':'Demasiados intentos. Espera una hora o llama a la oficina.','Check the phone number.':'Revisa el número de teléfono.','Waiting for the office…':'Esperando a la oficina…','Your request was sent':'Tu pedido fue enviado','Approved':'Aprobado','Make your new 4-number PIN':'Haz tu PIN nuevo de 4 números','New PIN saved':'PIN nuevo guardado','Do not use the end of your phone number.':'No uses el final de tu número de teléfono.','This approval ran out. Ask again.':'Esta aprobación venció. Pide otra vez.','The office said no':'La oficina dijo que no','This request ran out':'Este pedido venció','Call the office if you need help.':'Llama a la oficina si necesitas ayuda.','Call the office':'Llamar a la oficina','Forgot PIN?':'¿Olvidaste el PIN?','Phone camera':'Cámara del teléfono','Tap to start · tap again to stop':'Toca para empezar · toca otra vez para parar','Tap for photo · hold for video':'Toca para foto · mantén para video','Add a caption…':'Agrega un texto…','Type on the picture…':'Escribe en la foto…','Draw':'Dibujar','Rotate':'Girar','Text':'Texto','Undo':'Deshacer','To':'Para','Flashlight':'Linterna','This phone does not allow the flashlight here':'Este teléfono no permite la linterna aquí','Work':'Trabajo','Me':'Yo','Message everyone':'Mensaje a todos','people':'personas','for Claude':'para Claude','Make & send':'Hacer y mandar','Storm on':'Tormenta activa','No storm':'Sin tormenta','Holidays':'Días feriados','Log in':'Iniciar sesión','Welcome back':'Bienvenido','Built right':'Bien hecho','Need help? Call the office':'¿Ayuda? Llama a la oficina','Forgot PIN? Call the office':'¿Olvidaste el PIN? Llama a la oficina','Log in with your PIN or fingerprint':'Entra con tu PIN o huella','Not':'¿No eres','Log in with your fingerprint or face?':'¿Entrar con tu huella o cara?','Next time just touch the fingerprint (or look at the phone). You can still use your PIN.':'La próxima vez solo toca la huella (o mira el teléfono). Puedes seguir usando tu PIN.','Yes, turn it on':'Sí, activarlo','Not now':'Ahora no','Fingerprint / face is on':'Huella / cara activada','Fingerprint / face is off':'Huella / cara desactivada','Not turned on – you can try again later in Settings.':'No se activó – puedes intentarlo después en Ajustes.','Fingerprint / face log in':'Entrar con huella / cara','Log in without typing your PIN':'Entra sin escribir tu PIN','Fingerprint':'Huella','Delete':'Borrar','a job there today':'hay trabajo ahí hoy','snow':'de nieve','Snow coming':'Viene nieve','About':'Unas','tap for the weather':'toca para ver el clima','morning':'en la mañana','afternoon':'en la tarde','evening':'al anochecer','night':'en la noche','tonight':'esta noche','today':'hoy','tomorrow':'mañana','Weather':'Clima','Loading the weather…':'Cargando el clima…','this week':'esta semana','feels like':'se siente como','wind':'viento','Tomorrow':'Mañana','Clear':'Despejado','Partly cloudy':'Parcialmente nublado','Cloudy':'Nublado','Fog':'Niebla','Drizzle':'Llovizna','Rain':'Lluvia','Snow':'Nieve','Showers':'Chubascos','Snow showers':'Nevadas','Thunderstorm':'Tormenta eléctrica','Tap a day to see it by the hour.':'Toca un día para verlo por hora.','Could not load the weather – check your signal and try again.':'No se pudo cargar el clima – revisa tu señal e intenta otra vez.'});
 Object.assign(ES,{'More emojis':'Más emojis','React':'Reaccionar','Pick an emoji from your keyboard':'Elige un emoji de tu teclado','Tap the 😊 key on your keyboard and choose any emoji.':'Toca la tecla 😊 de tu teclado y elige cualquier emoji.','Tap the 😊 key on your keyboard for emojis':'Toca la tecla 😊 de tu teclado para emojis'});
 Object.assign(ES,{'Are people working on Saturday?':'¿Hay gente trabajando el sábado?','No – closed':'No – cerrado'});
 Object.assign(ES,{'Newest at the top':'Lo más nuevo arriba'});
@@ -1415,7 +1481,7 @@ function apply(d){
   if(d&&('__va' in d)&&d.__va!==(S.viewAs||null))return;
   if(d&&d.seen)S.seen=d.seen;if(d&&d.myPush===0&&!d.__cached)setTimeout(pushHeal,1500);
   if(!d||!d.me)return;
-  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if(d.arr)S.arr=d.arr;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
+  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if('pinReqs' in d)S.pinReqs=d.pinReqs;if(d.arr)S.arr=d.arr;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
   if(!S.viewAs){store('sam_me',S.me);store('sam_name',S.name);store('sam_role',S.role);
   try{if(d.tasks)localStorage.setItem('sam_cache',JSON.stringify(d));}catch(e){}}
   if(Q.length)applyQ();
@@ -1431,7 +1497,10 @@ function pendKind(m){return m.voice?'voice':m.video?'video':m.photo?'photo':'fil
 // Messages just deleted on this phone: keep them out even if an older answer from the server still has them (no flicker)
 var DELM={};
 function dropDeleted(){var now=Date.now(),ks=Object.keys(DELM);if(!ks.length)return;ks.forEach(function(k){if(DELM[k].until<now)delete DELM[k];});
-  allT().forEach(function(t){var l=parseComments(t),n=l.filter(function(m){var d=DELM[m.id];return !(d&&d.t===t.id);});if(n.length!==l.length)t.comments=JSON.stringify(n);});}
+  var ph={},vd={};ks.forEach(function(k){var d=DELM[k];if(!d)return;if(d.ph)ph[d.t+'|'+d.ph]=1;if(d.vd)vd[d.t+'|'+d.vd]=1;});
+  allT().forEach(function(t){var l=parseComments(t),n=l.filter(function(m){var d=DELM[m.id];return !(d&&d.t===t.id);});if(n.length!==l.length)t.comments=JSON.stringify(n);
+    if(t.photos){var pl=t.photos.split(','),pn=pl.filter(function(f){return !ph[t.id+'|'+f];});if(pn.length!==pl.length)t.photos=pn.join(',');}
+    if(t.videos&&Object.keys(vd).length){try{var vl=parseVideos(t),vn=vl.filter(function(v){return !vd[t.id+'|'+v.id];});if(vn.length!==vl.length)t.videos=JSON.stringify(vn);}catch(e){}}});}
 function mergePend(){dropDeleted();Object.keys(PEND).forEach(function(tid){allT().forEach(function(t){if(t.id!==tid)return;var l=parseComments(t),ch=false;PEND[tid].forEach(function(m){if(l.some(function(o){return o.id===m.id;}))return;
     // the real one already arrived from the server (upload just finished): don't show the sending copy too
     var k=pendKind(m);if(m._known&&l.some(function(o){return o.by===S.me&&o[k]&&String(o.id).charAt(0)!=='q'&&m._known.indexOf(o[k])<0;}))return;
@@ -1442,9 +1511,12 @@ var UPS={},UPC={},UPTK=0;
 function upProg(mid,p,size){UPP[mid]=p;var step=size?Math.min(95,16*1048576*100/size):0;UPC[mid]=Math.min(p>=100?100:97,Math.max(UPC[mid]||0,p+(size?step:0)));if(!UPTK)UPTK=setInterval(upTick,80);}
 function upTick(){var ks=Object.keys(UPP);if(!ks.length){clearInterval(UPTK);UPTK=0;return;}
   ks.forEach(function(mid){var t=UPP[mid]||0,c=Math.max(UPC[mid]||0,t),s=UPS[mid]||0;
-    if(s<t)s+=Math.max(0.7,(t-s)*0.2);else if(s<c)s+=Math.max(0.12,(c-s)*0.025);s=Math.min(s,c>=100?100:c);UPS[mid]=s;var v=Math.floor(s);
+    if(s<t)s+=t>=100?Math.max(2,(t-s)*0.14):Math.max(0.7,(t-s)*0.2);else if(s<c)s+=Math.max(0.15,(c-s)*0.04);s=Math.min(s,c>=100?100:c);UPS[mid]=s;var v=Math.floor(s);
     document.querySelectorAll('[data-mid="'+mid+'"] .upp').forEach(function(n){n.textContent=v+'%';});
-    document.querySelectorAll('[data-mid="'+mid+'"] .upring').forEach(function(n){var ci=n.querySelector('.uprc');if(ci)ci.style.strokeDashoffset=String(113.1*(1-s/100));var tx=n.querySelector('b');if(tx)tx.textContent=v+'%';});});}
+    document.querySelectorAll('[data-mid="'+mid+'"] .upring:not(.done)').forEach(function(n){var ci=n.querySelector('.uprc');if(ci)ci.style.strokeDashoffset=String(113.1*(1-s/100));var tx=n.querySelector('b');if(tx)tx.textContent=v+'%';});});}
+function upDone(mid){return new Promise(function(res){if(!(mid in UPP)){res();return;}UPP[mid]=100;UPC[mid]=100;if(!UPTK)UPTK=setInterval(upTick,80);
+  var w=setInterval(function(){if((UPS[mid]||0)>=99.5||!(mid in UPP)){clearInterval(w);document.querySelectorAll('[data-mid="'+mid+'"] .upring').forEach(function(n){n.classList.add('done');var b=n.querySelector('b');if(b)b.textContent='✓';});
+    document.querySelectorAll('[data-mid="'+mid+'"] .upp').forEach(function(n){n.textContent='✓ '+T('Sent');});setTimeout(res,450);}},40);setTimeout(function(){clearInterval(w);res();},3000);});}
 function upRing(mid){var s=UPS[mid]||0;return el('div',{class:'upring',html:'<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="uprb"/><circle cx="22" cy="22" r="18" class="uprc" style="stroke-dashoffset:'+(113.1*(1-s/100))+'"/></svg><b>'+Math.floor(s)+'%</b>'});}
 // newest message of mine with this kind that we did not have before (to keep the local copy for instant play)
 function newMine(taskId,kind,known){var t=allT().filter(function(q){return q.id===taskId;})[0];if(!t)return null;var l=parseComments(t).filter(function(m){return m.by===S.me&&m[kind]&&known.indexOf(m[kind])<0;});return l.length?l[l.length-1][kind]:null;}
@@ -1804,6 +1876,7 @@ function needItems(){
   var tagged=[];freshUnread().forEach(function(x){var seen=((S.seen||{})[x.id]||{})[S.me]||'',tm=chatMsgs(x).filter(function(m){return m.by!==S.me&&m.at>seen&&(m.m||[]).indexOf(S.me)>=0;}).pop();if(tm)tagged.push([x,tm]);});
   tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
   freshUnread().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?dmName(x):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
+  if(S.me==='Yossi'&&!S.viewAs)(S.pinReqs||[]).forEach(function(r){add('🔑',r.name+' '+T('forgot the PIN'),T('Asked from the log-in page')+' · '+cWhen(r.at),pill(T('Answer'),'blue'),function(){pinReqAsk(r);});});
   if(S.me==='Yossi'&&!S.viewAs&&S.estWait)add('📄',S.estWait+' '+T(S.estWait>1?'estimates to send to Claude':'estimate to send to Claude'),T('Waiting for you'),pill(T('Send'),'blue'),openEst);
   if(schedSent(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
   if(!isSat(t)&&!isSun(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
@@ -2040,10 +2113,13 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'lgfit',i:'📱',t:'Log-in page fits one screen',d:'The whole log-in page now fits on the screen – no scrolling on any phone size.',go:function(){goView('home');}},
+ {id:'fpin',i:'🔑',t:'Forgot PIN – free, no calls',d:'On the log-in page, "Forgot PIN?" lets a worker (or Rocky / Ashley) type the phone number and ask the office. You get it in Needs you (and a notification): Approve or Decline. When you approve, their phone opens by itself to "Make your new 4-number PIN".',go:function(){goView('need');}},
+ {id:'cam2',i:'📷',t:'New camera, like WhatsApp',d:'The flashlight button now always shows at the top right on Samsung (it was hiding on some phones). Cleaner camera: ✕ top left, flashlight top right, gallery – big button – flip at the bottom, and Video · Photo · Phone camera under it. After the picture: rotate it, write on it (Aa), draw on it (pencil), add a caption, see who it goes to ("To …") and tap the big Send.'},
  {id:'wxsmooth',i:'🌤',t:'Weather: switch towns instantly',d:'In Weather, tapping another town now switches right away – the other towns load quietly in the background, and the page no longer jumps.',go:function(){openWeather();}},
  {id:'torch',i:'🔦',t:'Flashlight in the camera',d:'The in-app camera has a flashlight button on top (Samsung / Android). Tap it to turn the light on for dark basements and nights.'},
- {id:'upsmooth',i:'⏫',t:'Sending looks like WhatsApp',d:'While a photo or video is sending, a round progress circle on the picture counts up smoothly (5, 6, 10, 20 … 100%) instead of jumping from 50 to 100.'},
- {id:'delfix',i:'🗑',t:'Deleting a message stays deleted',d:'A photo or message you delete no longer pops back for a second before it disappears.'},
+ {id:'upsmooth',i:'⏫',t:'Sending looks like WhatsApp',d:'While a photo or video is sending, a round progress circle on the picture counts up smoothly all the way to 100%, then shows ✓ Sent.'},
+ {id:'delfix',i:'🗑',t:'Deleting a message stays deleted',d:'A photo or message you delete no longer pops back for a second before it disappears (fixed again for photos).'},
  {id:'lg3',i:'🔓',t:'New Log in page',d:'Sign out to see it: a clear "Log in" page in mint colors (letters, no photos), language switch on top, and a round number pad. The phone remembers who used it last: "Welcome back, Yossi". Call-the-office buttons if someone forgot the PIN.',go:function(){toast(T('Sign out to see it'));}},
  {id:'bio',i:'🔐',t:'Fingerprint or face log in',d:'After you log in with your PIN, the app asks once: "Log in with your fingerprint or face?". Then next time just touch the fingerprint. You can turn it on or off in Settings.',go:function(){openSettings();}},
  {id:'wxmini',i:'🌤',t:'Weather next to the date',d:'Today shows a small "38° Monroe" next to the date. Tap it for the full weather.',go:function(){goView('home');}},
@@ -2266,6 +2342,44 @@ function lgTry(who,p,fail){
   .catch(function(e){S.lgBusy=false;S.lgPin='';if(fail)fail(e);S.loginMsg=/LOCKED/.test(String(e&&e.message))?T('Too many wrong PINs. Try again in 15 minutes.'):isBadPin(e)?T('Wrong PIN. Try again.'):T('Could not connect. Check your signal and try again.');render();
     var pd=document.querySelector('.lg3dots');if(pd){pd.classList.remove('shake');void pd.offsetWidth;pd.classList.add('shake');}if(navigator.vibrate)try{navigator.vibrate(120);}catch(x){}});}
 function lgBio(){bioUnlock().then(function(b){lgTry(b.pick,b.pin,function(e){if(isBadPin(e))bioSet(null);});}).catch(function(e){if(e&&e.message!=='nobio')S.loginMsg='';});}
+function pinReqAsk(r){openSheet([el('div',{class:'bioic',html:icoSvg('🔑')||'🔑'}),el('h2',{style:'text-align:center',text:r.name+' '+T('forgot the PIN')}),
+  el('p',{class:'muted',style:'text-align:center',text:T('Only approve if it is really him or her.')}),
+  el('div',{style:'display:flex;gap:10px'},el('button',{class:'primary',style:'flex:1',onclick:function(){dec(true);}},T('Approve')),el('button',{class:'ghost',style:'flex:1;border:1.5px solid #CFE3DD',onclick:function(){dec(false);}},T('Decline')))]);
+  function dec(ok){closeSheet();S.pinReqs=(S.pinReqs||[]).filter(function(x){return x.rid!==r.rid;});render();call('pinReqDecide',{rid:r.rid,ok:ok?1:0}).then(function(d){apply(d);render();toast(ok?'✓ '+T('Approved – they can make a new PIN now'):T('Declined'));}).catch(function(e){toast('❗ '+errText(e));});}}
+// Forgot PIN on the log-in page: ask → wait → make a new PIN
+var FPT=0;
+function fpGet(){try{return JSON.parse(localStorage.getItem('sam_fp')||'null');}catch(e){return null;}}
+function fpSet(v){try{if(v)localStorage.setItem('sam_fp',JSON.stringify(v));else localStorage.removeItem('sam_fp');}catch(e){}}
+function fpPoll(){clearTimeout(FPT);var f=fpGet();if(!f||!f.rid||S.me)return;
+  call('pinReqStatus',{rid:f.rid},'-').then(function(r){var g=fpGet();if(!g||g.rid!==f.rid)return;
+    if(r.st==='ok'){if(g.st!=='ok'){g.st='ok';g.name=r.name;fpSet(g);S.lgPin='';render();try{if(navigator.vibrate)navigator.vibrate([60,40,60]);}catch(e){}}return;}
+    if(r.st==='no'||r.st==='expired'||r.st==='used'){g.st=r.st;fpSet(g);render();return;}
+    FPT=setTimeout(fpPoll,4000);}).catch(function(){FPT=setTimeout(fpPoll,8000);});}
+function fpView(box){var f=fpGet();
+  if(f.st==='ask'){var ph=el('input',{class:'lg3ph',type:'tel',inputmode:'tel',placeholder:'(845) 555-0161',autocomplete:'tel'});var er=el('div',{class:'err',style:'text-align:center'});
+    box.appendChild(el('h1',{class:'lg3t',text:T('Forgot your PIN?')}));box.appendChild(el('div',{class:'lg3s',text:T('No problem – ask the office')}));
+    box.appendChild(el('div',{class:'lg3phw'},el('span',{text:'+1'}),ph));box.appendChild(er);
+    var go=el('button',{class:'lg3btn',onclick:function(){var d=ph.value.replace(/\D/g,'');if(d.length<10){er.textContent=T('Type your phone number');ph.focus();return;}go.disabled=true;go.textContent=T('Sending…');
+      call('pinReq',{phone:d},'-').then(function(r){fpSet({rid:r.rid,st:'wait'});render();fpPoll();}).catch(function(e){go.disabled=false;go.textContent=T('Ask the office for a new PIN');er.textContent=/LOCKED/.test(String(e&&e.message))?T('Too many tries. Wait an hour or call the office.'):isNet(e)?T('No signal right now.'):T('Check the phone number.');});}},T('Ask the office for a new PIN'));
+    box.appendChild(go);setTimeout(function(){ph.focus();},60);}
+  else if(f.st==='wait'){box.appendChild(el('div',{class:'lg3wait'},el('span',{class:'lg3spin'})));box.appendChild(el('h1',{class:'lg3t sm',text:T('Waiting for the office…')}));box.appendChild(el('div',{class:'lg3s',text:T('Your request was sent')}));if(!FPT)fpPoll();}
+  else if(f.st==='ok'){box.appendChild(el('div',{class:'lg3wait ok',html:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'}));
+    box.appendChild(el('h1',{class:'lg3t sm',text:T('Approved')+(f.name?', '+f.name+'!':'!')}));box.appendChild(el('div',{class:'lg3s',text:S.lgBusy?T('Saving…'):T('Make your new 4-number PIN')}));
+    var dots=el('div',{class:'lg3dots'});for(var i=0;i<4;i++)dots.appendChild(el('i',{class:i<S.lgPin.length?'f':''}));box.appendChild(dots);
+    if(S.loginMsg)box.appendChild(el('div',{class:'err',style:'text-align:center;margin:0 0 6px',text:S.loginMsg}));
+    box.appendChild(lgPad(function(p){S.lgBusy=true;render();call('pinReqSet',{rid:f.rid,newPin:p},'-').then(function(r){S.lgBusy=false;fpSet(null);S.loginMsg='';toast('✓ '+T('New PIN saved'));lgTry(r.pick,p);})
+      .catch(function(e){S.lgBusy=false;S.lgPin='';var m=String(e&&e.message);S.loginMsg=m==='PIN_TAKEN'?T('That PIN is taken. Pick another one.'):m==='PIN_IS_PHONE'?T('Do not use the end of your phone number.'):m==='NOT_ALLOWED'?T('This approval ran out. Ask again.'):T('Could not connect. Check your signal and try again.');if(m==='NOT_ALLOWED')fpSet(null);render();});},false));}
+  else{box.appendChild(el('h1',{class:'lg3t sm',text:f.st==='no'?T('The office said no'):T('This request ran out')}));box.appendChild(el('div',{class:'lg3s',text:T('Call the office if you need help.')}));}
+  box.appendChild(el('div',{class:'lg3bot'},el('button',{class:'lg3lk',onclick:function(){clearTimeout(FPT);FPT=0;fpSet(null);S.loginMsg='';S.lgPin='';render();}},'‹ '+T('Back')),
+    el('a',{class:'lg3lk',href:'tel:+18458372271'},el('span',{class:'lg3pi',html:PHSVG}),T('Call the office'))));
+  return box;}
+function lgPad(done,fp){var pad=el('div',{class:'lg3pad'});
+  function press(d){if(S.lgBusy)return;haptic();S.loginMsg='';if(d==='del')S.lgPin=S.lgPin.slice(0,-1);else if(S.lgPin.length<4)S.lgPin+=d;
+    var ds=document.querySelectorAll('.lg3dots i');for(var k=0;k<ds.length;k++)ds[k].className=k<S.lgPin.length?'f':'';var er=document.querySelector('.lg3 .err');if(er)er.remove();
+    if(S.lgPin.length===4){var p=S.lgPin;setTimeout(function(){done(p);},120);}}
+  ['1','2','3','4','5','6','7','8','9'].forEach(function(d){pad.appendChild(el('button',{class:'lg3k',onclick:function(){press(d);}},d));});
+  pad.appendChild(fp||el('span',{}));pad.appendChild(el('button',{class:'lg3k',onclick:function(){press('0');}},'0'));
+  pad.appendChild(el('button',{class:'lg3k t','aria-label':T('Delete'),html:DELSVG,onclick:function(){press('del');}}));return pad;}
 function loginView3(){
   var pv=lgPrev();
   if(!S.pick&&!S.lgOther&&pv){S.pick=pv.pick;S.lgName=pv.name;}
@@ -2277,6 +2391,7 @@ function loginView3(){
     el('div',{class:'lg3mark'},el('span',{text:'SAM '}),el('b',{text:'To-Do'})),
     el('div',{class:'lg3tag',text:'SAM Construction · '+T('Built right')}));
   if(S.woke==null||Date.now()-S.woke>120000){S.woke=Date.now();fetch(API,{method:'POST',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'ping',payload:{}})}).catch(function(){});}
+  if(fpGet())return fpView(box);
   if(!S.pick){
     box.appendChild(el('h1',{class:'lg3t',text:T('Log in')}));
     box.appendChild(el('div',{class:'lg3s',text:T('Who is using this phone?')}));
@@ -2302,7 +2417,7 @@ function loginView3(){
   box.appendChild(pad);
   box.appendChild(el('div',{class:'lg3bot'},
     el('button',{class:'lg3lk',onclick:function(){S.pick=null;S.lgOther=true;S.lgPin='';S.loginMsg='';render();}},'‹ '+(nm&&pv&&pv.pick===S.pick?T('Not')+' '+nm+'?':T('Back'))),
-    el('a',{class:'lg3lk',href:'tel:+18458372271'},el('span',{class:'lg3pi',html:PHSVG}),T('Forgot PIN? Call the office'))));
+    el('button',{class:'lg3lk',onclick:function(){fpSet({st:'ask'});S.loginMsg='';render();}},el('span',{class:'lg3pi',html:icoSvg('🔑')}),T('Forgot PIN?'))));
   if(hasBio&&!S.lgBioAsked){S.lgBioAsked=true;setTimeout(lgBio,400);}
   return box;}
 function loginView(){
@@ -2426,7 +2541,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611141915',lastUpd=0;
+var BUILD='202611141938',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3303,7 +3418,7 @@ function bubble(x,m,openRx,setRx,all,onReply){
   var acts=el('div',{class:'bacts'});
   acts.appendChild(el('button',{class:'rxadd','aria-label':T('Reply'),onclick:function(e){e.stopPropagation();setRx(null);if(onReply)onReply(m);}},'↩ '+T('Reply')));
   if((mine||isOffice())&&m.id&&String(m.id).indexOf('tmp')!==0&&String(m.id).indexOf('q')!==0){var armD=false,db=el('button',{class:'rxadd del','aria-label':T('Delete'),onclick:function(){if(!armD){armD=true;db.textContent='🗑 '+T('Delete?');return;}
-    DELM[m.id]={t:x.id,until:Date.now()+60000};
+    DELM[m.id]={t:x.id,until:Date.now()+60000,ph:m.photo||'',vd:m.video||''};
     allT().forEach(function(t){if(t.id!==x.id)return;var l=parseComments(t).filter(function(o,i){return (o.id||('i'+i))!==m.id;});t.comments=JSON.stringify(l);if(m.photo)t.photos=(t.photos||'').split(',').filter(function(f){return f&&f!==m.photo;}).join(',');if(m.video){try{t.videos=JSON.stringify(parseVideos(t).filter(function(v){return v.id!==m.video;}));}catch(e){}}});
     render();chatRepaint();call('chatDelete',{id:x.id,cid:m.id}).then(function(d){apply(d);render();toast('✓ '+T('Deleted'));}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}},'🗑');acts.appendChild(db);}
   // Time + ticks at the bottom right, like WhatsApp: 🕓 sending · ✓ sent · blue ✓✓ seen (tap to see who).
@@ -3422,6 +3537,61 @@ function openChat(id){
 }
 var EMOJIS=['👍','✅','🙏','👌','💪','🔥','😂','😊','😅','🤔','😮','😢','❤️','👏','🙌','👀','💯','⚠️','❌','⏰','📍','📷','🏠','🏗️','🔨','🪚','🧱','🪜','🔧','🪛','📐','🚚','🚐','🧰','🦺','👷','💧','⚡','🔥','❄️','🌧️','☀️','💵','📝','📞','✔️','➡️','👋'];
 // ---------- In-app camera (like WhatsApp): tap = photo, hold = video; then Send or Delete ----------
+// ---------- WhatsApp-style "after the picture" screen: rotate · text · draw · caption · To · Send ----------
+var SVG_X='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+var SVG_ROT='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>';
+var SVG_PEN='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg>';
+var SVG_UNDO='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>';
+function chatTo(x){try{var who=x.owner?nameOf(x.owner):'';var t=taskLabel(x)||'';return t&&who&&t!==who?t+' · '+firstName(who):(t||who);}catch(e){return x.title||'';}}
+function reviewScreen(x,att,url,onBack){
+  var photo=att.kind==='photo',cv=null,g=null,base=null,ops=[],mode='',color='#FF3B30',cur=null,txtOp=null,dirty=false;
+  var stage=el('div',{class:'rvstage'});
+  var media;
+  if(photo){cv=el('canvas',{class:'rvcv'});media=cv;var img=new Image();img.onload=function(){var mx=2048,s=Math.min(1,mx/Math.max(img.naturalWidth,img.naturalHeight));base=document.createElement('canvas');base.width=Math.round(img.naturalWidth*s);base.height=Math.round(img.naturalHeight*s);base.getContext('2d').drawImage(img,0,0,base.width,base.height);cv.width=base.width;cv.height=base.height;g=cv.getContext('2d');draw();};img.src=url;}
+  else media=el('video',{class:'rvvid',src:url,autoplay:'',loop:'',playsinline:'',muted:'',controls:''});
+  if(!photo)media.muted=true;
+  stage.appendChild(media);
+  function lw(){return Math.max(4,Math.round(Math.max(cv.width,cv.height)/180));}
+  function draw(){if(!g||!base)return;g.clearRect(0,0,cv.width,cv.height);g.drawImage(base,0,0);
+    ops.forEach(function(o){if(o.t==='l'){g.strokeStyle=o.c;g.lineWidth=o.w;g.lineCap='round';g.lineJoin='round';g.beginPath();o.p.forEach(function(q,i){if(i)g.lineTo(q[0],q[1]);else g.moveTo(q[0],q[1]);});if(o.p.length===1)g.lineTo(o.p[0][0]+0.1,o.p[0][1]);g.stroke();}
+      else if(o.t==='x'){var fs=Math.round(Math.max(cv.width,cv.height)/18);g.font='700 '+fs+'px system-ui,-apple-system,Roboto,sans-serif';g.textAlign='center';g.textBaseline='middle';var w=g.measureText(o.s).width,pad=fs*0.35;
+        g.fillStyle='rgba(0,0,0,.55)';var bx=o.x-w/2-pad,by=o.y-fs*0.65,bw=w+pad*2,bh=fs*1.3,r=fs*0.3;g.beginPath();g.moveTo(bx+r,by);g.arcTo(bx+bw,by,bx+bw,by+bh,r);g.arcTo(bx+bw,by+bh,bx,by+bh,r);g.arcTo(bx,by+bh,bx,by,r);g.arcTo(bx,by,bx+bw,by,r);g.fill();g.fillStyle=o.c;g.fillText(o.s,o.x,o.y);}});}
+  function pt(e){var r=cv.getBoundingClientRect(),s=Math.min(r.width/cv.width,r.height/cv.height),ox=r.left+(r.width-cv.width*s)/2,oy=r.top+(r.height-cv.height*s)/2;return [(e.clientX-ox)/s,(e.clientY-oy)/s];}
+  function hitText(p){for(var i=ops.length-1;i>=0;i--){var o=ops[i];if(o.t!=='x')continue;var fs=Math.max(cv.width,cv.height)/18;if(Math.abs(p[0]-o.x)<Math.max(fs*2,o.s.length*fs*0.32)&&Math.abs(p[1]-o.y)<fs)return o;}return null;}
+  var raf=0;function redraw(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;draw();});}
+  if(photo){cv.addEventListener('pointerdown',function(e){if(!g)return;var p=pt(e);var hit=hitText(p);
+      if(hit){txtOp={o:hit,dx:hit.x-p[0],dy:hit.y-p[1]};}
+      else if(mode==='pen'){cur={t:'l',c:color,w:lw(),p:[p]};ops.push(cur);dirty=true;redraw();}
+      else return;
+      e.preventDefault();try{cv.setPointerCapture(e.pointerId);}catch(er){}});
+    cv.addEventListener('pointermove',function(e){if(cur){cur.p.push(pt(e));redraw();}else if(txtOp){var p=pt(e);txtOp.o.x=p[0]+txtOp.dx;txtOp.o.y=p[1]+txtOp.dy;redraw();}});
+    var end=function(){cur=null;txtOp=null;undo.style.display=ops.length?'':'none';};cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',end);}
+  // tools
+  var palette=el('div',{class:'rvpal',style:'display:none'},['#FF3B30','#FFD43B','#FFFFFF','#1BA58C','#111111'].map(function(c){return el('button',{class:'rvcol'+(c===color?' on':''),style:'background:'+c,onclick:function(e){e.stopPropagation();color=c;[].forEach.call(palette.children,function(b){b.classList.toggle('on',b.style.background===b.style.background&&b===e.currentTarget);});}});}));
+  var penB=el('button',{class:'rvt','aria-label':T('Draw'),html:SVG_PEN,onclick:function(e){e.stopPropagation();mode=mode==='pen'?'':'pen';penB.classList.toggle('on',mode==='pen');palette.style.display=mode==='pen'?'':'none';haptic();}});
+  var undo=el('button',{class:'rvt','aria-label':T('Undo'),html:SVG_UNDO,style:'display:none',onclick:function(e){e.stopPropagation();ops.pop();draw();undo.style.display=ops.length?'':'none';}});
+  var rotB=el('button',{class:'rvt','aria-label':T('Rotate'),html:SVG_ROT,onclick:function(e){e.stopPropagation();if(!base)return;draw();var nb=document.createElement('canvas');nb.width=cv.height;nb.height=cv.width;var c2=nb.getContext('2d');c2.translate(0,nb.height);c2.rotate(-Math.PI/2);c2.drawImage(cv,0,0);base=nb;ops=[];cv.width=nb.width;cv.height=nb.height;dirty=true;draw();undo.style.display='none';haptic();}});
+  var txtB=el('button',{class:'rvt','aria-label':T('Text'),onclick:function(e){e.stopPropagation();openTxt();}},el('b',{text:'Aa'}));
+  var txtBox=el('div',{class:'rvtxt',style:'display:none'});
+  function openTxt(){if(!g)return;txtBox.innerHTML='';var inp=el('input',{class:'rvtin',type:'text',placeholder:T('Type on the picture…'),maxlength:'60'});
+    var cols=el('div',{class:'rvpal'},['#FFFFFF','#FFD43B','#FF3B30','#1BA58C'].map(function(c,i){return el('button',{class:'rvcol'+(i?'':' on'),style:'background:'+c,onclick:function(ev){ev.stopPropagation();inp.style.color=c;inp.dataset.c=c;[].forEach.call(cols.children,function(b){b.classList.remove('on');});ev.currentTarget.classList.add('on');}});}));
+    inp.dataset.c='#FFFFFF';
+    function done(){var s=inp.value.trim();txtBox.style.display='none';if(s){ops.push({t:'x',s:s,c:inp.dataset.c,x:cv.width/2,y:cv.height/2});dirty=true;draw();undo.style.display='';}}
+    txtBox.appendChild(inp);txtBox.appendChild(el('div',{class:'rvtrow'},cols,el('button',{class:'rvok',onclick:function(ev){ev.stopPropagation();done();}},T('Done'))));
+    inp.addEventListener('keydown',function(ev){if(ev.key==='Enter')done();});txtBox.style.display='';setTimeout(function(){inp.focus();},30);}
+  var cap=el('input',{class:'rvcap',type:'text',placeholder:T('Add a caption…'),maxlength:'500',enterkeyhint:'send'});
+  var sendB=el('button',{class:'rvsend','aria-label':T('Send'),html:IC.send,onclick:function(e){e.stopPropagation();go();}});
+  cap.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();go();}});
+  var sent=false;
+  function go(){if(sent)return;sent=true;var text=cap.value.trim();
+    function fin(a){att.sent=1;onBack(true);sendNow(x,a);if(text)setTimeout(function(){try{sendComment(x,text);}catch(e){}},500);}
+    if(photo&&dirty&&cv){draw();cv.toBlob(function(b){if(!b){fin(att);return;}fin({kind:'photo',f:new File([b],'photo-'+Date.now()+'.jpg',{type:'image/jpeg'})});},'image/jpeg',0.9);}
+    else fin(att);}
+  var top=el('div',{class:'rvtop'},el('button',{class:'rvt','aria-label':T('Back'),html:SVG_X,onclick:function(e){e.stopPropagation();onBack(false);}}),
+    photo?el('div',{class:'rvtools'},undo,rotB,txtB,penB):el('span',{class:'rvwhat',text:T('Video')+' · '+fmtDur(att.dur||0)}));
+  var bot=el('div',{class:'rvbot'},el('div',{class:'rvcapw'},cap),el('div',{class:'rvfoot'},el('span',{class:'rvto'},T('To')+' ',el('b',{text:chatTo(x)})),sendB));
+  return el('div',{class:'rvwrap'},stage,top,photo?palette:null,txtBox,bot);
+}
 function openCam(x,videoFirst){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){chatPick(x,videoFirst?'vid':'cam');return;}
   var facing='environment',stream=null,rec=null,chunks=[],recT=null,t0=0,holdT=null,recording=false,closed=false;
@@ -3432,9 +3602,15 @@ function openCam(x,videoFirst){
   var gal=el('button',{class:'camside','aria-label':T('Gallery'),html:IC.gal,onclick:function(){stop();closeViewer();chatPick(x,'gal');}});
   var hint=el('div',{class:'camhint',text:T('Tap for photo · hold for video · slide up to zoom')});
   var hd=el('div',{class:'camhd2'},el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'cam',true);}},'📷 '+T('Phone photo')),el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'vid',true);}},'🎥 '+T('Phone video')));
-  var box=el('div',{class:'cambox'},vid,clock,hd,el('div',{class:'cambar'},gal,shut,flip),hint);
+  var camMode=videoFirst?'video':'photo';
+  var tabs=el('div',{class:'camtabs'},[['video',T('Video')],['photo',T('Photo')],['phone',T('Phone camera')]].map(function(o){return el('button',{class:'camtab'+(o[0]===camMode?' on':''),'data-m':o[0],onclick:function(e){e.stopPropagation();haptic();
+    if(o[0]==='phone'){stop();closeViewer();chatPick(x,camMode==='video'?'vid':'cam',true);return;}
+    camMode=o[0];[].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.getAttribute('data-m')===camMode);});hint.textContent=camMode==='video'?T('Tap to start · tap again to stop'):T('Tap for photo · hold for video');shut.classList.toggle('vmode',camMode==='video');}},o[1]);}));
+  var xBtn=el('button',{class:'camx','aria-label':T('Back'),html:SVG_X,onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();}});
+  var box=el('div',{class:'cambox nc'},vid,clock,xBtn,el('div',{class:'cambar'},gal,shut,flip),tabs,hint);
+  if(camMode==='video'){hint.textContent=T('Tap to start · tap again to stop');shut.classList.add('vmode');}else hint.textContent=T('Tap for photo · hold for video');
   var vw=openViewer(box);vw.classList.add('vfull','vcam');
-  vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
+  if(false)vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
   function stop(){closed=true;try{cvStop();}catch(e){}try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
   var obs=new MutationObserver(function(){if(!document.body.contains(vw)){stop();obs.disconnect();}});obs.observe(document.body,{childList:true});
   function start(){if(stream)stream.getTracks().forEach(function(t){t.stop();});
@@ -3462,10 +3638,13 @@ function openCam(x,videoFirst){
   flip.onclick=function(){facing=facing==='environment'?'user':'environment';torchOn=false;start();};
   // Flashlight (Samsung / Android; iPhone browsers don't allow it, so the button stays hidden there)
   var torchOn=false,torchB=el('button',{class:'camtorch','aria-label':T('Flashlight'),style:'display:none',onclick:function(e){e.stopPropagation();var tr=stream&&stream.getVideoTracks()[0];if(!tr)return;torchOn=!torchOn;
-    tr.applyConstraints({advanced:[{torch:torchOn}]}).then(function(){torchB.classList.toggle('on',torchOn);haptic();}).catch(function(){torchOn=false;torchB.classList.remove('on');toast(T('This phone does not allow the flashlight here'));});},
+    torchB.classList.toggle('on',torchOn);haptic();tr.applyConstraints({advanced:[{torch:torchOn}]}).catch(function(){return tr.applyConstraints({torch:torchOn});}).catch(function(){torchOn=false;torchB.classList.remove('on');toast(T('This phone does not allow the flashlight here'));});},
     html:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-2 5H9z"/><path d="M9 8v11a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V8"/><path d="M12 12v3"/></svg>'});
   box.appendChild(torchB);
-  function torchSetup(){try{var tr=stream&&stream.getVideoTracks()[0],c=tr&&tr.getCapabilities?tr.getCapabilities():null;var ok=!!(c&&c.torch);torchB.style.display=ok?'':'none';torchB.classList.toggle('on',torchOn&&ok);if(ok&&torchOn)tr.applyConstraints({advanced:[{torch:true}]}).catch(function(){});}catch(e){torchB.style.display='none';}}
+  // Samsung often tells the browser about the flashlight only a moment after the camera starts – so check again, and on Android show it for the back camera anyway
+  var isAndroid=/Android/i.test(navigator.userAgent);
+  function torchCheck(){try{var tr=stream&&stream.getVideoTracks()[0],c=tr&&tr.getCapabilities?tr.getCapabilities():null;var ok=!!(c&&c.torch)||(isAndroid&&facing==='environment');torchB.style.display=ok?'':'none';torchB.classList.toggle('on',torchOn&&ok);if(c&&c.torch&&torchOn)tr.applyConstraints({advanced:[{torch:true}]}).catch(function(){});}catch(e){torchB.style.display=isAndroid&&facing==='environment'?'':'none';}}
+  function torchSetup(){torchCheck();setTimeout(torchCheck,500);setTimeout(torchCheck,1500);}
   function photo(){if(!vid.videoWidth)return;
     // the phone's real camera picture (full size) when it can; otherwise a frame from the live view
     try{var tr=stream&&stream.getVideoTracks()[0];if(window.ImageCapture&&tr&&facing==='environment'){var ic=new ImageCapture(tr);try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
@@ -3489,16 +3668,13 @@ function openCam(x,videoFirst){
     recT=setInterval(function(){var s2=Math.round((Date.now()-t0)/1000);clock.lastChild.textContent=fmtDur(s2);if(s2>=VID_MAX_SEC)recStop();},250);}
   var cvOn=false,cvRaf=0;function cvStop(){cvOn=false;try{cancelAnimationFrame(cvRaf);}catch(e){}}
   function recStop(){try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}}
-  shut.addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();if(recording){recStop();return;}holdT=setTimeout(function(){holdT=null;recStart();},350);});
-  shut.addEventListener('pointerup',function(e){e.stopPropagation();if(holdT){clearTimeout(holdT);holdT=null;photo();}else if(recording&&Date.now()-t0>600)recStop();});
+  shut.addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();if(recording){recStop();return;}if(camMode==='video'){recStart();return;}holdT=setTimeout(function(){holdT=null;recStart();},350);});
+  shut.addEventListener('pointerup',function(e){e.stopPropagation();if(camMode==='video')return;if(holdT){clearTimeout(holdT);holdT=null;photo();}else if(recording&&Date.now()-t0>600)recStop();});
   shut.addEventListener('click',function(e){e.stopPropagation();});
   // After the picture / video: look at it, then Send (same spot as the shutter) or Delete (take again).
-  function review(att,url){box.classList.add('rv');if(att.kind==='video')att.pre=preUp(x.id,att);var media=att.kind==='photo'?el('img',{class:'camprev',src:url,alt:''}):el('video',{class:'camprev',src:url,autoplay:'',loop:'',playsinline:'',muted:'',controls:''});
-    var rvb=el('div',{class:'camrv'},media,el('div',{class:'cambar'},
-      el('button',{class:'camdel','aria-label':T('Delete'),html:IC.trash,onclick:function(e){e.stopPropagation();if(att.pre){att.pre.cancel();att.pre=null;}URL.revokeObjectURL(url);rvb.remove();box.classList.remove('rv');hint.style.display='';}}),
-      el('span',{class:'camwhat',text:att.kind==='photo'?T('Photo'):T('Video')+' · '+fmtDur(att.dur||0)}),
-      el('button',{class:'camsend','aria-label':T('Send'),html:IC.send,onclick:function(e){e.stopPropagation();att.sent=1;stop();closeViewer();queueHist();sendNow(x,att);}})));
-    box.appendChild(rvb);var vv=document.getElementById('viewer');if(vv)vv._onClose=function(){if(!att.sent&&att.pre){att.pre.cancel();att.pre=null;}};}
+  function review(att,url){box.classList.add('rv');if(att.kind==='video')att.pre=preUp(x.id,att);
+    var rv=reviewScreen(x,att,url,function(sentNow){if(sentNow){stop();closeViewer();queueHist();return;}if(att.pre){att.pre.cancel();att.pre=null;}try{URL.revokeObjectURL(url);}catch(e){}rv.remove();box.classList.remove('rv');});
+    box.appendChild(rv);var vv=document.getElementById('viewer');if(vv)vv._onClose=function(){if(!att.sent&&att.pre){att.pre.cancel();att.pre=null;}};}
   start();
 }
 // Send where I am now: the other side gets a card that opens Google Maps at that spot.
@@ -3511,14 +3687,9 @@ function preUp(id,att){var prog=null,last=0,open,shut,cancelled=false,gp=new Pro
   return {go:function(pf){prog=pf;if(last)pf(last);open();return p;},cancel:function(){cancelled=true;shut(new Error('CANCELLED'));}};}
 // Look at a picture/video from the phone camera before sending: Send or Delete (like the in-app camera)
 function mediaReview(x,att){var url=URL.createObjectURL(att.f);if(att.kind==='video')att.pre=preUp(x.id,att);
-  var media=att.kind==='photo'?el('img',{class:'camprev',src:url,alt:''}):el('video',{class:'camprev',src:url,autoplay:'',loop:'',playsinline:'',muted:'',controls:''});
-  var box=el('div',{class:'cambox rv'}),vw;
-  box.appendChild(el('div',{class:'camrv'},media,el('div',{class:'cambar'},
-    el('button',{class:'camdel','aria-label':T('Delete'),html:IC.trash,onclick:function(e){e.stopPropagation();if(att.pre)att.pre.cancel();URL.revokeObjectURL(url);closeViewer();queueHist();}}),
-    el('span',{class:'camwhat',text:att.kind==='photo'?T('Photo'):T('Video')+' · '+fmtDur(att.dur||0)}),
-    el('button',{class:'camsend','aria-label':T('Send'),html:IC.send,onclick:function(e){e.stopPropagation();att.sent=1;closeViewer();queueHist();sendNow(x,att);}}))));
-  vw=openViewer(box);vw.classList.add('vfull','vcam');vw._onClose=function(){if(!att.sent&&att.pre){att.pre.cancel();att.pre=null;}if(!att.sent)try{URL.revokeObjectURL(url);}catch(e){}};
-  vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();if(att.pre)att.pre.cancel();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));}
+  var vw,box=el('div',{class:'cambox rv nc'});
+  box.appendChild(reviewScreen(x,att,url,function(sentNow){if(!sentNow&&att.pre){att.pre.cancel();att.pre=null;}closeViewer();queueHist();}));
+  vw=openViewer(box);vw.classList.add('vfull','vcam');vw._onClose=function(){if(!att.sent&&att.pre){att.pre.cancel();att.pre=null;}if(!att.sent)try{URL.revokeObjectURL(url);}catch(e){}};}
 function sendLocation(x){
   if(!navigator.geolocation){toast(T('Location does not work on this phone.'));return;}
   toast('📍 '+T('Finding your location…'));
@@ -3659,12 +3830,12 @@ function sendInline(atts,id){
     UPP[mid]=0;upProg(mid,1,a.kind==='photo'?0:a.f.size);a._mid=mid;a._url=url;m._known=knownOf(id,a.kind==='photo'?'photo':a.kind==='video'?'video':'file');pendAdd(id,m);});
   var i=0;
   function one(){if(i>=atts.length)return;var a=atts[i++],kind=a.kind==='photo'?'photo':a.kind==='video'?'video':'file',known=knownOf(id,kind),pr;
-    if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=93;
+    if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=96;
       // bad signal or a very big picture: try once more a bit smaller
       return call('photoAdd',{id:id,data:data.split(',')[1]}).catch(function(err){if(!isNet(err))throw err;if(S.me==='Yossi')logErr('Photo upload retry (test)','size '+a.f.size+' sent '+data.length+' '+String(err&&err.message));
-        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1]}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);sendQ('photoAdd',{id:id,data:d2.split(',')[1]},'⏳ '+T('No signal — it will send by itself when the signal is back.'));return 'Q';});});}).then(function(r){if(r==='Q')return;var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
+        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1]}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);sendQ('photoAdd',{id:id,data:d2.split(',')[1]},'⏳ '+T('No signal — it will send by itself when the signal is back.'));return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return;var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
     else pr=(a.pre?a.pre.go(function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);}):call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
-      return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);},function(){return false;});})).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
+      return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);},function(){return false;});})).then(function(r){return upDone(a._mid).then(function(){return r;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
     pr.then(function(){pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
   one();
 }
@@ -3680,7 +3851,7 @@ function sendVoice(x,blob,dur,tries){tries=tries||0;
     function next(){var part=blob.slice(off,Math.min(blob.size,off+CH));
       return readB64(part).then(function(b64){return call('videoChunk',{uid:st.uid,offset:off,data:b64});}).then(function(r){off+=part.size;upProg(mid,Math.round(off*100/blob.size),blob.size);if(r&&r.more&&off<blob.size)return next();return r;});}
     return next();
-  }).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}render();chatRepaint();})
+  }).then(function(r){return upDone(mid).then(function(){return r;});}).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}render();chatRepaint();})
   .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();if(isNet(err)&&tries<60){if(!tries)toast('⏳ '+T('No signal — it will send by itself when the signal is back.'));var go=function(){window.removeEventListener('online',go);clearTimeout(tm);sendVoice(x,blob,dur,tries+1);},tm=setTimeout(go,20000);window.addEventListener('online',go);return;}toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
 }
 // ---------- photos ----------
