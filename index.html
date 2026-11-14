@@ -2121,6 +2121,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'shabbos',i:'🏆',t:'"Enjoy Shabbos" – only for you',d:'The Friday compliment says "enjoy Shabbos" only for you. Everyone else gets "enjoy the weekend".',go:function(){openPraisePreview();}},
  {id:'praise2',i:'⭐',t:'More compliments, new icons',d:'Many more compliments in English and Spanish, with the app\'s own icons instead of emojis. The same one never comes twice until all were used – also for the last task of the day, Friday and snow. Try it: Maintenance → Compliments preview.',go:function(){openPraisePreview();}},
  {id:'swipetabs',i:'👆',t:'Swipe between the bottom tabs',d:'Swipe the page left or right to go Today → Phones → Messages → Jobs → More, like WhatsApp. Tapping the bottom buttons still works.',go:function(){goView('home');}},
  {id:'fptest',i:'🔑',t:'Test Forgot PIN yourself',d:'Maintenance → Test Forgot PIN. You see the worker\'s screen and ask for a new PIN, then you get the notification and Approve like the office, then the worker\'s screen lets you make a new PIN. Nobody\'s PIN changes – it is only a test.',go:function(){openMaint();}},
@@ -2585,7 +2586,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611141949',lastUpd=0;
+var BUILD='202611141957',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3258,7 +3259,7 @@ var PRAISE={
   en:{task:['Nice work!','Done and dusted','One less thing','Crushing it!','That’s how it’s done','Solid work','Boom – done!','Great job!','On a roll!','Nailed it!','Way to go!','Look at you go!',
       'Like a pro','Clean work','Checked off!','Keep it rolling','Smooth!','Another one down','You’re on fire','Built right!','Strong work','Right on time','Making it happen','Top notch','Easy money','Locked in','That’s a wrap','Pro move','Rock solid','Knocked it out'],
       day:['All done for today!','Day complete – nice!','Clean sheet today','Nothing left – great day','Today: done. Go relax','You cleared the board!','Every task done today','Perfect day – all done','Day wrapped up right','That’s the day – well done'],
-      week:['Great week!','Week done – enjoy Shabbos','What a week – all done','Strong finish to the week','Week complete – well earned','Closed out the week!','Big week – nice work','Friday finish line – done'],
+      week:['Great week!','Week done – enjoy the weekend','What a week – all done','Strong finish to the week','Week complete – well earned','Closed out the week!','Big week – nice work','Friday finish line – done'],
       snow:['Route done – get warm!','Last stop done – great job','All clear – stay warm','Snow beat – nice work','Route done – coffee time','Every stop cleared!','Plowed it all – thank you','Done in the cold – respect']},
   es:{task:['¡Buen trabajo!','¡Listo, campeón!','Uno menos','¡Así se hace!','¡Excelente!','¡Bien hecho!','¡Qué máquina!','¡Lo lograste!','¡Sigue así!','¡Perfecto!','¡Bravo!','¡De lujo!',
       '¡Como un pro!','¡Trabajo limpio!','¡Tachado!','¡Vas volando!','¡Suave!','¡Otro más!','¡Estás que ardes!','¡Bien construido!','¡Trabajo fuerte!','¡Justo a tiempo!','¡Eso es!','¡De primera!','¡Sin problema!','¡Imparable!','¡Terminado!','¡Jugada de pro!','¡Sólido como roca!','¡Lo sacaste!'],
@@ -3279,7 +3280,7 @@ function praisePick(kind,lg,l){var key=kind+'_'+lg,bag={},used;try{bag=JSON.pars
   used=(bag[key]||[]).filter(function(i){return i<l.length;});var free=[];for(var i=0;i<l.length;i++)if(used.indexOf(i)<0)free.push(i);
   if(!free.length){var last=used[used.length-1];used=[];free=[];for(var j=0;j<l.length;j++)if(j!==last||l.length<2)free.push(j);}
   var n=free[Math.floor(Math.random()*free.length)];used.push(n);bag[key]=used;try{localStorage.setItem('sam_prbag',JSON.stringify(bag));}catch(e){}return n;}
-function praise(kind,lang){kind=kind||'task';var lg=lang||(LANG==='es'?'es':'en'),l=(PRAISE[lg]||PRAISE.en)[kind]||PRAISE.en.task,w=l[praisePick(kind,lg,l)];PRAISE_LAST=w;
+function praise(kind,lang){kind=kind||'task';var lg=lang||(LANG==='es'?'es':'en'),l=(PRAISE[lg]||PRAISE.en)[kind]||PRAISE.en.task,w=l[praisePick(kind,lg,l)];if(S.me==='Yossi'&&lg==='en')w=w.replace('enjoy the weekend','enjoy Shabbos');PRAISE_LAST=w;
   var il=PRAISE_ICO[kind]||PRAISE_ICO.task,ik=il[Math.floor(Math.random()*il.length)];
   [].forEach.call(document.querySelectorAll('.praise'),function(o){o.remove();});
   var b=el('div',{class:'praise'+(kind!=='task'?' big':''),role:'status'},el('span',{class:'prck',html:ik==='✓'?'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>':icoSvg(ik)}),el('b',{text:w}));
