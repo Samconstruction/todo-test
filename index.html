@@ -861,6 +861,24 @@ html{background:#F7FCFA}
 .pfsheet .lang-b{border:none;background:transparent;color:#4A8178;padding:8px 16px}.pfsheet .lang-b.on{background:#fff;color:#0E4F45;box-shadow:0 2px 8px rgba(15,70,60,.12)}
 .pfsheet .setrow .sti{width:40px;height:40px;border-radius:50%;background:#EAF7F2;display:flex;align-items:center;justify-content:center;font-size:20px}
 .pfsheet .pfcard .lang{align-self:auto}
+
+/* Sunday question */
+.sunask{background:linear-gradient(160deg,#FFF6DA,#FFFBEE);border-radius:22px;padding:16px;box-shadow:0 4px 16px rgba(120,90,0,.08);display:flex;flex-direction:column;gap:4px}
+.sunask .saq{font-size:20px;font-weight:900;color:#5C4500}.sunask .sas{color:#8A7440;font-weight:700;font-size:14px}
+.sunask .sab{display:flex;gap:10px;margin-top:10px}.sunask .sab button{flex:1;margin:0}
+/* viewer covers the whole app screen, edge to edge */
+.viewer{z-index:1000;height:100vh;height:100dvh}
+.viewer.vfull,.viewer.vphoto{padding:0}
+
+.bfw{font-size:12px;font-style:italic;color:var(--muted);margin:0 0 3px}
+.fwprev{background:#F1F8F5;border-radius:14px;padding:10px 12px;color:#0E4F45;font-weight:700;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* voice note: slide up to lock */
+.recbar2{position:relative}
+.reclock{position:absolute;right:4px;bottom:62px;width:42px;height:78px;border-radius:21px;background:#fff;box-shadow:0 4px 16px rgba(14,40,36,.2);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10px;gap:6px;color:#4A8178;transition:color .15s;z-index:5}
+.reclock i{display:block;width:10px;height:10px;border-left:2.5px solid currentColor;border-top:2.5px solid currentColor;transform:rotate(45deg);margin-top:8px;animation:lockup 1s ease-in-out infinite}
+.reclock.near{color:#1B8F7B}
+@keyframes lockup{0%,100%{transform:translateY(4px) rotate(45deg);opacity:.5}50%{transform:translateY(-3px) rotate(45deg);opacity:1}}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -873,6 +891,10 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Locked – keep talking, tap ⏹ when done':'Bloqueado – sigue hablando, toca ⏹ al terminar','Slide up to lock':'Desliza arriba para bloquear'});
+Object.assign(ES,{'Vibrate on tap':'Vibrar al tocar','A small buzz when you tap main buttons':'Una pequeña vibración al tocar los botones principales'});
+Object.assign(ES,{'Forward':'Reenviar','Forwarded':'Reenviado','Forward to…':'Reenviar a…','Share':'Compartir','Chats':'Chats','People':'Personas','New direct chat':'Chat directo nuevo','Search a name or job':'Busca un nombre o trabajo','Getting it ready…':'Preparando…','Ready – tap Share again':'Listo – toca Compartir otra vez','No messages yet':'Sin mensajes todavía'});
+Object.assign(ES,{'Did anybody work on Sunday?':'¿Alguien trabajó el domingo?','Is anybody working today?':'¿Alguien trabaja hoy?','Is anybody working Sunday?':'¿Alguien trabaja el domingo?','Daily crew':'Cuadrilla diaria','Yes – put in who worked':'Sí – pon quién trabajó','Yes – make the schedule':'Sí – hacer el horario','No – nobody worked':'No – nadie trabajó','No – nobody works':'No – nadie trabaja','Nobody works':'Nadie trabaja','Saved: no work':'Guardado: no se trabajó','Did you work on Sunday?':'¿Trabajaste el domingo?','Are you working today?':'¿Trabajas hoy?','No work today':'Hoy no se trabaja','No work':'No se trabajó','No work this day':'Ese día no se trabajó','Sunday · daily crew':'Domingo · cuadrilla diaria','Answer':'Responder','Yes':'Sí'});
 Object.assign(ES,{'My profile photo':'Mi foto de perfil','Add, change or remove your picture':'Pon, cambia o quita tu foto','PIN, notifications, bigger letters…':'PIN, notificaciones, letras grandes…','Remove':'Quitar'});
 Object.assign(ES,{'Delivered':'Entregado','Delivered to':'Entregado a','not opened yet':'todavía no lo abrió','Sent – not delivered yet':'Enviado – todavía no entregado'});
 Object.assign(ES,{'Search name, job, date…':'Busca nombre, trabajo, fecha…'});
@@ -983,7 +1005,7 @@ function apply(d){
   if(d&&('__va' in d)&&d.__va!==(S.viewAs||null))return;
   if(d&&d.seen)S.seen=d.seen;if(d&&d.myPush===0&&!d.__cached)setTimeout(pushHeal,1500);
   if(!d||!d.me)return;
-  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
+  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
   if(!S.viewAs){store('sam_me',S.me);store('sam_name',S.name);store('sam_role',S.role);
   try{if(d.tasks)localStorage.setItem('sam_cache',JSON.stringify(d));}catch(e){}}
   if(Q.length)applyQ();
@@ -1094,7 +1116,9 @@ function navBack(parent,fallback){var st=history.state||{};
 window.addEventListener('popstate',function(e){
   if(navOwn>0){navOwn--;syncHist();return;}                 // our own history.back()
   var st=e.state||{};
+  if(window.MM_CLOSE&&document.getElementById('mmenu')){MM_CLOSE();queueHist();return;} // a held message → only let go of it, stay in the chat
   if(closeViewer()){queueHist();return;}                     // 1) viewer open → close only the viewer
+  if(S.chatSub&&S.chatSub()){queueHist();return;}            // chat: close the + card / tag list / reply first
   var sc=document.getElementById('scrim');
   if(sc){                                                    // 2) sheet open → step back inside it, or close it
     if(sc.dataset.lock||(S.guard&&S.guard()&&!confirm(T('Throw away your changes?')))){queueHist();return;}
@@ -1254,6 +1278,32 @@ function homeViewOld(){
 }
 // ===== Redesign (TEST app): navy look, bottom tabs, "Needs you now", big job card, Messages =====
 function isSat(d){return new Date(d+'T12:00:00').getDay()===6;}
+// A small tap feel on the main buttons. Android: a short vibration. iPhone: the system 'tick' (iOS 18+), through a hidden switch.
+var HAP_L=null;
+function haptic(){if(store('sam_hap')==='0')return;
+  try{if(navigator.vibrate){navigator.vibrate(15);return;}}catch(e){}
+  try{if(!HAP_L){var i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');i.id='hapsw';i.style.cssText='position:fixed;left:-99px;opacity:0;pointer-events:none';
+    HAP_L=document.createElement('label');HAP_L.htmlFor='hapsw';HAP_L.style.cssText='position:fixed;left:-99px;opacity:0';document.body.appendChild(i);document.body.appendChild(HAP_L);}HAP_L.click();}catch(e){}}
+document.addEventListener('click',function(e){var t=e.target&&e.target.closest&&e.target.closest('.ctile,.needbtn,.btab,.inrow,.homebtn,.setrow,.bigbtn,.nrow,.ncrow,.mmi,.mme,.attb,.pfopt,.who,.lang-b,.newchat,.chatsend,.jhrow,.jrow,.primary,.alertln,.sunask button,.tvbtns button');if(t&&!t.disabled)haptic();},true);
+function isSun(d){return new Date(d+'T12:00:00').getDay()===0;}
+function isMon(d){return new Date(d+'T12:00:00').getDay()===1;}
+// Daily crew: "nobody works" that day (Sunday). No schedule on a Sunday also means nobody works.
+function dayOffSet(d){return !!(S.nowork||{})[d];}
+function setDayOff(d,on,after){S.nowork=S.nowork||{};if(on)S.nowork[d]=S.me;else delete S.nowork[d];render();
+  call('dayOff',{date:d,on:on}).then(function(r){apply(r);render();if(after)after();}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}
+// Office: "Is anybody from the daily crew working on <Sunday>?"
+function askSunday(d,past){
+  openSheet([el('h2',{text:'☀️ '+(past?T('Did anybody work on Sunday?'):d===today()?T('Is anybody working today?'):T('Is anybody working Sunday?'))}),
+    el('p',{class:'muted',style:'margin:0',text:dateLabel(d)+' · '+T('Daily crew')}),
+    el('button',{class:'primary',onclick:function(){closeSheet(true,true);if(dayOffSet(d))setDayOff(d,false);openSchedule(d);}},'✓ '+(past?T('Yes – put in who worked'):T('Yes – make the schedule'))),
+    el('button',{class:'cbtn',onclick:function(){closeSheet();setDayOff(d,true,function(){toast('✓ '+T('Nobody works')+' · '+dateLabel(d));});}},'✕ '+(past?T('No – nobody worked'):T('No – nobody works'))),
+    el('button',{class:'ghost',onclick:closeSheet},T('Cancel'))]);}
+// Prospect crew leader: "No work" for that day (no report needed, nobody is told).
+function saveNoWork(c,d){S.steady=S.steady||{reports:[]};S.steady.reports=(S.steady.reports||[]).filter(function(r){return !(r.crew===c.id&&r.date===d);}).concat([{crew:c.id,date:d,by:S.me,people:[],acts:[],no:[],nowork:1,_q:1}]);render();
+  call('reportSave',{crew:c.id,date:d,data:{nowork:1,people:[]}}).then(function(r){apply(r);render();toast('✓ '+T('Saved: no work')+' · '+dateLabel(d));}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}
+function workAsk(c,d,past){
+  return el('div',{class:'sunask'},el('div',{class:'saq',text:'☀️ '+(past?T('Did you work on Sunday?'):T('Are you working today?'))}),el('div',{class:'sas',text:crewTitle(c)+' · '+dateLabel(d)}),
+    el('div',{class:'sab'},el('button',{class:'primary',onclick:function(){openReportEditor(c,d);}},'✓ '+T('Yes')),el('button',{class:'cbtn',onclick:function(){saveNoWork(c,d);}},'✕ '+T('No'))));}
 function nextWorkDay(d){var n=addDays(d,1);if(isSat(n))n=addDays(n,1);return n;}
 function schedSent(d){var s=(S.sched||{})[d];return !!(s&&(s.crews||[]).some(function(c){return c.job||c.note;}));}
 function firstName(n){return String(n||'').split(' ')[0];}
@@ -1283,9 +1333,12 @@ function needItems(){
   var od=mine.filter(function(x){return x.due&&x.due<t;}),urg=mine.filter(function(x){return x.urgent==='1'&&(!x.due||x.due<=t);});
   var crews=(S.steady&&S.steady.crews)||[],sc=(S.sched||{})[t];
   function add(icon,title,sub,pl,fn,cls){it.push({icon:icon,title:title,sub:sub,pl:pl,fn:fn,cls:cls});}
-  if(!isSat(t)&&!schedSent(t)&&h<15)add('🗓',T("Today's schedule"),T('Not sent yet'),pill(T('Send'),'blue'),function(){openSchedule(t);},'warn');
+  if(isSun(t)){if(!schedSent(t)&&!dayOffSet(t)&&h<12)add('☀️',T('Is anybody working today?'),T('Sunday · daily crew'),pill(T('Answer'),'blue'),function(){askSunday(t);});}
+  else if(!isSat(t)&&!schedSent(t)&&h<15)add('🗓',T("Today's schedule"),T('Not sent yet'),pill(T('Send'),'blue'),function(){openSchedule(t);},'warn');
+  if(isMon(t)){var sun=addDays(t,-1);if(!schedSent(sun)&&!dayOffSet(sun))add('☀️',T('Did anybody work on Sunday?'),T('Daily crew')+' · '+dateLabel(sun),pill(T('Answer'),'blue'),function(){askSunday(sun,true);});}
   var nw=addDays(t,1); // only tomorrow, only if tomorrow is a work day; Friday: nothing for Sunday; Saturday: only after 7 PM
-  if(!isSat(nw)&&(isSat(t)?h>=19:h>=12)&&!schedSent(nw))add('🗓',T("Tomorrow's schedule"),T('Not sent yet'),pill(T('Make it'),'blue'),function(){openSchedule(nw);},'warn');
+  if(isSun(nw)){if(isSat(t)&&h>=19&&!schedSent(nw)&&!dayOffSet(nw))add('☀️',T('Is anybody working Sunday?'),T('Daily crew')+' · '+dateLabel(nw),pill(T('Answer'),'blue'),function(){askSunday(nw);});}
+  else if(!isSat(nw)&&(isSat(t)?h>=19:h>=12)&&!schedSent(nw))add('🗓',T("Tomorrow's schedule"),T('Not sent yet'),pill(T('Make it'),'blue'),function(){openSchedule(nw);},'warn');
   urg.concat(od.filter(function(x){return urg.indexOf(x)<0;})).slice(0,4).forEach(function(x){var late=x.due&&x.due<t;
     add(x.urgent==='1'?'⚠️':'⏰',x.title,(late?T('Late')+' · '+dueLabel(x.due):dueLabel(x.due||t))+(jobOf(x.job)?' · '+jobOf(x.job).name:''),pill(x.urgent==='1'?T('Urgent'):T('Late'),'red'),function(){openEditor(x);},'red');});
   // tagged me (@) in a message I haven't opened yet: on top of the messages
@@ -1293,7 +1346,7 @@ function needItems(){
   tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
   freshUnread().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?nameOf(dmOther(x)):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
   if(schedSent(t)&&!isSat(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
-  if(!isSat(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
+  if(!isSat(t)&&!isSun(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
   return it;
 }
 function homeView(){
@@ -1435,7 +1488,7 @@ function jobHero(x){
 function leaderToday(c){var t=today(),r=reportFor(c.id,t);
   return el('div',{class:'lrep'+(r?' ok':'')},
     el('div',{class:'lrhd'},el('b',{text:'📋 '+T("Today's report")}),el('span',{class:'npill '+(r?'ok':'amber'),text:r?'✓ '+T('Sent'):T('Not sent yet')})),
-    el('div',{class:'muted',text:crewTitle(c)+(r?' · '+r.people.filter(function(p){return p.present!==false;}).length+'/'+c.members.length+' '+T('came'):'')}),
+    el('div',{class:'muted',text:crewTitle(c)+(r?(r.nowork?' · '+T('No work'):' · '+r.people.filter(function(p){return p.present!==false;}).length+'/'+c.members.length+' '+T('came')):'')}),
     el('button',{class:r?'cbtn':'primary lrbtn',onclick:function(){openReportEditor(c,t);}},r?'✏️ '+T('Edit report'):'📋 '+T('Send report')));}
 function weekView(){var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
   wrap.appendChild(heroBox(T('My week'),T('Your jobs and overtime'),null));
@@ -1491,6 +1544,10 @@ var WHATS_NEW=[
  {id:'jdel',i:'🗑',t:'Delete a job',d:'Open a job → Delete job (tap twice). Close job is for finished jobs; Delete hides a job you don\'t need.',go:function(){openJobs();}},
  {id:'attach2',i:'📎',t:'＋ in chat: Camera, Gallery, File',d:'Camera takes a photo or a video. Gallery lets you pick many photos and videos together. File sends any document (plans, PDFs…).',go:function(){goView('chats');}},
  {id:'vplay',i:'▶️',t:'New video player',d:'Full screen like WhatsApp, play/pause in the middle, speed 1× · 1.5× · 2×, swipe down to close. Videos get ready in the background so they start right away.',go:function(){goView('chats');}},
+ {id:'vlock',i:'🔒',t:'Lock a voice note',d:'Hold the mic and slide up to the lock: it keeps recording without holding. Tap ⏹ when you are done, then send.',go:function(){goView('chats');}},
+ {id:'haptic',i:'📳',t:'Tap feel',d:'Main buttons give a small buzz when you tap them. Turn it off in Settings → Vibrate on tap.',go:function(){openSettings();}},
+ {id:'fwd',i:'↪',t:'Forward and share',d:'Hold a message, photo, video or file: Reply, Forward to any chat, Share, Copy. Tap anywhere else to let it go.',go:function(){goView('chats');}},
+ {id:'sunday',i:'☀️',t:'Sundays',d:'No Sunday schedule = nobody works (no reminders). Saturday night and Sunday morning the app asks if anybody is working. Prospect leaders are asked "Are you working today?" on Sunday, or "Did you work on Sunday?" on Monday.',go:function(){goView('home');}},
  {id:'profile2',i:'👤',t:'Clean profile screen',d:'Tap your photo circle: your picture, language and Settings. PIN, notifications and bigger letters are now in Settings.',go:function(){openMenu();}},
  {id:'login2',i:'🌿',t:'Mint logo and new sign-in',d:'The SAM Construction logo is now mint, and the sign-in screen has the new look.',go:function(){goView('home');}},
  {id:'ticks2',i:'✓✓',t:'Ticks like WhatsApp',d:'✓ sent · ✓✓ grey: it reached their phone · ✓✓ blue: they opened it. For texts, photos, videos, voice notes and files.',go:function(){goView('chats');}},
@@ -1669,7 +1726,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140549',lastUpd=0;
+var BUILD='202611140606',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1735,6 +1792,7 @@ function openSettings(){
     row('👤',T('My profile photo'),T('Add, change or remove your picture'),function(){closeSheet(true,true);openMenu();}),
     el('div',{class:'lbl',text:'🌐 '+T('Language')}),langSwitch(),
     el('button',{class:'setrow',onclick:function(){store('sam_big',big?null:'1');applyBig();openSettings();}},el('span',{class:'sti',text:'🔠'}),el('span',{class:'stm'},el('b',{text:T('Bigger letters')}),el('span',{text:T('Easier to read')})),sw(big)),
+    (function(){var hon=store('sam_hap')!=='0';return el('button',{class:'setrow',onclick:function(){store('sam_hap',hon?'0':'1');if(!hon)haptic();openSettings();}},el('span',{class:'sti',text:'📳'}),el('span',{class:'stm'},el('b',{text:T('Vibrate on tap')}),el('span',{text:T('A small buzz when you tap main buttons')})),sw(hon));})(),
     row('🔔',T('Notifications'),ns==='granted'?'✓ '+T('Notifications are on'):ns==='denied'?T('Blocked – turn on in phone settings'):T('Off – tap to turn on'),function(){if(ns==='default'){closeSheet();enablePush(true);}else toast(ns==='granted'?'✓ '+T('Notifications are on'):T('Notifications are blocked. Turn them on in your phone settings for this app.'));}),
     row('🔒',T('Change my PIN'),'',openPinChange),
     isOffice()?row('🔳',T('Install on another phone'),T('QR code'),openQR):null,
@@ -1884,7 +1942,12 @@ function workerView(){
   else if(un){var m=lastMsg(un);wrap.appendChild(alertLine('💬',T('New message from')+' '+nameOf(m.by),msgLabel(m),function(){openChat(un.id);},'green'));}
   else if(more.length)wrap.appendChild(alertLine('🏗','+'+more.length+' '+(more.length===1?T('more job today'):T('more jobs today')),more.map(function(x){return (jobOf(x.job)||{}).name||x.title;}).join(', '),function(){goView('myjobs');},'warn'));
   var big=el('div',{class:'bigs'});
-  if(!isSat(tdy))lead.forEach(function(c){var r=reportFor(c.id,tdy);
+  // Monday: Sunday not answered yet → "Did you work on Sunday?"
+  if(isMon(tdy))lead.forEach(function(c){var su=addDays(tdy,-1);if(!reportFor(c.id,su))big.appendChild(workAsk(c,su,true));});
+  // Sunday: ask first – "Are you working today?"
+  if(isSun(tdy))lead.forEach(function(c){var r=reportFor(c.id,tdy);if(!r)big.appendChild(workAsk(c,tdy,false));});
+  if(!isSat(tdy))lead.forEach(function(c){var r=reportFor(c.id,tdy);if(isSun(tdy)&&!r)return;
+    if(r&&r.nowork){big.appendChild(bigBtn('☀️',T('No work today'),T('tap to change'),function(){openSheet([el('h2',{text:'☀️ '+T('Are you working today?')}),workAsk(c,tdy,false),el('button',{class:'ghost',onclick:closeSheet},T('Cancel'))]);},'','ok'));return;}
     big.appendChild(bigBtn('📋',r?T('Report sent'):T('Send report'),r?'✓ '+r.people.filter(function(p){return p.present!==false;}).length+'/'+c.members.length+' '+T('came')+' · '+T('tap to change'):crewTitle(c)+' · '+T('Today'),function(){openReportEditor(c,tdy);},r?'':'go',r?'ok':''));});
   if(heroX)big.appendChild(jobHero(heroX));
   else if(lead.length){
@@ -2295,13 +2358,20 @@ var TK_CLOCK='<svg viewBox="0 0 12 12" width="12" height="12"><circle cx="6" cy=
 function msgMenu(x,m,b,acts,onReply){
   var old=document.getElementById('mmenu');if(old)old.remove();
   var mine=m.by===S.me,r=m.r||{},row=b.parentNode;row.classList.add('lift');
+  if(m.photo&&!S.photos[m.photo])call('photoGet',{fileId:m.photo}).then(function(b64){S.photos[m.photo]='data:image/jpeg;base64,'+b64;}).catch(function(){}); // ready for Share
   var ov=el('div',{class:'mmenu',id:'mmenu'});
-  function close(){ov.classList.add('out');row.classList.remove('lift');setTimeout(function(){ov.remove();},120);}
+  var closed=false;
+  function close(){if(closed)return;closed=true;document.removeEventListener('pointerdown',outside,true);ov.classList.add('out');row.classList.remove('lift');setTimeout(function(){ov.remove();},120);}
+  // Tap anywhere that is not the menu: the message is let go (like WhatsApp).
+  function outside(e){if(e.target.closest&&e.target.closest('.mmbar,.mmlist'))return;e.preventDefault();e.stopPropagation();close();swallowClick();}
+  setTimeout(function(){if(!closed)document.addEventListener('pointerdown',outside,true);},50);window.MM_CLOSE=close;
   ov.addEventListener('click',function(e){if(e.target===ov)close();});
   var bar=el('div',{class:'mmbar'},REACTS.map(function(e){return el('button',{class:'mme'+(r[S.me]===e?' on':''),onclick:function(){close();react(x,m.id,e);}},e);}));
   var list=el('div',{class:'mmlist'});
   function item(icon,label,fn,cls){list.appendChild(el('button',{class:'mmi'+(cls?' '+cls:''),onclick:fn},el('span',{text:label}),el('span',{class:'mmic',text:icon})));}
   item('↩',T('Reply'),function(){close();if(onReply)onReply(m);});
+  if(m.at)item('↪',T('Forward'),function(){close();openForward(x,m);});
+  item('📤',T('Share'),function(){close();shareMsg(m);});
   if(m.text)item('⧉',T('Copy'),function(){close();try{navigator.clipboard.writeText(m.text);toast('✓ '+T('Copied'));}catch(e){}});
   var del=[].filter.call(acts.querySelectorAll('.del'),function(n){return n;})[0];
   if(del){var armD=false;item('🗑',T('Delete'),function(){var it=this;if(!armD){armD=true;it.firstChild.textContent=T('Tap again to delete');return;}close();del.click();del.click();},'red');}
@@ -2313,6 +2383,35 @@ function msgMenu(x,m,b,acts,onReply){
   var lTop=Math.min(H-list.offsetHeight-16,rc.bottom+10);if(lTop<top+64)lTop=top+64;
   list.style.top=lTop+'px';list.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
 }
+// Forward a message to another chat (any chat you can see, or a person – office).
+function openForward(x,m){
+  var q=el('input',{class:'in',type:'search',placeholder:'🔍 '+T('Search a name or job')}),box=el('div',{class:'ncl'}),busy=false;
+  function title(t){return isDm(t)?nameOf(dmOther(t)):(isOffice()?nameOf(t.owner)+' · ':'')+((jobOf(t.job)||{}).name||t.title);}
+  function send(toId,b){if(busy)return;busy=true;b.disabled=true;
+    call('forward',{id:x.id,cid:m.id,to:toId}).then(function(d){apply(d);closeSheet(true,true);render();toast('↪ '+T('Forwarded'));openChat(toId);}).catch(function(e){busy=false;b.disabled=false;toast('❗ '+errText(e));});}
+  function row(av,name,sub,fn){var b=el('button',{class:'ncrow',onclick:function(){fn(b);}},av,el('span',{class:'ncm'},el('b',{text:name}),el('span',{text:sub})),el('span',{class:'hchev',text:'↪'}));return b;}
+  function paint(){var f=q.value.trim().toLowerCase();box.innerHTML='';
+    var chats=allT().filter(function(t){return t.id!==x.id&&(isOffice()||t.owner===S.me)&&(lastMsg(t)||isDm(t)||(!isOffice()&&t.due===today()));})
+      .sort(function(a,b){var A=(lastMsg(a)||{}).at||'',B=(lastMsg(b)||{}).at||'';return A<B?1:-1;}).filter(function(t){return !f||chatHay(t).indexOf(f)>=0||title(t).toLowerCase().indexOf(f)>=0;}).slice(0,40);
+    if(chats.length){box.appendChild(el('div',{class:'nhead',text:T('Chats')}));chats.forEach(function(t){var lm=lastMsg(t);box.appendChild(row(isDm(t)?avatar(dmOther(t),nameOf(dmOther(t)),40):isOffice()?avatar(t.owner,nameOf(t.owner),40):el('span',{class:'nic',text:'🏗'}),title(t),lm?msgLabel(lm):T('No messages yet'),function(b){send(t.id,b);}));});}
+    if(isOffice()&&!S.viewAs){var have={};(S.dms||[]).forEach(function(t){have[dmOther(t)]=1;});
+      var ppl=PEOPLE.filter(function(p){return p!==S.me&&!have[p];}).map(function(p){return {k:p,n:p};}).concat((S.crew||[]).filter(function(c){return !have[c.id];}).map(function(c){return {k:c.id,n:c.name};})).filter(function(p){return !f||p.n.toLowerCase().indexOf(f)>=0;});
+      if(ppl.length){box.appendChild(el('div',{class:'nhead',text:T('People')}));ppl.forEach(function(p){box.appendChild(row(avatar(p.k,p.n,40),p.n,T('New direct chat'),function(b){if(busy)return;b.disabled=true;call('dmOpen',{with:p.k}).then(function(d){apply(d);if(d&&d.dm){b.disabled=false;send(d.dm,b);}}).catch(function(e){b.disabled=false;toast('❗ '+errText(e));});}));});}}
+    if(!box.childNodes.length)box.appendChild(el('p',{class:'empty',text:T('Nobody found.')}));}
+  q.addEventListener('input',paint);paint();
+  openSheet([el('h2',{text:'↪ '+T('Forward to…')}),el('div',{class:'fwprev',text:msgLabel(m)}),q,box,el('button',{class:'ghost',onclick:function(){closeSheet(true,true);openChat(x.id);}},T('Cancel'))]);
+}
+// Share a message out of the app (WhatsApp, text message, email…).
+function shareMsg(m){
+  function shareFile(blob,name){try{var f=new File([blob],name,{type:blob.type||'application/octet-stream'});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f]}).catch(function(){});return;}}catch(e){}
+    var a=el('a',{href:URL.createObjectURL(blob),download:name});document.body.appendChild(a);a.click();a.remove();}
+  if(m.text&&!m.photo&&!m.video&&!m.voice&&!m.file){if(navigator.share)navigator.share({text:m.text}).catch(function(){});else{try{navigator.clipboard.writeText(m.text);toast('✓ '+T('Copied'));}catch(e){}}return;}
+  if(m.photo){var go=function(){sharePhoto(m.photo);};if(S.photos[m.photo])go();else{toast('⏳ '+T('Getting it ready…'));call('photoGet',{fileId:m.photo}).then(function(b){S.photos[m.photo]='data:image/jpeg;base64,'+b;toast('📤 '+T('Ready – tap Share again'));}).catch(function(e){toast('❗ '+errText(e));});}return;}
+  var id=m.video||m.voice||m.file,name=m.file?(m.name||'file'):m.video?'SAM-video.mp4':'SAM-voice.webm',mime=m.file?m.mime:m.video?'video/mp4':'audio/webm';
+  if(S.vids[id]){fetch(S.vids[id]).then(function(r){return r.blob();}).then(function(bl){shareFile(bl,name);});return;}
+  toast('⏳ '+T('Getting it ready…'));getMedia(id,null,mime).then(function(){toast('📤 '+T('Ready – tap Share again'));}).catch(function(e){toast('❗ '+errText(e));});
+}
 var VTH={};try{VTH=JSON.parse(localStorage.getItem('sam_vth')||'{}')||{};}catch(e){VTH={};}
 function vthSave(){try{var ks=Object.keys(VTH);if(ks.length>60)ks.slice(0,ks.length-60).forEach(function(k){delete VTH[k];});localStorage.setItem('sam_vth',JSON.stringify(VTH));}catch(e){try{VTH={};localStorage.removeItem('sam_vth');}catch(e2){}}}
 var VTH_ASK={};
@@ -2323,7 +2422,8 @@ function videoTile(m){var id=m.video,img=el('img',{class:'vtimg',alt:''}),t=el('
   img.setAttribute('data-v',id);return t;}
 function bubble(x,m,openRx,setRx,all,onReply){
   var mine=m.by===S.me,b=el('div',{class:'bub'+(mine?' mine':'')+(PEOPLE.indexOf(m.by)>=0?' off':'')});
-  if(!mine)b.appendChild(el('div',{class:'bwho',text:nameOf(m.by)}));
+  if(!mine&&!isDm(x))b.appendChild(el('div',{class:'bwho',text:nameOf(m.by)}));
+  if(m.fw)b.appendChild(el('div',{class:'bfw',text:'↪ '+T('Forwarded')}));
   if(m.re){var q=(all||[]).filter(function(o){return o.id===m.re;})[0];
     b.appendChild(el('button',{class:'bquote',onclick:function(){var r=document.querySelector('.brow[data-mid="'+m.re+'"]');if(r){r.scrollIntoView({behavior:'smooth',block:'center'});r.classList.add('flash');setTimeout(function(){r.classList.remove('flash');},1600);}}},
       el('b',{text:q?(q.by===S.me?T('You'):nameOf(q.by)):'…'}),el('span',{text:q?msgLabel(q):T('Message')})));}
@@ -2442,6 +2542,7 @@ function openChat(id){
   openSheet([head,list,comp]);
   var sc=document.getElementById('scrim');if(sc){sc.querySelector('.sheet').classList.add('chatsheet');sc.classList.add('chatfull');}
   S.chatId=id;S.sheetRefresh=function(){paintHead();paintList();};
+  S.chatSub=function(){if(!document.querySelector('.chatsheet'))return false;if(more){more=false;paintComp();return true;}if(tagBox.style.display!=='none'){tagBox.style.display='none';return true;}if(replyTo){replyTo=null;paintComp();return true;}return false;};
   setTimeout(function(){list.scrollTop=list.scrollHeight;},30);
   S.chatPoll=setInterval(function(){if(!S.chatId||!document.getElementById('scrim')){clearInterval(S.chatPoll);S.chatPoll=null;return;}refresh();},10000);
 }
@@ -2479,14 +2580,20 @@ function waveEl(levels,n){var w=el('span',{class:'wave'}),bars=[];levels=levels|
 function swallowClick(){var t=Date.now();function k(e){if(Date.now()-t<500){e.stopPropagation();e.preventDefault();}document.removeEventListener('click',k,true);}document.addEventListener('click',k,true);setTimeout(function(){document.removeEventListener('click',k,true);},600);}
 function holdVoice(x,comp,restore,ev){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast(T('Voice notes do not work on this phone.'));return;}
-  var t0=Date.now(),x0=ev.clientX||0,held=true,cancel=false,rec=null,stream=null,chunks=[],timer=null,startT=0,pendingStop=false,done=false;
+  var t0=Date.now(),x0=ev.clientX||0,y0=ev.clientY||0,locked=false,held=true,cancel=false,rec=null,stream=null,chunks=[],timer=null,startT=0,pendingStop=false,done=false;
   var clock=el('b',{class:'recclock',text:'0:00'}),hint=el('span',{class:'rechint'},el('span',{class:'rchev',html:IC.chev}),T('Slide to cancel')),stopB=icBtn('recstop','stop',T('Stop'));stopB.style.display='none';var trashB=icBtn('rectrash','trash',T('Delete'),function(){cancel=true;finish();});trashB.style.display='none';
   var lv=[],live=el('span',{class:'wave live'}),actx=null,an=null,lvT=null;
-  comp.innerHTML='';comp.appendChild(el('div',{class:'recbar2'},trashB,el('span',{class:'recdot'}),clock,hint,live,stopB,el('span',{class:'recmic',html:IC.mic})));
+  var lockEl=el('span',{class:'reclock',html:'<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3H9z"/></svg><i></i>'});
+  comp.innerHTML='';comp.appendChild(el('div',{class:'recbar2'},trashB,el('span',{class:'recdot'}),clock,hint,live,stopB,el('span',{class:'recmic',html:IC.mic}),lockEl));
   function cleanup(){clearInterval(lvT);try{if(actx)actx.close();}catch(e){}window.removeEventListener('pointerup',up);window.removeEventListener('pointercancel',up);window.removeEventListener('pointermove',mv);clearInterval(timer);if(stream)stream.getTracks().forEach(function(t){t.stop();});S.recStop=null;}
   function finish(){if(done)return;done=true;if(!rec||rec.state==='inactive'){cleanup();restore();return;}rec.stop();}
-  function up(){if(!held)return;held=false;swallowClick();if(cancel)return;if(Date.now()-t0<350){hint.style.display='none';live.style.display='flex';stopB.style.display='';trashB.style.display='';var rm=comp.querySelector('.recmic');if(rm)rm.style.display='none';return;}if(!rec){pendingStop=true;return;}finish();}
-  function mv(e){if(!held||cancel)return;var dx=(e.clientX||0)-x0;if(dx<-90){cancel=true;held=false;hint.textContent=T('Cancelled');finish();}else hint.style.transform='translateX('+Math.min(0,dx)+'px)';}
+  function handsFree(){hint.style.display='none';live.style.display='flex';stopB.style.display='';trashB.style.display='';lockEl.style.display='none';var rm=comp.querySelector('.recmic');if(rm)rm.style.display='none';}
+  function up(){if(!held)return;held=false;swallowClick();if(cancel)return;if(Date.now()-t0<350){handsFree();return;}if(!rec){pendingStop=true;return;}finish();}
+  function mv(e){if(!held||cancel)return;var dx=(e.clientX||0)-x0,dy=y0-(e.clientY||0);
+    // Slide up to lock (like WhatsApp): keeps recording without holding; then ⏹ / 🗑
+    if(dy>75&&Math.abs(dx)<60){locked=true;held=false;swallowClick();try{if(navigator.vibrate)navigator.vibrate(30);}catch(er){}handsFree();toast('🔒 '+T('Locked – keep talking, tap ⏹ when done'));return;}
+    lockEl.style.transform='translateY('+(-Math.max(0,Math.min(60,dy)))+'px)';lockEl.classList.toggle('near',dy>40);
+    if(dx<-90){cancel=true;held=false;hint.textContent=T('Cancelled');finish();}else hint.style.transform='translateX('+Math.min(0,dx)+'px)';}
   window.addEventListener('pointerup',up);window.addEventListener('pointercancel',up);window.addEventListener('pointermove',mv);
   stopB.onclick=function(){finish();};
   S.recStop=function(){cancel=true;finish();};
@@ -2582,7 +2689,7 @@ function viewPhoto(id){
   var vw=openViewer(el('div',{class:'vgal'},back,cnt,strip,ids.length>1?prev:null,ids.length>1?next:null,share));vw.classList.add('vfull','vphoto','ui');
   // Like WhatsApp: the picture fills the whole screen; tap it to show / hide the buttons; swipe down or Back to close.
   strip.addEventListener('click',function(e){e.stopPropagation();vw.classList.toggle('ui');});
-  try{var fe=vw.requestFullscreen||vw.webkitRequestFullscreen;if(fe)Promise.resolve(fe.call(vw,{navigationUI:'hide'})).catch(function(){});}catch(e){}
+  /* full screen inside the app (no phone 'exit full screen' message) */
   setTimeout(function(){if(document.getElementById('viewer')===vw)vw.classList.remove('ui');},2500);
   strip.scrollLeft=k*strip.clientWidth;setTimeout(function(){strip.scrollLeft=k*strip.clientWidth;upd();},0);upd();
 }
@@ -2779,7 +2886,7 @@ function vPlayer(url,it){
 function playVideo(it){
   var box=el('div',{class:'vvid'}),bar=el('div',{class:'pbar'},el('div',{class:'pfill'}));
   var vw=openViewer(box);vw.classList.add('vfull');
-  vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));try{var fe=vw.requestFullscreen||vw.webkitRequestFullscreen;if(fe)Promise.resolve(fe.call(vw,{navigationUI:'hide'})).catch(function(){});}catch(e){}
+  vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));/* full screen inside the app (no phone 'exit full screen' message) */
   if(S.vids[it.id]){box.appendChild(vPlayer(S.vids[it.id],it));return;}
   var ring=el('div',{class:'vring'},el('span',{class:'vrpct',text:''}));box.appendChild(el('div',{class:'vpre'},VTH[it.id]?el('img',{src:VTH[it.id],alt:''}):null,ring));box.appendChild(bar);bar.style.display='none';
   getMedia(it.id,function(got,total){var pc=Math.round(got*100/total);bar.firstChild.style.width=pc+'%';ring.style.setProperty('--p',pc);ring.firstChild.textContent=pc+'%';},'video/mp4').then(function(url){
@@ -2942,6 +3049,7 @@ var SCHED_RIDES=['Yossi','Rocky'];
 function crewLabel(c,i){return c.extra?(c.leader?'🚗 '+c.leader:'🏠 '+T('No ride')):nameOf(c.leader);}
 function openSchedule(date,seed){
   if(!date)date=nyNow().h>=12?addDays(today(),1):today();
+  if(isSun(date)&&!seed&&!schedSent(date)&&!S.sunAsked){S.sunAsked=date;askSunday(date,date<today());setTimeout(function(){S.sunAsked=null;},800);return;}
   var saved=(S.sched||{})[date],plan=schedCopy(seed||saved||schedDefault()),pick='',openList='',addingJob=-1,dirty=false,armOff='';
   var alive={};(S.crew||[]).forEach(function(w){alive[w.id]=1;});
   plan.crews.forEach(function(c){c.members=c.members.filter(function(k){return alive[k];});});plan.off=(plan.off||[]).filter(function(k){return alive[k];});
@@ -3146,7 +3254,7 @@ function leaderCard(c){
     var r=reportFor(c.id,d),fut=d>t||(!isOffice()&&d<addDays(t,-14)),n=r?r.people.filter(function(p){return p.present!==false;}).length:0;
     rows.appendChild(el('button',{class:'wkday'+(r?' ok':'')+(d===t?' today':'')+(fut?' fut':''),disabled:fut?'disabled':null,onclick:function(){openReportEditor(c,d);}},
       el('span',{class:'wdn',text:dateLabel(d)+(d===t?' · '+T('Today'):'')}),
-      el('span',{class:'wst',text:fut?'':(r?'✓ '+n+'/'+c.members.length+(r.acts&&r.acts.length?' · 🛠 '+r.acts.length:''):T('Missing'))})));
+      el('span',{class:'wst',text:fut?'':(r?(r.nowork?'— '+T('No work'):'✓ '+n+'/'+c.members.length+(r.acts&&r.acts.length?' · 🛠 '+r.acts.length:'')):(isSun(d)?'':T('Missing')))})));
   })(addDays(ws,i));
   return el('div',{class:'repcard'},
     el('div',{class:'reptitle',text:'📋 '+T('Daily report')+' · '+crewTitle(c)}),
@@ -3158,7 +3266,7 @@ function leaderCard(c){
     el('button',{class:'cbtn',style:'margin-top:8px',onclick:function(){openSheet([el('h2',{text:'📞 '+crewTitle(c)})].concat(c.members.map(function(n){return telRow(n,(c.phones||{})[n],'',(c.ids||{})[n]);})).concat([el('button',{class:'ghost',onclick:closeSheet},'✕')]));}},'📞 '+T('Call my crew')));
 }
 function openReportEditor(c,date){
-  var prev=reportFor(c.id,date);
+  var prev=reportFor(c.id,date);if(prev&&prev.nowork)prev=null; // 'no work' changed to 'yes we worked': start fresh
   // An old report keeps the people who were on it that day. Reports from this week (Sunday on) also show people who
   // joined the crew later, so a new worker can be marked for the days he already worked this week.
   var mem=prev?prev.people.map(function(p){return p.name;}):c.members.slice();
@@ -3250,7 +3358,7 @@ function openCrewWeek(crewId,ws){
       var here=0,ot=0;if(r)r.people.forEach(function(p){if(p.present===false)return;here++;ot+=(+p.ot||0);tot[p.name]=(tot[p.name]||0)+(+p.ot||0);days[p.name]=(days[p.name]||0)+1;});otAll+=ot;
       rows.appendChild(el('button',{class:'wkday'+(r?' ok':'')+(d===t?' today':'')+(fut?' fut':''),disabled:fut?'disabled':null,onclick:function(){openReportDay(c.id,d);}},
         el('span',{class:'wdn',text:dateLabel(d)+(d===t?' · '+T('Today'):'')}),
-        el('span',{class:'wst',text:fut?'':(r?'✓ '+here+'/'+r.people.length+(ot?' · OT '+ot+'h':''):T('Missing'))})));
+        el('span',{class:'wst',text:fut?'':(r?(r.nowork?'— '+T('No work'):'✓ '+here+'/'+r.people.length+(ot?' · OT '+ot+'h':'')):(isSun(d)?'':T('Missing')))})));
     })(addDays(ws,i));
     kids.push(rows);
     kids.push(el('div',{class:'wktotal'},el('span',{text:'⏱ '+T('Overtime this week')}),el('b',{text:otAll+' '+T('hrs')})));
@@ -3269,6 +3377,7 @@ function openReportDay(crewId,date){
   var r=reportFor(c.id,date),kids=[el('button',{class:'backlink',onclick:function(){openCrewWeek(c.id,weekStart(date));}},'‹ '+T('Week')),
     el('h2',{style:'margin:0',text:'📋 '+crewTitle(c)}),el('div',{class:'repdate',text:'📅 '+dateLabel(date)+(date.slice(0,4)!==today().slice(0,4)?' '+date.slice(0,4):'')})];
   if(!r)kids.push(el('p',{class:'empty',text:T('No report for this day.')}));
+  else if(r.nowork)kids.push(el('p',{class:'empty',text:'☀️ '+T('No work this day')+' · '+nameOf(r.by)}));
   else{
     var here=r.people.filter(function(p){return p.present;}),ot=here.reduce(function(a,p){return a+(+p.ot||0);},0);
     kids.push(el('div',{class:'repsum',text:here.length+'/'+r.people.length+' '+T('came')+(ot?' · '+T('OT')+' '+ot+' '+T('hrs'):'')+' · '+nameOf(r.by)+' '+clockOf(r.updatedAt)}));
