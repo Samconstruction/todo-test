@@ -982,6 +982,8 @@ html{background:#F7FCFA}
 .camzoom{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(132px + env(safe-area-inset-bottom));background:rgba(0,0,0,.5);color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:5px 12px;z-index:4}
 .camlive{transition:transform .05s}
 .lgav-crew .ico{width:26px;height:26px;color:#fff}.lgme .lgav-crew .ico{width:34px;height:34px}
+.viewer.vcam,.viewer.vcam *{touch-action:none;overscroll-behavior:none}
+.camshut{touch-action:none}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1918,7 +1920,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140654',lastUpd=0;
+var BUILD='202611140655',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2994,7 +2996,7 @@ function openViewer(content){closeViewer();
   var v=el('div',{class:'viewer',id:'viewer'},el('button',{class:'vclose','aria-label':T('Close'),onclick:function(){closeViewer();queueHist();}},'✕'),el('div',{class:'vbody'},content));
   v.addEventListener('click',function(e){if(e.target===v||e.target.classList.contains('vbody')){closeViewer();queueHist();}});
   var sy=null,sx=0,dy=0,body=v.querySelector('.vbody');
-  v.addEventListener('touchstart',function(e){if(e.touches.length!==1){sy=null;return;}sy=e.touches[0].clientY;sx=e.touches[0].clientX;dy=0;},{passive:true});
+  v.addEventListener('touchstart',function(e){if(e.touches.length!==1||v.classList.contains('vcam')){sy=null;return;}sy=e.touches[0].clientY;sx=e.touches[0].clientX;dy=0;},{passive:true});
   v.addEventListener('touchmove',function(e){if(sy===null)return;var y=e.touches[0].clientY-sy,x=e.touches[0].clientX-sx;if(Math.abs(y)<Math.abs(x)*1.2&&Math.abs(dy)<10)return;dy=y;
     if(e.target.closest&&e.target.closest('input[type=range]'))return;body.style.transition='none';body.style.transform='translateY('+dy+'px) scale('+Math.max(.85,1-Math.abs(dy)/1500)+')';v.style.background='rgba(0,0,0,'+Math.max(.25,1-Math.abs(dy)/400)+')';},{passive:true});
   v.addEventListener('touchend',function(){if(sy===null)return;sy=null;if(Math.abs(dy)>110){body.style.transition='transform .18s ease-in,opacity .18s';body.style.transform='translateY('+(dy>0?'100vh':'-100vh')+')';body.style.opacity='0';setTimeout(function(){closeViewer();queueHist();},170);}
