@@ -1129,6 +1129,10 @@ body.sndark{background:#0F1F1C}body.sndark .top{background:#12302A}body.sndark .
 .tkbox .primary,.tkbox .ghost{display:block;width:100%}
 .drvrow.small{display:grid;grid-template-columns:1fr 1fr}.drvrow.small .drvb{white-space:nowrap;gap:6px}
 body.sndark #app{min-height:100vh;min-height:100dvh;background:#0F1F1C}
+.sn-stop .drag{touch-action:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#4A8178;cursor:grab}
+.sn-stops .sn-stop{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body.nodragscroll{touch-action:none;overflow:hidden}
+.sn-stop.dragging{opacity:.95;box-shadow:0 10px 26px rgba(14,79,69,.25);transform:scale(1.02);position:relative;z-index:5}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1863,6 +1867,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'sn_drag',i:'✋',t:'Drag customers with your finger',d:'Snow → Routes: hold a customer (or grab ☰) and drag it up or down – or into the other route.',go:function(){openSnow();}},
  {id:'sn_daynight',i:'🕓',t:'Today or tonight',d:'Start storm says "today" during the day and "tonight" in the evening and at night, by the clock.',go:function(){openSnow();}},
  {id:'sn_more',i:'❄️',t:'Snow plowing for you and Rocky',d:'Snow plowing moved out of "Only for you" – it is in More for you and Rocky, with the same "Show on Today screen" switch.',go:function(){goView('more');}},
  {id:'fx_prospot',i:'⏱',t:'Prospect crews: overtime by the leader only',d:'Workers in a Prospect crew no longer see My week / overtime. Only the crew leader marks their overtime in the daily report.',go:function(){wnPickWorker();}},
@@ -2146,7 +2151,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140859',lastUpd=0;
+var BUILD='202611140901',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -4297,11 +4302,11 @@ function snowRoutes(wrap){
     var mine=cs.filter(function(c){return c.route===r.id;});
     wrap.appendChild(el('div',{class:'sn-rhead'},el('span',{text:'🚜 '+r.name+(r.truck?' · '+r.truck:'')+(r.driverName?' · '+r.driverName:' · '+T('no driver'))}),
       el('span',{class:'sn-rt'},r.estMin?el('span',{class:'sn-mut',text:fmtMin(r.estMin)}):null,el('button',{class:'sn-edit',onclick:function(){snowRouteForm(r);}},'✎'))));
-    var box=el('div',{class:'sn-stops'});
+    var box=el('div',{class:'sn-stops','data-route':r.id});
     mine.forEach(function(c,i){box.appendChild(el('div',{class:'sn-stop','data-id':c.id},el('div',{class:'n',text:String(i+1)}),
       el('div',{class:'t',onclick:function(){snowCustForm(c);}},el('b',{text:c.name+(c.clearBy?' ⏰':'')}),el('span',{text:c.address})),el('div',{class:'drag','aria-label':T('Drag to change the order'),text:'☰'})));});
     if(!mine.length)box.appendChild(el('div',{class:'sn-mut',style:'margin:6px 2px 10px',text:T('No stops – put customers on this route.')}));
-    wrap.appendChild(box);dragList(box,function(ids){snowCall('snowOrder',{route:r.id,ids:ids});});
+    wrap.appendChild(box);setTimeout(function(){dragList(box);},0);
     if(mine.length>1)wrap.appendChild(el('button',{class:'sn-big ghostb',onclick:function(e){var b=e.currentTarget;b.disabled=true;b.textContent=T('Planning the fastest drive…');
       call('snowBest',{route:r.id}).then(function(res){snowApply(res);render();var bb=res.best||{};toast('✨ '+T('Best order')+(bb.after?' · '+fmtMin(bb.after)+(bb.before&&bb.before!==bb.after?' ('+T('was')+' '+fmtMin(bb.before)+')':''):''));})
       .catch(function(er){render();toast('❗ '+snowErr(er));});}},'✨ '+T('Best order (fastest drive, ⏰ first)')));
@@ -4310,18 +4315,30 @@ function snowRoutes(wrap){
   if(loose.length){wrap.appendChild(el('div',{class:'sn-rhead'},el('span',{text:'⚪ '+T('Not on a route')})));loose.forEach(function(c){wrap.appendChild(el('div',{class:'sn-stop',onclick:function(){snowCustForm(c);}},el('div',{class:'n gray',text:'–'}),el('div',{class:'t'},el('b',{text:c.name}),el('span',{text:c.address}))));});}
   wrap.appendChild(el('button',{class:'sn-big',style:'margin-top:16px',onclick:function(){snowRouteForm(null);}},'+ '+T('Add route')));
 }
-function dragList(box,done){
-  [].slice.call(box.querySelectorAll('.drag')).forEach(function(h){
-    h.addEventListener('pointerdown',function(e){e.preventDefault();var row=h.parentNode;row.classList.add('dragging');S.snDrag=true;
-      var start=[].slice.call(box.children).map(function(x){return x.getAttribute('data-id');}).join(',');
-      function mv(ev){var y=ev.clientY,rows=[].slice.call(box.querySelectorAll('.sn-stop')).filter(function(x){return x!==row;}),before=null;
-        for(var i=0;i<rows.length;i++){var b=rows[i].getBoundingClientRect();if(y<b.top+b.height/2){before=rows[i];break;}}
-        if(before){if(row.nextSibling!==before)box.insertBefore(row,before);}else if(box.lastChild!==row)box.appendChild(row);
-        [].slice.call(box.querySelectorAll('.sn-stop .n')).forEach(function(n,k){n.textContent=String(k+1);});
-        if(y<70)window.scrollBy(0,-12);else if(y>window.innerHeight-70)window.scrollBy(0,12);}
-      function up(){window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);window.removeEventListener('pointercancel',up);row.classList.remove('dragging');S.snDrag=false;
-        var ids=[].slice.call(box.querySelectorAll('.sn-stop')).map(function(x){return x.getAttribute('data-id');});if(ids.join(',')!==start)done(ids);}
-      window.addEventListener('pointermove',mv);window.addEventListener('pointerup',up);window.addEventListener('pointercancel',up);});});
+// Drag a customer with your finger: hold the row (or grab ☰ right away) and move it – up/down in the route or into the other route
+function dragList(box){
+  if(!box._tm){box._tm=1;box.addEventListener('touchmove',function(ev){if(S.snDrag)ev.preventDefault();},{passive:false});}
+  [].slice.call(box.querySelectorAll('.sn-stop[data-id]')).forEach(function(row){if(row._dg)return;row._dg=1;var h=row.querySelector('.drag'),hold=null,sx=0,sy=0;
+    function begin(e){if(!document.body.contains(row)){var fr=document.querySelector('.sn-stop[data-id="'+row.getAttribute('data-id')+'"]');if(!fr){S.snDrag=false;return;}row=fr;}var boxes=[].slice.call(document.querySelectorAll('.sn-stops[data-route]')),from=row.parentNode;row.classList.add('dragging');S.snDrag=true;haptic();
+      var snap=function(){return boxes.map(function(b){return [].slice.call(b.querySelectorAll('.sn-stop[data-id]')).map(function(x){return x.getAttribute('data-id');}).join(',');});},start=snap();
+      function renum(){boxes.forEach(function(b){[].slice.call(b.querySelectorAll('.sn-stop .n')).forEach(function(n,k){n.textContent=String(k+1);});});}
+      function mv(ev){ev.preventDefault&&ev.preventDefault();var y=ev.clientY,tb=null;
+        boxes.forEach(function(b){var r=b.getBoundingClientRect();if(y>=r.top-30&&y<=r.bottom+30)tb=b;});tb=tb||row.parentNode;
+        var rows=[].slice.call(tb.querySelectorAll('.sn-stop[data-id]')).filter(function(x){return x!==row;}),before=null;
+        for(var i=0;i<rows.length;i++){var bb=rows[i].getBoundingClientRect();if(y<bb.top+bb.height/2){before=rows[i];break;}}
+        if(before){if(row.nextSibling!==before)tb.insertBefore(row,before);}else{var last=rows[rows.length-1];if(last){if(last.nextSibling!==row)tb.insertBefore(row,last.nextSibling);}else if(row.parentNode!==tb)tb.insertBefore(row,tb.firstChild);}
+        renum();if(y<70)window.scrollBy(0,-14);else if(y>window.innerHeight-90)window.scrollBy(0,14);}
+      function up(){window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);window.removeEventListener('pointercancel',up);document.body.classList.remove('nodragscroll');
+        row.classList.remove('dragging');S.snDrag=false;var now=snap();
+        boxes.forEach(function(b,i){if(now[i]!==start[i]&&now[i])snowCall('snowOrder',{route:b.getAttribute('data-route'),ids:now[i].split(',')});});}
+      document.body.classList.add('nodragscroll');window.addEventListener('pointermove',mv,{passive:false});window.addEventListener('pointerup',up);window.addEventListener('pointercancel',up);}
+    if(h)h.addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();begin(e);});
+    // hold the row ~0.4 s, then drag
+    row.addEventListener('pointerdown',function(e){if(e.target.closest('.drag'))return;sx=e.clientX;sy=e.clientY;clearTimeout(hold);S.snDrag=true;hold=setTimeout(function(){hold=null;row._moved=true;begin(e);},400);});
+    row.addEventListener('pointermove',function(e){if(hold&&(Math.abs(e.clientX-sx)>8||Math.abs(e.clientY-sy)>8)){clearTimeout(hold);hold=null;S.snDrag=false;}});
+    ['pointerup','pointercancel'].forEach(function(k){row.addEventListener(k,function(){if(hold){clearTimeout(hold);hold=null;S.snDrag=false;}});});
+    row.addEventListener('click',function(e){if(row._moved){row._moved=false;e.stopPropagation();e.preventDefault();}},true);
+    row.addEventListener('contextmenu',function(e){e.preventDefault();});});
 }
 function snowRouteForm(r){
   r=r||{};var nm=el('input',{class:'in',placeholder:T('Route')+' '+(S.sn.routes.length+1),value:r.name||'',maxlength:'40'}),tk=el('input',{class:'in',placeholder:T('Truck')+' 1',value:r.truck||'',maxlength:'40'});
