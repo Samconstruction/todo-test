@@ -1914,7 +1914,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140649',lastUpd=0;
+var BUILD='202611140650',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2771,7 +2771,7 @@ function openCam(x,videoFirst){
   var box=el('div',{class:'cambox'},vid,clock,el('div',{class:'cambar'},gal,shut,flip),hint);
   var vw=openViewer(box);vw.classList.add('vfull','vcam');
   vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
-  function stop(){closed=true;try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
+  function stop(){closed=true;try{cvStop();}catch(e){}try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
   var obs=new MutationObserver(function(){if(!document.body.contains(vw)){stop();obs.disconnect();}});obs.observe(document.body,{childList:true});
   function start(){if(stream)stream.getTracks().forEach(function(t){t.stop();});
     navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}},audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,sampleRate:48000,channelCount:1}}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080}},audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing}});})
@@ -2801,13 +2801,19 @@ function openCam(x,videoFirst){
     try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
     c.toBlob(function(b){if(!b)return;var f=new File([b],'photo-'+Date.now()+'.jpg',{type:'image/jpeg'});review({kind:'photo',f:f},URL.createObjectURL(b));},'image/jpeg',0.9);}
   function recStart(){if(!stream||recording)return;var mime=['video/mp4;codecs=avc1,mp4a','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
-    try{rec=mime?new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:5000000,audioBitsPerSecond:128000}):new MediaRecorder(stream,{videoBitsPerSecond:5000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(stream);}catch(e2){return;}}
+    // Phones without camera zoom (iPhone): the video is drawn through a canvas, so the zoom you see is the zoom you get.
+    var src=stream;cvStop();
+    if(!zNative&&vid.videoWidth){try{var cw=Math.min(1920,vid.videoWidth),ch2=Math.round(cw*vid.videoHeight/vid.videoWidth),cv=document.createElement('canvas');cv.width=cw;cv.height=ch2;var cg=cv.getContext('2d');
+      (function draw(){if(!cvOn)return;var sw=vid.videoWidth/zCur,sh=vid.videoHeight/zCur;try{cg.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,cw,ch2);}catch(e){}cvRaf=requestAnimationFrame(draw);})(cvOn=true);
+      var cs=cv.captureStream(30);stream.getAudioTracks().forEach(function(t){cs.addTrack(t);});src=cs;}catch(e){cvStop();src=stream;}}
+    try{rec=mime?new MediaRecorder(src,{mimeType:mime,videoBitsPerSecond:5000000,audioBitsPerSecond:128000}):new MediaRecorder(src,{videoBitsPerSecond:5000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(src);}catch(e2){cvStop();return;}}
     chunks=[];rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
-    rec.onstop=function(){recording=false;shut.classList.remove('rec');clock.style.display='none';clearInterval(recT);if(closed||!chunks.length)return;var dur=Math.round((Date.now()-t0)/1000);
+    rec.onstop=function(){cvStop();recording=false;shut.classList.remove('rec');clock.style.display='none';clearInterval(recT);if(closed||!chunks.length)return;var dur=Math.round((Date.now()-t0)/1000);
       var type=(rec.mimeType||mime||'video/webm').split(';')[0],b=new Blob(chunks,{type:type}),f=new File([b],'video-'+Date.now()+(type.indexOf('mp4')>=0?'.mp4':'.webm'),{type:type});
       review({kind:'video',f:f,dur:dur},URL.createObjectURL(b));};
     rec.start(500);recording=true;t0=Date.now();shut.classList.add('rec');clock.style.display='';hint.style.display='none';try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}
     recT=setInterval(function(){var s2=Math.round((Date.now()-t0)/1000);clock.lastChild.textContent=fmtDur(s2);if(s2>=VID_MAX_SEC)recStop();},250);}
+  var cvOn=false,cvRaf=0;function cvStop(){cvOn=false;try{cancelAnimationFrame(cvRaf);}catch(e){}}
   function recStop(){try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}}
   shut.addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();if(recording){recStop();return;}holdT=setTimeout(function(){holdT=null;recStart();},350);});
   shut.addEventListener('pointerup',function(e){e.stopPropagation();if(holdT){clearTimeout(holdT);holdT=null;photo();}else if(recording&&Date.now()-t0>600)recStop();});
