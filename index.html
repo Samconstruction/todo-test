@@ -1528,6 +1528,11 @@ body.sndark .sn-prac{background:#1F3B35;border-color:#7FD1B9;color:#7FD1B9}
 }
 .updbar{top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom));background:#1B8F7B!important}
 body:has(.chatsheet) .updbar{display:none}
+/* weather: same mint line icons as the rest of the app */
+.wx-sun,.wx-cloud,.wx-rain,.wx-snow,.wx-storm{color:#1B8F7B!important}
+.wx-cloud{color:#4F8A7D!important}.wx-storm,.wx-snow{color:#0E6B5C!important}
+.wxday.snow{background:#D8F5EE}.wxsn,.wxday.snow .wxds{color:#0E4F45}
+.wxpp,.wxpp .ico,.wxpp svg,.wxh .ico{color:#1B8F7B!important}.wxpp{color:#3F7168}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -2343,7 +2348,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
- {id:'final1114',i:'🛠',t:'Last fixes before the main app',d:'A group can never open in place of a private chat · nobody but Yossi can take Yossi out of a group · the driver\'s "job changed" message says he drives · too many wrong PINs now says to call the office and unlocks sooner · Sign out warns if photos are still waiting to send · the update bar no longer covers a chat.',go:function(){goView('home');}},
+ {id:'wxmint',i:'⛅',t:'Weather in mint',d:'The weather icons now use the same mint line style as the rest of the app (sun, clouds, rain, snow).',go:function(){goView('home');}},
+ {id:'final1114',i:'🛠',t:'Last fixes before the main app',d:'A group can never open in place of a private chat · nobody but Yossi can take Yossi out of a group · the driver\'s "job changed" message says he drives · too many wrong PINs now says to call the office and unlocks sooner · Sign out warns if photos are still waiting to send · the update bar no longer covers a chat · a photo sent on bad signal never arrives twice.',go:function(){goView('home');}},
  {id:'wxjobs',i:'⛅',t:'Weather follows new jobs',d:'A new job or task with an address in a new town shows up in the weather by itself – also when the address has no "NY" in it.',go:function(){goView('home');}},
  {id:'fix1114',i:'🛠',t:'Small fixes',d:'Chat list shows the mint photo/video icons again · schedule changes say what changed (time, job, address, note) · small iPhones (SE) fit the login and the Done button · iPhone videos are lighter (photos stay sharp 4K) · iPhone no longer downloads videos on mobile data · snow page title shows once · new copy and arrow icons.',go:function(){goView('home');}},
  {id:'grpinfo',i:'👥',t:'Group info like WhatsApp',d:'Tap the group name at the top of a group chat: see everyone in the group (office = group admin), all photos, videos and files, add or remove people, and delete the group. Removed people\'s old messages stay, with their name in grey. Only the office can change a group.',go:function(){goView('chats');}},
@@ -2854,7 +2860,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142238',lastUpd=0;
+var BUILD='202611142245',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -4361,10 +4367,10 @@ function sendInline(atts,id){
     if(a.cap)m.text=a.cap;UPP[mid]=0;upProg(mid,1,a.kind==='photo'?0:a.f.size);a._mid=mid;a._url=url;m._known=knownOf(id,a.kind==='photo'?'photo':a.kind==='video'?'video':'file');pendAdd(id,m);});
   var i=0;
   function one(){if(i>=atts.length)return;var a=atts[i++],kind=a.kind==='photo'?'photo':a.kind==='video'?'video':'file',known=knownOf(id,kind),pr;
-    if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}var prid=a._mq?'r'+a._mq:rid();if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=96;
+    if(a.kind==='photo'){upProg(a._mid,3,0);UPC[a._mid]=15;}var prid=a._rid||(a._mq?'r'+a._mq:rid());if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,15);UPC[a._mid]=96;
       // bad signal or a very big picture: try once more a bit smaller
       return call('photoAdd',{id:id,data:data.split(',')[1],rid:prid,text:a.cap||''}).catch(function(err){if(!isNet(err))throw err;if(S.me==='Yossi')logErr('Photo upload retry (test)','size '+a.f.size+' sent '+data.length+' '+String(err&&err.message));
-        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1],rid:prid,text:a.cap||''}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);if(!a._mq){mqAdd({task:id,kind:'photo',cap:a.cap||'',name:a.f.name||'photo.jpg'},a.f);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}else{delete MQS[a._mq];mqShow({q:a._mq,task:id,kind:'photo',cap:a.cap||'',name:a.f.name||'photo.jpg'},a.f);}return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return 'Q';var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
+        return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1],rid:prid,text:a.cap||''}).catch(function(e3){if(!isNet(e3))throw e3;pendDone(id,a._mid);if(!a._mq){mqAdd({task:id,kind:'photo',cap:a.cap||'',name:a.f.name||'photo.jpg',rid:prid},a.f);toast('⏳ '+T('No signal — saved on the phone, it will send by itself when the signal is back.'));}else{delete MQS[a._mq];mqShow({q:a._mq,task:id,kind:'photo',cap:a.cap||'',name:a.f.name||'photo.jpg'},a.f);}return 'Q';});});}).then(function(r){if(r==='Q')return r;return upDone(a._mid).then(function(){return r;});}).then(function(r){if(r==='Q')return 'Q';var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
     else pr=(a.pre?a.pre.go(function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);}):call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
       return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size),a.f.size);},function(){return false;});})).then(function(r){return upDone(a._mid).then(function(){return r;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}
       if(a.cap){var cmid=lastMineMid(id,kind);if(cmid){allT().forEach(function(t){if(t.id!==id)return;var l=parseComments(t);l.forEach(function(o){if(o.id===cmid)o.text=a.cap;});t.comments=JSON.stringify(l);});call('capSet',{id:id,cid:cmid,text:a.cap,rid:rid()}).then(apply).then(function(){chatRepaint();}).catch(function(){sendComment(allT().filter(function(t){return t.id===id;})[0],a.cap);});}}});
@@ -4594,7 +4600,7 @@ function mqFlush(){if(MQ_BUSY||!VCACHE||!S.me||S.viewAs||(navigator.onLine===fal
     return ks.reduce(function(pr,k){return pr.then(function(){return c.match(k).then(function(r){if(!r)return;var o={};try{o=JSON.parse(decodeURIComponent(r.headers.get('x-meta')||'{}'));}catch(e){}
       if(o.me!==S.me)return;if(MQS[o.q]&&Date.now()-MQS[o.q]<20*60000)return;var x=allT().filter(function(t){return t.id===o.task;})[0];if(!x){if(Date.now()-(o.at||0)>3*86400000)c.delete(k);return;}
       return r.blob().then(function(b){MQS[o.q]=Date.now();mqHide(o.q);if(o.kind==='voice'){sendVoice(x,b,o.dur||0,0,o.q);return;}
-        var f=new File([b],o.name||('file-'+Date.now()),{type:o.mime||b.type||''});sendInline([{kind:o.kind,f:f,dur:o.dur||0,cap:o.cap||'',_mq:o.q}],x.id);});});});},Promise.resolve());});})
+        var f=new File([b],o.name||('file-'+Date.now()),{type:o.mime||b.type||''});sendInline([{kind:o.kind,f:f,dur:o.dur||0,cap:o.cap||'',_mq:o.q,_rid:o.rid||''}],x.id);});});});},Promise.resolve());});})
   .catch(function(){}).then(function(){MQ_BUSY=false;});}
 window.addEventListener('online',function(){setTimeout(mqFlush,1500);});
 function mediaSave(id,blob){if(!VCACHE)return;VCACHE.then(function(c){return c.put('/m/'+id,new Response(blob,{headers:{'Content-Type':blob.type||'application/octet-stream'}})).then(function(){return c.keys();}).then(function(ks){ks=ks.filter(function(k){try{return new URL(k.url).pathname.indexOf('/m/')===0;}catch(e){return false;}});ks.slice(0,Math.max(0,ks.length-10)).forEach(function(k){c.delete(k);});});}).catch(function(){});}
