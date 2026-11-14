@@ -1864,6 +1864,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'estfast',i:'⚡',t:'Estimate PDFs open right away',d:'The newest estimate PDFs are downloaded quietly in the background, so when you or Rocky tap one it opens at once.',go:function(){openEst();}},
  {id:'fx_mates',i:'📞',t:'Prospect crews: phone list',d:'Workers in a Prospect crew now see everybody in their own crew (and their leader) in the phone list.',go:function(){wnPickWorker();}},
  {id:'sn_rocky',i:'❄️',t:'Rocky runs snow',d:'Rocky has Snow plowing in his More, can start and end storms, and can be picked as a driver. When he drives, his route shows on his Today screen.',go:function(){openSnow();}},
  {id:'sn_trucks',i:'🚜',t:'Start storm: 1 or 2 trucks',d:'Start storm now asks how many trucks tonight and who drives each one (Rocky, you or a worker). The saved routes are split between the trucks; your last choice is remembered.',go:function(){openSnow();}},
@@ -2143,7 +2144,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140849',lastUpd=0;
+var BUILD='202611140855',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -4487,11 +4488,14 @@ function snowProblem(m,x){var ta=el('textarea',{class:'in',rows:'3',placeholder:
 var EST_PEOPLE=['Yossi','Rocky'];
 function isEst(){return EST_PEOPLE.indexOf(S.me)>=0;}
 try{S.est=JSON.parse(localStorage.getItem('sam_est')||'null');}catch(e){S.est=null;}
-function estApply(r){if(r&&r.est){S.est=r.est;try{localStorage.setItem('sam_est',JSON.stringify(r.est));}catch(e){}S.estWait=r.est.filter(function(e){return e.status==='new';}).length;}}
+function estApply(r){if(r&&r.est){S.est=r.est;try{localStorage.setItem('sam_est',JSON.stringify(r.est));}catch(e){}S.estWait=r.est.filter(function(e){return e.status==='new';}).length;setTimeout(estPrefetch,300);}}
+// the newest PDFs are fetched quietly in the background, so they open right away when tapped
+var EST_PF=0;function estPrefetch(){if(EST_PF)return;var l=(S.est||[]).filter(function(e){return e.pdf&&!S.vids[e.pdf];}).slice(0,5);if(!l.length)return;EST_PF=1;
+  (function nx(i){if(i>=l.length){EST_PF=0;return;}getMedia(l[i].pdf,null,'application/pdf').then(function(){nx(i+1);},function(){nx(i+1);});})(0);}
 function estLoad(){return call('estList',{}).then(function(r){estApply(r);if(/^est/.test(S.view||''))render();}).catch(function(){});}
 function estCall(a,p,msg){p=p||{};p.rid=p.rid||rid();S.saving++;render();return call(a,p).then(function(r){S.saving--;estApply(r);render();if(msg)toast('✓ '+msg);return r;},function(e){S.saving--;render();toast('❗ '+(String(e&&e.message)==='EST_NEED_NAME'?T('Type the customer name.'):errText(e)));throw e;});}
 function openEst(){S.view='est';S.estId=null;render();window.scrollTo(0,0);estLoad();}
-function openEstOne(id){S.estId=id;S.view='estone';render();window.scrollTo(0,0);}
+function openEstOne(id){S.estId=id;S.view='estone';render();window.scrollTo(0,0);var e=estOf(id);if(e&&e.pdf&&!S.vids[e.pdf])getMedia(e.pdf,null,'application/pdf').then(function(){},function(){});}
 function estOf(id){return (S.est||[]).filter(function(e){return e.id===id;})[0]||null;}
 function estStat(e){return e.status==='new'?[T('For Yossi'),'p1']:e.status==='claude'?[T('At Claude'),'p1']:e.status==='sent'?[T('Sent'),'p3']:[T('PDF ✓'),'p2'];}
 function estIco(){return '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7.5A1.5 1.5 0 0 0 6 5v14a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7.5z"/><path d="M14 3.5v4h4M9 12.5h6M9 16h6"/></svg>';}
@@ -4594,7 +4598,7 @@ function estOneView(){
   wrap.appendChild(step(!!e.pdf,e.pdf?T('PDF back in the app')+' · '+(e.pdfBy||'')+' '+clockOf(e.pdfAt):T('PDF not back yet')));
   if(e.pdf){
     var pc=el('div',{class:'pdfcard'},el('span',{class:'ic',html:estIco()}),el('span',{class:'m'},el('b',{text:e.pdfName||'Estimate.pdf'}),el('span',{text:T('Tap to open')})));
-    pc.onclick=function(){toast(T('Opening…'));estBlob(e.pdf,'application/pdf').then(function(b){var u=URL.createObjectURL(new Blob([b],{type:'application/pdf'}));window.open(u,'_blank');},function(er){toast('❗ '+errText(er));});};
+    pc.onclick=function(){if(S.vids[e.pdf]){window.open(S.vids[e.pdf],'_blank');return;}toast(T('Opening…'));getMedia(e.pdf,null,'application/pdf').then(function(u){var w=window.open(u,'_blank');if(!w)toast(T('Ready – tap again to open'));},function(er){toast('❗ '+errText(er));});};
     wrap.appendChild(pc);
     wrap.appendChild(el('div',{class:'row2b'},
       el('button',{class:'bm',onclick:function(){toast(T('Getting the PDF ready…'));estPdfFile(e).then(function(f){estShareNow(f,e);},function(er){toast('❗ '+errText(er));});}},'⇪ '+T('Share')),
