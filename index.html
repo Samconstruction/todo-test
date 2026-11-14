@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SAM To-Do TEST</title>
 <meta name="theme-color" content="#BDEBDF">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SAM TEST">
@@ -1061,6 +1062,50 @@ input[type=search].in,input.chatsearch{padding-left:40px;background:#fff url("da
 .camhd2 .camhd{position:static}
 .cambox.rv .camhd2{display:none}
 .camhd .ico-i{color:#fff}
+.schok.wait{color:#B5651D}
+.pinstrip{display:flex;align-items:center;gap:4px;margin:10px 12px 0;border-radius:14px;background:#E6F6F1}
+.pinstrip .pinmain{flex:1;display:flex;justify-content:space-between;align-items:center;padding:11px 6px 11px 14px;color:#0E4F45;font-size:15px;font-weight:700;text-align:left}
+.pinstrip .pinmain b{color:#1B8F7B;white-space:nowrap}.pinstrip .pinx{width:44px;height:44px;color:#4A8178;font-size:16px;flex:none}
+.callbig{text-decoration:none;color:inherit}
+.discard{position:fixed;inset:0;z-index:10000;background:rgba(10,30,26,.45);display:flex;align-items:center;justify-content:center;padding:24px}
+.discard .dbox{background:#fff;border-radius:22px;padding:22px 18px 14px;width:100%;max-width:360px;display:flex;flex-direction:column;gap:10px;text-align:center}
+.discard .dbox b{font-size:19px;color:#14302B;margin-bottom:6px}.discard .dbox button{min-height:54px;border-radius:16px;font-size:17px;font-weight:800}
+.discard .dthrow{background:#FDECEC;color:#C0392B}
+/* send report: always in reach at the bottom */
+.repsend{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:5;background:#1B8F7B!important;box-shadow:0 8px 22px rgba(14,79,69,.28)}
+/* ===== mint everywhere: leftovers from the old look ===== */
+:root{--line:#DCE7E3;--ok:#2FA36B;--acc:#1B8F7B}
+.tab,.seg,.jhsec{background:#E6F6F1}
+.card{border-left-color:#BDEBDF}
+.addr{background:#F1F8F5;color:#1B8F7B}
+.push,.cam{min-height:44px;min-width:44px}
+.jobpick{background:#E6F6F1;color:#0E4F45}.jobpick.on{background:#1B8F7B;color:#fff}
+.ann{background:#F1FBF7;border-color:#9EDBC9}
+.repcard{background:#F1FBF7;border-color:#BDEBDF}.repcard.ok{background:#E6F6F1;border-color:#7FD1B9}
+.stog{background:#E6F6F1;color:#0E4F45}
+.teamline{color:#1B8F7B}.teambox,.schaddr,.scopy{background:#E6F6F1;color:#0E4F45;border-color:#BDEBDF}
+.otsend{background:#1B8F7B}
+.instbtn{background:#1B8F7B}
+.updbar,.viewasbar{background:#1B8F7B}
+.jhgo{background:#1B8F7B}
+.pinin::placeholder{letter-spacing:normal;font-size:17px}
+.chatin::placeholder{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* home tiles: darker so white text is easy to read in the sun */
+.c-orange{background:#E58A2E}.c-blue{background:#2F8FCB}.c-green{background:#2FA36B}.c-purple{background:#7C6FE0}
+.calwd{color:#5E7A74}
+/* finger-size buttons */
+.sn-undo,.rbx,.attx,.annDel,.caltoday,.srchbtn,.calnav,.iosinst .x{min-height:44px;min-width:44px}
+/* install box: soft mint */
+.iosinst{background:#F1F8F5;border-color:#CFE9E1}
+/* iPhone: the chat fits above the keyboard */
+html.ios .scrim.chatfull .sheet.chatsheet{height:var(--vvh,100dvh)}
+html.ios.kb .btabs{display:none}
+/* iPhone: no long-press magnifier on the mic / shutter, no pale bounce above the header, dates left */
+.chatmic,.camshut,.recmic,.cpi{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+html,body{overscroll-behavior-y:none}
+.in[type=date],.in[type=time]{display:flex;align-items:center;min-height:50px}
+.in::-webkit-date-and-time-value{text-align:left}
+.teambox,.teambox *{color:#0E4F45}.teambox .chip,.teambox .pchip{color:#14302B}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1121,7 +1166,7 @@ function isOffice(){return S.role==='office';}
 function setLang(l){LANG=l;store('sam_lang',l);document.documentElement.lang=l;closeSheet();render();if(S.me&&notifState()==='granted')enablePush(false);}
 function langSwitch(){return el('div',{class:'lang'},[['en','English'],['es','Español']].map(function(p){return el('button',{class:'lang-b'+(LANG===p[0]?' on':''),onclick:function(){if(LANG!==p[0])setLang(p[0]);}},p[1]);}));}
 
-var READS={maint:1,list:1,photoGet:1,videoGet:1,avatarGet:1,avatarBig:1,otWeek:1,schedGet:1,reportsRange:1,places:1,logError:1,jobHistory:1,jobsSummary:1,jobsAll:1,snowGet:1,usage:1};
+var READS={maint:1,list:1,photoGet:1,videoGet:1,avatarGet:1,avatarBig:1,otWeek:1,schedGet:1,reportsRange:1,places:1,logError:1,jobHistory:1,jobsSummary:1,jobsAll:1,snowGet:1,usage:1,estList:1};
 function rid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 var DEV_ID=(function(){try{var d=localStorage.getItem('sam_dv');if(!d){d=Math.random().toString(36).slice(2,12);localStorage.setItem('sam_dv',d);}return d;}catch(e){return 'x';}})(); // this phone, for the wrong-PIN counter
 // ⏱ Time in the app: count the seconds the app is open on screen today (per person); sent along with the normal refresh.
@@ -1155,14 +1200,16 @@ function errText(e){var m=String(e&&e.message||e);
   if(m==='BAD_DATE')return T('That date is not allowed.');if(m==='PIN_TAKEN')return T('That PIN is taken. Pick another one.');
   return T('Something went wrong')+' ('+m.slice(0,40)+')';}
 function qSave(){try{localStorage.setItem('sam_q',JSON.stringify(Q));}catch(e){try{localStorage.setItem('sam_q',JSON.stringify(Q.filter(function(x){return x.a!=='photoAdd';})));}catch(e2){}}}
-function sendQ(a,p,msg){Q.push({a:a,p:p,me:S.me,at:Date.now()});qSave();try{applyQ();}catch(e){}if(msg)toast(msg);render();setTimeout(flushQ,0);}
+function sendQ(a,p,msg){var it={a:a,p:p,me:S.me,at:Date.now()};if(a==='scheduleSave'){it.msg=msg;msg='⏳ '+T('Sending the schedule…');}Q.push(it);qSave();try{applyQ();}catch(e){}if(msg)toast(msg);render();setTimeout(flushQ,0);}
 function enqueue(a,p){Q.push({a:a,p:p,me:S.me,at:Date.now()});qSave();try{applyQ();}catch(e){}toast('⏳ '+T('No signal — it will send by itself when the signal is back.'));render();}
 function flushQ(){
   if(qBusy||!Q.length||!S.me||!S.pin||S.viewAs)return;var it=Q[0];
   if(it.me!==S.me){Q.shift();qSave();return flushQ();}
   qBusy=true;it.p.pin=S.pin;
-  call(it.a,it.p).then(function(d){Q.shift();qSave();qBusy=false;if(!Q.length){apply(d);render();toast('✓ '+T('Everything was sent'));}else{render();flushQ();}})
-  .catch(function(e){qBusy=false;if(isNet(e)||/Service|Lock timeout|timed out|LOCKED|temporarily|busy/i.test(String(e&&e.message||e))){render();return;}if(isBadPin(e)){signOut('');return;}Q.shift();qSave();toast('❗ '+T('Not sent')+': '+errText(e));render();flushQ();});
+  call(it.a,it.p).then(function(d){Q.shift();qSave();qBusy=false;if(!Q.length){apply(d);render();toast(it.msg||'✓ '+T('Everything was sent'));}else{if(it.msg)toast(it.msg);render();flushQ();}})
+  .catch(function(e){qBusy=false;if(isNet(e)||/Service|Lock timeout|timed out|LOCKED|temporarily|busy/i.test(String(e&&e.message||e))){render();return;}if(isBadPin(e)){signOut('');return;}Q.shift();qSave();
+    if(it.a==='scheduleSave'&&String(e&&e.message)==='STALE'){var sp=it.p;refresh(true);setTimeout(function(){var who=((S.sched||{})[sp.date]||{})._by;toast('⚠️ '+(who&&who!==S.me?who:T('Someone else'))+' '+T('just changed this day. Your changes are kept here – check and send again.'));openSchedule(sp.date,{crews:sp.crews,off:sp.off});},1800);render();flushQ();return;}
+    toast('❗ '+T('Not sent')+': '+errText(e));render();flushQ();});
 }
 function applyQ(){Q.forEach(function(it){if(it.me!==S.me)return;var p=it.p;
   allT().forEach(function(x){if(x.id!==p.id)return;
@@ -1273,10 +1320,16 @@ var RET=[],RET_BUSY=false;
 function retMark(){var sc=document.getElementById('scrim');if(sc&&RET.length)sc.dataset.ret=String(RET.length);}
 function childOpen(backFn,openFn,view){RET_BUSY=true;RET.push({fn:backFn,view:view||''});try{openFn();}finally{RET_BUSY=false;}if(!view)retMark();}
 function retBack(){var r=RET.pop();if(!r)return false;RET_BUSY=true;try{closeSheet(true,true);r.fn();}finally{RET_BUSY=false;}retMark();return true;}
+// Our own "throw away your changes?" (big buttons, no phone pop-up)
+function askDiscard(onThrow){if(document.getElementById('discard'))return;
+  var d=el('div',{id:'discard',class:'discard'},el('div',{class:'dbox'},el('b',{text:T('Throw away your changes?')}),
+    el('button',{class:'primary',onclick:function(){d.remove();}},T('Keep editing')),
+    el('button',{class:'dthrow',onclick:function(){d.remove();S.guard=null;onThrow();}},T('Throw away'))));
+  document.body.appendChild(d);}
 function closeSheet(quiet,force){var s=document.getElementById('scrim');if(!s)return true;
   if(s.dataset.ret&&!RET_BUSY)RET.length=Math.min(RET.length,(+s.dataset.ret)-1); // closed some other way: forget its way back
-  if(!force&&S.guard&&S.guard()&&!confirm(T('Throw away your changes?')))return false;
-  if(S.recStop){try{S.recStop();}catch(e){}S.recStop=null;}S.guard=null;S.sheetRefresh=null;if(S.chatPoll){clearInterval(S.chatPoll);S.chatPoll=null;}S.chatId=null;s.remove();queueHist();return true;}
+  if(!force&&S.guard&&S.guard()){askDiscard(function(){closeSheet(quiet,true);});return false;}
+  if(S.recStop){try{S.recStop();}catch(e){}S.recStop=null;}S.guard=null;S.sheetRefresh=null;if(S.chatPoll){clearInterval(S.chatPoll);S.chatPoll=null;}var hadChat=!!S.chatId;S.chatId=null;s.remove();queueHist();if(hadChat)setTimeout(function(){if(!document.getElementById('scrim'))render();},0);return true;}
 // ---------- navigation & the phone Back button ----------
 // History = [exit pad][screen][screen]…[+sheet][+viewer]. A new screen pushes one entry, an open sheet one more,
 // the photo viewer one more. Back pops exactly one. render() keeps history in step with what is on screen.
@@ -1337,7 +1390,8 @@ window.addEventListener('popstate',function(e){
   if(S.chatSub&&S.chatSub()){queueHist();return;}            // chat: close the + card / tag list / reply first
   var sc=document.getElementById('scrim');
   if(sc){                                                    // 2) sheet open → step back inside it, or close it
-    if(sc.dataset.lock||(S.guard&&S.guard()&&!confirm(T('Throw away your changes?')))){queueHist();return;}
+    if(sc.dataset.lock){queueHist();return;}
+    if(S.guard&&S.guard()){queueHist();askDiscard(function(){if(sc.dataset.ret&&RET.length){retBack();queueHist();return;}closeSheet(true,true);});return;}
     S.guard=null;
     if(sc.dataset.ret&&RET.length){retBack();queueHist();return;}
     var bb=[].filter.call(sc.querySelectorAll('button'),function(b){return /^‹ \S/.test(b.textContent);})[0];
@@ -1510,10 +1564,12 @@ function dayOffSet(d){return !!(S.nowork||{})[d];}
 function setDayOff(d,on,after){S.nowork=S.nowork||{};if(on)S.nowork[d]=S.me;else delete S.nowork[d];render();
   call('dayOff',{date:d,on:on}).then(function(r){apply(r);render();if(after)after();}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}
 // Office: "Is anybody from the daily crew working on <Sunday>?"
-function askSunday(d,past,next){var goNext=function(){if(next){S.sunSkip=S.sunSkip||{};S.sunSkip[d]=1;openSchedule(next);}};
+try{S.sunSkip=JSON.parse(localStorage.getItem('sam_sunskip')||'{}')||{};}catch(e){S.sunSkip={};}
+function sunSkipSave(){try{localStorage.setItem('sam_sunskip',JSON.stringify(S.sunSkip||{}));}catch(e){}}
+function askSunday(d,past,next){var goNext=function(){S.sunSkip=S.sunSkip||{};S.sunSkip[d]=1;sunSkipSave();if(next)openSchedule(next);};
   openSheet([el('h2',{text:'☀️ '+(past?T('Did anybody work on Sunday?'):d===today()?T('Is anybody working today?'):T('Is anybody working Sunday?'))}),
     el('p',{class:'muted',style:'margin:0',text:dateLabel(d)+' · '+T('Daily crew')}),
-    el('button',{class:'primary',onclick:function(){closeSheet(true,true);if(dayOffSet(d))setDayOff(d,false);S.sunAsked=d;S.sunSkip=S.sunSkip||{};S.sunSkip[d]=1;openSchedule(d);setTimeout(function(){S.sunAsked=null;},800);}},'✓ '+(past?(next?T('Yes – fill in Sunday now'):T('Yes – put in who worked')):T('Yes – make the schedule'))),
+    el('button',{class:'primary',onclick:function(){closeSheet(true,true);if(dayOffSet(d))setDayOff(d,false);S.sunAsked=d;S.sunSkip=S.sunSkip||{};S.sunSkip[d]=1;sunSkipSave();openSchedule(d);setTimeout(function(){S.sunAsked=null;},800);}},'✓ '+(past?(next?T('Yes – fill in Sunday now'):T('Yes – put in who worked')):T('Yes – make the schedule'))),
     // Monday morning there may be no time: do today's schedule first, Sunday stays in Needs you
     next?el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);goNext();toast('🕓 '+T('Sunday stays in Needs you – fill it in later'));}},'🕓 '+T('Yes – fill in Sunday later')):null,
     el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);setDayOff(d,true,function(){toast('✓ '+T('Nobody works')+' · '+dateLabel(d));});goNext();}},'✕ '+(past?T('No – nobody worked'):T('No – nobody works'))),
@@ -1566,7 +1622,7 @@ function needItems(){
   tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
   freshUnread().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?dmName(x):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
   if(S.me==='Yossi'&&!S.viewAs&&S.estWait)add('📄',S.estWait+' '+T(S.estWait>1?'estimates to send to Claude':'estimate to send to Claude'),T('From Rocky'),pill(T('Send'),'blue'),openEst);
-  if(schedSent(t)&&!isSat(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
+  if(schedSent(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
   if(!isSat(t)&&!isSun(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
   return it;
 }
@@ -1585,7 +1641,7 @@ function homeView(){
     el('span',{class:'nbm'},el('b',{text:nn?T('Needs you'):T('All caught up')}),el('span',{text:nn?need.slice(0,2).map(function(n){return n.title;}).join(' · ')+(nn>2?' …':''):T('Nothing is waiting for you')})),
     nn?el('span',{class:'nbn',text:String(nn)}):el('span',{class:'bbc',text:'›'})));
   var tasksSub=od?od+' '+T('late'):(td?td+' '+T('for today'):T('All done for today'));
-  var satOff=isSat(t)&&!schedSent(t),schSub=satOff?T('Closed today'):(schedSent(t)?'✓ '+T('Sent'):'✗ '+T('Not sent yet'));
+  var satOff=isSat(t)&&!schedSent(t),schSub=satOff?T('Closed today'):(schedSent(t)?(((S.sched||{})[t]||{})._q?'⏳ '+T('Waiting to send'):'✓ '+T('Sent')):'✗ '+T('Not sent yet'));
   function tile(cls,icon,label,sub,fn){return el('button',{class:'ctile '+cls,onclick:fn},el('span',{class:'cti',text:icon}),el('b',{text:label}),sub?el('span',{class:'cts',text:sub}):null);}
   wrap.appendChild(el('div',{class:'ctiles'},
     tile('c-green','✅',T('My tasks'),tasksSub,function(){goView('tasks');}),
@@ -1762,7 +1818,6 @@ function leaderToday(c){var t=today(),r=reportFor(c.id,t);
     el('div',{class:'muted',text:crewTitle(c)+(r?(r.nowork?' · '+T('No work'):' · '+r.people.filter(function(p){return p.present!==false;}).length+'/'+c.members.length+' '+T('came')):'')}),
     el('button',{class:r?'cbtn':'primary lrbtn',onclick:function(){openReportEditor(c,t);}},r?'✏️ '+T('Edit report'):'📋 '+T('Send report')));}
 function weekView(){var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
-  wrap.appendChild(heroBox(T('My week'),T('Your jobs and overtime'),null));
   var lead=(S.steady&&S.steady.crews||[]).filter(function(c){return c.leader===S.me;});
   if(S.myweek)wrap.appendChild(myWeekCard());else if(!lead.length)wrap.appendChild(el('p',{class:'empty',text:T('Nothing yet.')}));
   lead.forEach(function(c){var lc=leaderCard(c);lc.style.marginTop='14px';wrap.appendChild(lc);});
@@ -1780,6 +1835,25 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'fx_sched2',i:'🗓',t:'Two people on one schedule',d:'If Rocky and Ashley change the same day, the second one is told right away and her changes stay on screen to check and send again – nothing is lost.',go:function(){goView('sched');}},
+ {id:'fx_satnight',i:'🌙',t:'Sunday schedule on Saturday night',d:'A Sunday schedule sent after 7 PM Saturday now notifies the workers right away (never you).',go:function(){goView('sched');}},
+ {id:'fx_satwork',i:'🗓',t:'Working Saturday – daily crew',d:'On a Saturday with a schedule the daily crew works like any day (Needs you reminds who is not placed). Prospect crews stay off.',go:function(){goView('home');}},
+ {id:'fx_wait',i:'⏳',t:'"Waiting to send"',d:'A schedule sent with no signal now shows "Waiting to send" until it really went out.',go:function(){goView('sched');}},
+ {id:'fx_sunonce',i:'☀️',t:'Sunday question asked once',d:'"Did anybody work on Sunday?" is not asked again after you answered or skipped it.',go:function(){goView('sched');}},
+ {id:'fx_badge',i:'💬',t:'Message count clears at once',d:'After you read a chat, the red number on Messages goes away right away.',go:function(){goView('chats');}},
+ {id:'fx_sunrep',i:'📋',t:'Report for another day',d:'A report filled in later asks "What did the crew do on Sunday…" instead of "today".',go:function(){goView('home');}},
+ {id:'fx_jobname',i:'🏗',t:'Job name on Done and Photo',d:'Drivers see the job name on the Done and Photo screens, not "🚐 1 · name".',go:function(){goView('home');}},
+ {id:'fx_back',i:'↩',t:'Back fixes',d:'Back from Change PIN, the Settings switches and Job sites today always goes one step back.',go:function(){goView('more');}},
+ {id:'fx_pin',i:'🔒',t:'PIN reminder is one slim line',d:'"Pick your own PIN" is now one small line on the first screen only – it never hides the Listo button.',go:function(){goView('home');}},
+ {id:'fx_callead',i:'📞',t:'Call your crew leader',d:'Prospect crew members get a big "Call Josias" button on their Today screen.',go:function(){wnPickWorker();}},
+ {id:'fx_discard',i:'🗑',t:'Our own "Throw away changes?"',d:'Leaving a report with changes now asks with two big buttons: Keep editing / Throw away – no phone pop-up.',go:function(){goView('home');}},
+ {id:'fx_repsend',i:'📋',t:'Send report always in reach',d:'The Send report button stays at the bottom of the screen while you scroll.',go:function(){goView('home');}},
+ {id:'fx_week',i:'⏱',t:'Simpler "My week"',d:'"My week" shows once, and workers only tap + when they did overtime – no more "0 ✓" every day.',go:function(){wnPickWorker();}},
+ {id:'fx_mint',i:'🎨',t:'Mint everywhere',d:'The last beige, blue and yellow bits (task cards, tabs, address, buttons, bars) are mint now. Home tiles are a bit darker so the white text is easy to read in the sun.',go:function(){goView('tasks');}},
+ {id:'fx_fingers',i:'👆',t:'Bigger buttons',d:'Small buttons (Undo, ✕, calendar arrows, PIN boxes) are now finger size.',go:function(){goView('home');}},
+ {id:'fx_iphone',i:'📱',t:'iPhone fixes',d:'Voice notes recorded in a format iPhones play, the chat stays above the iPhone keyboard, voice notes play on the first tap, no bounce, nicer date boxes, no "Vibrate" switch on iPhone.',go:function(){goView('chats');}},
+ {id:'estviewas',i:'👀',t:'See Estimates as Rocky',d:'Maintenance → See the app as Rocky now shows his Estimates screen too (look only).',go:function(){openMaint();}},
+ {id:'vidDel',i:'🗑',t:'Deleting a video is instant',d:'Delete a video in a chat and it disappears right away.',go:function(){goView('chats');}},
  {id:'phonereview',i:'📷',t:'Phone camera: look before sending',d:'After "Phone photo" or "Phone video" you see it first, with the same Send and Delete buttons as the chat camera.',go:function(){goView('chats');}},
  {id:'fastvid',i:'⚡',t:'Videos go out faster',d:'A video starts uploading the moment you finish recording – while you look at it. When you tap Send most of it is already up. Same quality.',go:function(){goView('chats');}},
  {id:'estaddr',i:'📍',t:'Estimate address from Google Maps',d:'Start typing the address in a New estimate – pick the exact address from the list.',go:function(){openEst();}},
@@ -1870,7 +1944,7 @@ function render_(){
   app.appendChild(header());
   var qb=qBar();if(qb)app.appendChild(qb);
   var wb=wnBar();if(wb){app.appendChild(wb);if(S.loaded)wnPop();}
-  var ioc=!S.viewAs&&iosInstallCard();if(ioc)app.appendChild(ioc);
+  var ioc=!S.viewAs&&(S.view||'home')==='home'&&iosInstallCard();if(ioc)app.appendChild(ioc);
   if(INSTALL_EV&&!S.viewAs&&!isStandalone())app.appendChild(el('button',{class:'instbtn',onclick:doInstall},'📲 '+T('Install the app on this phone'),el('small',{text:T('One tap to open it, like any other app')})));
   if(S.viewAs)app.appendChild(el('button',{class:'viewasbar',onclick:stopViewAs},'👀 '+T('Viewing as')+' '+S.name+' – '+T('tap to go back to Yossi')));
   var v=S.view||'home';
@@ -2025,12 +2099,13 @@ function openPinChange(){
     .catch(function(e){go.disabled=false;var m=String(e&&e.message);
       err.textContent=/LOCKED/.test(m)?T('Too many wrong PINs. Try again in 15 minutes.'):isBadPin(e)?T('The current PIN is wrong.'):/PIN_IS_PHONE/.test(m)?T("Don't use the last 4 digits of a phone number."):/PIN_TAKEN/.test(m)?T('That PIN is taken. Pick another one.'):T('Could not save — check signal');});
   }},T('Save new PIN'));
-  openSheet([el('button',{class:'homelink',style:'padding-left:0',onclick:function(){openSettings();}},'‹ '+T('Back')),el('h2',{text:'🔒 '+T('Change my PIN')}),el('p',{class:'muted',style:'margin:0',text:isOffice()?T('Pick 4 numbers only you know. Not your phone number.'):T('Pick 4 numbers that are easy for you to remember.')}),cur,n1,n2,err,go,el('button',{class:'ghost',onclick:function(){openSettings();}},T('Cancel'))]);
+  var pinBack=function(){if(RET.length){retBack();queueHist();}else closeSheet();};
+  openSheet([el('button',{class:'homelink',style:'padding-left:0',onclick:pinBack},'‹ '+T('Back')),el('h2',{text:'🔒 '+T('Change my PIN')}),el('p',{class:'muted',style:'margin:0',text:isOffice()?T('Pick 4 numbers only you know. Not your phone number.'):T('Pick 4 numbers that are easy for you to remember.')}),cur,n1,n2,err,go,el('button',{class:'ghost',onclick:pinBack},T('Cancel'))]);
   setTimeout(function(){cur.focus();},50);
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140817',lastUpd=0;
+var BUILD='202611140838',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2096,8 +2171,8 @@ function openSettings(){
   var kids=[el('h2',{text:'⚙️ '+T('Settings')}),
     row('👤',T('My profile photo'),T('Add, change or remove your picture'),function(){closeSheet(true,true);openMenu();}),
     el('div',{class:'lbl',text:'🌐 '+T('Language')}),langSwitch(),
-    el('button',{class:'setrow',onclick:function(){store('sam_big',big?null:'1');applyBig();openSettings();}},el('span',{class:'sti',text:'🔠'}),el('span',{class:'stm'},el('b',{text:T('Bigger letters')}),el('span',{text:T('Easier to read')})),sw(big)),
-    (function(){var hon=store('sam_hap')!=='0';return el('button',{class:'setrow',onclick:function(){store('sam_hap',hon?'0':'1');if(!hon)haptic();openSettings();}},el('span',{class:'sti',text:'📳'}),el('span',{class:'stm'},el('b',{text:T('Vibrate on tap')}),el('span',{text:T('A small buzz when you tap main buttons')})),sw(hon));})(),
+    el('button',{class:'setrow',onclick:function(e){big=!big;store('sam_big',big?'1':null);applyBig();var w=e.currentTarget.querySelector('.swt');if(w)w.classList.toggle('on',big);}},el('span',{class:'sti',text:'🔠'}),el('span',{class:'stm'},el('b',{text:T('Bigger letters')}),el('span',{text:T('Easier to read')})),sw(big)),
+    !navigator.vibrate?null:(function(){var hon=store('sam_hap')!=='0';return el('button',{class:'setrow',onclick:function(e){hon=!hon;store('sam_hap',hon?'1':'0');if(hon)haptic();var w=e.currentTarget.querySelector('.swt');if(w)w.classList.toggle('on',hon);}},el('span',{class:'sti',text:'📳'}),el('span',{class:'stm'},el('b',{text:T('Vibrate on tap')}),el('span',{text:T('A small buzz when you tap main buttons')})),sw(hon));})(),
     row('🔔',T('Notifications'),ns==='granted'?'✓ '+T('Notifications are on'):ns==='denied'?T('Blocked – turn on in phone settings'):T('Off – tap to turn on'),function(){if(ns==='default'){closeSheet();enablePush(true);}else toast(ns==='granted'?'✓ '+T('Notifications are on'):T('Notifications are blocked. Turn them on in your phone settings for this app.'));}),
     row('🔒',T('Change my PIN'),'',function(){childOpen(openSettings,openPinChange);}),
     isOffice()?row('🔳',T('Install on another phone'),T('QR code'),function(){childOpen(openSettings,openQR);}):null,
@@ -2265,6 +2340,7 @@ function workerView(){
       el('b',{text:mc?T("You're on")+' '+crewTitle(mc):T('No job for you today')}),
       mc&&(mc.job||mc.leader)?el('span',{text:(mc.job?'🏗 '+mc.job:'')+(mc.job&&mc.leader?' · ':'')+(mc.leader?T('Crew leader')+': '+mc.leader:'')}):null,
       next?el('span',{text:T('Next')+': '+dueLabel(next.due)+' · '+((jobOf(next.job)||{}).name||next.title)}):(mc?null:el('span',{text:T('The office will send your next job here')}))));
+    if(mc&&mc.leaderPhone)big.appendChild(el('a',{class:'bigbtn callbig',href:'tel:'+String(mc.leaderPhone).replace(/[^\d+]/g,'')},el('span',{class:'bbi',text:'📞'}),el('span',{class:'bbm'},el('b',{text:T('Call')+' '+mc.leader}),el('span',{class:'bbs',text:T('Crew leader')})),el('span',{class:'bbc',text:'›'})));
     if(J.all.some(function(x){return !crewClosed(x);}))big.appendChild(bigBtn('🏗',T('See my jobs'),'',function(){goView('myjobs');}));
     if(S.myweek)big.appendChild(bigBtn('⏱',T('My week'),T('Overtime'),function(){goView('week');}));
   }
@@ -2430,7 +2506,7 @@ function crewDayView(){
   var crews=sc&&sc.crews?sc.crews.filter(function(c){return c.job||c.note;}):[];
   if(!crews.length){if(!satClosed)sum.appendChild(el('div',{class:'muted',style:'text-align:center;padding:14px 0',text:sc?T('Nobody is working this day.'):T('No schedule yet for this day.')}));}
   else{
-    sum.appendChild(el('div',{style:'display:flex;justify-content:space-between;align-items:center'},el('div',{class:'schok',text:'✓ '+T('Sent')}),null));
+    sum.appendChild(el('div',{style:'display:flex;justify-content:space-between;align-items:center'},el('div',{class:'schok'+(sc._q?' wait':''),text:sc._q?'⏳ '+T('Waiting to send'):'✓ '+T('Sent')}),null));
     sc.crews.forEach(function(c,i){if(!c.job&&!c.note)return;var jb=jobOf(c.job);
       var ks=(c.extra?[]:[c.leader]).concat(c.members||[]),names=ks.map(nameOf),addr=jb?(jb.address||jb.name):'';
       sum.appendChild(el('div',{class:'schblk'},
@@ -2594,6 +2670,12 @@ var PRAISE={
   es:{task:['¡Buen trabajo!','¡Listo, campeón!','Uno menos','¡Así se hace!','¡Excelente!','¡Bien hecho!','¡Qué máquina!','¡Lo lograste!','¡Sigue así!','¡Perfecto!','¡Bravo!','¡De lujo!'],
       day:['¡Todo listo por hoy! 🎉'],week:['¡Gran semana! 🎉'],snow:['¡Ruta lista – a calentarse! ☕']}};
 var PRAISE_LAST='';
+// iPhone: keep the chat above the keyboard
+(function(){var ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);if(!ios)return;document.documentElement.classList.add('ios');
+  var vv=window.visualViewport;function fit(){if(!vv)return;document.documentElement.style.setProperty('--vvh',vv.height+'px');document.documentElement.classList.toggle('kb',window.innerHeight-vv.height>120);if(document.querySelector('.chatsheet'))window.scrollTo(0,0);}
+  if(vv){vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);fit();}})();
+Object.assign(ES,{'Only if you worked overtime: tap +, then ✓ to send.':'Solo si trabajaste horas extra: toca +, luego ✓ para enviar.','Call':'Llamar a','Keep editing':'Seguir editando','Throw away':'Borrar'});
+Object.assign(ES,{'What did the crew do on':'¿Qué hizo la cuadrilla el','Waiting to send':'Esperando para enviar','Sending the schedule…':'Enviando el horario…','Someone else':'Otra persona','just changed this day. Your changes are kept here – check and send again.':'acaba de cambiar este día. Tus cambios están aquí – revisa y envía otra vez.'});
 Object.assign(ES,{'Phone camera':'Cámara del teléfono','Phone photo':'Foto del teléfono','Phone video':'Video del teléfono'});
 function praise(kind,lang){kind=kind||'task';var l=(PRAISE[lang||(LANG==='es'?'es':'en')]||PRAISE.en)[kind]||PRAISE.en.task,w=l[0];
   if(l.length>1){var k=0;do{w=l[Math.floor(Math.random()*l.length)];}while(w===PRAISE_LAST&&++k<5);}PRAISE_LAST=w;
@@ -2611,9 +2693,10 @@ function sendComment(x,text,status,re,ments){
   call('comment',cp).then(function(d){S.saving--;if(!S.saving)apply(d);render();})
   .catch(function(e){S.saving--;if(isBadPin(e)){signOut(T('Wrong PIN. Try again.'));return;}if(isNet(e)){enqueue('comment',cp);return;}toast('❗ '+T('Not sent')+': '+errText(e));refresh(true);});
 }
+function taskLabel(x){try{var j=isCrewTask(x)&&jobOf(x.job);return j?j.name:x.title;}catch(e){return x.title;}}
 function openDone(x){
   var note=el('textarea',{class:'in',rows:'3',placeholder:isOffice()?T('e.g. price, what was done, what is left'):T('e.g. what was done, what is left'),maxlength:'500'});
-  openSheet([el('h2',{text:'✓ '+T('Mark as Done')}),el('p',{class:'muted',style:'margin:0',text:x.title}),
+  openSheet([el('h2',{text:'✓ '+T('Mark as Done')}),el('p',{class:'muted',style:'margin:0',text:taskLabel(x)}),
     el('label',{class:'lbl',text:T('Add a note (optional)')}),note,
     el('button',{class:'primary',style:'background:#2B8A3E',onclick:function(){closeSheet();sendComment(x,note.value.trim(),'done');}},T('✓ Done')),
     !isOffice()&&x.status!=='half'?el('button',{class:'halfbtn',onclick:function(){closeSheet();var n=note.value.trim();if(n)sendComment(x,n,'half');else save('update',{id:x.id,status:'half'});}},'🟡 '+T('Not finished – halfway')):null,
@@ -2657,14 +2740,16 @@ function voiceTile(m){var N=32,id=m.voice,box=el('div',{class:'vnote'}),au=null,
   var play=el('button',{class:'vnplay','aria-label':T('Play'),html:IC.play}),bars=waveEl(WAVES[id]||fakeWave(id,N),N),len=el('span',{class:'vnlen',text:fmtDur(m.dur)});
   if(!WAVES[id])bars.classList.add('guess');
   function redraw(lv){var nb=waveEl(lv,N);nb.onclick=bars.onclick;box.replaceChild(nb,bars);bars=nb;}
-  function ensure(){if(au)return Promise.resolve(au);loading=true;play.classList.add('busy');
-    return fetchMedia(id).then(function(u){loading=false;play.classList.remove('busy');au=new Audio(u);
+  function ensure(){if(au&&au.src)return Promise.resolve(au);loading=true;play.classList.add('busy');
+    // iPhone: the player is made inside the tap (so the phone allows it to play), the sound is put in when it arrives
+    if(!au){au=new Audio();try{var pr0=au.play();if(pr0&&pr0.catch)pr0.catch(function(){});}catch(e){}}
+    return fetchMedia(id).then(function(u){loading=false;play.classList.remove('busy');au.src=u;
       au.ontimeupdate=function(){var d=au.duration&&isFinite(au.duration)?au.duration:(m.dur||1);bars.setF(Math.min(1,au.currentTime/d));len.textContent=fmtDur(Math.round(au.currentTime));};
       au.onplay=function(){playing=true;play.innerHTML=IC.pause;};au.onpause=function(){playing=false;play.innerHTML=IC.play;};
       au.onended=function(){playing=false;play.innerHTML=IC.play;bars.setF(0);len.textContent=fmtDur(m.dur);};
       if(!WAVES[id])decodeWave(u,N).then(function(lv){WAVES[id]=lv;waveSave();redraw(lv);}).catch(function(){});
       return au;});}
-  play.onclick=function(e){e.stopPropagation();if(loading)return;ensure().then(function(a){if(playing)a.pause();else a.play().catch(function(){});}).catch(function(){loading=false;play.classList.remove('busy');toast(T('Could not load — check signal'));});};
+  play.onclick=function(e){e.stopPropagation();if(loading)return;ensure().then(function(a){if(playing)a.pause();else a.play().catch(function(){toast(T('Tap ▶ again'));});}).catch(function(){loading=false;play.classList.remove('busy');toast(T('Could not load — check signal'));});};
   bars.onclick=function(e){e.stopPropagation();var r=bars.getBoundingClientRect(),f=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));ensure().then(function(a){var d=a.duration&&isFinite(a.duration)?a.duration:(m.dur||1);a.currentTime=f*d;bars.setF(f);if(!playing)a.play().catch(function(){});});};
   box.appendChild(play);box.appendChild(bars);box.appendChild(len);
   // small files: get the real sound bars in the background
@@ -2785,7 +2870,7 @@ function bubble(x,m,openRx,setRx,all,onReply){
   var acts=el('div',{class:'bacts'});
   acts.appendChild(el('button',{class:'rxadd','aria-label':T('Reply'),onclick:function(e){e.stopPropagation();setRx(null);if(onReply)onReply(m);}},'↩ '+T('Reply')));
   if((mine||isOffice())&&m.id&&String(m.id).indexOf('tmp')!==0&&String(m.id).indexOf('q')!==0){var armD=false,db=el('button',{class:'rxadd del','aria-label':T('Delete'),onclick:function(){if(!armD){armD=true;db.textContent='🗑 '+T('Delete?');return;}
-    allT().forEach(function(t){if(t.id!==x.id)return;var l=parseComments(t).filter(function(o,i){return (o.id||('i'+i))!==m.id;});t.comments=JSON.stringify(l);if(m.photo)t.photos=(t.photos||'').split(',').filter(function(f){return f&&f!==m.photo;}).join(',');});
+    allT().forEach(function(t){if(t.id!==x.id)return;var l=parseComments(t).filter(function(o,i){return (o.id||('i'+i))!==m.id;});t.comments=JSON.stringify(l);if(m.photo)t.photos=(t.photos||'').split(',').filter(function(f){return f&&f!==m.photo;}).join(',');if(m.video){try{t.videos=JSON.stringify(parseVideos(t).filter(function(v){return v.id!==m.video;}));}catch(e){}}});
     render();chatRepaint();call('chatDelete',{id:x.id,cid:m.id}).then(function(d){apply(d);render();toast('✓ '+T('Deleted'));}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}},'🗑');acts.appendChild(db);}
   // Time + ticks at the bottom right, like WhatsApp: 🕓 sending · ✓ sent · blue ✓✓ seen (tap to see who).
   var meta=el('div',{class:'bmeta'},(m.id in UPP)?el('span',{class:'upp',text:'⬆ '+(UPP[m.id]||0)+'%'}):null,el('span',{text:m.at?cWhen(m.at):''}));
@@ -2854,7 +2939,7 @@ function openChat(id){
     var last=l[l.length-1];
     if(last&&last.at){var sn=(S.seen||{})[t.id]||{},who=Object.keys(sn).filter(function(k){return k!==S.me&&sn[k]>=last.at;});
       }
-    if(!arch&&last&&last.at&&last.at!==seenSent){seenSent=last.at;call('chatSeen',{id:t.id}).then(function(d){if(d&&d.seen)S.seen=Object.assign({},S.seen||{},d.seen);}).catch(function(){});}
+    if(!arch&&last&&last.at&&last.at!==seenSent){seenSent=last.at;try{S.seen=S.seen||{};S.seen[t.id]=Object.assign({},S.seen[t.id]||{});S.seen[t.id][S.me]=last.at;}catch(e){}call('chatSeen',{id:t.id}).then(function(d){if(d&&d.seen)S.seen=Object.assign({},S.seen||{},d.seen);if(!document.getElementById('scrim'))render();}).catch(function(){});}
     if(atBottom||l.length!==lastN)setTimeout(function(){sh.scrollTop=sh.scrollHeight;},0);lastN=l.length;}
   var tagBox=el('div',{class:'tagbox',style:'display:none'});
   function tagToken(){var v=input.value,c=input.selectionStart==null?v.length:input.selectionStart,m=/(^|\s)@([^\s@]*)$/.exec(v.slice(0,c));return m?{start:c-m[2].length-1,q:m[2].toLowerCase(),end:c}:null;}
@@ -3086,7 +3171,7 @@ function holdVoice(x,comp,restore,ev){
   stopB.onclick=function(){finish();};
   S.recStop=function(){cancel=true;finish();};
   navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:true,channelCount:1,sampleRate:48000}}).catch(function(){return navigator.mediaDevices.getUserMedia({audio:true});}).then(function(st){stream=st;if(cancel||done){cleanup();restore();return;}
-    var mime=['audio/webm;codecs=opus','audio/mp4','audio/webm','audio/ogg'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
+    var mime=['audio/mp4;codecs=mp4a.40.2','audio/mp4','audio/webm;codecs=opus','audio/webm','audio/ogg'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
     try{rec=new MediaRecorder(st,mime?{mimeType:mime,audioBitsPerSecond:128000}:{audioBitsPerSecond:128000});}catch(e){try{rec=mime?new MediaRecorder(st,{mimeType:mime}):new MediaRecorder(st);}catch(e2){rec=new MediaRecorder(st);}}
     rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
     try{var AC=window.AudioContext||window.webkitAudioContext;actx=new AC();an=actx.createAnalyser();an.fftSize=512;actx.createMediaStreamSource(st).connect(an);var buf=new Uint8Array(an.fftSize);
@@ -3111,7 +3196,7 @@ var VOICE_MAX_SEC=120;
 function startVoice(x,comp,restore){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder){toast(T('Voice notes do not work on this phone.'));return;}
   navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-    var mime=['audio/webm;codecs=opus','audio/mp4','audio/webm','audio/ogg'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
+    var mime=['audio/mp4;codecs=mp4a.40.2','audio/mp4','audio/webm;codecs=opus','audio/webm','audio/ogg'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
     var rec;try{rec=mime?new MediaRecorder(stream,{mimeType:mime}):new MediaRecorder(stream);}catch(e){rec=new MediaRecorder(stream);}
     var chunks=[],t0=Date.now(),cancel=false;S.recStop=function(){cancel=true;try{rec.stop();}catch(e){}stream.getTracks().forEach(function(t){t.stop();});};var clock=el('b',{class:'recclock',text:'0:00'}),timer;
     rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
@@ -3226,7 +3311,7 @@ function fmtDur(s){s=Math.round(+s||0);return Math.floor(s/60)+':'+String(s%60).
 function videosBox(x){var v=parseVideos(x);if(!v.length)return null;
   return el('div',{class:'vids'},v.map(function(it){return el('button',{class:'vidtile',onclick:function(){playVideo(it);}},el('span',{class:'play',text:'▶'}),el('span',{text:T('Video')+(it.dur?' '+fmtDur(it.dur):'')+' · '+nameOf(it.by)}));}));}
 function openMedia(x){if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)return openCam(x);  // same camera as the chat: tap = photo, hold = video, gallery inside
-  openSheet([el('h2',{text:T('Add photo or video')}),el('p',{class:'muted',style:'margin:0',text:x.title}),
+  openSheet([el('h2',{text:T('Add photo or video')}),el('p',{class:'muted',style:'margin:0',text:taskLabel(x)}),
   el('div',{class:'lbl',text:'📷 '+T('Photo')}),
   el('div',{class:'row2'},el('button',{class:'primary',onclick:function(){closeSheet();pickPhoto(x,true);}},'📷 '+T('Take photo')),el('button',{class:'cbtn',onclick:function(){closeSheet();pickPhoto(x);}},'🖼 '+T('From gallery'))),
   el('div',{class:'lbl',text:'🎥 '+T('Video (up to 1½ minutes)')}),
@@ -3576,7 +3661,7 @@ function openSchedule(date,seed){
       el('button',{class:'cbtn',onclick:function(){closeSheet();}},'🔒 '+T('Stay closed')),
       el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);return;}
   // Monday: Sunday was never answered → first ask if anybody worked on Sunday
-  var suY=addDays(today(),-1);if(isMon(today())&&date>=today()&&!seed&&!schedSent(suY)&&!dayOffSet(suY)&&!(S.sunSkip||{})[suY]){askSunday(suY,true,date);return;}
+  var suY=addDays(today(),-1);if(isMon(today())&&date>=today()&&!seed&&!schedSent(date)&&!schedSent(suY)&&!dayOffSet(suY)&&!(S.sunSkip||{})[suY]){askSunday(suY,true,date);return;}
   if(isSun(date)&&!seed&&!schedSent(date)&&!S.sunAsked){S.sunAsked=date;askSunday(date,date<today());setTimeout(function(){S.sunAsked=null;},800);return;}
   var saved=(S.sched||{})[date],plan=schedCopy(seed||saved||schedDefault()),pick='',openList='',addingJob=-1,dirty=false,armOff='';
   var alive={};(S.crew||[]).forEach(function(w){alive[w.id]=1;});
@@ -3682,7 +3767,7 @@ function myWeekCard(){
     rows.appendChild(el('div',{class:'mwrow'+(d===t?' today':'')+(fut?' fut':'')},
       el('div',{style:'flex:1;min-width:0'},el('b',{text:dateLabel(d)+(d===t?' · '+T('Today'):'')}),el('div',{class:'muted',style:'font-size:14px',text:job?'🏗 '+job:(fut?'':T('No job'))})),
       fut?null:(can?el('div',{class:'otbox'},el('button',{class:'ot',onclick:function(){setH(h-0.5);}},'−'),el('b',{class:changed?'otdraft':'',text:h?h+'h':'0'}),el('button',{class:'ot',onclick:function(){setH(h+0.5);}},'+'),
-          changed?el('button',{class:'otsend',onclick:function(){send(this);}},'✓'):(mw.ot[d]!==undefined?el('span',{class:'otok',text:'✓'}):((job||d===t)?el('button',{class:'otnone',onclick:function(){send(this);}},'0 ✓'):null)))
+          changed?el('button',{class:'otsend',onclick:function(){send(this);}},'✓'):(mw.ot[d]!==undefined?el('span',{class:'otok',text:'✓'}):null))
         :el('b',{text:saved?saved+' h':'—'}))));
   })(addDays(ws,i));
   return el('div',{class:'repcard',id:'myweek'},
@@ -3691,7 +3776,7 @@ function myWeekCard(){
       el('button',{class:'dayarrow',disabled:wk<=-4?'disabled':null,onclick:function(){S.mweek=wk-1;render();}},'‹'),
       el('button',{class:'daylabel',onclick:function(){S.mweek=0;render();}},el('b',{text:wk===0?T('This week'):(wk===-1?T('Last week'):T('Week of')+' '+dateLabel(ws))})),
       el('button',{class:'dayarrow',disabled:wk>=0?'disabled':null,onclick:function(){S.mweek=wk+1;render();}},'›')),
-    el('div',{class:'muted',style:'font-size:13px;margin-bottom:6px',text:'⏱ '+T('Tap + for overtime, then ✓ to send. No overtime? Tap 0 ✓')}),
+    el('div',{class:'muted',style:'font-size:13px;margin-bottom:6px',text:'⏱ '+T('Only if you worked overtime: tap +, then ✓ to send.')}),
     rows,
     el('div',{class:'wktotal'},el('span',{text:'⏱ '+T('Overtime this week')}),el('b',{text:tot+' '+T('hrs')})));
 }
@@ -3821,7 +3906,7 @@ function openReportEditor(c,date){
         p.present?el('div',{class:'otbox'},el('span',{class:'muted',text:T('OT')}),
           el('button',{class:'ot',onclick:function(){p.ot=Math.max(0,p.ot-0.5);dirty=true;paint();}},'−'),el('b',{text:p.ot?p.ot+'h':'0'}),
           el('button',{class:'ot',onclick:function(){p.ot=Math.min(12,p.ot+0.5);dirty=true;paint();}},'+')):el('span',{class:'muted',text:p.present===false?T('absent'):''})));});
-    if(acts.length){body.appendChild(el('div',{class:'lbl',style:'margin-top:14px',text:'🛠 '+T('What did the crew do today?')}));
+    if(acts.length){body.appendChild(el('div',{class:'lbl',style:'margin-top:14px',text:'🛠 '+(date&&date!==today()?T('What did the crew do on')+' '+dateLabel(date)+'?':T('What did the crew do today?'))}));
     acts.forEach(function(a){var on=dayActs.indexOf(a)>=0;
       body.appendChild(el('div',{class:'reprow'+(aSt[a]===false?' off':'')},
         yn(aSt[a],function(v){aSt[a]=v;}),el('span',{class:'rname',text:tAct(a)})));});
@@ -3829,7 +3914,7 @@ function openReportEditor(c,date){
     body.appendChild(el('div',{class:'lbl',style:'margin-top:14px',text:'📝 '+T('Notes for the day')}));
     body.appendChild(note);
     if(left)body.appendChild(el('div',{class:'muted',style:'margin-top:10px;font-weight:700;color:#C92A2A',text:T('Mark ✓ or ✗ on every line')+' ('+left+' '+T('left')+')'}));
-    var send=el('button',{class:'primary',style:'background:#2B8A3E;margin-top:10px'+(left?';opacity:.45':''),onclick:function(){
+    var send=el('button',{class:'primary repsend',style:'margin-top:10px'+(left?';opacity:.45':''),onclick:function(){
       if(left){toast(T('Mark ✓ or ✗ on every line'));return;}
       dayActs=acts.filter(function(a){return aSt[a]===true;});var noActs=acts.filter(function(a){return aSt[a]===false;});
       var data={people:mem.map(function(n){var p=ppl[n];return{name:n,present:p.present,ot:p.present?p.ot:0};}),acts:dayActs,no:noActs,note:note.value.trim()};
@@ -3841,7 +3926,7 @@ function openReportEditor(c,date){
     body.appendChild(el('button',{class:'ghost',onclick:closeSheet},T('Cancel')));
   }
   var dayBtns=el('div',{class:'repdate',text:'📅 '+dateLabel(date)+(date===today()?' · '+T('Today'):'')});
-  openSheet([isOffice()?el('button',{class:'homelink',style:'padding-left:0',onclick:function(){if(S.guard&&S.guard()&&!confirm(T('Throw away your changes?')))return;S.guard=null;openReportDay(c.id,date);}},'‹ '+T('Back')):null,el('h2',{text:'📋 '+crewTitle(c)}),dayBtns,body]);S.guard=function(){return dirty;};paint();
+  openSheet([isOffice()?el('button',{class:'homelink',style:'padding-left:0',onclick:function(){if(S.guard&&S.guard()){askDiscard(function(){openReportDay(c.id,date);});return;}S.guard=null;openReportDay(c.id,date);}},'‹ '+T('Back')):null,el('h2',{text:'📋 '+crewTitle(c)}),dayBtns,body]);S.guard=function(){return dirty;};paint();
 }
 function weekStart(d){var x=new Date(d+'T12:00:00');x.setDate(x.getDate()-x.getDay());return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');}
 function weekStats(c,ws){var t=today(),n=0,ot=0,due=0;for(var i=0;i<7;i++){var d=addDays(ws,i),r=reportFor(c.id,d);if(i===6&&!r)continue;if(d<=t)due++;if(r){n++;r.people.forEach(function(p){if(p.present!==false)ot+=(+p.ot||0);});}}return {sent:n,due:due,ot:ot};}
@@ -4325,7 +4410,7 @@ function snowProblem(m,x){var ta=el('textarea',{class:'in',rows:'3',placeholder:
   openSheet([el('h2',{text:'⚠️ '+T('What is the problem?')}),el('div',{class:'sn-ad',text:x.n}),ta,el('button',{class:'primary',onclick:function(){if(!ta.value.trim())return;closeSheet(true,true);x.prob=ta.value.trim();render();snowCall('snowStop',{storm:m.storm,c:x.c,op:'prob',text:ta.value.trim()},T('Sent'));}},T('Send')),el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);}
 // ---------- 📄 Estimates (Yossi + Rocky): collect the job → Yossi sends it to Claude → the PDF comes back to both ----------
 var EST_PEOPLE=['Yossi','Rocky'];
-function isEst(){return EST_PEOPLE.indexOf(S.me)>=0&&!S.viewAs;}
+function isEst(){return EST_PEOPLE.indexOf(S.me)>=0;}
 try{S.est=JSON.parse(localStorage.getItem('sam_est')||'null');}catch(e){S.est=null;}
 function estApply(r){if(r&&r.est){S.est=r.est;try{localStorage.setItem('sam_est',JSON.stringify(r.est));}catch(e){}S.estWait=r.est.filter(function(e){return e.status==='new';}).length;}}
 function estLoad(){return call('estList',{}).then(function(r){estApply(r);if(/^est/.test(S.view||''))render();}).catch(function(){});}
@@ -4624,9 +4709,10 @@ function notifState(){
   return Notification.permission;
 }
 function pinBanner(){
-  if(!S.weak||(isOffice()&&(S.view||'home')!=='home'))return null;var sn=+(store('sam_pin_snooze')||0);if(Date.now()<sn)return null;
-  return el('div',{class:'notif'},el('span',{text:'🔒'}),el('div',{},el('b',{text:T('Pick your own PIN')}),el('span',{class:'muted',text:T('Your PIN is still the last 4 digits of your phone. Anyone who knows your number can get in.')})),
-    el('button',{onclick:openPinChange},T('Change')),el('button',{class:'x','aria-label':'Close',onclick:function(){store('sam_pin_snooze',String(Date.now()+3*864e5));render();}},'✕'));
+  // one slim line, only on the first screen (never on the snow route)
+  if(!S.weak||(S.view||'home')!=='home'||S.viewAs)return null;var sn=+(store('sam_pin_snooze')||0);if(Date.now()<sn)return null;
+  return el('div',{class:'pinstrip'},el('button',{class:'pinmain',onclick:openPinChange},el('span',{text:'🔒 '+T('Pick your own PIN')}),el('b',{text:T('Change')+' ›'})),
+    el('button',{class:'pinx','aria-label':T('Close'),onclick:function(){store('sam_pin_snooze',String(Date.now()+3*864e5));render();}},'✕'));
 }
 function notifBanner(){if(window.SAM_BETA)return null;
   var st=notifState();

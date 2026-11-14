@@ -6,7 +6,7 @@
  "id": "/todo-test/",
  "display": "standalone",
  "background_color": "#F7FCFA",
- "theme_color": "#ffffff",
+ "theme_color": "#BDEBDF",
  "share_target": {
   "action": "./share-target",
   "method": "POST",
