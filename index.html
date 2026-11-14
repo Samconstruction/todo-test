@@ -1341,6 +1341,8 @@ body.sndark .toast{bottom:auto;top:calc(70px + env(safe-area-inset-top))}
 .fphint{margin-top:auto;width:100%;max-width:360px;background:#fff;border:1.5px solid #CFE3DD;border-radius:18px;padding:14px;text-align:center;color:#1F2A27;font-weight:600;font-size:15px;display:flex;flex-direction:column;gap:10px}
 .praise .prck .ico{width:22px;height:22px;stroke-width:2.4}.praise.big .prck .ico{width:26px;height:26px}
 .praise{max-width:calc(100vw - 28px);box-sizing:border-box}.praise b{line-height:1.2}
+.mmenu.onv{z-index:1100;background:rgba(0,0,0,.35)}
+img.nocall,.vstrip img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -2121,6 +2123,9 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'satsites',i:'📍',t:'Job sites: no Prospect crews on Saturday',d:'On Saturday (and Sunday) Job sites today no longer shows the Prospect crews as working. They show only if the crew leader taps "Working this Saturday?" and sends the report.',go:function(){S.view='sites';render();}},
+ {id:'torch3',i:'🔦',t:'Flashlight: on at once, off after the picture',d:'The flashlight now turns on right away when you tap it, and turns off the moment the picture is taken or the video stops.'},
+ {id:'holdopen',i:'🖼',t:'Hold an open photo',d:'When a photo is open full screen, holding it now shows the same menu as in the chat (react, Reply, Forward, Share, Delete) – not the Chrome menu.'},
  {id:'pin2x',i:'🔑',t:'New PIN typed twice',d:'After you approve a Forgot PIN, the worker types the new PIN two times to make sure it is right. If they are not the same, they try again. Try it: Maintenance → Test Forgot PIN.',go:function(){openMaint();}},
  {id:'snowstop',i:'❄️',t:'A compliment at every snow stop',d:'The driver now gets a small compliment after each address, not only at the end of the route. Try it in Snow practice → Open the driver screen.',go:function(){openSnowPractice();}},
  {id:'shabbos',i:'🏆',t:'"Enjoy Shabbos" – only for you',d:'The Friday compliment says "enjoy Shabbos" only for you. Everyone else gets "enjoy the weekend".',go:function(){openPraisePreview();}},
@@ -2595,7 +2600,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142002',lastUpd=0;
+var BUILD='202611142011',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3024,7 +3029,9 @@ function siteList(){
     if(!c.extra&&c.leader)g.drivers.push(nameOf(c.leader));else if(c.extra&&c.leader)g.drivers.push(c.leader);
     (c.members||[]).forEach(function(m){g.people.push(nameOf(m));});
     if(c.time&&(!g.time||c.time<g.time))g.time=c.time;});
-  (S.steady&&S.steady.crews||[]).forEach(function(c){if(!c.job||!jobOf(c.job))return;get(c.job,c.job).steady.push(c);});
+  // Prospect (steady) crews don't work Saturday / Sunday – they show only if the leader said they work that day
+  var wkEnd=isSat(d)||isSun(d);
+  (S.steady&&S.steady.crews||[]).forEach(function(c){if(!c.job||!jobOf(c.job))return;if(wkEnd){var r=reportFor(c.id,d);if(!r||r.nowork)return;}get(c.job,c.job).steady.push(c);});
   return order.map(function(k){return by[k];});
 }
 function sitesView(){
@@ -3400,12 +3407,17 @@ function msgMenu(x,m,b,acts,onReply){
   var del=[].filter.call(acts.querySelectorAll('.del'),function(n){return n;})[0];
   if(del){var armD=false;item('🗑',T('Delete'),function(){var it=this;if(!armD){armD=true;it.firstChild.textContent=T('Tap again to delete');return;}close();del.click();del.click();},'red');}
   ov.appendChild(bar);ov.appendChild(list);
-  var host=document.querySelector('#scrim .sheet')||document.body;host.appendChild(ov);
+  var onV=!!document.querySelector('#viewer.vphoto');
+  if(onV){ov.classList.add('onv');list.addEventListener('click',function(e){var it=e.target.closest('.mmi');if(it&&!it.hasAttribute('data-keep')&&!(it.classList.contains('red')&&it.firstChild.textContent!==T('Tap again to delete')))closeViewer();},true);
+    [].forEach.call(list.children,function(it){var t=it.firstChild&&it.firstChild.textContent;if(t===T('Share')||t===T('Copy'))it.setAttribute('data-keep','');});}
+  var host=onV?document.body:(document.querySelector('#scrim .sheet')||document.body);host.appendChild(ov);
   var rc=b.getBoundingClientRect(),H=window.innerHeight,W=window.innerWidth;
   var top=Math.max(12,rc.top-62),lt=mine?Math.max(8,rc.right-300):Math.max(8,rc.left);
   bar.style.top=top+'px';bar.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
   var lTop=Math.min(H-list.offsetHeight-16,rc.bottom+10);if(lTop<top+64)lTop=top+64;
   list.style.top=lTop+'px';list.style[mine?'right':'left']=(mine?Math.max(8,W-rc.right):lt)+'px';
+  if(onV){var bh=bar.offsetHeight||52,lh=list.offsetHeight,tt=Math.max(16,(H-bh-10-lh)/2);bar.style.left=Math.max(8,(W-bar.offsetWidth)/2)+'px';bar.style.right='';bar.style.top=tt+'px';
+    list.style.left=Math.max(8,(W-list.offsetWidth)/2)+'px';list.style.right='';list.style.top=(tt+bh+10)+'px';}
 }
 // React with any emoji: the phone's own emoji keyboard opens (tap 😊 on it), the first emoji picked is used.
 function pickReact(x,m){
@@ -3718,24 +3730,29 @@ function openCam(x,videoFirst){
   function hasTorch(tr){try{var c=tr.getCapabilities?tr.getCapabilities():null;return !!(c&&c.torch);}catch(e){return false;}}
   function torchApply(tr,on){return tr.applyConstraints({advanced:[{torch:on}]}).catch(function(){return tr.applyConstraints({torch:on});})
     .then(function(){try{var st=tr.getSettings();return st.torch===undefined?true:!!st.torch===on;}catch(e){return true;}},function(){return false;});}
+  function lightOff(){if(!torchOn)return;torchOn=false;torchB.classList.remove('on');var tr=stream&&stream.getVideoTracks()[0];if(tr)torchApply(tr,false);}
+  // first time on this phone: quietly find the back camera that has the light, so the flashlight button works at once
+  function torchPrep(){if(!isAndroid||camId||facing!=='environment'||torchBusy||closed||recording)return;var tr=stream&&stream.getVideoTracks()[0];if(!tr||hasTorch(tr))return;
+    try{if(localStorage.getItem('sam_torchnone'))return;}catch(e){}
+    torchFind(true);}
   function torchFail(){torchOn=false;torchB.classList.remove('on');toast(T('This phone does not allow the flashlight here'));}
   // Samsung has several back cameras and the browser often opens one without the light – find the one that has it
-  function torchFind(){if(!(navigator.mediaDevices.enumerateDevices)||facing!=='environment'){torchFail();return;}
-    torchBusy=true;torchB.classList.add('busy');var cur=stream&&stream.getVideoTracks()[0],curId='';try{curId=cur.getSettings().deviceId||'';}catch(e){}
+  function torchFind(quiet){if(!(navigator.mediaDevices.enumerateDevices)||facing!=='environment'){if(!quiet)torchFail();return;}
+    torchBusy=true;if(!quiet)torchB.classList.add('busy');var cur=stream&&stream.getVideoTracks()[0],curId='';try{curId=cur.getSettings().deviceId||'';}catch(e){}
     navigator.mediaDevices.enumerateDevices().then(function(ds){
       var ids=ds.filter(function(d){return d.kind==='videoinput'&&d.deviceId&&d.deviceId!==curId&&!/front|user|selfie/i.test(d.label||'');}).map(function(d){return d.deviceId;});
       if(stream)stream.getTracks().forEach(function(t){t.stop();});stream=null;
       var i=0;function next(){if(closed)return Promise.resolve(null);if(i>=ids.length)return Promise.resolve(null);var id=ids[i++];
         return navigator.mediaDevices.getUserMedia({video:{deviceId:{exact:id}}}).then(function(st){var t=st.getVideoTracks()[0],ok=hasTorch(t);st.getTracks().forEach(function(x){x.stop();});return ok?id:next();},function(){return next();});}
       return next();
-    }).then(function(id){if(closed)return;if(id){camId=id;try{localStorage.setItem('sam_torchcam',id);}catch(e){}}
+    }).then(function(id){if(closed)return;if(id){camId=id;try{localStorage.setItem('sam_torchcam',id);}catch(e){}}else{try{localStorage.setItem('sam_torchnone','1');}catch(e){}}
       return start().then(function(){var tr=stream&&stream.getVideoTracks()[0];torchBusy=false;torchB.classList.remove('busy');
-        if(id&&tr&&torchOn)return torchApply(tr,true).then(function(ok){if(!ok)torchFail();});torchFail();});
-    }).catch(function(){torchBusy=false;torchB.classList.remove('busy');torchFail();if(!stream)start();});}
+        if(id&&tr&&torchOn)return torchApply(tr,true).then(function(ok){if(!ok)torchFail();});if(!quiet||torchOn)torchFail();});
+    }).catch(function(){torchBusy=false;torchB.classList.remove('busy');if(!quiet||torchOn)torchFail();if(!stream)start();});}
   // Samsung often tells the browser about the flashlight only a moment after the camera starts – so check again, and on Android show it for the back camera anyway
   var isAndroid=/Android/i.test(navigator.userAgent);
   function torchCheck(){try{var tr=stream&&stream.getVideoTracks()[0],c=tr&&tr.getCapabilities?tr.getCapabilities():null;var ok=!!(c&&c.torch)||(isAndroid&&facing==='environment');torchB.style.display=ok?'':'none';torchB.classList.toggle('on',torchOn&&ok);if(c&&c.torch&&torchOn&&!torchBusy)torchApply(tr,true);}catch(e){torchB.style.display=isAndroid&&facing==='environment'?'':'none';}}
-  function torchSetup(){torchCheck();setTimeout(torchCheck,500);setTimeout(torchCheck,1500);}
+  function torchSetup(){torchCheck();setTimeout(torchCheck,500);setTimeout(torchCheck,1500);setTimeout(torchPrep,1700);}
   function photo(){if(!vid.videoWidth)return;
     // the phone's real camera picture (full size) when it can; otherwise a frame from the live view
     try{var tr=stream&&stream.getVideoTracks()[0];if(window.ImageCapture&&tr&&facing==='environment'){var ic=new ImageCapture(tr);try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
@@ -3752,7 +3769,7 @@ function openCam(x,videoFirst){
       var cs=cv.captureStream(30);stream.getAudioTracks().forEach(function(t){cs.addTrack(t);});src=cs;}catch(e){cvStop();src=stream;}}
     try{rec=mime?new MediaRecorder(src,{mimeType:mime,videoBitsPerSecond:6000000,audioBitsPerSecond:128000}):new MediaRecorder(src,{videoBitsPerSecond:6000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(src);}catch(e2){cvStop();return;}}
     chunks=[];rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
-    rec.onstop=function(){cvStop();recording=false;shut.classList.remove('rec');clock.style.display='none';clearInterval(recT);if(closed||!chunks.length)return;var dur=Math.round((Date.now()-t0)/1000);
+    rec.onstop=function(){lightOff();cvStop();recording=false;shut.classList.remove('rec');clock.style.display='none';clearInterval(recT);if(closed||!chunks.length)return;var dur=Math.round((Date.now()-t0)/1000);
       var type=(rec.mimeType||mime||'video/webm').split(';')[0],b=new Blob(chunks,{type:type}),f=new File([b],'video-'+Date.now()+(type.indexOf('mp4')>=0?'.mp4':'.webm'),{type:type});
       review({kind:'video',f:f,dur:dur},URL.createObjectURL(b));};
     rec.start(500);recording=true;t0=Date.now();shut.classList.add('rec');clock.style.display='';hint.style.display='none';try{if(navigator.vibrate)navigator.vibrate(30);}catch(e){}
@@ -3763,7 +3780,7 @@ function openCam(x,videoFirst){
   shut.addEventListener('pointerup',function(e){e.stopPropagation();if(camMode==='video')return;if(holdT){clearTimeout(holdT);holdT=null;photo();}else if(recording&&Date.now()-t0>600)recStop();});
   shut.addEventListener('click',function(e){e.stopPropagation();});
   // After the picture / video: look at it, then Send (same spot as the shutter) or Delete (take again).
-  function review(att,url){box.classList.add('rv');if(att.kind==='video')att.pre=preUp(x.id,att);
+  function review(att,url){lightOff();box.classList.add('rv');if(att.kind==='video')att.pre=preUp(x.id,att);
     var rv=reviewScreen(x,att,url,function(sentNow){if(sentNow){stop();closeViewer();queueHist();return;}if(att.pre){att.pre.cancel();att.pre=null;}try{URL.revokeObjectURL(url);}catch(e){}rv.remove();box.classList.remove('rv');});
     box.appendChild(rv);var vv=document.getElementById('viewer');if(vv)vv._onClose=function(){if(!att.sent&&att.pre){att.pre.cancel();att.pre=null;}};}
   start();
@@ -3975,7 +3992,7 @@ function viewPhoto(id){
   [].slice.call(scope.querySelectorAll('img[data-pid]')).forEach(function(n){var p=n.getAttribute('data-pid');if(p&&ids.indexOf(p)<0)ids.push(p);});
   if(ids.indexOf(id)<0)ids=[id];
   var k=ids.indexOf(id),cnt=el('div',{class:'vcount'}),strip=el('div',{class:'vstrip'}),imgs={};
-  ids.forEach(function(p){var im=el('img',{src:S.photos[p]||S.thumbs[p]||'',alt:'',draggable:'false'});imgs[p]=im;strip.appendChild(el('div',{class:'vslide'},im));});
+  ids.forEach(function(p){var im=el('img',{src:S.photos[p]||S.thumbs[p]||'',alt:'',draggable:'false',class:'nocall'});imgs[p]=im;strip.appendChild(el('div',{class:'vslide'},im));});
   function full(p){if(!p||S.photos[p]||full[p])return;full[p]=1;call('photoGet',{fileId:p}).then(function(b){S.photos[p]='data:image/jpeg;base64,'+b;imgs[p].src=S.photos[p];}).catch(function(){delete full[p];});}
   function at(){return Math.max(0,Math.min(ids.length-1,Math.round(strip.scrollLeft/(strip.clientWidth||1))));}
   function upd(){var i=at();cnt.textContent=ids.length>1?(i+1)+' / '+ids.length:'';full(ids[i]);full(ids[i+1]);full(ids[i-1]);prev.style.visibility=i>0?'visible':'hidden';next.style.visibility=i<ids.length-1?'visible':'hidden';}
@@ -3986,7 +4003,15 @@ function viewPhoto(id){
   var back=el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'});
   var vw=openViewer(el('div',{class:'vgal'},back,cnt,strip,ids.length>1?prev:null,ids.length>1?next:null,share));vw.classList.add('vfull','vphoto','ui');
   // Like WhatsApp: the picture fills the whole screen; tap it to show / hide the buttons; swipe down or Back to close.
-  strip.addEventListener('click',function(e){e.stopPropagation();vw.classList.toggle('ui');});
+  strip.addEventListener('click',function(e){e.stopPropagation();if(Date.now()-(strip._held||0)<600)return;vw.classList.toggle('ui');});
+  strip.addEventListener('contextmenu',function(e){e.preventDefault();});
+  var ht=null,hx0=0,hy0=0;
+  function bubOf(p){var im=document.querySelector('#scrim .brow img[data-pid="'+p+'"]');var row=im&&im.closest('.brow');return row&&row.firstChild;}
+  strip.addEventListener('pointerdown',function(e){hx0=e.clientX;hy0=e.clientY;clearTimeout(ht);ht=setTimeout(function(){ht=null;var b=bubOf(ids[at()]);if(!b)return;strip._held=Date.now();
+    try{if(navigator.vibrate)navigator.vibrate(25);}catch(er){}b.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true}));},450);});
+  strip.addEventListener('pointermove',function(e){if(ht&&(Math.abs(e.clientX-hx0)>10||Math.abs(e.clientY-hy0)>10)){clearTimeout(ht);ht=null;}});
+  ['pointerup','pointercancel'].forEach(function(n){strip.addEventListener(n,function(){clearTimeout(ht);ht=null;if(Date.now()-(strip._held||0)<3000){strip._held=Date.now();swallowClick();}});});
+  document.addEventListener('touchend',function te(){if(!document.body.contains(strip)){document.removeEventListener('touchend',te,true);return;}if(Date.now()-(strip._held||0)<3000&&document.querySelector('.mmenu.onv')){strip._held=Date.now();swallowClick();}},true);
   /* full screen inside the app (no phone 'exit full screen' message) */
   setTimeout(function(){if(document.getElementById('viewer')===vw)vw.classList.remove('ui');},2500);
   strip.scrollLeft=k*strip.clientWidth;setTimeout(function(){strip.scrollLeft=k*strip.clientWidth;upd();},0);upd();
