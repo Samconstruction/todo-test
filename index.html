@@ -1513,6 +1513,21 @@ body.sndark .sn-prac{background:#1F3B35;border-color:#7FD1B9;color:#7FD1B9}
 .gdel{display:flex;align-items:center;gap:10px;border:0;background:none;color:#C92A2A;font-weight:800;font-size:16px;padding:6px 2px}.gdel .ico{width:22px;height:22px}
 .gfile{width:100%;margin:4px 0}
 @media (max-height:600px){.lg3k{width:52px!important;height:52px!important}.lg3pad{grid-template-columns:repeat(3,52px)!important;gap:6px 28px!important}.lg3bot{padding-top:2px!important}}
+
+.calc.us{background:#EEF5F2}.calc.sat{background:#F1F5F3}i.du,.caldots i.du{background:#1B8F7B!important}
+.bmeta .tk,.bmeta .ico{margin-left:3px}
+.sync.off{color:#C92A2A!important}
+.rxtab.on{background:#1B8F7B}
+.bubble:has(.rxrow),.bub:has(.rxrow){margin-bottom:14px}
+.grow .ncm .gadm{align-self:flex-start;margin-top:3px}
+.grow .ncm b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-height:600px){
+ .teambox{display:flex;align-items:center;gap:8px;padding:6px 8px;margin:6px 0 2px;flex-wrap:wrap}.teamhd{font-size:13px;margin:0}.teambox .tchip{font-size:14px;padding:2px 10px 2px 2px}.teambox .tchip .av{width:24px!important;height:24px!important;font-size:11px!important}
+ .jhtitle{font-size:24px!important}.jhaddr,.jhnote{font-size:14px!important}.jhbtns{margin-top:8px}.jhgo,.jhsec{padding:10px 4px!important}.wgreet{margin-bottom:4px}
+ .jhdone{padding-top:10px!important;padding-bottom:10px!important}
+}
+.updbar{top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom));background:#1B8F7B!important}
+body:has(.chatsheet) .updbar{display:none}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1538,7 +1553,7 @@ Object.assign(ES,{'Skip':'Saltar'});
 Object.assign(ES,{'Tap for photo · hold for video · slide up to zoom':'Toca para foto · mantén para video · desliza arriba para acercar'});
 Object.assign(ES,{'Take photo':'Tomar foto','Flip camera':'Cambiar cámara','Tap for photo · hold for video':'Toca para foto · mantén para video','Camera is blocked. Allow it for this app in your phone settings.':'La cámara está bloqueada. Permítela para esta app en los ajustes del teléfono.'});
 Object.assign(ES,{'My notes':'Mis notas','Only you':'Solo tú','Only you can see this chat':'Solo tú ves este chat','A chat only you can see – notes, photos, reminders':'Un chat que solo tú ves – notas, fotos, recordatorios'});
-Object.assign(ES,{'Photos, videos and files':'Fotos, videos y archivos','Nothing sent yet':'Nada enviado todavía','Add people':'Agregar personas','Group admin':'Admin del grupo','Remove':'Quitar','Remove?':'¿Quitar?','was removed from the group':'fue quitado del grupo','A group needs at least 2 people and one office person.':'Un grupo necesita al menos 2 personas y una de la oficina.','Tap again to delete the group':'Toca otra vez para borrar el grupo','Delete group':'Borrar grupo','Group deleted':'Grupo borrado','Media':'Fotos y videos','Files':'Archivos','Pick at least 1 person.':'Elige al menos 1 persona.','Added':'Agregado','Add':'Agregar','Everyone is already in the group':'Todos ya están en el grupo','is not in this group anymore':'ya no está en este grupo','Not in the group anymore':'Ya no está en el grupo','Earlier messages':'Mensajes anteriores','Waiting for signal – sends by itself':'Esperando señal – se envía solo','test':'prueba','Made-up numbers for a random day':'Números inventados para un día al azar','Nothing is real and nothing is sent.':'Nada es real y no se envía nada.','On a real day this opens Job sites.':'En un día real esto abre Obras.','Where: the top of Home, office only. Hidden on a Saturday or Sunday nobody works, and when no workers have tasks today.':'Dónde: arriba en Inicio, solo oficina. Escondido un sábado o domingo sin trabajo, y cuando nadie tiene tareas hoy.','Another day':'Otro día','Test Today at a glance':'Probar Hoy de un vistazo','1 reaction':'1 reacción','reactions':'reacciones','Tap to remove':'Toca para quitar','Shabbos starts':'Shabbos empieza','Candle lighting – Monroe':'Encendido de velas – Monroe','Calendar':'Calendario','Yom Tov – no work':'Yom Tov – no se trabaja','Jewish holiday':'Fiesta judía','US holiday':'Feriado de EE.UU.','Other':'Otro','This month':'Este mes','No holidays':'Sin fiestas','Chol Hamoed':'Jol Hamoed','Fast day':'Día de ayuno','Erev – short day':'Erev – día corto','US holiday – banks and offices closed':'Feriado – bancos y oficinas cerrados','Previous':'Anterior','Next':'Siguiente'});
+Object.assign(ES,{'Too many wrong PINs. Try again later, or call the office.':'Demasiados PIN equivocados. Intenta más tarde o llama a la oficina.','still waiting to send – it will send when you sign in again':'esperando para enviar – se enviará cuando vuelvas a entrar','Photos, videos and files':'Fotos, videos y archivos','Nothing sent yet':'Nada enviado todavía','Add people':'Agregar personas','Group admin':'Admin del grupo','Remove':'Quitar','Remove?':'¿Quitar?','was removed from the group':'fue quitado del grupo','A group needs at least 2 people and one office person.':'Un grupo necesita al menos 2 personas y una de la oficina.','Tap again to delete the group':'Toca otra vez para borrar el grupo','Delete group':'Borrar grupo','Group deleted':'Grupo borrado','Media':'Fotos y videos','Files':'Archivos','Pick at least 1 person.':'Elige al menos 1 persona.','Added':'Agregado','Add':'Agregar','Everyone is already in the group':'Todos ya están en el grupo','is not in this group anymore':'ya no está en este grupo','Not in the group anymore':'Ya no está en el grupo','Earlier messages':'Mensajes anteriores','Waiting for signal – sends by itself':'Esperando señal – se envía solo','test':'prueba','Made-up numbers for a random day':'Números inventados para un día al azar','Nothing is real and nothing is sent.':'Nada es real y no se envía nada.','On a real day this opens Job sites.':'En un día real esto abre Obras.','Where: the top of Home, office only. Hidden on a Saturday or Sunday nobody works, and when no workers have tasks today.':'Dónde: arriba en Inicio, solo oficina. Escondido un sábado o domingo sin trabajo, y cuando nadie tiene tareas hoy.','Another day':'Otro día','Test Today at a glance':'Probar Hoy de un vistazo','1 reaction':'1 reacción','reactions':'reacciones','Tap to remove':'Toca para quitar','Shabbos starts':'Shabbos empieza','Candle lighting – Monroe':'Encendido de velas – Monroe','Calendar':'Calendario','Yom Tov – no work':'Yom Tov – no se trabaja','Jewish holiday':'Fiesta judía','US holiday':'Feriado de EE.UU.','Other':'Otro','This month':'Este mes','No holidays':'Sin fiestas','Chol Hamoed':'Jol Hamoed','Fast day':'Día de ayuno','Erev – short day':'Erev – día corto','US holiday – banks and offices closed':'Feriado – bancos y oficinas cerrados','Previous':'Anterior','Next':'Siguiente'});
 Object.assign(ES,{'Location':'Ubicación','Document':'Documento','Emoji':'Emoji','Attach':'Adjuntar','Open in Google Maps':'Abrir en Google Maps','Finding your location…':'Buscando tu ubicación…','Location does not work on this phone.':'La ubicación no funciona en este teléfono.','Location is blocked. Allow it for this app in your phone settings.':'La ubicación está bloqueada. Permítela para esta app en los ajustes del teléfono.','Could not find your location. Try again outside.':'No se encontró tu ubicación. Intenta afuera.'});
 Object.assign(ES,{'Locked – keep talking, tap ⏹ when done':'Bloqueado – sigue hablando, toca ⏹ al terminar','Slide up to lock':'Desliza arriba para bloquear'});
 Object.assign(ES,{'Vibrate on tap':'Vibrar al tocar','A small buzz when you tap main buttons':'Una pequeña vibración al tocar los botones principales'});
@@ -1610,7 +1625,7 @@ function isNet(e){return /^(NO_SIGNAL|TIMEOUT)$/.test(String(e&&e.message||e));}
 function errText(e){var m=String(e&&e.message||e);
   if(m==='VIEW_ONLY')return T('You are only looking as this worker – nothing can be changed.');
   if(m==='NO_SIGNAL')return T('No signal right now.');if(m==='NOT_FOUND')return T('This was deleted by the office.');if(/[<{]|Unexpected|token|undefined|null|TypeError/.test(m))return T('Something went wrong. Try again.');if(m==='TIMEOUT')return T('The signal is too slow.');
-  if(m==='LOCKED')return T('Too many wrong PINs. Try again in 15 minutes.');if(m==='STALE')return T('Someone else just changed this schedule. Close it and open it again to see the new one.');if(m==='NOT_ALLOWED')return T('You are not allowed to do that.');
+  if(m==='LOCKED')return T('Too many wrong PINs. Try again later, or call the office.');if(m==='STALE')return T('Someone else just changed this schedule. Close it and open it again to see the new one.');if(m==='NOT_ALLOWED')return T('You are not allowed to do that.');
   if(m==='BAD_DATE')return T('That date is not allowed.');if(m==='PIN_TAKEN')return T('That PIN is taken. Pick another one.');
   return T('Something went wrong')+' ('+m.slice(0,40)+')';}
 function qSave(){try{localStorage.setItem('sam_q',JSON.stringify(Q));}catch(e){try{localStorage.setItem('sam_q',JSON.stringify(Q.filter(function(x){return x.a!=='photoAdd';})));}catch(e2){}}}
@@ -2151,7 +2166,7 @@ function chatsView(){
       else wrap.appendChild(el('div',{class:'nhead',text:'🗄 '+T('From the history (older than 2 months)')}));}}
   if(!l.length&&!q)wrap.appendChild(el('p',{class:'empty',text:sg==='groups'?(isOffice()?T('No groups yet – tap + → New group.'):T('No groups yet.')):sg==='chats'?T('No direct chats yet – tap + to write to someone.'):T('No messages yet.')}));
   l.forEach(function(x){var m=lastMsg(x),un=unreadOf(x),job=jobOf(x.job);if(q){var hit=chatMsgs(x).filter(function(mm){return (mm.text||'').toLowerCase().indexOf(q)>=0;}).pop();if(hit)m=hit;}if(!m)m={by:S.me,at:'',text:T('No messages yet – tap to write')};
-    var dm=isDm(x),title=dm?dmName(x):isOffice()?nameOf(x.owner)+' · '+(isCrewTask(x)?((job||{}).name||x.title):x.title):((job&&job.name&&x.title&&x.title!==job.name&&!isCrewTask(x))?((LANG==='es'&&x.titleEs)||x.title)+' – '+job.name:((job||{}).name||x.title));
+    var dm=isDm(x),title=dm?dmName(x):isOffice()?nameOf(x.owner)+' · '+(isCrewTask(x)?((job||{}).name||x.title):x.title):((job&&job.name&&x.title&&x.title!==job.name)?((LANG==='es'&&x.titleEs)||x.title)+' – '+job.name:((job||{}).name||x.title));
     wrap.appendChild(el('button',{class:'inrow'+(un?' un':''),onclick:function(){openChat(x.id);}},dm?(isGroup(x)?grpAv(44):isSelfDm(x)?el('span',{class:'selfav',text:'📝'}):avatar(dmOther(x),nameOf(dmOther(x)),44)):(m.at||isOffice()?avatar(isOffice()?x.owner:m.by,isOffice()?nameOf(x.owner):nameOf(m.by),44):el('span',{class:'nic',text:'🏗'})),
       el('span',{class:'inmid'},el('span',{class:'intop'},el('b',{text:title},dm&&(q||isSelfDm(x))?el('span',{class:'dmtag',text:isGroup(x)?T('Group'):isSelfDm(x)?T('Only you'):T('Direct')}):null),el('span',{class:'inwhen',text:cWhen(m.at)})),
         msgPrevEl(m.at?(m.by===S.me?T('You')+': ':dm&&!isGroup(x)?'':firstName(nameOf(m.by))+': '):'',m,'inprev')),
@@ -2328,6 +2343,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'final1114',i:'🛠',t:'Last fixes before the main app',d:'A group can never open in place of a private chat · nobody but Yossi can take Yossi out of a group · the driver\'s "job changed" message says he drives · too many wrong PINs now says to call the office and unlocks sooner · Sign out warns if photos are still waiting to send · the update bar no longer covers a chat.',go:function(){goView('home');}},
+ {id:'wxjobs',i:'⛅',t:'Weather follows new jobs',d:'A new job or task with an address in a new town shows up in the weather by itself – also when the address has no "NY" in it.',go:function(){goView('home');}},
  {id:'fix1114',i:'🛠',t:'Small fixes',d:'Chat list shows the mint photo/video icons again · schedule changes say what changed (time, job, address, note) · small iPhones (SE) fit the login and the Done button · iPhone videos are lighter (photos stay sharp 4K) · iPhone no longer downloads videos on mobile data · snow page title shows once · new copy and arrow icons.',go:function(){goView('home');}},
  {id:'grpinfo',i:'👥',t:'Group info like WhatsApp',d:'Tap the group name at the top of a group chat: see everyone in the group (office = group admin), all photos, videos and files, add or remove people, and delete the group. Removed people\'s old messages stay, with their name in grey. Only the office can change a group.',go:function(){goView('chats');}},
  {id:'grpgone',i:'👥',t:'Removed workers in groups',d:'When a worker is removed, he leaves the group list but his old messages stay – his name shows grey, like WhatsApp.',go:function(){goView('chats');}},
@@ -2837,7 +2854,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611142229',lastUpd=0;
+var BUILD='202611142238',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2916,7 +2933,7 @@ function openSettings(){
     S.me==='Yossi'?row('🔑',T('New PIN for Rocky / Ashley'),'',function(){childOpen(openSettings,openOfficePin);}):null,
     S.me==='Yossi'?row('🤖',T('AI assistant key (Instinct)'),'',function(){childOpen(openSettings,openAiKey);}):null,
     el('div',{class:'muted',style:'font-size:12px;text-align:center;margin-top:8px',text:T('App version')+': '+buildLabel()}),
-    (function(){var armS=false,b=el('button',{class:'ghost',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');return;}signOut('',true);}},'🚪 '+T('Sign out'));return b;})(),
+    (function(){var armS=false,b=el('button',{class:'ghost',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');if(MQN)toast('⏳ '+MQN+' '+T('still waiting to send – it will send when you sign in again'));return;}signOut('',true);}},'🚪 '+T('Sign out'));return b;})(),
     el('button',{class:'ghost',onclick:closeSheet},T('Close'))];
   openSheet(kids);var sh=document.querySelector('#scrim .sheet');if(sh)sh.classList.add('pfsheet');
 }
@@ -2937,7 +2954,7 @@ function openMenu(){
       el('button',{class:'pflink',onclick:function(){opts.style.display=opts.style.display==='none'?'':'none';}},hasPic?T('Change photo'):T('Add photo'))),opts,
     el('div',{class:'pfcard'},el('div',{class:'pflbl',text:'🌐 '+T('Language')}),langSwitch()),
     row('⚙️','s1',T('Settings'),T('PIN, notifications, bigger letters…'),function(){childOpen(openMenu,function(){openSettings();});}),
-    (function(){var armS=false,b=el('button',{class:'pfout',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');return;}signOut('',true);}},'🚪 '+T('Sign out'));return b;})()];
+    (function(){var armS=false,b=el('button',{class:'pfout',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');if(MQN)toast('⏳ '+MQN+' '+T('still waiting to send – it will send when you sign in again'));return;}signOut('',true);}},'🚪 '+T('Sign out'));return b;})()];
   openSheet(kids);var sh=document.querySelector('#scrim .sheet');if(sh)sh.classList.add('pfsheet');
 }
 
@@ -3132,7 +3149,9 @@ function wxInfo(c){c=+c;if(c===0)return['☀️','Clear','sun'];if(c<=2)return['
 function wxIco(inf,cls){return el('span',{class:'wxi wx-'+inf[2]+(cls?' '+cls:''),html:icoSvg(inf[0])});}
 // "12 Main St, Wurtsboro, NY 12790, USA" -> "Wurtsboro"
 function townOf(a){if(!a)return '';var p=String(a).split(',').map(function(s){return s.trim();});
-  for(var i=0;i<p.length;i++){if(/^(NY|New York)(\s+\d{5})?$/i.test(p[i])&&i>0)return p[i-1];var m=/^(.+?)\s+(NY|New York)(\s+\d{5})?$/i.exec(p[i]);if(m&&i>0)return m[1];}
+  for(var i=0;i<p.length;i++){if(/^(NY|N\.Y\.|New York)(\s*\d{5}(-\d{4})?)?$/i.test(p[i])&&i>0)return p[i-1];var m=/^(.+?)\s+(NY|N\.Y\.|New York)(\s*\d{5}(-\d{4})?)?$/i.exec(p[i]);if(m&&i>0)return m[1];}
+  // no state written ("12 Main St, Wurtsboro" or "12 Main St, Wurtsboro 12790"): the last part that is a town name
+  var q=p.filter(function(x){return x&&!/^(USA|US|United States)$/i.test(x);});if(q.length>=2){var lt=q[q.length-1].replace(/\s*\d{5}(-\d{4})?$/,'').trim();if(/^[A-Za-z][A-Za-z .'-]{2,30}$/.test(lt)&&!/\d/.test(lt))return lt;}
   return '';}
 function wxTowns(){var seen={},today_=[],rest=[],td=today();
   function add(t,arr){t=(t||'').trim();if(!t)return;var k=t.toLowerCase();if(seen[k])return;seen[k]=1;arr.push(t);}
@@ -3140,6 +3159,8 @@ function wxTowns(){var seen={},today_=[],rest=[],td=today();
   var sc=(S.sched||{})[td];if(sc)(sc.crews||[]).forEach(function(c){var j=jobOf(c.job);if(j)add(townOf(j.address),today_);});
   ((S.steady&&S.steady.crews)||[]).forEach(function(c){var j=jobOf(c.job);if(j)add(townOf(j.address),today_);});
   activeJobs().forEach(function(j){add(townOf(j.address),rest);});
+  // new jobs typed only on a task (address, no saved job yet) count too: today's go first
+  (S.tasks||[]).forEach(function(x){if(x.status==='done'||!x.address||isDm(x))return;if(x.due===td)add(townOf(x.address),today_);else if(!x.due||x.due>td)add(townOf(x.address),rest);});
   ((S.sn&&S.sn.custs)||[]).forEach(function(c){add(townOf(c.address),rest);});
   rest.sort();return {today:today_,all:today_.concat(rest)};}
 function geoTown(t){if(GEO[t])return Promise.resolve(GEO[t]);
@@ -3761,7 +3782,7 @@ function bubble(x,m,openRx,setRx,all,onReply){
   if(m.text&&(m.photo||m.video)&&!m.loc){var ct=mentionText(m.text,m.m);ct.classList.add('bcap');b.appendChild(ct);}
   if(m.id&&TRN[m.id])b.appendChild(el('div',{class:'btr',text:TRN[m.id]}));
   if(m.voice)b.appendChild(voiceTile(m));
-  if(m._wait)b.appendChild(el('div',{class:'bwait'},'⏳ '+T('Waiting for signal – sends by itself')));
+  if(m._wait)b.appendChild(el('div',{class:'bwait'},el('span',{html:icoSvg('⏳')}),' '+T('Waiting for signal – sends by itself')));
   var r=m.r||{},cnt={};Object.keys(r).forEach(function(k){cnt[r[k]]=(cnt[r[k]]||[]).concat(k===S.me?T('You'):nameOf(k));});
   var rxRow=el('button',{class:'rxrow',type:'button',onclick:function(ev){ev.stopPropagation();openRxSheet(x,m);}});var allE=Object.keys(cnt),tot=0;allE.forEach(function(e){tot+=cnt[e].length;rxRow.appendChild(el('span',{class:'rx',text:e}));});if(tot>1)rxRow.appendChild(el('span',{class:'rxn',text:String(tot)}));
   var acts=el('div',{class:'bacts'});
@@ -3772,7 +3793,7 @@ function bubble(x,m,openRx,setRx,all,onReply){
     render();chatRepaint();call('chatDelete',{id:x.id,cid:m.id}).then(function(d){apply(d);render();toast('✓ '+T('Deleted'));}).catch(function(e){toast('❗ '+errText(e));refresh(true);});}},'🗑');acts.appendChild(db);}
   // Time + ticks at the bottom right, like WhatsApp: 🕓 sending · ✓ sent · blue ✓✓ seen (tap to see who).
   var meta=el('div',{class:'bmeta'},(m.id in UPP)?el('span',{class:'upp',text:Math.floor(UPS[m.id]||0)+'%'}):null,el('span',{text:m.at?cWhen(m.at):''}));
-  if(mine&&!isSelfDm(x)){var pend=!m.at||(m.id&&(String(m.id).indexOf('tmp')===0||String(m.id).indexOf('q')===0)),sn=(S.seen||{})[x.id]||{},toOwner=m.by!==x.owner,rc=isDm(x)?String(x.group).slice(3).split('|').filter(function(k){return k!==m.by;}):toOwner?[x.owner]:PEOPLE.filter(function(k){return k!==m.by;}),by=m.at?Object.keys(sn).filter(function(k){return k!==m.by&&sn[k]>=m.at&&rc.indexOf(k)>=0;}):[], // blue only when the person it was meant for saw it
+  if(mine&&!isSelfDm(x)&&!m._wait){var pend=!m.at||(m.id&&(String(m.id).indexOf('tmp')===0||String(m.id).indexOf('q')===0)),sn=(S.seen||{})[x.id]||{},toOwner=m.by!==x.owner,rc=isDm(x)?String(x.group).slice(3).split('|').filter(function(k){return k!==m.by;}):toOwner?[x.owner]:PEOPLE.filter(function(k){return k!==m.by;}),by=m.at?Object.keys(sn).filter(function(k){return k!==m.by&&sn[k]>=m.at&&rc.indexOf(k)>=0;}):[], // blue only when the person it was meant for saw it
       got=S.got||{},dl=!by.length&&m.at?rc.filter(function(k){return got[k]&&got[k]>=m.at;}):[]; // 2 grey ticks: it reached their phone
     meta.appendChild(el('button',{class:'tk'+(by.length?' seen':''),'aria-label':by.length?T('Seen by')+' '+by.map(nameOf).join(', '):dl.length?T('Delivered'):T('Sent'),
       onclick:function(e){e.stopPropagation();toast(pend?'🕓 '+T('Sending…'):by.length?'✓✓ '+T('Seen by')+' '+by.map(nameOf).join(', '):dl.length?'✓✓ '+T('Delivered to')+' '+dl.map(nameOf).join(', ')+' – '+T('not opened yet'):'✓ '+T('Sent – not delivered yet'));},html:pend?TK_CLOCK:(by.length||dl.length?TK2:TK1)}));}
@@ -4194,7 +4215,7 @@ function openGroupInfo(x){var adm=isOffice()&&!S.viewAs;
     var psec=el('div',{class:'gsec'},el('div',{class:'gsech'},el('b',{text:ppl.length+' '+T('people')})));
     if(adm)psec.appendChild(el('button',{class:'grow gaddrow',onclick:function(){openGroupAdd(x);}},el('span',{class:'gaddic',html:icoSvg('➕')}),el('span',{class:'ncm'},el('b',{text:T('Add people')}))));
     ppl.forEach(function(k){var isAdm=PEOPLE.indexOf(k)>=0,me=k===S.me,act=null;
-      var row=el('div',{class:'grow'},avatar(k,nameOf(k),42),el('span',{class:'ncm'},el('b',{text:me?T('You'):nameOf(k)}),el('span',{text:isAdm?T('Office'):T('Worker')})),isAdm?el('span',{class:'gadm',text:T('Group admin')}):null);
+      var row=el('div',{class:'grow'},avatar(k,nameOf(k),42),el('span',{class:'ncm'},el('b',{text:me?T('You'):nameOf(k)}),isAdm?el('span',{class:'gadm',text:T('Group admin')}):el('span',{text:T('Worker')})));
       if(adm&&!me){var armed=false,rb=el('button',{class:'grem',onclick:function(e){e.stopPropagation();if(!armed){armed=true;rb.textContent=T('Remove?');rb.classList.add('arm');setTimeout(function(){armed=false;rb.textContent=T('Remove');rb.classList.remove('arm');},4000);return;}
           rb.disabled=true;call('groupMembers',{id:x.id,remove:[k]}).then(function(d){apply(d);render();toast('✓ '+nameOf(k)+' '+T('was removed from the group'));closeSheet(true,true);RET.pop();openGroupInfo(allT().filter(function(t){return t.id===x.id;})[0]||x);}).catch(function(err){rb.disabled=false;toast('❗ '+(String(err&&err.message)==='GROUP_SMALL'?T('A group needs at least 2 people and one office person.'):errText(err)));});}},T('Remove'));row.appendChild(rb);}
       psec.appendChild(row);});
