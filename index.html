@@ -996,6 +996,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Newest at the top':'Lo más nuevo arriba'});
 Object.assign(ES,{'Yes – fill in Sunday now':'Sí – llenar el domingo ahora','Yes – fill in Sunday later':'Sí – llenar el domingo después','Sunday stays in Needs you – fill it in later':'El domingo queda en Te necesita – llénalo después'});
 Object.assign(ES,{'Skip':'Saltar'});
 Object.assign(ES,{'Tap for photo · hold for video · slide up to zoom':'Toca para foto · mantén para video · desliza arriba para acercar'});
@@ -1647,7 +1648,7 @@ function moreView(){
       b('📍',T('Job sites today'),function(){S.view='sites';render();window.scrollTo(0,0);}),
       isSnowAdmin()?b('❄️',T('Snow plowing')+(snowHome()?' · '+T('on Today'):''),openSnowSwitch):null,
       b('🛠',T('App maintenance'),openMaint),
-      b('🆕',T("What's new"),function(){var s0={};try{localStorage.setItem('sam_wn','{}');}catch(e){}openWhatsNew();})));}
+      b('🆕',T("What's new"),function(){openWhatsNew(true);})));}
   return wrap;
 }
 
@@ -1695,41 +1696,6 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
- {id:'look',i:'🎨',t:'New look',d:'Navy colors, a big greeting and 3 numbers at the top of Today.',go:function(){goView('home');}},
- {id:'tabs',i:'⬇️',t:'Tabs at the bottom',d:'Today · Tasks · Schedule · Messages · More – one tap to any screen.',go:function(){goView('home');}},
- {id:'need',i:'⚡',t:'Needs you now',d:'Today shows what is waiting: schedule not sent, missing crew reports, new messages, urgent and late tasks.',go:function(){goView('home');}},
- {id:'inbox',i:'💬',t:'Messages inbox',d:'Every chat in one list, newest on top, with unread counts.',go:function(){goView('chats');}},
- {id:'hero',i:'🪪',t:'Big job card for workers',d:'Workers see today\'s job big: address, who rides, Go, Photo, Chat, Halfway / Done. Pick a worker to see it.',go:wnPickWorker},
- {id:'lead',i:'📋',t:'Crew leader report on top',d:'A crew leader sees "Today\'s report" with one big Send button. Pick a crew leader to see it.',go:wnPickWorker},
- {id:'fast',i:'🚀',t:'No more waiting',d:'Send schedule, reports, overtime, announcements and removing a worker now close right away and send in the background.',go:function(){openSchedule();}},
- {id:'signin',i:'🔓',t:'Instant sign-in',d:'Signing back in on the same phone goes in right away.',go:function(){toast('🔓 '+T('Sign out and back in to try it'));}},
- {id:'seen',i:'✓✓',t:'Schedule seen-by',d:'Under the schedule: who opened the app since you sent it, and a call button for who did not.',go:function(){goView('sched');}},
- {id:'notset',i:'📲',t:'Workers not set up',d:'List of workers who never opened the app or have alerts off, with a Send button.',go:function(){openNotSetUp();}},
- {id:'send',i:'📤',t:'Send the app to a worker',d:'Workers list → 📲 Send app: WhatsApp or text with the link, PIN and Spanish steps.',go:function(){openCrewManager();}},
- {id:'qr',i:'🔳',t:'QR code',d:'A worker scans it with the camera and the app opens.',go:function(){openQR();}},
- {id:'chat',i:'☑️',t:'WhatsApp-style chat',d:'Ticks show sent / seen. Tap a message for Reply, Copy, Delete. Swipe between photos.',go:function(){goView('chats');}},
- {id:'usage',i:'⏱',t:'Time in the app',d:'See how long each person had the app open today.',go:function(){openUsage();}},
- {id:'snow',i:'❄️',t:'Snow plowing',d:'Customers, routes, storms and billing – only in this test app.',go:function(){openSnow();}},
- {id:'auto6',i:'🕕',t:'Jobs close by themselves at 6 PM',d:'Any worker job for today not marked Done is marked Done at 6 PM. Workers still see it until the day is over (overtime). Already on for everyone.',go:wnPickWorker},
- {id:'push8',i:'⏩',t:'Tasks move by themselves at 8 PM',d:'Your, Rocky\'s and Ashley\'s tasks for today that are not Done move to the next work day at 8 PM (Friday → Sunday), marked "Pushed automatically". Already on for everyone.',go:function(){goView('tasks');}},
- {id:'simple',i:'🧹',t:'Simple Today screen',d:'Red "Needs you" button, then 4 colored buttons. Bottom: Today · Phones · Messages · Jobs · More. Settings are in More.',go:function(){goView('home');}},
- {id:'snowsw',i:'❄️',t:'Snow plowing on/off',d:'More → Snow plowing: turn on "Show on Today screen" and a Snow plowing button shows on Today.',go:function(){goView('more');}},
- {id:'colors',i:'🌿',t:'New mint colors',d:'Softer, more modern colors all over the app (option 9D).',go:function(){goView('home');}},
- {id:'mic',i:'🎤',t:'Voice notes like WhatsApp',d:'Hold the mic to record, slide left to cancel. Let go to listen, then press ➤ to send or 🗑 to delete. A quick tap records without holding.',go:function(){goView('chats');}},
- {id:'csearch',i:'🔍',t:'Search chats',d:'Messages → 🔍: type a name, job, address, date or any word from the chat. Every chat now shows its job, address and date on top.',go:function(){S.chatQOpen=true;goView('chats');}},
- {id:'jobs2',i:'🏗',t:'Jobs: most used on top, close finished jobs',d:'The Jobs list (and every job picker) puts the jobs you use most lately on top. Open a job → "Close job (finished)" moves it to Past jobs at the bottom.',go:function(){openJobs();}},
- {id:'mic2',i:'🎙',t:'New voice note look',d:'Clean mic like WhatsApp: the mic turns into Send when you type. Hold to record (sound bars show), let go to listen, then Send or 🗑.',go:function(){goView('chats');}},
- {id:'hist',i:'🗄',t:'Search all history',d:'Messages has a search bar. It searches the last 2 months; tap "Search all history" to look through older chats too. Tap the job name on top of a chat to open that task.',go:function(){goView('chats');}},
- {id:'share',i:'👥',t:'Add or take off people on a task',d:'Open a task: tap Rocky or Ashley to give it to them too, tap your own name to take it off you.',go:function(){goView('tasks');}},
- {id:'chatpage',i:'💬',t:'Chat is a full page',d:'Chats open as a full page with ‹ back on top, mint colors, and a new ＋ menu (Camera, Photos, Video, Gallery video).',go:function(){goView('chats');}},
- {id:'react',i:'👍',t:'Reactions like WhatsApp',d:'Hold a message: the emoji bar pops up on top, Reply / Copy / Delete under it. The reaction sits on the corner of the message.',go:function(){goView('chats');}},
- {id:'ticks',i:'✓✓',t:'Blue ticks only from the right person',d:'A message to a worker turns blue only when that worker saw it – not when another office person looked.',go:function(){goView('chats');}},
- {id:'tag',i:'🏷',t:'Tag someone in a chat',d:'Type @ in a chat (or ＋ → Tag someone) and pick Rocky, Ashley or the worker. They get a notification and it shows in their Needs you.',go:function(){goView('chats');}},
- {id:'video2',i:'🎬',t:'Videos like WhatsApp',d:'Videos show big in the chat. Tap to play full screen, swipe up or down to go back.',go:function(){goView('chats');}},
- {id:'tview',i:'📄',t:'Tap the job on top of a chat',d:'Opens the task the way the worker sees it: address, notes, who – with Chat, Edit task and Job page buttons.',go:function(){goView('chats');}},
- {id:'jdel',i:'🗑',t:'Delete a job',d:'Open a job → Delete job (tap twice). Close job is for finished jobs; Delete hides a job you don\'t need.',go:function(){openJobs();}},
- {id:'attach2',i:'📎',t:'＋ in chat: Camera, Gallery, File',d:'Camera takes a photo or a video. Gallery lets you pick many photos and videos together. File sends any document (plans, PDFs…).',go:function(){goView('chats');}},
- {id:'vplay',i:'▶️',t:'New video player',d:'Full screen like WhatsApp, play/pause in the middle, speed 1× · 1.5× · 2×, swipe down to close. Videos get ready in the background so they start right away.',go:function(){goView('chats');}},
  {id:'icons2',i:'✨',t:'New icons',d:'Clean line icons instead of emojis on the tiles, tabs, Needs-you, More and Settings.',go:function(){goView('home');}},
  {id:'instant',i:'⚡',t:'Sends at once',d:'Photos, videos, voice notes and files show in the chat the second you send them, with ⬆ % while they upload. Deleting is instant too.',go:function(){goView('chats');}},
  {id:'cam2',i:'📷',t:'Camera inside the app',d:'The camera opens right in the app: tap for a photo, hold for a video. Then Send (same spot) or 🗑 to take it again – no Retry/OK screen.',go:function(){goView('chats');}},
@@ -1746,15 +1712,51 @@ var WHATS_NEW=[
  {id:'photofull',i:'🖼',t:'Photos full screen',d:'A photo now fills the whole screen like WhatsApp. Tap it to show the buttons, swipe down to close.',go:function(){goView('chats');}},
  {id:'campick',i:'📷',t:'Camera, Video, Gallery, File',d:'In a chat, + → Camera opens your phone camera right away, Video records a video, Gallery picks photos and videos, File opens your files.',go:function(){goView('chats');}},
  {id:'dm',i:'💬',t:'Message anyone',d:'In Messages, tap + to chat with any worker, Rocky or Ashley. One chat per person, and all the old messages stay in it.',go:function(){goView('chats');}},
+ {id:'icon',i:'🟧',t:'Own TEST icon',d:'The test app has its own address and orange TEST icon, so it sits next to the real app.',go:function(){toast('🟧 '+T('Look at your home screen'));}},
  {id:'brand',i:'🔤',t:'SAM To-Do name on top',d:'The logo picture at the top is now a clean "SAM To-Do" name, and your photo circle opens the menu.',go:function(){goView('home');}},
- {id:'icon',i:'🟧',t:'Own TEST icon',d:'The test app has its own address and orange TEST icon, so it sits next to the real app.',go:function(){toast('🟧 '+T('Look at your home screen'));}}
+ {id:'vplay',i:'▶️',t:'New video player',d:'Full screen like WhatsApp, play/pause in the middle, speed 1× · 1.5× · 2×, swipe down to close. Videos get ready in the background so they start right away.',go:function(){goView('chats');}},
+ {id:'attach2',i:'📎',t:'＋ in chat: Camera, Gallery, File',d:'Camera takes a photo or a video. Gallery lets you pick many photos and videos together. File sends any document (plans, PDFs…).',go:function(){goView('chats');}},
+ {id:'jdel',i:'🗑',t:'Delete a job',d:'Open a job → Delete job (tap twice). Close job is for finished jobs; Delete hides a job you don\'t need.',go:function(){openJobs();}},
+ {id:'tview',i:'📄',t:'Tap the job on top of a chat',d:'Opens the task the way the worker sees it: address, notes, who – with Chat, Edit task and Job page buttons.',go:function(){goView('chats');}},
+ {id:'video2',i:'🎬',t:'Videos like WhatsApp',d:'Videos show big in the chat. Tap to play full screen, swipe up or down to go back.',go:function(){goView('chats');}},
+ {id:'tag',i:'🏷',t:'Tag someone in a chat',d:'Type @ in a chat (or ＋ → Tag someone) and pick Rocky, Ashley or the worker. They get a notification and it shows in their Needs you.',go:function(){goView('chats');}},
+ {id:'ticks',i:'✓✓',t:'Blue ticks only from the right person',d:'A message to a worker turns blue only when that worker saw it – not when another office person looked.',go:function(){goView('chats');}},
+ {id:'react',i:'👍',t:'Reactions like WhatsApp',d:'Hold a message: the emoji bar pops up on top, Reply / Copy / Delete under it. The reaction sits on the corner of the message.',go:function(){goView('chats');}},
+ {id:'chatpage',i:'💬',t:'Chat is a full page',d:'Chats open as a full page with ‹ back on top, mint colors, and a new ＋ menu (Camera, Photos, Video, Gallery video).',go:function(){goView('chats');}},
+ {id:'share',i:'👥',t:'Add or take off people on a task',d:'Open a task: tap Rocky or Ashley to give it to them too, tap your own name to take it off you.',go:function(){goView('tasks');}},
+ {id:'hist',i:'🗄',t:'Search all history',d:'Messages has a search bar. It searches the last 2 months; tap "Search all history" to look through older chats too. Tap the job name on top of a chat to open that task.',go:function(){goView('chats');}},
+ {id:'mic2',i:'🎙',t:'New voice note look',d:'Clean mic like WhatsApp: the mic turns into Send when you type. Hold to record (sound bars show), let go to listen, then Send or 🗑.',go:function(){goView('chats');}},
+ {id:'jobs2',i:'🏗',t:'Jobs: most used on top, close finished jobs',d:'The Jobs list (and every job picker) puts the jobs you use most lately on top. Open a job → "Close job (finished)" moves it to Past jobs at the bottom.',go:function(){openJobs();}},
+ {id:'csearch',i:'🔍',t:'Search chats',d:'Messages → 🔍: type a name, job, address, date or any word from the chat. Every chat now shows its job, address and date on top.',go:function(){S.chatQOpen=true;goView('chats');}},
+ {id:'mic',i:'🎤',t:'Voice notes like WhatsApp',d:'Hold the mic to record, slide left to cancel. Let go to listen, then press ➤ to send or 🗑 to delete. A quick tap records without holding.',go:function(){goView('chats');}},
+ {id:'colors',i:'🌿',t:'New mint colors',d:'Softer, more modern colors all over the app (option 9D).',go:function(){goView('home');}},
+ {id:'snowsw',i:'❄️',t:'Snow plowing on/off',d:'More → Snow plowing: turn on "Show on Today screen" and a Snow plowing button shows on Today.',go:function(){goView('more');}},
+ {id:'simple',i:'🧹',t:'Simple Today screen',d:'Red "Needs you" button, then 4 colored buttons. Bottom: Today · Phones · Messages · Jobs · More. Settings are in More.',go:function(){goView('home');}},
+ {id:'push8',i:'⏩',t:'Tasks move by themselves at 8 PM',d:'Your, Rocky\'s and Ashley\'s tasks for today that are not Done move to the next work day at 8 PM (Friday → Sunday), marked "Pushed automatically". Already on for everyone.',go:function(){goView('tasks');}},
+ {id:'auto6',i:'🕕',t:'Jobs close by themselves at 6 PM',d:'Any worker job for today not marked Done is marked Done at 6 PM. Workers still see it until the day is over (overtime). Already on for everyone.',go:wnPickWorker},
+ {id:'snow',i:'❄️',t:'Snow plowing',d:'Customers, routes, storms and billing – only in this test app.',go:function(){openSnow();}},
+ {id:'usage',i:'⏱',t:'Time in the app',d:'See how long each person had the app open today.',go:function(){openUsage();}},
+ {id:'chat',i:'☑️',t:'WhatsApp-style chat',d:'Ticks show sent / seen. Tap a message for Reply, Copy, Delete. Swipe between photos.',go:function(){goView('chats');}},
+ {id:'qr',i:'🔳',t:'QR code',d:'A worker scans it with the camera and the app opens.',go:function(){openQR();}},
+ {id:'send',i:'📤',t:'Send the app to a worker',d:'Workers list → 📲 Send app: WhatsApp or text with the link, PIN and Spanish steps.',go:function(){openCrewManager();}},
+ {id:'notset',i:'📲',t:'Workers not set up',d:'List of workers who never opened the app or have alerts off, with a Send button.',go:function(){openNotSetUp();}},
+ {id:'seen',i:'✓✓',t:'Schedule seen-by',d:'Under the schedule: who opened the app since you sent it, and a call button for who did not.',go:function(){goView('sched');}},
+ {id:'signin',i:'🔓',t:'Instant sign-in',d:'Signing back in on the same phone goes in right away.',go:function(){toast('🔓 '+T('Sign out and back in to try it'));}},
+ {id:'fast',i:'🚀',t:'No more waiting',d:'Send schedule, reports, overtime, announcements and removing a worker now close right away and send in the background.',go:function(){openSchedule();}},
+ {id:'lead',i:'📋',t:'Crew leader report on top',d:'A crew leader sees "Today\'s report" with one big Send button. Pick a crew leader to see it.',go:wnPickWorker},
+ {id:'hero',i:'🪪',t:'Big job card for workers',d:'Workers see today\'s job big: address, who rides, Go, Photo, Chat, Halfway / Done. Pick a worker to see it.',go:wnPickWorker},
+ {id:'inbox',i:'💬',t:'Messages inbox',d:'Every chat in one list, newest on top, with unread counts.',go:function(){goView('chats');}},
+ {id:'need',i:'⚡',t:'Needs you now',d:'Today shows what is waiting: schedule not sent, missing crew reports, new messages, urgent and late tasks.',go:function(){goView('home');}},
+ {id:'tabs',i:'⬇️',t:'Tabs at the bottom',d:'Today · Tasks · Schedule · Messages · More – one tap to any screen.',go:function(){goView('home');}},
+ {id:'look',i:'🎨',t:'New look',d:'Navy colors, a big greeting and 3 numbers at the top of Today.',go:function(){goView('home');}}
 ];
 function wnSeen(){try{return JSON.parse(localStorage.getItem('sam_wn')||'{}')||{};}catch(e){return {};}}
 function wnLeft(){if(!window.SAM_BETA||S.me!=='Yossi'||S.viewAs)return [];var s=wnSeen();return WHATS_NEW.filter(function(w){return !s[w.id];});}
 function wnCheck(w){var s=wnSeen();s[w.id]=Date.now();try{localStorage.setItem('sam_wn',JSON.stringify(s));}catch(e){}closeSheet(true,true);try{w.go();}catch(e){}render();}
-function openWhatsNew(){var l=wnLeft();if(!l.length)return;
-  openSheet([el('h2',{text:'🆕 '+T('New in the test app')}),el('p',{class:'muted',style:'margin:0 0 10px',text:l.length+' '+T('left – tap each one to check it out')}),
-    el('div',{},l.map(function(w){return el('button',{class:'wnrow',onclick:function(){wnCheck(w);}},el('span',{class:'wni',text:w.i}),el('span',{class:'wnm'},el('b',{text:T(w.t)}),el('span',{text:T(w.d)})),el('span',{class:'wngo',text:T('Check it out')+' ›'}));})),
+// newest at the top. all=true (from More): the whole list, the ones already checked get a ✓ (nothing is reset)
+function openWhatsNew(all){var sn=wnSeen(),l=all?WHATS_NEW.slice():wnLeft();if(!l.length)return;
+  openSheet([el('h2',{text:'🆕 '+(all?T("What's new"):T('New in the test app'))}),el('p',{class:'muted',style:'margin:0 0 10px',text:all?T('Newest at the top'):l.length+' '+T('left – tap each one to check it out')}),
+    el('div',{},l.map(function(w){return el('button',{class:'wnrow',onclick:function(){wnCheck(w);}},el('span',{class:'wni',text:w.i}),el('span',{class:'wnm'},el('b',{text:T(w.t)}),el('span',{text:T(w.d)})),el('span',{class:'wngo',text:sn[w.id]?'✓':T('Check it out')+' ›'}));})),
     el('button',{class:'ghost',onclick:closeSheet},T('Later'))]);}
 function wnBar(){var l=wnLeft();if(!l.length)return null;return el('div',{class:'wnwrap'},el('button',{class:'wnbar',onclick:openWhatsNew},'🆕 '+l.length+' '+T('new things to check out')+' ›'));}
 var WN_POP=0;function wnPop(){if(Date.now()-WN_POP<600000||!wnLeft().length||document.getElementById('scrim'))return;WN_POP=Date.now();setTimeout(function(){if(!document.getElementById('scrim')&&wnLeft().length)openWhatsNew();},900);}
@@ -1920,7 +1922,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140655',lastUpd=0;
+var BUILD='202611140659',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
