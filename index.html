@@ -996,6 +996,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Are people working on Saturday?':'¿Hay gente trabajando el sábado?','No – closed':'No – cerrado'});
 Object.assign(ES,{'Newest at the top':'Lo más nuevo arriba'});
 Object.assign(ES,{'Yes – fill in Sunday now':'Sí – llenar el domingo ahora','Yes – fill in Sunday later':'Sí – llenar el domingo después','Sunday stays in Needs you – fill it in later':'El domingo queda en Te necesita – llénalo después'});
 Object.assign(ES,{'Skip':'Saltar'});
@@ -1502,7 +1503,7 @@ function homeView(){
     el('span',{class:'nbm'},el('b',{text:nn?T('Needs you'):T('All caught up')}),el('span',{text:nn?need.slice(0,2).map(function(n){return n.title;}).join(' · ')+(nn>2?' …':''):T('Nothing is waiting for you')})),
     nn?el('span',{class:'nbn',text:String(nn)}):el('span',{class:'bbc',text:'›'})));
   var tasksSub=od?od+' '+T('late'):(td?td+' '+T('for today'):T('All done for today'));
-  var schSub=isSat(t)?T('Closed today'):(schedSent(t)?'✓ '+T('Sent'):'✗ '+T('Not sent yet'));
+  var satOff=isSat(t)&&!schedSent(t),schSub=satOff?T('Closed today'):(schedSent(t)?'✓ '+T('Sent'):'✗ '+T('Not sent yet'));
   function tile(cls,icon,label,sub,fn){return el('button',{class:'ctile '+cls,onclick:fn},el('span',{class:'cti',text:icon}),el('b',{text:label}),sub?el('span',{class:'cts',text:sub}):null);}
   wrap.appendChild(el('div',{class:'ctiles'},
     tile('c-green','✅',T('My tasks'),tasksSub,function(){goView('tasks');}),
@@ -1521,7 +1522,7 @@ function needView(){
   if(sc)(sc.crews||[]).forEach(function(c){if(c.job||c.note)out+=(c.extra?0:1)+(c.members||[]).length;});
   wrap.appendChild(heroBox(T('Needs you now'),longDate(t)+(out?' · '+out+' '+T('people out'):''),[
     hTile(od,T('Overdue tasks'),function(){goView('tasks');},od?'red':''),
-    hTile(isSat(t)?'—':(schedSent(t)?nCrews:'✗'),isSat(t)?T('Closed today'):(schedSent(t)?T('Crews out'):T('Schedule not sent')),function(){goView('sched');},!isSat(t)&&!schedSent(t)?'red':''),
+    hTile(isSat(t)&&!schedSent(t)?'—':(schedSent(t)?nCrews:'✗'),isSat(t)&&!schedSent(t)?T('Closed today'):(schedSent(t)?T('Crews out'):T('Schedule not sent')),function(){goView('sched');},!isSat(t)&&!schedSent(t)?'red':''),
     hTile(isSat(t)||!crews.length?'—':repIn+'/'+crews.length,isSat(t)?T('No work Saturday'):T('Reports in'),openReports,!isSat(t)&&crews.length&&repIn===crews.length?'ok':'')]));
   var need=needItems();
   if(need.length)need.forEach(function(n){wrap.appendChild(needRow(n.icon,n.title,n.sub,n.pl,n.fn,n.cls==='warn'?'warn':''));});
@@ -1696,6 +1697,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'sat',i:'🗓',t:'Working Saturdays',d:'When Rocky or Ashley open a Saturday schedule, the app asks if people are working. If yes, it works like any day and everyone on it gets the normal notifications – never you.',go:function(){goView('home');}},
  {id:'icons2',i:'✨',t:'New icons',d:'Clean line icons instead of emojis on the tiles, tabs, Needs-you, More and Settings.',go:function(){goView('home');}},
  {id:'instant',i:'⚡',t:'Sends at once',d:'Photos, videos, voice notes and files show in the chat the second you send them, with ⬆ % while they upload. Deleting is instant too.',go:function(){goView('chats');}},
  {id:'cam2',i:'📷',t:'Camera inside the app',d:'The camera opens right in the app: tap for a photo, hold for a video. Then Send (same spot) or 🗑 to take it again – no Retry/OK screen.',go:function(){goView('chats');}},
@@ -1922,7 +1924,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140659',lastUpd=0;
+var BUILD='202611140702',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -3400,6 +3402,12 @@ var SCHED_RIDES=['Yossi','Rocky'];
 function crewLabel(c,i){return c.extra?(c.leader?'🚗 '+c.leader:'🏠 '+T('No ride')):nameOf(c.leader);}
 function openSchedule(date,seed){
   if(!date)date=nyNow().h>=12?addDays(today(),1):today();
+  // Saturday (mostly closed): ask first. Yossi never works Saturday, so he isn't asked.
+  if(isSat(date)&&!seed&&!schedSent(date)&&S.me!=='Yossi'&&!(S.satOk||{})[date]){
+    openSheet([el('h2',{text:'🗓 '+T('Are people working on Saturday?')}),el('p',{class:'muted',style:'margin:0',text:dateLabel(date)+' · '+T('Daily crew')}),
+      el('button',{class:'primary',onclick:function(){closeSheet(true,true);S.satOk=S.satOk||{};S.satOk[date]=1;openSchedule(date);}},'✓ '+T('Yes – make the schedule')),
+      el('button',{class:'cbtn',onclick:function(){closeSheet();toast('✓ '+T('No work Saturday'));}},'✕ '+T('No – closed')),
+      el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);return;}
   // Monday: Sunday was never answered → first ask if anybody worked on Sunday
   var suY=addDays(today(),-1);if(isMon(today())&&date>=today()&&!seed&&!schedSent(suY)&&!dayOffSet(suY)&&!(S.sunSkip||{})[suY]){askSunday(suY,true,date);return;}
   if(isSun(date)&&!seed&&!schedSent(date)&&!S.sunAsked){S.sunAsked=date;askSunday(date,date<today());setTimeout(function(){S.sunAsked=null;},800);return;}
@@ -3436,7 +3444,7 @@ function openSchedule(date,seed){
       var others=sameJob(i),off=!c.job&&!c.note,dOff=!c.extra&&plan.off.indexOf(c.leader)>=0;
       var card=el('div',{class:'scard'+(off?' off':'')+(dOff?' dayoff':'')});
       var drv=el('select',{class:'sdrv'});
-      if(c.extra){[['Yossi','🚗 Yossi'],['Rocky','🚗 Rocky'],['','🏠 '+T('No ride')]].forEach(function(o){var op=el('option',{value:o[0]},o[1]);if(o[0]===c.leader)op.selected=true;drv.appendChild(op);});
+      if(c.extra){(isSat(date)?[['Rocky','🚗 Rocky'],['','🏠 '+T('No ride')]]:[['Yossi','🚗 Yossi'],['Rocky','🚗 Rocky'],['','🏠 '+T('No ride')]]).forEach(function(o){var op=el('option',{value:o[0]},o[1]);if(o[0]===c.leader)op.selected=true;drv.appendChild(op);});
         drv.onchange=function(){c.leader=drv.value;dirty=true;paint();};}
       else{(S.crew||[]).filter(function(w){return w.id===c.leader||(dailyCrew().indexOf(w)>=0&&plan.off.indexOf(w.id)<0&&!plan.crews.some(function(x,j){return j!==i&&!x.extra&&x.leader===w.id;}));}).forEach(function(w){var o=el('option',{value:w.id},w.name);if(w.id===c.leader)o.selected=true;drv.appendChild(o);});
         drv.onchange=function(){var nv=drv.value;plan.crews.forEach(function(x,j){if(j!==i){x.members=x.members.filter(function(k){return k!==nv;});}});c.members=c.members.filter(function(k){return k!==nv;});c.leader=nv;dirty=true;paint();};}
