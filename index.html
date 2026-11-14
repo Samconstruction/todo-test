@@ -979,6 +979,8 @@ html{background:#F7FCFA}
 .recprev{gap:8px}
 .camrv{z-index:6}.cambox.rv>.cambar,.cambox.rv>.camhint,.cambox.rv>.camclock{display:none}
 .upp{font-size:11px;font-weight:800;color:#1B8F7B;margin-right:6px}
+.camzoom{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(132px + env(safe-area-inset-bottom));background:rgba(0,0,0,.5);color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:5px 12px;z-index:4}
+.camlive{transition:transform .05s}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -991,6 +993,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'Tap for photo · hold for video · slide up to zoom':'Toca para foto · mantén para video · desliza arriba para acercar'});
 Object.assign(ES,{'Take photo':'Tomar foto','Flip camera':'Cambiar cámara','Tap for photo · hold for video':'Toca para foto · mantén para video','Camera is blocked. Allow it for this app in your phone settings.':'La cámara está bloqueada. Permítela para esta app en los ajustes del teléfono.'});
 Object.assign(ES,{'My notes':'Mis notas','Only you':'Solo tú','Only you can see this chat':'Solo tú ves este chat','A chat only you can see – notes, photos, reminders':'Un chat que solo tú ves – notas, fotos, recordatorios'});
 Object.assign(ES,{'Calendar':'Calendario','Yom Tov – no work':'Yom Tov – no se trabaja','Jewish holiday':'Fiesta judía','US holiday':'Feriado de EE.UU.','Other':'Otro','This month':'Este mes','No holidays':'Sin fiestas','Chol Hamoed':'Jol Hamoed','Fast day':'Día de ayuno','Erev – short day':'Erev – día corto','US holiday – banks and offices closed':'Feriado – bancos y oficinas cerrados','Previous':'Anterior','Next':'Siguiente'});
@@ -1910,7 +1913,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140643',lastUpd=0;
+var BUILD='202611140645',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2763,22 +2766,41 @@ function openCam(x,videoFirst){
   var shut=el('button',{class:'camshut','aria-label':T('Take photo')},el('span',{}));
   var flip=el('button',{class:'camside','aria-label':T('Flip camera'),html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5"/><path d="M5 3v3.8h3.8M19 21v-3.8h-3.8"/></svg>'});
   var gal=el('button',{class:'camside','aria-label':T('Gallery'),html:IC.gal,onclick:function(){stop();closeViewer();chatPick(x,'gal');}});
-  var hint=el('div',{class:'camhint',text:T('Tap for photo · hold for video')});
+  var hint=el('div',{class:'camhint',text:T('Tap for photo · hold for video · slide up to zoom')});
   var box=el('div',{class:'cambox'},vid,clock,el('div',{class:'cambar'},gal,shut,flip),hint);
   var vw=openViewer(box);vw.classList.add('vfull','vcam');
   vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
   function stop(){closed=true;try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
   var obs=new MutationObserver(function(){if(!document.body.contains(vw)){stop();obs.disconnect();}});obs.observe(document.body,{childList:true});
   function start(){if(stream)stream.getTracks().forEach(function(t){t.stop();});
-    navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080}},audio:true}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing}});})
-      .then(function(st){if(closed){st.getTracks().forEach(function(t){t.stop();});return;}stream=st;vid.srcObject=st;vid.classList.toggle('mirror',facing==='user');vid.play().catch(function(){});})
+    navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}},audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,sampleRate:48000,channelCount:1}}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080}},audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing}});})
+      .then(function(st){if(closed){st.getTracks().forEach(function(t){t.stop();});return;}stream=st;vid.srcObject=st;vid.classList.toggle('mirror',facing==='user');vid.play().catch(function(){});zoomSetup();})
       .catch(function(){stop();closeViewer();toast('❗ '+T('Camera is blocked. Allow it for this app in your phone settings.'));chatPick(x,videoFirst?'vid':'cam');});}
+  var zMin=1,zMax=1,zCur=1,zNative=false,zPill=el('div',{class:'camzoom',style:'display:none',text:'1×'});box.appendChild(zPill);
+  function zoomSetup(){zCur=1;zNative=false;zMin=1;zMax=4;try{var tr=stream.getVideoTracks()[0],cp=tr.getCapabilities?tr.getCapabilities():{};if(cp.zoom){zNative=true;zMin=cp.zoom.min||1;zMax=Math.min(cp.zoom.max||1,10);zCur=(tr.getSettings().zoom)||zMin;}}catch(e){}vid.style.transform='';showZ(true);}
+  function setZoom(z){z=Math.max(zMin,Math.min(zMax,z));if(Math.abs(z-zCur)<0.02)return;zCur=z;
+    if(zNative){try{stream.getVideoTracks()[0].applyConstraints({advanced:[{zoom:z}]}).catch(function(){});}catch(e){}}
+    else vid.style.transform=(facing==='user'?'scaleX(-1) ':'')+'scale('+z+')';showZ();}
+  var zT=null;function showZ(hide){zPill.textContent=(Math.round(zCur*10)/10)+'×';zPill.style.display=hide?'none':'';clearTimeout(zT);zT=setTimeout(function(){zPill.style.display='none';},1500);}
+  // two fingers on the picture = zoom
+  var pd=0,pz=1;box.addEventListener('touchstart',function(e){if(e.touches.length===2){pd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);pz=zCur;}},{passive:true});
+  box.addEventListener('touchmove',function(e){if(e.touches.length===2&&pd){var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);setZoom(pz*d/pd);}},{passive:true});
+  box.addEventListener('touchend',function(e){if(e.touches.length<2)pd=0;},{passive:true});
+  // holding the button: slide up (or sideways) = zoom in, back down = zoom out
+  var hy=0,hx=0,hz=1;shut.addEventListener('pointerdown',function(e){hy=e.clientY;hx=e.clientX;hz=zCur;try{shut.setPointerCapture(e.pointerId);}catch(er){}});
+  shut.addEventListener('pointermove',function(e){if(!hy)return;var dy=hy-e.clientY,dx=Math.abs(e.clientX-hx),mv=Math.max(dy,dx*0.8);if(mv>12)setZoom(hz+(mv-12)/220*(zMax-zMin));else if(dy<-12)setZoom(hz-(-dy-12)/220*(zMax-zMin));});
+  shut.addEventListener('pointerup',function(){hy=0;});shut.addEventListener('pointercancel',function(){hy=0;});
   flip.onclick=function(){facing=facing==='environment'?'user':'environment';start();};
-  function photo(){if(!vid.videoWidth)return;var c=document.createElement('canvas');c.width=vid.videoWidth;c.height=vid.videoHeight;var g=c.getContext('2d');if(facing==='user'){g.translate(c.width,0);g.scale(-1,1);}g.drawImage(vid,0,0);
+  function photo(){if(!vid.videoWidth)return;
+    // the phone's real camera picture (full size) when it can; otherwise a frame from the live view
+    try{var tr=stream&&stream.getVideoTracks()[0];if(window.ImageCapture&&tr&&facing==='environment'){var ic=new ImageCapture(tr);try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
+      ic.takePhoto().then(function(b){var f=new File([b],'photo-'+Date.now()+'.jpg',{type:b.type||'image/jpeg'});review({kind:'photo',f:f},URL.createObjectURL(b));}).catch(function(){photoFrame();});return;}}catch(e){}
+    photoFrame();}
+  function photoFrame(){var c=document.createElement('canvas');c.width=vid.videoWidth;c.height=vid.videoHeight;var g=c.getContext('2d');if(facing==='user'){g.translate(c.width,0);g.scale(-1,1);}if(!zNative&&zCur>1){var sw=vid.videoWidth/zCur,sh=vid.videoHeight/zCur;g.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,c.width,c.height);}else g.drawImage(vid,0,0);
     try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
     c.toBlob(function(b){if(!b)return;var f=new File([b],'photo-'+Date.now()+'.jpg',{type:'image/jpeg'});review({kind:'photo',f:f},URL.createObjectURL(b));},'image/jpeg',0.9);}
   function recStart(){if(!stream||recording)return;var mime=['video/mp4;codecs=avc1,mp4a','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].filter(function(m){try{return MediaRecorder.isTypeSupported(m);}catch(e){return false;}})[0]||'';
-    try{rec=mime?new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:2500000}):new MediaRecorder(stream);}catch(e){return;}
+    try{rec=mime?new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:5000000,audioBitsPerSecond:128000}):new MediaRecorder(stream,{videoBitsPerSecond:5000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(stream);}catch(e2){return;}}
     chunks=[];rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
     rec.onstop=function(){recording=false;shut.classList.remove('rec');clock.style.display='none';clearInterval(recT);if(closed||!chunks.length)return;var dur=Math.round((Date.now()-t0)/1000);
       var type=(rec.mimeType||mime||'video/webm').split(';')[0],b=new Blob(chunks,{type:type}),f=new File([b],'video-'+Date.now()+(type.indexOf('mp4')>=0?'.mp4':'.webm'),{type:type});
