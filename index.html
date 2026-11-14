@@ -575,6 +575,7 @@ body.hasbt .fab{bottom:calc(88px + env(safe-area-inset-bottom))}
 .wmark{font-weight:900;font-size:15px;letter-spacing:.02em;line-height:1.1}.wm1{color:#fff}.wm2{color:var(--orange);margin-left:5px}
 .top .title{font-size:21px;line-height:1.2}
 .top .me.meav{background:none;padding:0;border-radius:50%;box-shadow:0 0 0 2px var(--orange)}
+.seenlink{display:block;margin:22px auto 8px;background:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;color:var(--muted)}.seenlink.all{color:var(--ok);border-color:#BFE3C8}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1239,7 +1240,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140328',lastUpd=0;
+var BUILD='202611140401',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1566,12 +1567,12 @@ function crewDayView(){
   var pick=el('input',{type:'date',class:'in',value:d});pick.onchange=function(){if(pick.value){S.crewDay=pick.value;render();}};
   wrap.appendChild(el('div',{style:'display:flex;align-items:center;gap:8px;margin:-2px 0 10px'},el('span',{class:'muted',style:'white-space:nowrap',text:'📅 '+T('Go to date')}),pick));
   wrap.appendChild(el('button',{class:'primary schedbig',onclick:function(){openSchedule(d);}},'🗓 '+T(past?'Fix this day':'Make / change schedule')));
-  var ssb=schedSeenBox(d);if(ssb)wrap.appendChild(ssb);
+  var ssb=schedSeenBox(d);
   var sc=(S.sched||{})[d]||SCHED_OLD[d],sum=el('div',{class:'schsum'});
   if(!sc&&d<addDays(today(),-13)&&!SCHED_OLD.hasOwnProperty(d)){
     SCHED_OLD[d]=null;
     call('schedGet',{date:d}).then(function(r){SCHED_OLD[d]=r&&r.sched||null;if(S.crewDay===d&&!document.getElementById('scrim'))render();}).catch(function(){delete SCHED_OLD[d];});
-    sum.appendChild(el('div',{class:'muted',style:'text-align:center;padding:14px 0',text:T('Loading…')}));wrap.appendChild(sum);return wrap;}
+    sum.appendChild(el('div',{class:'muted',style:'text-align:center;padding:14px 0',text:T('Loading…')}));wrap.appendChild(sum);if(ssb)wrap.appendChild(ssb);return wrap;}
   var crews=sc&&sc.crews?sc.crews.filter(function(c){return c.job||c.note;}):[];
   if(!crews.length)sum.appendChild(el('div',{class:'muted',style:'text-align:center;padding:14px 0',text:sc?T('Nobody is working this day.'):T('No schedule yet for this day.')}));
   else{
@@ -1595,6 +1596,7 @@ function crewDayView(){
   xb.appendChild(el('button',{class:'cbtn',style:'width:100%;margin-top:6px',onclick:function(){openEditor(null,{due:d,crew:true});}},'+ '+T('Add another job for a worker')));
   wrap.appendChild(xb);
   if(!past){var up=unplaced(sc);wrap.appendChild(el('div',{class:'snotp'+(up.length?'':' ok'),style:'margin-top:0'},up.length?'👷 '+T('Not placed yet')+' ('+up.length+'): '+up.map(function(w){return w.name;}).join(', '):'✓ '+T('Everyone is placed')));}
+  if(ssb)wrap.appendChild(ssb);
   return wrap;
 }
 function fmtPhone(p){p=String(p||'');var d=p.slice(-10);return d.length===10?'('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6):p;}
@@ -2712,14 +2714,17 @@ function schedSeenBox(d){
   (sc.crews||[]).forEach(function(c){if(!(c.job||c.note))return;if(c.leader)ids[c.leader]=1;(c.members||[]).forEach(function(m){ids[m]=1;});});
   var ppl=(S.crew||[]).filter(function(c){return ids[c.id];});if(!ppl.length)return null;
   var seen=ppl.filter(function(c){return c.seenAt&&c.seenAt>=at;}),not=ppl.filter(function(c){return !(c.seenAt&&c.seenAt>=at);});
-  return el('div',{class:'seenbox'},el('div',{class:'seenhd'},el('b',{text:'✓✓ '+T('Saw the schedule')+': '+seen.length+' '+T('of')+' '+ppl.length}),el('span',{class:'muted',text:T('sent')+' '+clockOf(at)})),
+  var all=seen.length===ppl.length;
+  return el('button',{class:'seenlink'+(all?' all':''),onclick:function(){openSheet([el('h2',{text:'👀 '+T('Who saw the schedule')}),schedSeenFull(),el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);}},
+    '👀 '+T('Who saw the schedule')+' · '+seen.length+' '+T('of')+' '+ppl.length+(all?' ✓✓':''));
+  function schedSeenFull(){return el('div',{class:'seenbox'},el('div',{class:'seenhd'},el('b',{text:'✓✓ '+T('Saw the schedule')+': '+seen.length+' '+T('of')+' '+ppl.length}),el('span',{class:'muted',text:T('sent')+' '+clockOf(at)})),
     not.length?el('div',{},el('div',{class:'muted',style:'font-size:13px;margin:4px 0',text:T('Not seen yet – tap to call')}),el('div',{class:'seenchips'},not.map(function(c){return el('a',{class:'seenchip no',href:'tel:'+String(c.phone||'').replace(/\D/g,'')},'📞 '+c.name);}))):null,
-    seen.length?el('div',{class:'seenchips'},seen.map(function(c){return el('span',{class:'seenchip ok',text:'✓✓ '+c.name});})):null);
+    seen.length?el('div',{class:'seenchips'},seen.map(function(c){return el('span',{class:'seenchip ok',text:'✓✓ '+c.name});})):null);}
 }
 Object.assign(ES,{'Put the app on your home screen':'Pon la app en tu pantalla de inicio','Tap':'Toca','at the bottom of Safari':'abajo en Safari','Scroll down and tap “Add to Home Screen”':'Baja y toca “Agregar a inicio”','Tap “Add” – then open SAM To-Do from your home screen':'Toca “Agregar” – luego abre SAM To-Do desde tu pantalla de inicio',
   'Send the app to':'Enviar la app a','The message has the link, the PIN and how to install – in Spanish.':'El mensaje lleva el enlace, el PIN y cómo instalarla – en español.','Send on WhatsApp':'Enviar por WhatsApp','Send as a text message':'Enviar como mensaje de texto','No phone number saved for this worker.':'Este trabajador no tiene teléfono guardado.',
   'Install on another phone':'Instalar en otro teléfono','Let the person scan this with their phone camera, then tap the link.':'Que la persona lo escanee con la cámara de su teléfono y toque el enlace.','Workers not set up':'Trabajadores sin configurar','Tap Send to give each one the link, their PIN and the install steps (in Spanish).':'Toca Enviar para darle a cada uno el enlace, su PIN y los pasos (en español).',
-  'Never opened the app':'Nunca abrió la app','Alerts are off':'Avisos apagados','Everyone is set up!':'¡Todos están listos!','Send':'Enviar','days ago':'días atrás','yesterday':'ayer','Saw the schedule':'Vieron el horario','sent':'enviado','Not seen yet – tap to call':'No lo han visto – toca para llamar','Send app':'Enviar app'});
+  'Never opened the app':'Nunca abrió la app','Alerts are off':'Avisos apagados','Everyone is set up!':'¡Todos están listos!','Send':'Enviar','days ago':'días atrás','yesterday':'ayer','Saw the schedule':'Vieron el horario','Who saw the schedule':'Quién vio el horario','sent':'enviado','Not seen yet – tap to call':'No lo han visto – toca para llamar','Send app':'Enviar app'});
 // ---------- ❄️ Snow plowing (management: Yossi only for now; drivers work their own route) ----------
 var SNOW_ADMINS=['Yossi'];
 function isSnowAdmin(){return SNOW_ADMINS.indexOf(S.me)>=0&&!S.viewAs;}
