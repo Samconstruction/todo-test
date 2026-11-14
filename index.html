@@ -946,7 +946,7 @@ function homeView(){
   var wrap=listShell();if(!wrap)return el('main',{class:'list'},el('p',{class:'empty',text:T('Loading…')}));
   if(!S.viewAs&&isOffice()&&Date.now()-(S.preAt||0)>120000){S.preAt=Date.now();setTimeout(function(){loadJobsAll();otwPrefetch();if(isSnowAdmin())snowLoad();},1500);}
   var t=today(),h=nyNow().h,mine=S.tasks.filter(function(x){return x.owner===S.me&&x.status!=='done';});
-  var od=mine.filter(function(x){return x.due&&x.due<t;}),td=mine.filter(function(x){return x.due===t;}),urg=mine.filter(function(x){return x.urgent==='1';});
+  var od=mine.filter(function(x){return x.due&&x.due<t;}),td=mine.filter(function(x){return x.due===t;}),urg=mine.filter(function(x){return x.urgent==='1'&&(!x.due||x.due<=t);});
   var crews=(S.steady&&S.steady.crews)||[],repIn=crews.filter(function(c){return reportFor(c.id,t);}).length;
   var sc=(S.sched||{})[t],nCrews=sc?(sc.crews||[]).filter(function(c){return c.job||c.note;}).length:0,out=0;
   if(sc)(sc.crews||[]).forEach(function(c){if(c.job||c.note)out+=(c.extra?0:1)+(c.members||[]).length;});
@@ -1238,7 +1238,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140308',lastUpd=0;
+var BUILD='202611140310',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1345,7 +1345,7 @@ function openAiKey(){
     }).catch(function(e){if(isBadPin(e)){signOut('');return;}box.innerHTML='';box.appendChild(el('p',{class:'err',text:T('Could not load — check signal')}));});}
   openSheet([el('h2',{text:'🤖 '+T('AI assistant key')}),box,el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);show('');
 }
-function counts(o){var t=today(),n=0,od=0;S.tasks.forEach(function(x){if(o==='crew'?(isCrewTask(x)&&!crewClosed(x)):(x.owner===o&&x.status!=='done')){n++;if((x.due&&x.due<t)||x.urgent==='1')od++;}});return{n:n,od:od};}
+function counts(o){var t=today(),n=0,od=0;S.tasks.forEach(function(x){if(o==='crew'?(isCrewTask(x)&&!crewClosed(x)):(x.owner===o&&x.status!=='done')){n++;if((x.due&&x.due<t)||(x.urgent==='1'&&(!x.due||x.due<=t)))od++;}});return{n:n,od:od};}
 // "Crew" tab: every task that belongs to a worker (not Yossi/Rocky/Ashley).
 function isCrewTask(x){return PEOPLE.indexOf(x.owner)<0;}
 // A schedule task from a past day counts as finished for the list (it moves to "Done & past days").
