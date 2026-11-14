@@ -836,6 +836,31 @@ html{background:#F7FCFA}
 .viewer.vfull .vclose{display:none}
 .viewer.vfull .vback{transition:opacity .2s}
 .viewer.vfull:has(.vp:not(.on)) .vback{opacity:0;pointer-events:none}
+
+/* profile sheet · mint */
+.pfsheet{overflow-x:hidden;background:#F7FCFA}.pfsheet h2{color:#0E4F45}
+.pfhero{margin:-18px -16px 4px;padding:26px 20px 18px;background:linear-gradient(160deg,#BDEBDF,#D8F5EE 60%,#F7FCFA);border-radius:24px 24px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.pfav{position:relative;border:none;background:none;padding:0;border-radius:50%;box-shadow:0 10px 28px rgba(14,79,69,.18)}
+.pfav .av{border:4px solid #fff}
+.pfcam{position:absolute;right:2px;bottom:4px;width:36px;height:36px;border-radius:50%;background:#1B8F7B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;border:3px solid #fff}
+.pfhero .pname{font-size:24px;font-weight:900;color:#0E4F45;margin-top:8px}
+.pfrole{font-size:14px;font-weight:700;color:#4A8178}
+.pflink{border:none;background:#fff;color:#1B8F7B;font-weight:800;font-size:14px;border-radius:999px;padding:7px 14px;margin-top:6px;box-shadow:0 2px 8px rgba(15,70,60,.08)}
+.pfopts{display:flex;justify-content:center;gap:12px;margin:2px 0 6px}
+.pfopt{display:flex;flex-direction:column;align-items:center;gap:6px;border:none;background:none;font-weight:700;font-size:13px;color:#4A8178;width:76px}
+.pfoi{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px}
+.pfoi.a1{background:#D4F3EA}.pfoi.a2{background:#DCEEFB}.pfoi.a5{background:#FFE3E0}
+.pfcard{background:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 4px 16px rgba(15,70,60,.07);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pflbl{font-weight:800;color:#0E4F45;font-size:16px}
+.pfcard .lang{margin:0;background:#E6F6F1;border-radius:999px;padding:4px;gap:2px}
+.pfcard .lang-b{border:none;background:transparent;color:#4A8178;padding:8px 14px}.pfcard .lang-b.on{background:#fff;color:#0E4F45;box-shadow:0 2px 8px rgba(15,70,60,.12)}
+.pfsheet .setrow{background:#fff;border:none;border-radius:18px;box-shadow:0 4px 16px rgba(15,70,60,.07)}
+.sti.s1{background:#D4F3EA;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.pfout{border:none;background:none;color:#C2483D;font-weight:800;font-size:16px;padding:12px;margin-top:2px}
+.pfsheet .lang{background:#E6F6F1;border-radius:999px;padding:4px;gap:2px;align-self:center}
+.pfsheet .lang-b{border:none;background:transparent;color:#4A8178;padding:8px 16px}.pfsheet .lang-b.on{background:#fff;color:#0E4F45;box-shadow:0 2px 8px rgba(15,70,60,.12)}
+.pfsheet .setrow .sti{width:40px;height:40px;border-radius:50%;background:#EAF7F2;display:flex;align-items:center;justify-content:center;font-size:20px}
+.pfsheet .pfcard .lang{align-self:auto}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -848,6 +873,7 @@ var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Today":"Hoy","Tomorrow":"Mañana","Yesterday":"Ayer","Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Signed in as ":"Conectado como ","Switch to ":"Cambiar a ","Refresh now":"Actualizar ahora","Sign out":"Cerrar sesión","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Urgent":"Urgentes","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Not started":"Sin empezar","Halfway":"A medias","Done":"Terminado","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","New task":"Nueva tarea","Edit task":"Editar tarea","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Type the task first.":"Escribe la tarea primero.","Add task":"Agregar tarea","Save changes":"Guardar cambios","Tap again to delete":"Toca otra vez para borrar","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Last 4 digits of your phone number":"Últimos 4 dígitos de tu número de teléfono","Continue":"Continuar","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa",
 "Crew":"Equipo","I'm on the crew":"Soy del equipo","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Assign job":"Asignar trabajo","Copy to next day":"Copiar al día siguiente","Manage crew":"Administrar equipo","workers":"trabajadores","jobs":"trabajos","done":"hechos","No job this day":"Sin trabajo este día","Not finished from before":"Sin terminar de antes","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Remove":"Quitar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","Select crew":"Elegir equipo","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Copy":"Copiar","Nothing to copy on this day.":"No hay nada que copiar en este día.","Copied":"Copiado","Add photo":"Agregar foto","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","No workers yet. Tap Manage crew to add your workers.":"Todavía no hay trabajadores. Toca Administrar equipo para agregarlos.","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos","Office":"Oficina"};
 var LANG=null;
+Object.assign(ES,{'My profile photo':'Mi foto de perfil','Add, change or remove your picture':'Pon, cambia o quita tu foto','PIN, notifications, bigger letters…':'PIN, notificaciones, letras grandes…','Remove':'Quitar'});
 Object.assign(ES,{'Delivered':'Entregado','Delivered to':'Entregado a','not opened yet':'todavía no lo abrió','Sent – not delivered yet':'Enviado – todavía no entregado'});
 Object.assign(ES,{'Search name, job, date…':'Busca nombre, trabajo, fecha…'});
 Object.assign(ES,{'New chat':'Nuevo chat','Direct chat':'Chat directo','Direct':'Directo','Office':'Oficina','Worker':'Trabajador','Search a name':'Busca un nombre','Nobody found.':'No se encontró a nadie.','One chat per person – all the old messages stay in it.':'Un chat por persona – todos los mensajes viejos se quedan ahí.','Message anyone':'Escribe a cualquiera','In Messages, tap + to chat with any worker, Rocky or Ashley. One chat per person, and all the old messages stay in it.':'En Mensajes, toca + para chatear con cualquier trabajador, Rocky o Ashley. Un chat por persona, y todos los mensajes viejos se quedan ahí.'});
@@ -1463,6 +1489,8 @@ var WHATS_NEW=[
  {id:'jdel',i:'🗑',t:'Delete a job',d:'Open a job → Delete job (tap twice). Close job is for finished jobs; Delete hides a job you don\'t need.',go:function(){openJobs();}},
  {id:'attach2',i:'📎',t:'＋ in chat: Camera, Gallery, File',d:'Camera takes a photo or a video. Gallery lets you pick many photos and videos together. File sends any document (plans, PDFs…).',go:function(){goView('chats');}},
  {id:'vplay',i:'▶️',t:'New video player',d:'Full screen like WhatsApp, play/pause in the middle, speed 1× · 1.5× · 2×, swipe down to close. Videos get ready in the background so they start right away.',go:function(){goView('chats');}},
+ {id:'profile2',i:'👤',t:'Clean profile screen',d:'Tap your photo circle: your picture, language and Settings. PIN, notifications and bigger letters are now in Settings.',go:function(){openMenu();}},
+ {id:'login2',i:'🌿',t:'Mint logo and new sign-in',d:'The SAM Construction logo is now mint, and the sign-in screen has the new look.',go:function(){goView('home');}},
  {id:'ticks2',i:'✓✓',t:'Ticks like WhatsApp',d:'✓ sent · ✓✓ grey: it reached their phone · ✓✓ blue: they opened it. For texts, photos, videos, voice notes and files.',go:function(){goView('chats');}},
  {id:'photofull',i:'🖼',t:'Photos full screen',d:'A photo now fills the whole screen like WhatsApp. Tap it to show the buttons, swipe down to close.',go:function(){goView('chats');}},
  {id:'campick',i:'📷',t:'Camera, Video, Gallery, File',d:'In a chat, + → Camera opens your phone camera right away, Video records a video, Gallery picks photos and videos, File opens your files.',go:function(){goView('chats');}},
@@ -1639,7 +1667,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140537',lastUpd=0;
+var BUILD='202611140544',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1702,7 +1730,7 @@ function openSettings(){
   function row(icon,label,sub,fn){return el('button',{class:'setrow',onclick:fn},el('span',{class:'sti',text:icon}),el('span',{class:'stm'},el('b',{text:label}),sub?el('span',{text:sub}):null),el('span',{class:'hchev',text:'›'}));}
   function sw(on){return el('span',{class:'swt'+(on?' on':'')},el('span',{}));}
   var kids=[el('h2',{text:'⚙️ '+T('Settings')}),
-    row('👤',T('My photo'),T('Change or remove your picture'),function(){closeSheet(true,true);openMenu();}),
+    row('👤',T('My profile photo'),T('Add, change or remove your picture'),function(){closeSheet(true,true);openMenu();}),
     el('div',{class:'lbl',text:'🌐 '+T('Language')}),langSwitch(),
     el('button',{class:'setrow',onclick:function(){store('sam_big',big?null:'1');applyBig();openSettings();}},el('span',{class:'sti',text:'🔠'}),el('span',{class:'stm'},el('b',{text:T('Bigger letters')}),el('span',{text:T('Easier to read')})),sw(big)),
     row('🔔',T('Notifications'),ns==='granted'?'✓ '+T('Notifications are on'):ns==='denied'?T('Blocked – turn on in phone settings'):T('Off – tap to turn on'),function(){if(ns==='default'){closeSheet();enablePush(true);}else toast(ns==='granted'?'✓ '+T('Notifications are on'):T('Notifications are blocked. Turn them on in your phone settings for this app.'));}),
@@ -1713,37 +1741,27 @@ function openSettings(){
     el('div',{class:'muted',style:'font-size:12px;text-align:center;margin-top:8px',text:T('App version')+': '+buildLabel()}),
     (function(){var armS=false,b=el('button',{class:'ghost',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');return;}signOut('',true);}},'🚪 '+T('Sign out'));return b;})(),
     el('button',{class:'ghost',onclick:closeSheet},T('Close'))];
-  openSheet(kids);
+  openSheet(kids);var sh=document.querySelector('#scrim .sheet');if(sh)sh.classList.add('pfsheet');
 }
 function openMenu(){
-  var ns=notifState();
   var mine=!isOffice()?(S.steady&&S.steady.crews||[]).filter(function(c){return c.leader===S.me;})[0]:null;
   var role=isOffice()?T('Office'):(mine?T('Crew leader')+' · '+crewTitle(mine):T('Crew'));
-  var bigAv=avatar(S.me,S.name||S.me,112);
-  function setPhoto(data,btn,big){var oldA=AV[S.me],oldB=AVBIG[S.me];if(big)AVBIG[S.me]=big;else delete AVBIG[S.me];if(data)AV[S.me]={v:'local',src:data};else delete AV[S.me];avSave();closeSheet();render();openMenu();toast('✓ '+T('Saved'));
+  function setPhoto(data,big){var oldA=AV[S.me],oldB=AVBIG[S.me];if(big)AVBIG[S.me]=big;else delete AVBIG[S.me];if(data)AV[S.me]={v:'local',src:data};else delete AV[S.me];avSave();closeSheet(true,true);render();openMenu();toast('✓ '+T('Saved'));
     call('avatarSet',{data:data,big:big||''}).then(function(r){apply(r);if(data&&AV[S.me]&&S.avatars[S.me])AV[S.me].v=S.avatars[S.me];avSave();if(!document.getElementById('scrim'))render();})
     .catch(function(e){if(oldA)AV[S.me]=oldA;else delete AV[S.me];if(oldB)AVBIG[S.me]=oldB;else delete AVBIG[S.me];avSave();if(isBadPin(e)){signOut('');return;}render();toast('❗ '+T('Photo not saved')+' – '+T('Could not save — check signal'));});}
-  var hasPic=!!(AV[S.me]&&AV[S.me].src);
-  var photoBtn=el('button',{class:'primary',onclick:function(){pickAvatar(function(d,bg){setPhoto(d,photoBtn,bg);},true);}},'📷 '+T('Take photo'));
-  var galBtn=el('button',{class:'cbtn',onclick:function(){pickAvatar(function(d,bg){setPhoto(d,photoBtn,bg);});}},'🖼 '+T('From gallery'));
-  var kids=[el('div',{class:'profile'},bigAv,el('div',{class:'pname',text:S.name||S.me}),el('div',{class:'muted',text:role})),el('div',{class:'lbl',style:'text-align:center',text:hasPic?T('Change photo'):T('Add photo')}),el('div',{class:'row2'},photoBtn,galBtn),
-    hasPic?el('button',{class:'ghost',onclick:function(){setPhoto('',this);}},T('Remove photo')):null];
-  kids.push(el('button',{class:'cbtn',onclick:openPinChange},'🔒 '+T('Change my PIN')));
-  if(isOffice())kids.push(el('button',{class:'cbtn',onclick:openQR},'🔳 '+T('Install on another phone')));
-  if(S.me==='Yossi')kids.push(el('button',{class:'cbtn',onclick:openOfficePin},'🔑 '+T('New PIN for Rocky / Ashley')));
-  if(isOffice())kids.push(el('button',{class:'cbtn',onclick:openAiKey},'🤖 '+T('AI assistant key (Instinct)')));
-  var big=store('sam_big')==='1';
-  kids.push(el('button',{class:'cbtn',onclick:function(){store('sam_big',big?null:'1');applyBig();closeSheet();openMenu();}},(big?'A− ':'A+ ')+(big?T('Normal text'):T('Larger text'))));
-  kids.push(el('div',{class:'muted',style:'font-size:12px;text-align:center',text:T('App version')+': '+buildLabel()}));
-  kids.push(el('div',{class:'lbl',text:T('Language')}),langSwitch(),ns==='unsupported'?null:el('div',{class:'lbl',text:T('Notifications')}),
-    ns==='granted'?el('p',{class:'muted',style:'margin:0',text:'✓ '+T('Notifications are on')}):
-    ns==='denied'?el('p',{class:'muted',style:'margin:0',text:T('Notifications are blocked. Turn them on in your phone settings for this app.')}):
-    ns==='ios-browser'?el('p',{class:'muted',style:'margin:0',text:T('To get notifications on iPhone, open SAM To-Do from your home screen icon.')}):
-    ns==='default'?el('button',{class:'primary',onclick:function(){closeSheet();enablePush(true);}},T('Turn on notifications')):null,
-    isOffice()?null:el('button',{class:'ghost',onclick:openReport},'🐞 '+T('Report a problem')),
-    (function(){var armS=false,b=el('button',{class:'ghost',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');return;}signOut('',true);}},T('Sign out'));return b;})(),
-    el('button',{class:'ghost',onclick:closeSheet},T('Cancel')));
-  openSheet(kids);
+  var hasPic=!!(AV[S.me]&&AV[S.me].src),opts=el('div',{class:'pfopts',style:'display:none'},
+    el('button',{class:'pfopt',onclick:function(){pickAvatar(function(d,bg){setPhoto(d,bg);},true);}},el('span',{class:'pfoi a1',text:'📷'}),T('Camera')),
+    el('button',{class:'pfopt',onclick:function(){pickAvatar(function(d,bg){setPhoto(d,bg);});}},el('span',{class:'pfoi a2',text:'🖼'}),T('Gallery')),
+    hasPic?el('button',{class:'pfopt',onclick:function(){setPhoto('');}},el('span',{class:'pfoi a5',text:'🗑'}),T('Remove')):null);
+  var cam=el('span',{class:'pfcam',text:'📷'});
+  var avb=el('button',{class:'pfav','aria-label':hasPic?T('Change photo'):T('Add photo'),onclick:function(){opts.style.display=opts.style.display==='none'?'':'none';}},avatar(S.me,S.name||S.me,118),cam);
+  function row(icon,cls,label,sub,fn){return el('button',{class:'setrow',onclick:fn},el('span',{class:'sti '+cls,text:icon}),el('span',{class:'stm'},el('b',{text:label}),sub?el('span',{text:sub}):null),el('span',{class:'hchev',text:'›'}));}
+  var kids=[el('div',{class:'pfhero'},avb,el('div',{class:'pname',text:S.name||S.me}),el('div',{class:'pfrole',text:role}),
+      el('button',{class:'pflink',onclick:function(){opts.style.display=opts.style.display==='none'?'':'none';}},hasPic?T('Change photo'):T('Add photo'))),opts,
+    el('div',{class:'pfcard'},el('div',{class:'pflbl',text:'🌐 '+T('Language')}),langSwitch()),
+    row('⚙️','s1',T('Settings'),T('PIN, notifications, bigger letters…'),function(){closeSheet(true,true);openSettings();}),
+    (function(){var armS=false,b=el('button',{class:'pfout',onclick:function(){if(!armS){armS=true;b.textContent=T('Tap again to sign out');return;}signOut('',true);}},'🚪 '+T('Sign out'));return b;})()];
+  openSheet(kids);var sh=document.querySelector('#scrim .sheet');if(sh)sh.classList.add('pfsheet');
 }
 
 // Office: a personal key that lets an AI assistant (like Instinct on WhatsApp) add jobs and make the schedule as you.
