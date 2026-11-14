@@ -1780,6 +1780,8 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'phonereview',i:'📷',t:'Phone camera: look before sending',d:'After "Phone photo" or "Phone video" you see it first, with the same Send and Delete buttons as the chat camera.',go:function(){goView('chats');}},
+ {id:'fastvid',i:'⚡',t:'Videos go out faster',d:'A video starts uploading the moment you finish recording – while you look at it. When you tap Send most of it is already up. Same quality.',go:function(){goView('chats');}},
  {id:'estaddr',i:'📍',t:'Estimate address from Google Maps',d:'Start typing the address in a New estimate – pick the exact address from the list.',go:function(){openEst();}},
  {id:'estproj',i:'✦',t:'Send to Claude – into your Estimates project',d:'Send to Claude now copies the text and opens Claude: go to Projects → Estimates → new chat → paste. Then share the photos into that chat (it is on top of the list).',go:function(){openEst();}},
  {id:'phonevid',i:'🎥',t:'Phone photo and Phone video',d:'In the in-app camera, top right: "Phone photo" and "Phone video" open your Samsung camera for full quality – photo or video.',go:function(){goView('chats');}},
@@ -2028,7 +2030,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140814',lastUpd=0;
+var BUILD='202611140817',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2910,7 +2912,7 @@ function openCam(x,videoFirst){
   var flip=el('button',{class:'camside','aria-label':T('Flip camera'),html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5"/><path d="M5 3v3.8h3.8M19 21v-3.8h-3.8"/></svg>'});
   var gal=el('button',{class:'camside','aria-label':T('Gallery'),html:IC.gal,onclick:function(){stop();closeViewer();chatPick(x,'gal');}});
   var hint=el('div',{class:'camhint',text:T('Tap for photo · hold for video · slide up to zoom')});
-  var hd=el('div',{class:'camhd2'},el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'cam');}},'📷 '+T('Phone photo')),el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'vid');}},'🎥 '+T('Phone video')));
+  var hd=el('div',{class:'camhd2'},el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'cam',true);}},'📷 '+T('Phone photo')),el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'vid',true);}},'🎥 '+T('Phone video')));
   var box=el('div',{class:'cambox'},vid,clock,hd,el('div',{class:'cambar'},gal,shut,flip),hint);
   var vw=openViewer(box);vw.classList.add('vfull','vcam');
   vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
@@ -2966,16 +2968,32 @@ function openCam(x,videoFirst){
   shut.addEventListener('pointerup',function(e){e.stopPropagation();if(holdT){clearTimeout(holdT);holdT=null;photo();}else if(recording&&Date.now()-t0>600)recStop();});
   shut.addEventListener('click',function(e){e.stopPropagation();});
   // After the picture / video: look at it, then Send (same spot as the shutter) or Delete (take again).
-  function review(att,url){box.classList.add('rv');var media=att.kind==='photo'?el('img',{class:'camprev',src:url,alt:''}):el('video',{class:'camprev',src:url,autoplay:'',loop:'',playsinline:''});
+  function review(att,url){box.classList.add('rv');if(att.kind==='video')att.pre=preUp(x.id,att);var media=att.kind==='photo'?el('img',{class:'camprev',src:url,alt:''}):el('video',{class:'camprev',src:url,autoplay:'',loop:'',playsinline:''});
     var rvb=el('div',{class:'camrv'},media,el('div',{class:'cambar'},
-      el('button',{class:'camdel','aria-label':T('Delete'),html:IC.trash,onclick:function(e){e.stopPropagation();URL.revokeObjectURL(url);rvb.remove();box.classList.remove('rv');hint.style.display='';}}),
+      el('button',{class:'camdel','aria-label':T('Delete'),html:IC.trash,onclick:function(e){e.stopPropagation();if(att.pre){att.pre.cancel();att.pre=null;}URL.revokeObjectURL(url);rvb.remove();box.classList.remove('rv');hint.style.display='';}}),
       el('span',{class:'camwhat',text:att.kind==='photo'?T('Photo'):T('Video')+' · '+fmtDur(att.dur||0)}),
-      el('button',{class:'camsend','aria-label':T('Send'),html:IC.send,onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();toast(T('Sending…'));
-        sendAttachments([att],[x.id],true,function(){if(!document.querySelector('.chatsheet'))openChat(x.id);});}})));
+      el('button',{class:'camsend','aria-label':T('Send'),html:IC.send,onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();sendNow(x,att);}})));
     box.appendChild(rvb);}
   start();
 }
 // Send where I am now: the other side gets a card that opens Google Maps at that spot.
+// Send one photo/video into a task's chat (opens the chat so you see it go out)
+function sendNow(x,att){if(!document.querySelector('.chatsheet'))openChat(x.id);setTimeout(function(){sendInline([att],x.id);},60);}
+// A video starts uploading the moment it is ready (while you look at it); Send only finishes it, Delete throws it away.
+function preUp(id,att){var prog=null,last=0,open,shut,cancelled=false,gp=new Promise(function(a,b){open=a;shut=b;});gp.catch(function(){});
+  var p=call('videoStart',{size:att.f.size,mime:att.f.type||'video/mp4',id:id,dur:att.dur||0}).then(function(st){st.gate=gp;return pushChunks(att.f,st,function(off){last=off;if(prog)prog(off);},function(){return cancelled;});});
+  p.catch(function(){});
+  return {go:function(pf){prog=pf;if(last)pf(last);open();return p;},cancel:function(){cancelled=true;shut(new Error('CANCELLED'));}};}
+// Look at a picture/video from the phone camera before sending: Send or Delete (like the in-app camera)
+function mediaReview(x,att){var url=URL.createObjectURL(att.f);if(att.kind==='video')att.pre=preUp(x.id,att);
+  var media=att.kind==='photo'?el('img',{class:'camprev',src:url,alt:''}):el('video',{class:'camprev',src:url,autoplay:'',loop:'',playsinline:''});
+  var box=el('div',{class:'cambox rv'}),vw;
+  box.appendChild(el('div',{class:'camrv'},media,el('div',{class:'cambar'},
+    el('button',{class:'camdel','aria-label':T('Delete'),html:IC.trash,onclick:function(e){e.stopPropagation();if(att.pre)att.pre.cancel();URL.revokeObjectURL(url);closeViewer();queueHist();}}),
+    el('span',{class:'camwhat',text:att.kind==='photo'?T('Photo'):T('Video')+' · '+fmtDur(att.dur||0)}),
+    el('button',{class:'camsend','aria-label':T('Send'),html:IC.send,onclick:function(e){e.stopPropagation();closeViewer();queueHist();sendNow(x,att);}}))));
+  vw=openViewer(box);vw.classList.add('vfull','vcam');
+  vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();if(att.pre)att.pre.cancel();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));}
 function sendLocation(x){
   if(!navigator.geolocation){toast(T('Location does not work on this phone.'));return;}
   toast('📍 '+T('Finding your location…'));
@@ -3120,8 +3138,8 @@ function sendInline(atts,id){
       // bad signal or a very big picture: try once more a bit smaller
       return call('photoAdd',{id:id,data:data.split(',')[1]}).catch(function(err){if(!isNet(err))throw err;if(S.me==='Yossi')logErr('Photo upload retry (test)','size '+a.f.size+' sent '+data.length+' '+String(err&&err.message));
         return shrinkPhoto(a.f,1600,0.8).then(function(d2){data=d2;return call('photoAdd',{id:id,data:d2.split(',')[1]});});}).then(function(r){var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
-    else pr=call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
-      return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size));},function(){return false;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
+    else pr=(a.pre?a.pre.go(function(off){upProg(a._mid,Math.round(off*100/a.f.size));}):call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
+      return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size));},function(){return false;});})).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
     pr.then(function(){pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
   one();
 }
@@ -3243,9 +3261,9 @@ function fileIcon(m){var n=String(m.name||'').toLowerCase(),t=String(m.mime||'')
 // Send a big file in pieces. Fast way: straight from the phone to Google Drive (no detour through our script, 1/3 less data).
 // If this phone can't do that, it falls back to the old way (each piece through our script). Resolves with the server's answer.
 function pushChunks(f,st,prog,isCancelled){
-  var off=0,direct=!!st.url&&window.fetch,DCH=8*1048576,fails=0;
+  var off=0,direct=!!st.url&&window.fetch,DCH=16*1048576,fails=0;
   function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
-  function finish(){return call('videoChunk',{uid:st.uid,status:1}).then(function(r){if(r&&r.more)throw new Error('UPLOAD_INCOMPLETE');return r;});}
+  function finish(){return Promise.resolve(st.gate).then(function(){return call('videoChunk',{uid:st.uid,status:1});}).then(function(r){if(r&&r.more)throw new Error('UPLOAD_INCOMPLETE');return r;});}
   function step(){
     if(isCancelled())return Promise.reject(new Error('CANCELLED'));
     if(direct){var part=f.slice(off,Math.min(f.size,off+DCH));
@@ -3260,7 +3278,7 @@ function pushChunks(f,st,prog,isCancelled){
         return wait(2000*fails).then(function(){return call('videoChunk',{uid:st.uid,status:1});}).then(function(r){if(r&&r.more){off=+r.got||0;prog(off);return step();}return r;});
       });}
     var part2=f.slice(off,Math.min(f.size,off+st.chunk));
-    return readB64(part2).then(function(b64){var tries=0;
+    return readB64(part2).then(function(b64){return off+part2.size>=f.size?Promise.resolve(st.gate).then(function(){return b64;}):b64;}).then(function(b64){var tries=0;
       function send(){return call('videoChunk',{uid:st.uid,offset:off,data:b64}).catch(function(err){if(++tries<3&&!/NOT_ALLOWED|EXPIRED/.test(String(err.message)))return wait(2000*tries).then(send);throw err;});}
       return send();}).then(function(r){off+=part2.size;prog(off);if(r&&r.more)return step();return r;});
   }
@@ -3282,7 +3300,7 @@ function shrinkPhoto(f,mx,q0){return new Promise(function(res,rej){var url=URL.c
     var g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(im,0,0,c.width,c.height);var d=c.toDataURL('image/jpeg',q0||0.86);if(d.length>2400000)d=c.toDataURL('image/jpeg',0.72);if(d.length>2400000)d=c.toDataURL('image/jpeg',0.58);res(d);};im.src=url;});}
 // After a new task is saved: send its attachments one by one into the task (and every copy of it), without extra notifications.
 // Chat: one Camera button (photo or video), one Gallery button (pick several photos and videos together), one File button.
-function chatPick(x,mode){
+function chatPick(x,mode,rv){
   var inp=el('input',{type:'file',style:'display:none'});
   // Camera = the phone's own camera right away (photo), Video = the camera in video mode, Gallery = photos and videos, File = the Files app (documents only).
   if(mode==='cam')inp.accept='image/*';else if(mode==='vid')inp.accept='video/*';else if(mode==='file')inp.accept='application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,text/plain,text/csv,application/rtf,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.txt,.csv,.dwg,.dxf';else inp.accept='image/*,video/*';
@@ -3300,6 +3318,7 @@ function chatPick(x,mode){
         v.onloadedmetadata=function(){fin(v.duration);};v.onerror=function(){fin(0);};setTimeout(function(){fin(0);},4000);v.src=u;});}))
     .then(function(){if(bad.length)toast('❗ '+T('Too long or too big')+': '+bad.join(', '));if(!atts.length)return;
       atts.sort(function(a,b){return (a.kind==='photo'?0:1)-(b.kind==='photo'?0:1);});
+      if(rv&&atts.length===1){mediaReview(x,atts[0]);return;}
       toast((atts.length>1?atts.length+' ':'')+T('Sending…'));sendAttachments(atts,[x.id],true,function(){if(!document.getElementById('scrim')||!document.querySelector('.chatsheet'))openChat(x.id);});});};
   inp.click();}
 function sendAttachments(atts,ids,loud,onDone){
