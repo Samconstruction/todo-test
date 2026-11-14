@@ -1118,8 +1118,14 @@ function apply(d){
 // Photos / videos / voice notes show in the chat the moment you send them; they upload in the background.
 var PEND={},UPP={};
 function pendAdd(taskId,m){(PEND[taskId]=PEND[taskId]||[]).push(m);mergePend();chatRepaint();}
-function pendDone(taskId,mid){PEND[taskId]=(PEND[taskId]||[]).filter(function(m){return m.id!==mid;});if(!PEND[taskId].length)delete PEND[taskId];delete UPP[mid];}
-function mergePend(){Object.keys(PEND).forEach(function(tid){allT().forEach(function(t){if(t.id!==tid)return;var l=parseComments(t),ch=false;PEND[tid].forEach(function(m){if(!l.some(function(o){return o.id===m.id;})){l.push(m);ch=true;}});if(ch)t.comments=JSON.stringify(l);});});}
+function pendDone(taskId,mid){PEND[taskId]=(PEND[taskId]||[]).filter(function(m){return m.id!==mid;});if(!PEND[taskId].length)delete PEND[taskId];delete UPP[mid];
+  // take the 'sending' copy out right away, so the real one never shows twice
+  allT().forEach(function(t){if(t.id!==taskId)return;var l=parseComments(t),n=l.filter(function(m){return m.id!==mid;});if(n.length!==l.length)t.comments=JSON.stringify(n);});}
+function pendKind(m){return m.voice?'voice':m.video?'video':m.photo?'photo':'file';}
+function mergePend(){Object.keys(PEND).forEach(function(tid){allT().forEach(function(t){if(t.id!==tid)return;var l=parseComments(t),ch=false;PEND[tid].forEach(function(m){if(l.some(function(o){return o.id===m.id;}))return;
+    // the real one already arrived from the server (upload just finished): don't show the sending copy too
+    var k=pendKind(m);if(m._known&&l.some(function(o){return o.by===S.me&&o[k]&&String(o.id).charAt(0)!=='q'&&m._known.indexOf(o[k])<0;}))return;
+    l.push(m);ch=true;});if(ch)t.comments=JSON.stringify(l);});});}
 function chatRepaint(){if(S.sheetRefresh&&document.querySelector('.chatsheet'))try{S.sheetRefresh();}catch(e){}}
 function upProg(mid,p){UPP[mid]=p;var n=document.querySelector('.brow[data-mid="'+mid+'"] .upp');if(n)n.textContent='⬆ '+p+'%';}
 // newest message of mine with this kind that we did not have before (to keep the local copy for instant play)
@@ -1904,7 +1910,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140639',lastUpd=0;
+var BUILD='202611140643',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2924,12 +2930,12 @@ function sendInline(atts,id){
     if(a.kind==='photo'){m.photo=mid;S.photos[mid]=url;S.thumbs[mid]=url;}
     else if(a.kind==='video'){m.video=mid;m.dur=a.dur||0;S.vids[mid]=url;vidFrame(mid,url);}
     else{m.file=mid;m.name=a.f.name;m.size=a.f.size;m.mime=a.f.type;S.vids[mid]=url;}
-    UPP[mid]=0;a._mid=mid;a._url=url;pendAdd(id,m);});
+    UPP[mid]=0;a._mid=mid;a._url=url;m._known=knownOf(id,a.kind==='photo'?'photo':a.kind==='video'?'video':'file');pendAdd(id,m);});
   var i=0;
   function one(){if(i>=atts.length)return;var a=atts[i++],kind=a.kind==='photo'?'photo':a.kind==='video'?'video':'file',known=knownOf(id,kind),pr;
-    if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,50);return call('photoAdd',{id:id,data:data.split(',')[1]}).then(function(r){var nid;apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
+    if(a.kind==='photo')pr=shrinkPhoto(a.f).then(function(data){upProg(a._mid,50);return call('photoAdd',{id:id,data:data.split(',')[1]}).then(function(r){var nid;pendDone(id,a._mid);apply(r);nid=newMine(id,'photo',known);if(nid){S.photos[nid]=data;S.thumbs[nid]=data;}});});
     else pr=call('videoStart',Object.assign({size:a.f.size,mime:a.f.type||''},a.kind==='video'?{id:id,mime:a.f.type||'video/mp4',dur:a.dur||0}:{id:id,file:true,name:a.f.name})).then(function(st){
-      return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size));},function(){return false;});}).then(function(r){if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
+      return pushChunks(a.f,st,function(off){upProg(a._mid,Math.round(off*100/a.f.size));},function(){return false;});}).then(function(r){pendDone(id,a._mid);if(r&&r.me)apply(r);var nid=newMine(id,kind,known);if(nid){S.vids[nid]=a._url;if(VTH[a._mid])VTH[nid]=VTH[a._mid];mediaSave(nid,a.f);}});
     pr.then(function(){pendDone(id,a._mid);render();chatRepaint();one();}).catch(function(err){pendDone(id,a._mid);render();chatRepaint();toast('❗ '+T('Could not upload')+' '+(a.f.name||'')+'. '+errText(err));logErr('Attachment upload failed: '+String(err&&err.message||err),a.kind+' '+a.f.size);one();});}
   one();
 }
@@ -2939,13 +2945,13 @@ function vidFrame(mid,url){try{var v=document.createElement('video');v.muted=tru
   v.addEventListener('seeked',function(){try{var c=document.createElement('canvas'),w=Math.min(480,v.videoWidth||480);c.width=w;c.height=Math.round(w*(v.videoHeight||640)/(v.videoWidth||480));c.getContext('2d').drawImage(v,0,0,c.width,c.height);VTH[mid]=c.toDataURL('image/jpeg',0.7);document.querySelectorAll('img.vtimg[data-v="'+mid+'"]').forEach(function(n){n.src=VTH[mid];n.parentNode.classList.add('has');});}catch(e){}},{once:true});}catch(e){}}
 function sendVoice(x,blob,dur){
   var mid='q'+rid(),url=URL.createObjectURL(blob),known=knownOf(x.id,'voice');S.vids[mid]=url;UPP[mid]=0;
-  pendAdd(x.id,{id:mid,by:S.me,at:new Date().toISOString(),voice:mid,dur:dur,_q:1});S.saving++;
+  pendAdd(x.id,{id:mid,by:S.me,at:new Date().toISOString(),voice:mid,dur:dur,_q:1,_known:known});S.saving++;
   call('videoStart',{id:x.id,size:Math.max(blob.size,1000),mime:blob.type||'audio/webm',dur:dur,voice:true}).then(function(st){
     var off=0,CH=st.chunk;
     function next(){var part=blob.slice(off,Math.min(blob.size,off+CH));
       return readB64(part).then(function(b64){return call('videoChunk',{uid:st.uid,offset:off,data:b64});}).then(function(r){off+=part.size;upProg(mid,Math.round(off*100/blob.size));if(r&&r.more&&off<blob.size)return next();return r;});}
     return next();
-  }).then(function(r){S.saving--;if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}pendDone(x.id,mid);render();chatRepaint();})
+  }).then(function(r){S.saving--;pendDone(x.id,mid);if(r&&r.me)apply(r);var nid=newMine(x.id,'voice',known);if(nid){S.vids[nid]=url;if(WAVES[mid])WAVES[nid]=WAVES[mid];mediaSave(nid,blob);}render();chatRepaint();})
   .catch(function(err){S.saving--;pendDone(x.id,mid);render();chatRepaint();toast(T('Could not send the voice note.'));logErr('Voice upload failed: '+String(err&&err.message||err),'size '+blob.size+' type '+blob.type);});
 }
 // ---------- photos ----------
