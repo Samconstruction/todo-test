@@ -1017,6 +1017,8 @@ input[type=search].in,input.chatsearch{padding-left:40px;background:#fff url("da
 .praise.out{animation:prOut .45s ease forwards}
 @keyframes prIn{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @keyframes prOut{from{opacity:1;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(.96)}}
+.camhd{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:3;padding:9px 14px;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;font-size:14px;font-weight:800;backdrop-filter:blur(6px)}
+.vcam.rvon .camhd,.cambox.rv .camhd{display:none}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1734,6 +1736,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'sharp',i:'📷',t:'Sharper photos and videos',d:'Photos are sent almost twice as big and sharp, the camera keeps focusing by itself, videos are clearer. For the very best picture, tap "Phone camera" at the top of the camera – it opens your Samsung camera.',go:function(){goView('chats');}},
  {id:'praise',i:'✓',t:'A compliment when you finish',d:'Mark a task done and a small "Nice work!" pops up – different every time, in Spanish for the workers. For you, Rocky and Ashley the last task of the day and Friday get a special one. See them all: Maintenance → Compliments preview.',go:function(){openPraisePreview();}},
  {id:'snowprac',i:'❄️',t:'Snow practice',d:'Maintenance → Snow practice: add 20 practice customers and run a whole storm. Only you see it, nobody gets a notification, and ending it deletes it. Tap "Open the driver screen" to see what the driver sees.',go:function(){openMaint();}},
  {id:'snowico',i:'🗺',t:'Snow tabs in mint',d:'Customers, Routes and Storms have new line icons and mint colors.',go:function(){openSnow();}},
@@ -1970,7 +1973,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140742',lastUpd=0;
+var BUILD='202611140750',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2533,6 +2536,7 @@ var PRAISE={
   es:{task:['¡Buen trabajo!','¡Listo, campeón!','Uno menos','¡Así se hace!','¡Excelente!','¡Bien hecho!','¡Qué máquina!','¡Lo lograste!','¡Sigue así!','¡Perfecto!','¡Bravo!','¡De lujo!'],
       day:['¡Todo listo por hoy! 🎉'],week:['¡Gran semana! 🎉'],snow:['¡Ruta lista – a calentarse! ☕']}};
 var PRAISE_LAST='';
+Object.assign(ES,{'Phone camera':'Cámara del teléfono'});
 function praise(kind,lang){kind=kind||'task';var l=(PRAISE[lang||(LANG==='es'?'es':'en')]||PRAISE.en)[kind]||PRAISE.en.task,w=l[0];
   if(l.length>1){var k=0;do{w=l[Math.floor(Math.random()*l.length)];}while(w===PRAISE_LAST&&++k<5);}PRAISE_LAST=w;
   [].forEach.call(document.querySelectorAll('.praise'),function(o){o.remove();});
@@ -2850,15 +2854,20 @@ function openCam(x,videoFirst){
   var flip=el('button',{class:'camside','aria-label':T('Flip camera'),html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.5-4.5M4 13a8 8 0 0 0 14.5 4.5"/><path d="M5 3v3.8h3.8M19 21v-3.8h-3.8"/></svg>'});
   var gal=el('button',{class:'camside','aria-label':T('Gallery'),html:IC.gal,onclick:function(){stop();closeViewer();chatPick(x,'gal');}});
   var hint=el('div',{class:'camhint',text:T('Tap for photo · hold for video · slide up to zoom')});
-  var box=el('div',{class:'cambox'},vid,clock,el('div',{class:'cambar'},gal,shut,flip),hint);
+  var hd=el('button',{class:'camhd',onclick:function(e){e.stopPropagation();stop();closeViewer();chatPick(x,'cam');}},T('Phone camera'));
+  var box=el('div',{class:'cambox'},vid,clock,hd,el('div',{class:'cambar'},gal,shut,flip),hint);
   var vw=openViewer(box);vw.classList.add('vfull','vcam');
   vw.appendChild(el('button',{class:'vback','aria-label':T('Back'),onclick:function(e){e.stopPropagation();stop();closeViewer();queueHist();},html:'<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M15.4 5.4a1 1 0 0 1 0 1.4L10.2 12l5.2 5.2a1 1 0 1 1-1.4 1.4l-5.9-5.9a1 1 0 0 1 0-1.4l5.9-5.9a1 1 0 0 1 1.4 0z"/></svg>'}));
   function stop(){closed=true;try{cvStop();}catch(e){}try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}if(stream)stream.getTracks().forEach(function(t){t.stop();});clearInterval(recT);}
   var obs=new MutationObserver(function(){if(!document.body.contains(vw)){stop();obs.disconnect();}});obs.observe(document.body,{childList:true});
   function start(){if(stream)stream.getTracks().forEach(function(t){t.stop();});
     navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}},audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,sampleRate:48000,channelCount:1}}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1920},height:{ideal:1080}},audio:true});}).catch(function(){return navigator.mediaDevices.getUserMedia({video:{facingMode:facing}});})
-      .then(function(st){if(closed){st.getTracks().forEach(function(t){t.stop();});return;}stream=st;vid.srcObject=st;vid.classList.toggle('mirror',facing==='user');vid.play().catch(function(){});zoomSetup();})
+      .then(function(st){if(closed){st.getTracks().forEach(function(t){t.stop();});return;}stream=st;vid.srcObject=st;vid.classList.toggle('mirror',facing==='user');vid.play().catch(function(){});sharpen();zoomSetup();})
       .catch(function(){stop();closeViewer();toast('❗ '+T('Camera is blocked. Allow it for this app in your phone settings.'));chatPick(x,videoFirst?'vid':'cam');});}
+  // keep focus, light and color adjusting by themselves (sharper pictures)
+  function sharpen(){try{var tr=stream.getVideoTracks()[0],cp=tr.getCapabilities?tr.getCapabilities():{},a={};
+    if((cp.focusMode||[]).indexOf('continuous')>=0)a.focusMode='continuous';if((cp.exposureMode||[]).indexOf('continuous')>=0)a.exposureMode='continuous';if((cp.whiteBalanceMode||[]).indexOf('continuous')>=0)a.whiteBalanceMode='continuous';
+    if(Object.keys(a).length)tr.applyConstraints({advanced:[a]}).catch(function(){});}catch(e){}}
   var zMin=1,zMax=1,zCur=1,zNative=false,zPill=el('div',{class:'camzoom',style:'display:none',text:'1×'});box.appendChild(zPill);
   function zoomSetup(){zCur=1;zNative=false;zMin=1;zMax=4;try{var tr=stream.getVideoTracks()[0],cp=tr.getCapabilities?tr.getCapabilities():{};if(cp.zoom){zNative=true;zMin=cp.zoom.min||1;zMax=Math.min(cp.zoom.max||1,10);zCur=(tr.getSettings().zoom)||zMin;}}catch(e){}vid.style.transform='';showZ(true);}
   function setZoom(z){z=Math.max(zMin,Math.min(zMax,z));if(Math.abs(z-zCur)<0.02)return;zCur=z;
@@ -2877,7 +2886,7 @@ function openCam(x,videoFirst){
   function photo(){if(!vid.videoWidth)return;
     // the phone's real camera picture (full size) when it can; otherwise a frame from the live view
     try{var tr=stream&&stream.getVideoTracks()[0];if(window.ImageCapture&&tr&&facing==='environment'){var ic=new ImageCapture(tr);try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
-      ic.takePhoto().then(function(b){var f=new File([b],'photo-'+Date.now()+'.jpg',{type:b.type||'image/jpeg'});review({kind:'photo',f:f},URL.createObjectURL(b));}).catch(function(){photoFrame();});return;}}catch(e){}
+      (ic.getPhotoCapabilities?ic.getPhotoCapabilities().then(function(c){var o={};try{if(c.imageWidth&&c.imageWidth.max){o.imageWidth=c.imageWidth.max;o.imageHeight=c.imageHeight.max;}}catch(e){}return ic.takePhoto(o);},function(){return ic.takePhoto();}):ic.takePhoto()).then(function(b){var f=new File([b],'photo-'+Date.now()+'.jpg',{type:b.type||'image/jpeg'});review({kind:'photo',f:f},URL.createObjectURL(b));}).catch(function(){photoFrame();});return;}}catch(e){}
     photoFrame();}
   function photoFrame(){var c=document.createElement('canvas');c.width=vid.videoWidth;c.height=vid.videoHeight;var g=c.getContext('2d');if(facing==='user'){g.translate(c.width,0);g.scale(-1,1);}if(!zNative&&zCur>1){var sw=vid.videoWidth/zCur,sh=vid.videoHeight/zCur;g.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,c.width,c.height);}else g.drawImage(vid,0,0);
     try{if(navigator.vibrate)navigator.vibrate(20);}catch(e){}
@@ -2888,7 +2897,7 @@ function openCam(x,videoFirst){
     if(!zNative&&vid.videoWidth){try{var cw=Math.min(1920,vid.videoWidth),ch2=Math.round(cw*vid.videoHeight/vid.videoWidth),cv=document.createElement('canvas');cv.width=cw;cv.height=ch2;var cg=cv.getContext('2d');
       (function draw(){if(!cvOn)return;var sw=vid.videoWidth/zCur,sh=vid.videoHeight/zCur;try{cg.drawImage(vid,(vid.videoWidth-sw)/2,(vid.videoHeight-sh)/2,sw,sh,0,0,cw,ch2);}catch(e){}cvRaf=requestAnimationFrame(draw);})(cvOn=true);
       var cs=cv.captureStream(30);stream.getAudioTracks().forEach(function(t){cs.addTrack(t);});src=cs;}catch(e){cvStop();src=stream;}}
-    try{rec=mime?new MediaRecorder(src,{mimeType:mime,videoBitsPerSecond:5000000,audioBitsPerSecond:128000}):new MediaRecorder(src,{videoBitsPerSecond:5000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(src);}catch(e2){cvStop();return;}}
+    try{rec=mime?new MediaRecorder(src,{mimeType:mime,videoBitsPerSecond:6000000,audioBitsPerSecond:128000}):new MediaRecorder(src,{videoBitsPerSecond:6000000,audioBitsPerSecond:128000});}catch(e){try{rec=new MediaRecorder(src);}catch(e2){cvStop();return;}}
     chunks=[];rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
     rec.onstop=function(){cvStop();recording=false;shut.classList.remove('rec');clock.style.display='none';clearInterval(recT);if(closed||!chunks.length)return;var dur=Math.round((Date.now()-t0)/1000);
       var type=(rec.mimeType||mime||'video/webm').split(';')[0],b=new Blob(chunks,{type:type}),f=new File([b],'video-'+Date.now()+(type.indexOf('mp4')>=0?'.mp4':'.webm'),{type:type});
@@ -3210,8 +3219,8 @@ function uploadBig(f,params,label){
   }).then(function(r){S.saving--;closeSheet(false,true);if(r&&r.me)apply(r);render();return r;},function(err){S.saving--;closeSheet(false,true);render();throw err;});
 }
 function shrinkPhoto(f){return new Promise(function(res,rej){var url=URL.createObjectURL(f),im=new Image();im.onerror=function(){URL.revokeObjectURL(url);rej(new Error('PHOTO'));};
-  im.onload=function(){URL.revokeObjectURL(url);var max=1280,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
-    c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.8));};im.src=url;});}
+  im.onload=function(){URL.revokeObjectURL(url);var max=2400,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+    var g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(im,0,0,c.width,c.height);var d=c.toDataURL('image/jpeg',0.9);if(d.length>3900000)d=c.toDataURL('image/jpeg',0.78);if(d.length>3900000)d=c.toDataURL('image/jpeg',0.6);res(d);};im.src=url;});}
 // After a new task is saved: send its attachments one by one into the task (and every copy of it), without extra notifications.
 // Chat: one Camera button (photo or video), one Gallery button (pick several photos and videos together), one File button.
 function chatPick(x,mode){
