@@ -1267,6 +1267,8 @@ function pill(t,cls){return el('span',{class:'npill'+(cls?' '+cls:''),text:t});}
 function goView(v){RET.length=0;S.view=v;if(v==='tasks')S.tab=S.me;if(v==='sched')S.crewDay=today();render();window.scrollTo(0,0);}
 function lastMsg(x){var l=chatMsgs(x);return l.length?l[l.length-1]:null;}
 function unreadTasks(){return allT().filter(function(x){return (isOffice()||x.owner===S.me)&&unreadOf(x)>0;}).sort(function(a,b){var A=(lastMsg(a)||{}).at||'',B=(lastMsg(b)||{}).at||'';return A<B?1:-1;});}
+// Only messages from the last 24 hours go on the front page; older unread ones wait in Messages.
+function freshUnread(){var cut=new Date(Date.now()-864e5).toISOString();return unreadTasks().filter(function(x){return ((lastMsg(x)||{}).at||'')>=cut;});}
 function unreadTotal(){var n=0;allT().forEach(function(x){if(isOffice()||x.owner===S.me)n+=unreadOf(x);});return n;}
 
 // ===== Simple front (proposal A): greeting, at most ONE alert line, at most 3 big buttons. Everything else is under More. =====
@@ -1287,9 +1289,9 @@ function needItems(){
   urg.concat(od.filter(function(x){return urg.indexOf(x)<0;})).slice(0,4).forEach(function(x){var late=x.due&&x.due<t;
     add(x.urgent==='1'?'⚠️':'⏰',x.title,(late?T('Late')+' · '+dueLabel(x.due):dueLabel(x.due||t))+(jobOf(x.job)?' · '+jobOf(x.job).name:''),pill(x.urgent==='1'?T('Urgent'):T('Late'),'red'),function(){openEditor(x);},'red');});
   // tagged me (@) in a message I haven't opened yet: on top of the messages
-  var tagged=[];unreadTasks().forEach(function(x){var seen=((S.seen||{})[x.id]||{})[S.me]||'',tm=chatMsgs(x).filter(function(m){return m.by!==S.me&&m.at>seen&&(m.m||[]).indexOf(S.me)>=0;}).pop();if(tm)tagged.push([x,tm]);});
+  var tagged=[];freshUnread().forEach(function(x){var seen=((S.seen||{})[x.id]||{})[S.me]||'',tm=chatMsgs(x).filter(function(m){return m.by!==S.me&&m.at>seen&&(m.m||[]).indexOf(S.me)>=0;}).pop();if(tm)tagged.push([x,tm]);});
   tagged.slice(0,4).forEach(function(p){var x=p[0],m=p[1];add('🏷',nameOf(m.by)+' '+T('tagged you')+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),m.text||msgLabel(m),pill('@','green'),function(){openChat(x.id);});});
-  unreadTasks().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?nameOf(dmOther(x)):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
+  freshUnread().filter(function(x){return !tagged.some(function(p){return p[0]===x;});}).slice(0,4).forEach(function(x){var m=lastMsg(x);add('💬',isDm(x)?nameOf(dmOther(x)):(isOffice()?nameOf(x.owner):nameOf(m.by))+' · '+(isCrewTask(x)?((jobOf(x.job)||{}).name||x.title):x.title),msgLabel(m),pill(String(unreadOf(x)),'green'),function(){openChat(x.id);});});
   if(schedSent(t)&&!isSat(t)){var up=unplaced(sc);if(up.length&&h<15)add('👷',up.length+' '+T('not placed today'),up.slice(0,4).map(function(w){return w.name;}).join(', ')+(up.length>4?'…':''),null,function(){goView('sched');});}
   if(!isSat(t)&&h>=15)crews.forEach(function(c){if(!reportFor(c.id,t))add('📋',crewTitle(c),T('Report not sent yet'),pill(T('Waiting'),'amber'),function(){openReports();});});
   return it;
@@ -1667,7 +1669,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140544',lastUpd=0;
+var BUILD='202611140549',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1873,7 +1875,7 @@ function workerView(){
   var J=workerJobs(),tdy=J.tdy,heroX=J.hero,lead=(S.steady&&S.steady.crews||[]).filter(function(c){return c.leader===S.me;});
   wrap.appendChild(heroBox(T('Hi')+', '+firstName(S.name||S.me)+' 👋',longDate(tdy),null));
   // the ONE alert: snow route > announcement > new message > a second job today
-  var a=(S.anns||[])[0],un=unreadTasks()[0],more=J.now.filter(function(x){return x!==heroX;});
+  var a=(S.anns||[])[0],un=freshUnread()[0],more=J.now.filter(function(x){return x!==heroX;});
   if(S.snow&&S.snow.stops)wrap.appendChild(snowBannerBtn());
   else if(a)wrap.appendChild(el('div',{class:'ann'},
     el('div',{class:'from',text:'📣 '+T('Announcement from ')+a.from+' · '+annWhen(a.createdAt)}),
