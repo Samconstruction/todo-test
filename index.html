@@ -1102,10 +1102,33 @@ html.ios .scrim.chatfull .sheet.chatsheet{height:var(--vvh,100dvh)}
 html.ios.kb .btabs{display:none}
 /* iPhone: no long-press magnifier on the mic / shutter, no pale bounce above the header, dates left */
 .chatmic,.camshut,.recmic,.cpi{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
-html,body{overscroll-behavior-y:none}
+html.ios{overscroll-behavior-y:none}
 .in[type=date],.in[type=time]{display:flex;align-items:center;min-height:50px}
 .in::-webkit-date-and-time-value{text-align:left}
 .teambox,.teambox *{color:#0E4F45}.teambox .chip,.teambox .pchip{color:#14302B}
+/* snow: trucks + drivers */
+.tkpick{display:flex;gap:10px}.tkpick button{flex:1;min-height:70px;border-radius:18px;background:#E6F6F1;color:#0E4F45;font-size:20px;font-weight:800}.tkpick button.on{background:#1B8F7B;color:#fff}
+.drvchips{display:flex;gap:8px;flex-wrap:wrap}.drvchips button{padding:12px 16px;border-radius:999px;background:#fff;border:1.5px solid #DCE7E3;color:#14302B;font-weight:800;font-size:16px;min-height:48px}
+.drvchips button.on{background:#1B8F7B;border-color:#1B8F7B;color:#fff}
+/* snow driver screen: dark, big, gloves */
+body.sndark{background:#0F1F1C}body.sndark .top{background:#12302A}body.sndark .top *{color:#E6F6F1}
+.sn.drv{color:#E8F3EF}.sn.drv .homelink{color:#7FD1B9}
+.drvtop{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 8px;font-size:20px;color:#fff}.drvwait{font-size:14px;font-weight:800;color:#FFC98B;background:rgba(255,201,139,.12);padding:6px 10px;border-radius:999px}
+.sn.drv .sn-prog{background:#1E3A34}
+.drvcard{background:#16332D;border-radius:22px;padding:18px 16px;margin:6px 0 12px}
+.drvcard .lab{font-size:13px;font-weight:800;letter-spacing:.1em;color:#7FD1B9}.drvcard .nm{font-size:26px;font-weight:800;color:#fff;margin:4px 0}.drvcard .ad{font-size:18px;color:#CFE9E1;margin-bottom:8px}
+.drvcard .nt{margin-top:8px;font-size:16px;color:#FFE1B8}.drvcard .nt.warn{color:#FFB4A8}.drvcard.ok .nm{font-size:22px}
+.drvrow{display:flex;gap:10px;margin-top:12px}.drvrow .drvb{flex:1;min-height:64px;border-radius:16px;background:#244A42;color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.drvrow .drvb.go{background:#1B8F7B}.drvrow.small .drvb{min-height:52px;font-size:15px}.drvrow .drvb.on{background:#0E4F45;box-shadow:inset 0 0 0 2px #7FD1B9}
+.drvdone{display:block;width:100%;min-height:96px;border-radius:24px;background:#2FA36B;color:#fff;font-size:30px;font-weight:900;letter-spacing:.04em;box-shadow:0 10px 26px rgba(0,0,0,.35)}
+.sn.drv .sn-stop{background:#16332D;color:#E8F3EF;border-color:#244A42}.sn.drv .sn-stop .t span{color:#9FC9BD}.sn.drv .sn-mut{color:#9FC9BD}
+.sn.drv .sn-chip{background:#244A42;color:#E6F6F1}
+.arrbtn{display:block;width:100%;margin-top:10px;min-height:48px;border-radius:14px;background:#E6F6F1;color:#0E4F45;font-weight:800;font-size:16px}
+.arrok{margin-top:10px;text-align:center;font-weight:800;color:#1B8F7B}
+.schp.arr{background:#E6F6F1;color:#0E4F45;font-weight:800}
+.tkbox .primary,.tkbox .ghost{display:block;width:100%}
+.drvrow.small{display:grid;grid-template-columns:1fr 1fr}.drvrow.small .drvb{white-space:nowrap;gap:6px}
+body.sndark #app{min-height:100vh;min-height:100dvh;background:#0F1F1C}
 </style></head><body>
 <div id="app"></div>
 <input type="file" id="photoIn" accept="image/*" style="display:none"><input type="file" id="videoIn" accept="video/*" style="display:none"><input type="file" id="photoCam" accept="image/*" capture="environment" style="display:none"><input type="file" id="videoCam" accept="video/*" capture="environment" style="display:none">
@@ -1191,7 +1214,7 @@ function call(action,payload,as){
 }
 // ---------- waiting to send (bad signal) ----------
 var Q=[],qBusy=false;try{Q=JSON.parse(localStorage.getItem('sam_q')||'[]')||[];}catch(e){Q=[];}
-var QABLE={update:1,comment:1,photoAdd:1,otSave:1,react:1,annSeen:1,reportSave:1,add:1,scheduleSave:1};
+var QABLE={update:1,comment:1,photoAdd:1,otSave:1,react:1,annSeen:1,reportSave:1,add:1,scheduleSave:1,snowStop:1};
 function isNet(e){return /^(NO_SIGNAL|TIMEOUT)$/.test(String(e&&e.message||e));}
 function errText(e){var m=String(e&&e.message||e);
   if(m==='VIEW_ONLY')return T('You are only looking as this worker – nothing can be changed.');
@@ -1206,7 +1229,7 @@ function flushQ(){
   if(qBusy||!Q.length||!S.me||!S.pin||S.viewAs)return;var it=Q[0];
   if(it.me!==S.me){Q.shift();qSave();return flushQ();}
   qBusy=true;it.p.pin=S.pin;
-  call(it.a,it.p).then(function(d){Q.shift();qSave();qBusy=false;if(!Q.length){apply(d);render();toast(it.msg||'✓ '+T('Everything was sent'));}else{if(it.msg)toast(it.msg);render();flushQ();}})
+  call(it.a,it.p).then(function(d){Q.shift();qSave();qBusy=false;if(/^snow/.test(it.a)){snowApply(d);if(!Q.length){render();return;}render();flushQ();return;}if(!Q.length){apply(d);render();toast(it.msg||'✓ '+T('Everything was sent'));}else{if(it.msg)toast(it.msg);render();flushQ();}})
   .catch(function(e){qBusy=false;if(isNet(e)||/Service|Lock timeout|timed out|LOCKED|temporarily|busy/i.test(String(e&&e.message||e))){render();return;}if(isBadPin(e)){signOut('');return;}Q.shift();qSave();
     if(it.a==='scheduleSave'&&String(e&&e.message)==='STALE'){var sp=it.p;refresh(true);setTimeout(function(){var who=((S.sched||{})[sp.date]||{})._by;toast('⚠️ '+(who&&who!==S.me?who:T('Someone else'))+' '+T('just changed this day. Your changes are kept here – check and send again.'));openSchedule(sp.date,{crews:sp.crews,off:sp.off});},1800);render();flushQ();return;}
     toast('❗ '+T('Not sent')+': '+errText(e));render();flushQ();});
@@ -1216,6 +1239,7 @@ function applyQ(){Q.forEach(function(it){if(it.me!==S.me)return;var p=it.p;
     if(it.a==='update'){for(var k in p)if(k!=='id'&&k!=='by'&&k!=='pin'&&k!=='rid')x[k]=k==='urgent'?(p[k]?'1':''):p[k];}
     else if(it.a==='comment'){if(p.status)x.status=p.status;if(p.text){var l=parseComments(x);if(!l.some(function(m){return m.id==='q'+p.rid;})){l.push({id:'q'+p.rid,by:S.me,at:new Date(it.at).toISOString(),text:p.text,re:p.re||undefined,_q:1});x.comments=JSON.stringify(l);}}}});
   if(it.a==='otSave'&&!p.worker&&S.myweek&&S.myweek.ot)S.myweek.ot[p.date]=p.hours;
+  if(it.a==='snowStop')snowLocal(p);
   if(it.a==='add'){var nowA=new Date(it.at).toISOString();(p.owners||[]).forEach(function(o,i){var qid='q'+p.rid+'_'+i;if(S.tasks.some(function(x){return x.id===qid;}))return;
     S.tasks.push({id:qid,owner:o,title:p.title,note:p.note,due:p.due,time:p.time,address:p.address,urgent:p.urgent?'1':'',job:p.job||'',status:'todo',createdBy:S.me,createdAt:nowA,updatedBy:S.me,updatedAt:nowA,photos:'',_q:1});});}
   if(it.a==='scheduleSave'){S.sched=S.sched||{};S.sched[p.date]={crews:p.crews,off:p.off,_q:1};}
@@ -1245,7 +1269,7 @@ function apply(d){
   if(d&&('__va' in d)&&d.__va!==(S.viewAs||null))return;
   if(d&&d.seen)S.seen=d.seen;if(d&&d.myPush===0&&!d.__cached)setTimeout(pushHeal,1500);
   if(!d||!d.me)return;
-  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
+  S.me=d.me.key;S.name=d.me.name;S.role=d.me.role;S.snow=d.snow||null;if('estWait' in d&&S.me==='Yossi')S.estWait=d.estWait;if(d.arr)S.arr=d.arr;if(!S.viewAs)setTimeout(useStart,0);if(!d.__cached&&Date.now()-PREF_AT>120000){PREF_AT=Date.now();setTimeout(function(){try{prefetchThumbs();}catch(e){}},2500);}S.weak=!!d.me.weak;S.dms=(d.tasks||[]).filter(isDm);if(d.nowork)S.nowork=d.nowork;if(d.got)S.got=d.got;S.tasks=(d.tasks||[]).filter(function(t){return !isDm(t);});S.crew=(d.crew||[]).slice().sort(function(a,b){return a.name.localeCompare(b.name);});S.office=d.office||[];S.jobs=d.jobs||S.jobs||[];S.anns=d.anns||[];S.sched=d.sched||{};S.mates=d.mates||[];S.names=d.names||S.names||{};S.mycrew=d.mycrew||null;if(d.drivers)S.drivers=d.drivers;S.avatars=d.avatars||{};var oldDraft=S.myweek&&S.myweek.draft;S.myweek=d.myweek||null;if(S.myweek&&oldDraft)S.myweek.draft=oldDraft;S.steady=d.steady||{crews:[],reports:[]};if(d.visits)S.visits=d.visits;
   if(!S.viewAs){store('sam_me',S.me);store('sam_name',S.name);store('sam_role',S.role);
   try{if(d.tasks)localStorage.setItem('sam_cache',JSON.stringify(d));}catch(e){}}
   if(Q.length)applyQ();
@@ -1636,6 +1660,7 @@ function homeView(){
   var sc=(S.sched||{})[t],nCrews=sc?(sc.crews||[]).filter(function(c){return c.job||c.note;}).length:0;
   wrap.appendChild(heroBox(greetWord()+', '+firstName(S.name||S.me),longDate(t),null));
   var need=needItems(),snowOn=isSnowAdmin()&&S.snow&&S.snow.active,nn=need.length;
+  if(S.snow&&S.snow.stops)wrap.appendChild(snowBannerBtn());
   if(snowOn)wrap.appendChild(el('button',{class:'needbtn red',onclick:openSnow},el('span',{class:'nbi',text:'❄️'}),el('span',{class:'nbm'},el('b',{text:T('Snow storm is on')}),el('span',{text:T('Tap to open snow plowing')})),el('span',{class:'bbc',text:'›'})));
   wrap.appendChild(el('button',{class:'needbtn'+(nn?'':' calm'),onclick:function(){goView('need');}},el('span',{class:'nbi',text:nn?'⚡':'✓'}),
     el('span',{class:'nbm'},el('b',{text:nn?T('Needs you'):T('All caught up')}),el('span',{text:nn?need.slice(0,2).map(function(n){return n.title;}).join(' · ')+(nn>2?' …':''):T('Nothing is waiting for you')})),
@@ -1778,7 +1803,8 @@ function moreView(){
     b('📣',T('Announcement'),function(){openAnnounce();}),
     b('👷',T('Workers'),openCrewManager),
     b('📅',T('Calendar'),function(){goView('cal');}),
-    isEst()?b('📄',T('Estimates'),openEst,S.me==='Yossi'?S.estWait:0):null));
+    isEst()?b('📄',T('Estimates'),openEst,S.me==='Yossi'?S.estWait:0):null,
+    isSnowAdmin()&&!yo?b('❄️',T('Snow plowing')+(S.snow&&S.snow.active?' · '+T('storm on'):''),openSnow):null));
   wrap.appendChild(sec('Settings'));
   wrap.appendChild(el('div',{class:'homegrid'},
     b('⚙️',T('Settings'),openSettings),
@@ -1807,7 +1833,10 @@ function jobHero(x){
       x.team&&x.team.length?teamBox(x):null,rideLine(x),sharedLine(x),
       el('div',{class:'jhbtns'},
         x.address?el('a',{class:'jhgo',href:mapsUrl(x.address),target:'_blank',rel:'noopener'},'🧭 '+T('Go')):null,
-        el('button',{class:'jhsec',onclick:function(){openMedia(x);}},'📷 '+T('Photo')))),
+        el('button',{class:'jhsec',onclick:function(){openMedia(x);}},'📷 '+T('Photo'))),
+      !dn&&!isOffice()&&x.due===today()?((S.arr||{})[S.me]?el('div',{class:'arrok',text:'✓ '+T('You arrived')+' '+clockOf(S.arr[S.me])}):
+        el('button',{class:'arrbtn',onclick:function(e){var b=e.currentTarget;b.disabled=true;S.arr=S.arr||{};S.arr[S.me]=new Date().toISOString();render();haptic();
+          call('arrive',{}).then(function(r){if(r&&r.arr)S.arr=Object.assign({},S.arr,r.arr);}).catch(function(){});}},'📍 '+T('I arrived'))):null),
     dn?el('div',{class:'jhdoneinfo',text:x.updatedBy==='Auto 6 PM'?'✓ '+T('Closed automatically at 6 PM – still working? Add your overtime in My week'):'✓ '+T('Marked done')}):
       el('button',{class:'jhdone jhfull',onclick:function(){openDone(x);}},'✓ '+T('Done')));
 }
@@ -1835,6 +1864,15 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'fx_mates',i:'📞',t:'Prospect crews: phone list',d:'Workers in a Prospect crew now see everybody in their own crew (and their leader) in the phone list.',go:function(){wnPickWorker();}},
+ {id:'sn_rocky',i:'❄️',t:'Rocky runs snow',d:'Rocky has Snow plowing in his More, can start and end storms, and can be picked as a driver. When he drives, his route shows on his Today screen.',go:function(){openSnow();}},
+ {id:'sn_trucks',i:'🚜',t:'Start storm: 1 or 2 trucks',d:'Start storm now asks how many trucks tonight and who drives each one (Rocky, you or a worker). The saved routes are split between the trucks; your last choice is remembered.',go:function(){openSnow();}},
+ {id:'sn_offline',i:'⏳',t:'Snow works with no signal',d:'A driver tapping Done with no signal: it is saved on the phone and sent when the signal is back ("1 waiting to send"). Nothing is lost.',go:function(){openSnowPractice();}},
+ {id:'sn_drv',i:'🌙',t:'New driver screen for night and gloves',d:'Dark screen, one huge DONE button, Navigate, Call the customer, Skip (do it later), Salted only when needed, two-tap Undo, the screen stays on. Try it in Snow practice → Open the driver screen.',go:function(){openSnowPractice();}},
+ {id:'sn_move',i:'⇄',t:'Move a stop to the other truck',d:'During a storm tap a customer → "Move to Carlos" (or whoever drives the other truck).',go:function(){openSnow();}},
+ {id:'sn_es',i:'🌐',t:'Snow in Spanish',d:'The driver screen and the snow words are in Spanish for the workers.',go:function(){openSnow();}},
+ {id:'arrived',i:'📍',t:'Workers: "I arrived" button',d:'Workers tap "Llegué" at the job. On the schedule you see "✓ 7:12" next to their name.',go:function(){goView('sched');}},
+ {id:'fx_scroll',i:'🛠',t:'Scrolling fixed',d:'The More page scrolls all the way down again ("Only for you").',go:function(){goView('more');}},
  {id:'fx_sched2',i:'🗓',t:'Two people on one schedule',d:'If Rocky and Ashley change the same day, the second one is told right away and her changes stay on screen to check and send again – nothing is lost.',go:function(){goView('sched');}},
  {id:'fx_satnight',i:'🌙',t:'Sunday schedule on Saturday night',d:'A Sunday schedule sent after 7 PM Saturday now notifies the workers right away (never you).',go:function(){goView('sched');}},
  {id:'fx_satwork',i:'🗓',t:'Working Saturday – daily crew',d:'On a Saturday with a schedule the daily crew works like any day (Needs you reminds who is not placed). Prospect crews stay off.',go:function(){goView('home');}},
@@ -1956,9 +1994,9 @@ function render_(){
   else if(!isOffice()&&v==='myjobs')app.appendChild(el('button',{class:'homelink',onclick:function(){navBack('more',function(){goView('more');});}},'‹ '+T('More')));
   if(isOffice()&&v==='tasks')app.appendChild(tabs());
   var nb=notifBanner();if(nb)app.appendChild(nb);var pb=pinBanner();if(pb)app.appendChild(pb);
-  if(!isOffice()){if(S.snow&&S.snow.stops&&S.view==='snowdrv')app.appendChild(snowDriverView());else if(v==='chats')app.appendChild(chatsView());else if(v==='week')app.appendChild(weekView());else if(v==='more')app.appendChild(moreView());else if(v==='myjobs')app.appendChild(myJobsView());else{if(S.snow&&S.snow.stops)app.appendChild(snowBannerBtn());app.appendChild(workerView());}}
+  if(!isOffice()){if(S.snow&&S.snow.stops&&S.view==='snowdrv')app.appendChild(snowDriverView());else if(v==='chats')app.appendChild(chatsView());else if(v==='week')app.appendChild(weekView());else if(v==='more')app.appendChild(moreView());else if(v==='myjobs')app.appendChild(myJobsView());else app.appendChild(workerView());}
   else if(v==='snow'&&isSnowAdmin())app.appendChild(snowView());
-  else if(v==='snowdrv'&&isSnowAdmin())app.appendChild(snowDriverView());
+  else if(v==='snowdrv'&&isSnowAdmin()&&(S.snDrv||(S.snow&&S.snow.stops)))app.appendChild(snowDriverView());
   else if(v==='est'&&isEst())app.appendChild(estView());
   else if(v==='estone'&&isEst())app.appendChild(estOneView());
   else if(v==='home')app.appendChild(homeView());
@@ -1973,7 +2011,7 @@ function render_(){
   else if(v==='jobhist')app.appendChild(histView());
   else app.appendChild(S.tab==='crew'?crewListView():listView(PEOPLE.indexOf(S.tab)>=0?S.tab:S.me));
   if(isOffice()&&v==='tasks'&&S.tab!=='crew')app.appendChild(el('button',{class:'fab','aria-label':'Add task',onclick:function(){if(S.tab==='crew')openEditor(null,{due:S.crewTaskDay||today()});else openEditor(null);}},'+'));
-  if(!(S.view==='snowdrv'&&((S.snow&&S.snow.stops)||(isOffice()&&S.snDrv)))){app.appendChild(bottomTabs());document.body.classList.add('hasbt');}else document.body.classList.remove('hasbt');
+  if(!(S.view==='snowdrv'&&((S.snow&&S.snow.stops)||(isOffice()&&S.snDrv)))){document.body.classList.remove('sndark');app.appendChild(bottomTabs());document.body.classList.add('hasbt');}else document.body.classList.remove('hasbt');
   window.scrollTo(0,y);
 }
 
@@ -2105,7 +2143,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611140838',lastUpd=0;
+var BUILD='202611140849',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2160,7 +2198,7 @@ function applyBig(){document.documentElement.classList.toggle('big',store('sam_b
 applyBig();
 function header(){
   return el('header',{class:'top'},
-    el('div',{class:'hl'},el('div',{class:'wmark'},el('span',{class:'wm1',text:'SAM'}),el('span',{class:'wm2',text:'To-Do'})),el('div',{class:'title'},isOffice()?T(({est:'Estimates',estone:'Estimates',home:'Today',phones:'Phones',need:'Needs you now',tasks:'Tasks',sched:'Schedule',sites:'Job sites',jobs:'Jobs',jobhist:'Jobs',snow:'Snow plowing',chats:'Messages',more:'More',cal:'Calendar',need:'Needs you now'})[S.view||'home']||'To-Do'):T(({chats:'Messages',week:'My week',more:'More',cal:'Calendar',myjobs:'My jobs'})[S.view]||'Today'))),
+    el('div',{class:'hl'},el('div',{class:'wmark'},el('span',{class:'wm1',text:'SAM'}),el('span',{class:'wm2',text:'To-Do'})),el('div',{class:'title'},isOffice()?T(({snowdrv:'Snow plowing',est:'Estimates',estone:'Estimates',home:'Today',phones:'Phones',need:'Needs you now',tasks:'Tasks',sched:'Schedule',sites:'Job sites',jobs:'Jobs',jobhist:'Jobs',snow:'Snow plowing',chats:'Messages',more:'More',cal:'Calendar',need:'Needs you now'})[S.view||'home']||'To-Do'):T(({chats:'Messages',week:'My week',more:'More',cal:'Calendar',myjobs:'My jobs'})[S.view]||'Today'))),
     el('div',{class:'right'},el('span',{class:'sync'+(S.offline?' off':'')},savingLong()?T('Saving…'):(S.offline?'📵 '+T('Offline')+(S.lastOk?' · '+clockOf(S.lastOk):''):'')),
       el('button',{class:'me meav','aria-label':S.name||S.me,onclick:openMenu},avatar(S.me,S.name||S.me,38))));
 }
@@ -2395,7 +2433,7 @@ function phoneRows(list,f){
     var mine=!isOffice()?(S.steady&&S.steady.crews||[]).filter(function(c){return c.leader===S.me;}):[];
     mine.forEach(function(c){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:crewTitle(c)+' ('+c.members.length+')'}));
       c.members.forEach(function(n){if(f&&n.toLowerCase().indexOf(f)<0)return;list.appendChild(telRow(n,(c.phones||{})[n],'',(c.ids||{})[n]));});});
-    if(!isOffice()&&(S.mates||[]).length){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:T('Crew')+' ('+S.mates.length+')'}));
+    if(!isOffice()&&!mine.length&&(S.mates||[]).length){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:(S.mycrew?crewTitle(S.mycrew):T('Crew'))+' ('+S.mates.length+')'}));
       S.mates.forEach(function(c){if(f&&c.name.toLowerCase().indexOf(f)<0)return;list.appendChild(telRow(c.name,c.phone,'',c.id));});}}
 function openPhones(){if(isOffice()){closeSheet(true,true);goView('phones');return;}
   var q=el('input',{class:'in',placeholder:'🔎 '+T('Search name')}),list=el('div',{});
@@ -2407,7 +2445,7 @@ function openPhones(){if(isOffice()){closeSheet(true,true);goView('phones');retu
     var mine=!isOffice()?(S.steady&&S.steady.crews||[]).filter(function(c){return c.leader===S.me;}):[];
     mine.forEach(function(c){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:crewTitle(c)+' ('+c.members.length+')'}));
       c.members.forEach(function(n){if(f&&n.toLowerCase().indexOf(f)<0)return;list.appendChild(telRow(n,(c.phones||{})[n],'',(c.ids||{})[n]));});});
-    if(!isOffice()&&(S.mates||[]).length){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:T('Crew')+' ('+S.mates.length+')'}));
+    if(!isOffice()&&!mine.length&&(S.mates||[]).length){list.appendChild(el('div',{class:'lbl',style:'margin:12px 0 6px',text:(S.mycrew?crewTitle(S.mycrew):T('Crew'))+' ('+S.mates.length+')'}));
       S.mates.forEach(function(c){if(f&&c.name.toLowerCase().indexOf(f)<0)return;list.appendChild(telRow(c.name,c.phone,'',c.id));});}}
   q.addEventListener('input',paint);paint();
   openSheet([el('h2',{text:'📞 '+T('Phone list')}),(isOffice()?S.crew.length:(S.mates||[]).length+8)>8?q:null,list,el('button',{class:'ghost',onclick:closeSheet},T('Cancel'))]);
@@ -2515,7 +2553,7 @@ function crewDayView(){
           el('span',{class:'schdrv',text:crewLabel(c)}),
           el('span',{class:'schjob',text:'→ '+(jb?jb.name:(c.note||''))}),
           el('span',{class:'schcnt',text:'👥 '+names.length})),
-        names.length?el('div',{class:'schnames'},names.map(function(n){return el('span',{class:'schp',text:n});})):null,
+        names.length?el('div',{class:'schnames'},ks.map(function(k,ni){var at=d===today()&&(S.arr||{})[k];return el('span',{class:'schp'+(at?' arr':''),text:names[ni]+(at?' ✓ '+clockOf(at):'')});})):null,
         addr?el('a',{class:'schaddr',href:mapsUrl(addr),target:'_blank',rel:'noopener'},el('span',{text:'📍 '+addr}),el('b',{text:T('Map')+' ›'})):null));});
   }
   wrap.appendChild(sum);
@@ -4183,8 +4221,8 @@ Object.assign(ES,{'Put the app on your home screen':'Pon la app en tu pantalla d
   'Install on another phone':'Instalar en otro teléfono','Let the person scan this with their phone camera, then tap the link.':'Que la persona lo escanee con la cámara de su teléfono y toque el enlace.','Workers not set up':'Trabajadores sin configurar','Tap Send to give each one the link, their PIN and the install steps (in Spanish).':'Toca Enviar para darle a cada uno el enlace, su PIN y los pasos (en español).',
   'Never opened the app':'Nunca abrió la app','Alerts are off':'Avisos apagados','Everyone is set up!':'¡Todos están listos!','Send':'Enviar','days ago':'días atrás','yesterday':'ayer','Saw the schedule':'Vieron el horario','Who saw the schedule':'Quién vio el horario','sent':'enviado','Not seen yet – tap to call':'No lo han visto – toca para llamar','Send app':'Enviar app'});
 // ---------- ❄️ Snow plowing (management: Yossi only for now; drivers work their own route) ----------
-var SNOW_ADMINS=['Yossi'];
-function isSnowAdmin(){return SNOW_ADMINS.indexOf(S.me)>=0&&!S.viewAs;}
+var SNOW_ADMINS=['Yossi','Rocky'];
+function isSnowAdmin(){return SNOW_ADMINS.indexOf(S.me)>=0;}
 Object.assign(ES,{'Snow plowing':'Quitar nieve','Customers':'Clientes','Routes':'Rutas','Storms':'Tormentas','+ Add snow customer':'+ Agregar cliente de nieve','snow customers · separate from your regular jobs':'clientes de nieve · aparte de los trabajos normales',
  'Plow':'Quitar nieve','Salt':'Sal','Sidewalks':'Aceras','Clear by':'Listo antes de las','NEXT STOP':'PRÓXIMA PARADA','of':'de','done':'listas','Navigate':'Navegar','Photo':'Foto','photos':'fotos','Salted':'Con sal','Problem':'Problema',
  '✓ Done – next stop':'✓ Listo – siguiente parada','Finished':'Terminadas','Snow storm':'Tormenta de nieve','All stops done – great work!':'¡Todas las paradas listas – buen trabajo!','What is the problem?':'¿Cuál es el problema?',
@@ -4193,7 +4231,8 @@ function prefetchVideos(){if(S.viewAs)return;var vs=[];allT().forEach(function(t
   vs.sort(function(a,b){return a.at<b.at?1:-1;});(function nxt(i){if(i>=Math.min(2,vs.length))return;getMedia(vs[i].video,null,'video/mp4').then(function(){nxt(i+1);},function(){nxt(i+1);});})(0);}
 function prefetchThumbs(){setTimeout(function(){try{prefetchVideos();}catch(e){}},4000);if(!isOffice()||S.viewAs)return;var from=addDays(today(),-2),n=0;
   (S.tasks||[]).forEach(function(t){if((t.due||'')<from||n>60)return;parseComments(t).forEach(function(m){if(m.photo&&!S.thumbs[m.photo]&&!S.photos[m.photo]&&n<60){n++;S.thumbs[m.photo]=false;thQ.push(m.photo);}});});thNext();}
-function snowApply(r){if(!r)return;if('mine' in r)S.snow=r.mine;else if(r.custs){S.sn=r;if(r.active===''||!r.active){if(S.snow&&S.snow.active)S.snow=null;}}}
+function snowApply(r){if(!r)return;if('mine' in r)S.snow=r.mine;else if(r.custs){S.sn=r;if(r.active===''||!r.active){if(S.snow&&S.snow.active)S.snow=null;}}
+  try{Q.forEach(function(it){if(it.a==='snowStop'&&it.me===S.me)snowLocal(it.p);});}catch(e){}}
 try{var _sn=JSON.parse(localStorage.getItem('sam_snow')||'null');if(_sn&&_sn.custs)S.sn=_sn;}catch(e){}
 function snowLoad(){return call('snowGet',{}).then(function(r){snowApply(r);try{localStorage.setItem('sam_snow',JSON.stringify(S.sn));}catch(e){}if(S.view==='snow')render();}).catch(function(e){if(S.view==='snow'&&!S.sn){S.snErr=errText(e);render();}});}
 var SNOW_TIMER=null;
@@ -4306,7 +4345,7 @@ function snowStorms(wrap){
     var armed=false,rb=el('button',{class:'sn-big ghostb',onclick:function(){if(!armed){armed=true;rb.textContent=T('Tap again – send all routes again from the start');return;}snowCall('snowRound',{},T('Second round sent to the drivers'));}},'🔁 '+T('Second round (heavy snow)'));
     var armed2=false,eb=el('button',{class:'sn-big ghostb',onclick:function(){if(!armed2){armed2=true;eb.textContent=S.sn.practice?T('Tap again – the practice is deleted'):T('Tap again to end the storm');return;}snowCall('snowEnd',{},S.sn.practice?T('Practice ended and deleted'):T('Storm ended'));}},'🏁 '+(S.sn.practice?T('End practice'):T('End storm')));
     wrap.appendChild(rb);wrap.appendChild(eb);
-  } else wrap.appendChild(el('button',{class:'sn-big storm',onclick:snowStartSheet},'❄️ '+T('Start storm')));
+  } else wrap.appendChild(el('button',{class:'sn-big storm',onclick:function(){snowStartSheet(false);}},'❄️ '+T('Start storm')));
   var past=S.sn.storms.filter(function(s){return s.endedAt;});
   wrap.appendChild(el('div',{class:'sn-mut',style:'margin:16px 2px 6px',text:T('Past storms')}));
   if(!past.length)wrap.appendChild(el('div',{class:'sn-mut',style:'margin:0 2px',text:T('None yet.')}));
@@ -4332,20 +4371,37 @@ function openSnowPractice(){
         el('div',{class:'wkrow'},el('span',{text:T('Practice customers')}),el('b',{text:String(pc)}))),
       busy?el('p',{class:'sn-note',text:T('A real storm is going on now – end it first.')}):null,
       sn.practice?el('button',{class:'primary',onclick:function(){closeSheet(true,true);openSnow();S.snTab='Storms';render();}},T('Open the practice storm')):
-        el('button',{class:'primary',disabled:busy?'':null,onclick:function(){closeSheet(true,true);snowCall('snowStart',{practice:1},T('Practice storm started – only you see it')).then(function(){openSnow();S.snTab='Storms';render();},function(){});}},'▶ '+T('Start a practice storm')),
+        el('button',{class:'primary',disabled:busy?'':null,onclick:function(){closeSheet(true,true);snowStartSheet(true);}},'▶ '+T('Start a practice storm')),
       el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);snowCall('snowSample',{n:20},T('20 practice customers added')).then(openSnowPractice,function(){});}},'＋ '+T(pc?'Make 20 new practice customers':'Add 20 practice customers')),
       pc?el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);snowCall('snowSample',{clear:1},T('Practice customers removed')).then(openSnowPractice,function(){});}},T('Remove the practice customers')):null,
       el('p',{class:'muted',style:'font-size:13px;margin:6px 0 0',text:T('Practice customers are on 2 practice routes and never go into a real storm. Your real customers on a route are in the practice too.')}),
       el('button',{class:'ghost',onclick:closeSheet},T('Close'))]);});
 }
-function snowStartSheet(){
-  var g=snGroups(S.sn.routes.reduce(function(l,r){return l.concat(S.sn.custs.filter(function(c){return c.route===r.id;}).map(function(c){return {r:r.id,rn:r.name,dn:r.driverName};}));},[]));
-  if(!g.length){toast('❗ '+T('Put customers on a route first.'));return;}
-  var names=g.map(function(x){return x.dn;}).filter(Boolean);
-  openSheet([el('h2',{text:'❄️ '+T('Start storm – today')}),el('div',{class:'wktable'},g.map(function(x){return el('div',{class:'wkrow'},el('span',{text:'🚜 '+x.rn+(x.dn?' · '+x.dn:' · '+T('no driver'))}),el('b',{text:x.list.length+' '+T('stops')}));})),
-    el('p',{class:'muted',style:'margin:10px 0',text:!S.sn.driversOn?T('Only you see the snow section for now – drivers are not notified yet.'):names.length?names.join(' & ')+' '+T('get a notification with their route right away.'):T('No drivers picked yet – you can still run it yourself.')}),
-    el('button',{class:'primary',style:'background:#C92A2A',onclick:function(){closeSheet(true,true);S.snTab='Storms';snowCall('snowStart',{},S.sn.driversOn?T('Storm started – drivers notified'):T('Storm started'));}},T('Start now')),
-    el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);
+// Start a storm: 1 or 2 trucks tonight, who drives each one (the saved routes are split between the trucks)
+function snowStartSheet(prac){
+  var sn=S.sn,routes=(sn.routes||[]).filter(function(r){return prac||!/^Practice /.test(r.name);}),custs=sn.custs||[];
+  var cnt=function(rid){return custs.filter(function(c){return c.route===rid;}).length;},noRoute=custs.filter(function(c){return !c.route;}).length;
+  if(!routes.some(function(r){return cnt(r.id);})){toast('❗ '+T('Put customers on a route first.'));return;}
+  var last={};try{last=JSON.parse(localStorage.getItem('sam_sntrucks')||'{}')||{};}catch(e){}
+  var n=last.n||Math.min(2,routes.length),drv=[(last.d||[])[0]||'Rocky',(last.d||[])[1]||''];
+  var box=el('div',{class:'tkbox'});
+  function paint(){box.innerHTML='';
+    box.appendChild(el('p',{class:'muted',style:'margin:0 0 8px',text:T('How many trucks tonight?')}));
+    box.appendChild(el('div',{class:'tkpick'},[1,2].map(function(k){return el('button',{class:n===k?'on':'',onclick:function(){n=k;paint();}},k+' '+(k===1?T('truck'):T('trucks')));})));
+    var split=[[],[]];routes.forEach(function(r,i){split[n===1?0:i%2].push(r);});
+    for(var t=0;t<n;t++)(function(t){
+      box.appendChild(el('div',{class:'fl',style:'margin-top:16px',text:T('TRUCK')+' '+(t+1)+' – '+T('WHO DRIVES?')}));
+      box.appendChild(el('div',{class:'drvchips'},(sn.drivers||[]).map(function(d){var on=drv[t]===d.id;return el('button',{class:on?'on':'',onclick:function(){drv[t]=d.id;if(drv[1-t]===d.id)drv[1-t]='';paint();}},(on?'✓ ':'')+d.name);})));
+      box.appendChild(el('div',{class:'muted',style:'font-size:13px;margin:6px 2px 0',text:split[t].map(function(r){return r.name+' ('+cnt(r.id)+')';}).join(' + ')+' = '+split[t].reduce(function(a,r){return a+cnt(r.id);},0)+' '+T('stops')}));})(t);
+    if(noRoute)box.appendChild(el('p',{class:'sn-note',text:'⚠️ '+noRoute+' '+T('customers are on no route – they are not in this storm')}));
+    var ok=drv.slice(0,n).every(Boolean);
+    box.appendChild(el('button',{class:'primary',style:'background:#D64545;margin-top:16px'+(ok?'':';opacity:.45'),onclick:function(){if(!ok){toast(T('Pick who drives each truck'));return;}
+      try{localStorage.setItem('sam_sntrucks',JSON.stringify({n:n,d:drv}));}catch(e){}
+      var trucks=[];for(var t=0;t<n;t++)trucks.push({driver:drv[t],routes:split[t].map(function(r){return r.id;})});
+      closeSheet(true,true);S.snTab='Storms';snowCall('snowStart',{trucks:trucks,practice:prac?1:0},prac?T('Practice storm started – only you see it'):(sn.driversOn?T('Storm started – drivers notified'):T('Storm started'))).then(function(){if(prac){openSnow();S.snTab='Storms';render();}},function(){});}},(prac?'▶ ':'')+T('Start – send to drivers')));
+    box.appendChild(el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel')));}
+  paint();
+  openSheet([el('h2',{text:'❄️ '+(prac?T('Practice storm'):T('Start storm – today'))}),box]);
 }
 function snowStopSheet(s,x){
   var kids=[el('h2',{text:x.n}),el('div',{class:'sn-ad',text:'📍 '+x.a}),snChips(x.w,x.cb),
@@ -4353,6 +4409,8 @@ function snowStopSheet(s,x){
     x.prob?el('p',{class:'sn-note',text:'⚠️ '+x.prob}):null,
     (x.ph||[]).length?el('div',{class:'jhmedia'},x.ph.map(function(id){return thumb(id);})):null];
   if(!s.endedAt||isSnowAdmin())kids.push(el('button',{class:'primary',onclick:function(){closeSheet(true,true);snowCall('snowStop',{storm:s.id,c:x.c,op:x.st==='done'?'undo':'done'});}},x.st==='done'?T('Undo – not done'):'✓ '+T('Mark done')));
+  if(!s.endedAt&&isSnowAdmin()&&x.st!=='done'){var other={};s.stops.forEach(function(y){if(y.d&&y.d!==x.d)other[y.d]=y.dn||y.d;});Object.keys(other).forEach(function(d){
+    kids.push(el('button',{class:'cbtn',onclick:function(){closeSheet(true,true);snowCall('snowStop',{storm:s.id,c:x.c,op:'move',to:d},T('Moved to')+' '+other[d]);}},'⇄ '+T('Move to')+' '+other[d]));});}
   kids.push(el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Close')));openSheet(kids);
 }
 function snowRecord(wrap){
@@ -4380,34 +4438,51 @@ function snowBilling(s){
     el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Close'))]);
 }
 // The driver's screen: one big card with the next stop.
-function snowBannerBtn(){return el('button',{class:'sn-dbanner',onclick:function(){S.view='snowdrv';render();window.scrollTo(0,0);}},el('b',{text:T('❄️ Snow storm – your route')}),el('span',{text:(S.snow.stops.filter(function(x){return x.st==='done';}).length)+' '+T('of')+' '+S.snow.stops.length+' '+T('done')+' · '+T('tap to open')}));}
+function snowBannerBtn(){return el('button',{class:'sn-dbanner',onclick:function(){S.snDrv=null;S.view='snowdrv';render();window.scrollTo(0,0);}},el('b',{text:T('❄️ Snow storm – your route')}),el('span',{text:(S.snow.stops.filter(function(x){return x.st==='done';}).length)+' '+T('of')+' '+S.snow.stops.length+' '+T('done')+' · '+T('tap to open')}));}
 function snowPracDrv(){var a=snActive();if(!a||!S.snDrv)return null;var l=a.stops.filter(function(x){return x.r===S.snDrv.r;});if(!l.length)return null;return {storm:a.id,route:l[0].rn,truck:l[0].tk,stops:l,_prac:1};}
 function snowDriverView(){
-  var m=isOffice()?snowPracDrv():S.snow;if(!m){S.view='snow';S.snDrv=null;setTimeout(render,0);return el('main',{class:'list'});}
-  var wrap=el('main',{class:'list sn'}),st=m.stops,dn=st.filter(function(x){return x.st==='done';}),cur=st.filter(function(x){return x.st!=='done';})[0],k=st.indexOf(cur);
-  if(m._prac){wrap.appendChild(el('button',{class:'homelink',style:'margin:0 0 6px',onclick:function(){var st=history.state||{};if(st.from&&String(st.from).indexOf('snow')===0&&!document.getElementById('scrim'))history.back();else{S.view='snow';render();}}},'‹ '+T('Snow plowing')));
-    wrap.appendChild(el('div',{class:'sn-prac'},el('b',{text:T('PRACTICE')}),el('span',{text:T('This is what the driver sees')})));}
-  else wrap.appendChild(el('button',{class:'homelink',style:'margin:0 0 6px',onclick:function(){navBack('home',function(){S.view='home';render();});}},'‹ '+T('Back to my jobs')));
-  wrap.appendChild(el('div',{class:'sn-banner',text:'❄️ '+T('Snow storm')+' · '+(m.route||'')}));
-  wrap.appendChild(el('div',{class:'sn-lh',style:'font-weight:800;margin:0 2px'},el('span',{text:dn.length+' '+T('of')+' '+st.length+' '+T('done')}),el('span',{class:'sn-mut',text:m.truck||''})));
+  var m=isOffice()&&S.snDrv?snowPracDrv():S.snow;if(!m||!m.stops){S.view=isOffice()?'snow':'home';S.snDrv=null;setTimeout(render,0);return el('main',{class:'list'});}
+  document.body.classList.add('sndark');snowWake(true);
+  var wrap=el('main',{class:'list sn drv'}),st=m.stops,dn=st.filter(function(x){return x.st==='done';}),cur=st.filter(function(x){return x.st!=='done';})[0],k=cur?dn.length+1:st.length,wait=snowWaiting();
+  var back=function(){snowWake(false);document.body.classList.remove('sndark');if(m._prac){var st0=history.state||{};if(st0.from&&String(st0.from).indexOf('snow')===0&&!document.getElementById('scrim'))history.back();else{S.view='snow';render();}}else navBack('home',function(){S.view='home';render();});};
+  wrap.appendChild(el('button',{class:'homelink',style:'margin:0 0 6px',onclick:back},'‹ '+(m._prac?T('Snow plowing'):isOffice()?T('Today'):T('Back to my jobs'))));
+  if(m._prac)wrap.appendChild(el('div',{class:'sn-prac'},el('b',{text:T('PRACTICE')}),el('span',{text:T('This is what the driver sees')})));
+  wrap.appendChild(el('div',{class:'drvtop'},el('b',{text:(m.truck||m.route||T('Snow storm'))+' · '+(cur?k:st.length)+' '+T('of')+' '+st.length}),wait?el('span',{class:'drvwait',text:'⏳ '+wait+' '+T('waiting to send')}):null));
   wrap.appendChild(el('div',{class:'sn-prog'},el('i',{style:'width:'+Math.round(dn.length*100/st.length)+'%'})));
   if(cur){
-    var photos=(cur.ph||[]).length;
-    wrap.appendChild(el('div',{class:'sn-next'},el('div',{class:'lab',text:T('NEXT STOP')+' · '+(k+1)+' '+T('of')+' '+st.length}),el('div',{class:'nm',text:cur.n}),el('div',{class:'sn-ad',text:'📍 '+cur.a}),snChips(cur.w,cur.cb),
-      cur.note?el('div',{class:'nt',text:'📝 '+cur.note}):null,cur.prob?el('div',{class:'nt',text:'⚠️ '+cur.prob}):null,
-      el('div',{class:'sn-grid'},el('a',{class:'nav',href:'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(cur.a),target:'_blank',rel:'noopener'},'🧭 '+T('Navigate')),
-        el('button',{class:photos?'on':'',onclick:function(){pickPhoto({id:'',snow:{storm:m.storm,c:cur.c}},true);}},'📷 '+(photos?photos+' '+T('photos'):T('Photo'))),
-        el('button',{class:cur.salted?'on':'',onclick:function(){cur.salted=!cur.salted;render();snowCall('snowStop',{storm:m.storm,c:cur.c,op:'salt'});}},'🔸 '+T('Salted')+(cur.salted?' ✓':'')),
-        el('button',{onclick:function(){snowProblem(m,cur);}},'⚠️ '+T('Problem'))),
-      el('button',{class:'sn-done',onclick:function(){cur.st='done';cur.at=new Date().toISOString();if(!st.some(function(q){return q.st!=='done';}))setTimeout(function(){praise('snow');},150);render();window.scrollTo(0,0);snowCall('snowStop',{storm:m.storm,c:cur.c,op:'done'});}},T('✓ Done – next stop'))));
-  } else wrap.appendChild(el('div',{class:'sn-card okc'},el('div',{class:'sn-nm',text:'✅ '+T('All stops done – great work!')})));
-  if(dn.length){wrap.appendChild(el('div',{class:'sn-mut',style:'margin:12px 2px 4px',text:T('Finished')}));
-    dn.forEach(function(x){wrap.appendChild(el('div',{class:'sn-stop done'},el('div',{class:'n',text:'✓'}),el('div',{class:'t'},el('b',{text:x.n}),el('span',{text:T('Done')+' '+clockOf(x.at)+(x.salted?' · 🔸 '+T('salted'):'')+((x.ph||[]).length?' · 📷 '+x.ph.length:'')})),
-      el('button',{class:'sn-undo',onclick:function(){x.st='todo';render();snowCall('snowStop',{storm:m.storm,c:x.c,op:'undo'});}},T('Undo'))));});}
+    var photos=(cur.ph||[]).length,armSk=false,sk;
+    var ph=cur.ph_?String(cur.ph_).replace(/[^\d+]/g,''):'';
+    var card=el('div',{class:'drvcard'},
+      el('div',{class:'lab',text:T('NEXT STOP')}),el('div',{class:'nm',text:cur.n}),el('div',{class:'ad',text:cur.a}),snChips(cur.w,cur.cb),
+      cur.note&&!/^\[practice\]/.test(cur.note)?el('div',{class:'nt',text:'📝 '+cur.note}):null,cur.prob?el('div',{class:'nt warn',text:'⚠️ '+cur.prob}):null,
+      el('div',{class:'drvrow'},
+        el('a',{class:'drvb go',href:'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(cur.a),target:'_blank',rel:'noopener'},'🧭 '+T('Navigate')),
+        ph?el('a',{class:'drvb',href:'tel:'+ph},'📞 '+T('Call')):null),
+      el('div',{class:'drvrow small'},
+        (cur.w||[]).indexOf('Salt')>=0?el('button',{class:'drvb'+(cur.salted?' on':''),onclick:function(){snowTap(m,cur,'salt');cur.salted=!cur.salted;render();}},'🔸 '+T('Salted')+(cur.salted?' ✓':'')):null,
+        el('button',{class:'drvb'+(photos?' on':''),onclick:function(){pickPhoto({id:'',snow:{storm:m.storm,c:cur.c}},true);}},'📷 '+(photos?photos:T('Photo'))),
+        el('button',{class:'drvb',onclick:function(){snowProblem(m,cur);}},'⚠️ '+T('Problem')),
+        sk=el('button',{class:'drvb',onclick:function(){if(!armSk){armSk=true;sk.textContent=T('Tap again – do it later');return;}snowTap(m,cur,'skip');render();window.scrollTo(0,0);}},'⏭ '+T('Skip'))));
+    wrap.appendChild(card);
+    wrap.appendChild(el('button',{class:'drvdone',onclick:function(){haptic();var last=!st.some(function(q){return q!==cur&&q.st!=='done';});snowTap(m,cur,'done');if(last)setTimeout(function(){praise('snow');},150);render();window.scrollTo(0,0);}},'✓ '+T('DONE')));
+  } else wrap.appendChild(el('div',{class:'drvcard ok'},el('div',{class:'nm',text:'✅ '+T('All stops done – great work!')})));
+  if(dn.length){wrap.appendChild(el('div',{class:'sn-mut',style:'margin:16px 2px 6px',text:T('Finished')}));
+    dn.forEach(function(x){var armU=false,ub;wrap.appendChild(el('div',{class:'sn-stop done'},el('div',{class:'n',text:'✓'}),el('div',{class:'t'},el('b',{text:x.n}),el('span',{text:T('Done')+' '+clockOf(x.at)+(x.salted?' · 🔸':'')+((x.ph||[]).length?' · 📷 '+x.ph.length:'')})),
+      ub=el('button',{class:'sn-undo',onclick:function(){if(!armU){armU=true;ub.textContent=T('Undo?');return;}snowTap(m,x,'undo');render();}},T('Undo'))));});}
   return wrap;
 }
+// keep the screen on while driving the route
+var SNOW_WL=null;function snowWake(on){try{if(on){if(!SNOW_WL&&navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){SNOW_WL=l;l.addEventListener('release',function(){SNOW_WL=null;});}).catch(function(){});}else if(SNOW_WL){SNOW_WL.release();SNOW_WL=null;}}catch(e){}}
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&S.view==='snowdrv')snowWake(true);});
+// a snow tap: shown at once, saved on the phone, sent when there is signal
+function snowLocal(p){var lists=[];if(S.snow&&S.snow.stops&&S.snow.storm===p.storm)lists.push(S.snow.stops);(S.sn&&S.sn.storms||[]).forEach(function(s){if(s.id===p.storm)lists.push(s.stops);});
+  lists.forEach(function(l){var x=l.filter(function(y){return y.c===p.c;})[0];if(!x)return;
+    if(p.op==='done'){x.st='done';x.at=x.at||new Date().toISOString();}else if(p.op==='undo'){x.st='todo';}else if(p.op==='salt'){if(!p._s){x.salted=!x.salted;}}else if(p.op==='prob'){x.prob=p.text;}
+    else if(p.op==='skip'){var i=l.indexOf(x);l.splice(i,1);l.push(x);}});}
+function snowTap(m,x,op,extra){var p=Object.assign({storm:m.storm,c:x.c,op:op},extra||{});snowLocal(p);p._s=1;sendQ('snowStop',p);}
+function snowWaiting(){return Q.filter(function(it){return it.a==='snowStop'&&it.me===S.me;}).length;}
 function snowProblem(m,x){var ta=el('textarea',{class:'in',rows:'3',placeholder:T('e.g. car parked in the lot, gate locked'),maxlength:'300'});ta.value=x.prob||'';
-  openSheet([el('h2',{text:'⚠️ '+T('What is the problem?')}),el('div',{class:'sn-ad',text:x.n}),ta,el('button',{class:'primary',onclick:function(){if(!ta.value.trim())return;closeSheet(true,true);x.prob=ta.value.trim();render();snowCall('snowStop',{storm:m.storm,c:x.c,op:'prob',text:ta.value.trim()},T('Sent'));}},T('Send')),el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);}
+  openSheet([el('h2',{text:'⚠️ '+T('What is the problem?')}),el('div',{class:'sn-ad',text:x.n}),ta,el('button',{class:'primary',onclick:function(){if(!ta.value.trim())return;closeSheet(true,true);snowTap(m,x,'prob',{text:ta.value.trim()});render();}},T('Send')),el('button',{class:'ghost',onclick:function(){closeSheet();}},T('Cancel'))]);}
 // ---------- 📄 Estimates (Yossi + Rocky): collect the job → Yossi sends it to Claude → the PDF comes back to both ----------
 var EST_PEOPLE=['Yossi','Rocky'];
 function isEst(){return EST_PEOPLE.indexOf(S.me)>=0;}
