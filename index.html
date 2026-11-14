@@ -1266,7 +1266,10 @@ function useStop(){if(!USE_T0)return;var u=useLoad();u.s+=(Date.now()-USE_T0)/10
 function useNow(){var u=useLoad();if(USE_T0){if(u.d!==today()){useStop();useStart();}return {d:u.d,s:Math.round(u.s+(Date.now()-USE_T0)/1000),o:u.o,f:u.f,l:new Date().toISOString()};}return {d:u.d,s:Math.round(u.s),o:u.o,f:u.f,l:u.l};}
 document.addEventListener('visibilitychange',function(){if(document.hidden){useStop();if(S.me&&!S.viewAs&&S.pin)call('usage',{use:useNow()}).catch(function(){});}else useStart();});
 setTimeout(useStart,1500);
-function call(action,payload,as){
+// Answers that come back after Sign out belong to the old session – drop them (they were pulling the app back to the home screen).
+var SESS=0;
+function call(action,payload,as){var ep=SESS;return callRaw(action,payload,as).then(function(v){if(ep!==SESS)return new Promise(function(){});return v;},function(e){if(ep!==SESS)return new Promise(function(){});throw e;});}
+function callRaw(action,payload,as){
   payload=payload||{};
   if(S.viewAs){if(!READS[action]&&action!=='chatSeen')return Promise.reject(new Error('VIEW_ONLY'));if(action==='chatSeen')return Promise.resolve({});payload.by='Yossi';payload.pin=S.pin;if(action==='list')payload.viewAs=S.viewAs;}
   else{payload.by=as||S.me;payload.pin=payload.pin||S.pin;}if(!READS[action]&&!payload.rid)payload.rid=rid();payload.dv=DEV_ID;if(action==='list'&&!S.viewAs&&S.me&&!as&&payload.by===S.me){try{payload.use=useNow();}catch(e){}}
@@ -1928,6 +1931,7 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'outfix',i:'🚪',t:'Sign out stays signed out',d:'After Sign out, the app no longer jumps back to the home screen for a few seconds.'},
  {id:'weather',i:'🌤',t:'Weather for the week',d:'More → Weather shows the weather in Monroe for the next 7 days: high and low, rain chance and how many inches of snow. Snow days are marked. Tap a day to see it every 3 hours.',go:function(){openWeather();}},
  {id:'avfix',i:'🙂',t:'Photo circle + Saturday reports',d:'Your photo at the top right fills the circle again. On Saturday, Reports shows "No work today (Saturday)" for the Prospect crews instead of "Today not sent yet". If a Prospect crew does work a Saturday, the crew leader taps "Working this Saturday?" on his app and sends the report as usual – it then shows in Reports.',go:function(){openReports();}},
  {id:'testsat',i:'🔔',t:'Test notification works on Saturday',d:'"Send a test notification" in App maintenance now always arrives, even on Saturday. All other notifications still stay off on Saturday.',go:function(){openMaint();}},
@@ -2101,9 +2105,9 @@ function rememberPin(){try{if(!S.me||!S.pin||S.viewAs)return;var pick=PEOPLE.ind
 function clearSession(){try{var ph=JSON.parse(localStorage.getItem('sam_pinh')||'null'),cd=localStorage.getItem('sam_cache');if(ph&&cd&&!S.badPin)localStorage.setItem('sam_prev',JSON.stringify({pick:ph.pick,me:ph.me,h:ph.h,data:cd,jall:localStorage.getItem('sam_jall'),snow:localStorage.getItem('sam_snow'),maint:localStorage.getItem('sam_maint'),otw:localStorage.getItem('sam_otw')}));else localStorage.removeItem('sam_prev');localStorage.removeItem('sam_pinh');}catch(e){}['sam_me','sam_pin','sam_tok','sam_role','sam_name','sam_cache','sam_jall','sam_snow','sam_maint','sam_use'].forEach(function(k){store(k,null);});S.jall=null;S.me=null;S.pin=null;S.role=null;S.name=null;S.tasks=[];S.crew=[];S.loaded=false;}
 function dropPush(){try{var tk=store('sam_tok');if(tk&&S.me&&S.pin)call('unregister',{token:String(tk).split('|')[2]}).catch(function(){});}catch(e){}}
 var SAVE_T0=0;function savingLong(){if(!S.saving){SAVE_T0=0;return false;}if(!SAVE_T0){SAVE_T0=Date.now();setTimeout(function(){if(S.saving&&SAVE_T0&&Date.now()-SAVE_T0>=5000){var n=document.querySelector('.sync');if(n)n.textContent=T('Saving…');}},5100);}return Date.now()-SAVE_T0>=5000;}
-function signOut(msg,manual){S.badPin=!manual; // only a normal 'Sign out' keeps the quick sign-in for next time
+function signOut(msg,manual){SESS++;S.badPin=!manual; // only a normal 'Sign out' keeps the quick sign-in for next time
 if(S.poll){clearInterval(S.poll);S.poll=null;}dropPush();clearSession();Q=[];qSave();OTW={};try{localStorage.removeItem('sam_otw');}catch(e){}S.loginMsg=msg||'';closeSheet();render();}
-function goLogin(name){S.badPin=false;dropPush();clearSession();S.pick=name||null;S.loginMsg='';closeSheet();render();}
+function goLogin(name){SESS++;S.badPin=false;dropPush();clearSession();S.pick=name||null;S.loginMsg='';closeSheet();render();}
 function loginView(){
   var box=el('div',{class:'login lg2'},el('div',{class:'lghero'},el('div',{class:'lglogo'},el('img',{class:'biglogo',src:LOGO,alt:'SAM Construction'})),
     el('div',{class:'lgmark'},el('span',{class:'wm1',text:'SAM'}),el('span',{class:'wm2',text:'To-Do'}))));
@@ -2224,7 +2228,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611141826',lastUpd=0;
+var BUILD='202611141831',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
