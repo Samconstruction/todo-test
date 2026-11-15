@@ -1162,7 +1162,7 @@ function isBadPin(e){return String((e&&e.message)||e).indexOf('BAD_PIN')>=0;}
 function pinHash(who,p){var str='sam|'+DEV_ID+'|'+who+'|'+p,h=2166136261;for(var r=0;r<500;r++)for(var i=0;i<str.length;i++){h^=str.charCodeAt(i)+r;h=Math.imul(h,16777619)>>>0;}return 'c'+h.toString(36);}
 function rememberPin(){try{if(!S.me||!S.pin||S.viewAs)return;var pick=PEOPLE.indexOf(S.me)>=0?S.me:'crew';localStorage.setItem('sam_pinh',JSON.stringify({pick:pick,me:S.me,h:pinHash(pick,S.pin)}));}catch(e){}}
 function clearSession(){try{var ph=JSON.parse(localStorage.getItem('sam_pinh')||'null'),cd=localStorage.getItem('sam_cache');if(ph&&cd&&!S.badPin){try{var cdo=JSON.parse(cd);(cdo.crew||[]).forEach(function(c){delete c.pin;delete c.workerPin;});cd=JSON.stringify(cdo);}catch(e2){}}if(ph&&cd&&!S.badPin)localStorage.setItem('sam_prev',JSON.stringify({pick:ph.pick,me:ph.me,h:ph.h,data:cd,jall:localStorage.getItem('sam_jall'),snow:localStorage.getItem('sam_snow'),maint:localStorage.getItem('sam_maint'),otw:localStorage.getItem('sam_otw')}));else localStorage.removeItem('sam_prev');localStorage.removeItem('sam_pinh');}catch(e){}['sam_me','sam_pin','sam_tok','sam_role','sam_name','sam_cache','sam_jall','sam_snow','sam_maint','sam_use'].forEach(function(k){store(k,null);});S.jall=null;S.me=null;S.pin=null;S.role=null;S.name=null;S.tasks=[];S.crew=[];S.loaded=false;}
-function dropPush(){try{var tk=store('sam_tok');if(tk&&S.me&&S.pin)call('unregister',{token:String(tk).split('|')[2]}).catch(function(){});}catch(e){}}
+function dropPush(){if(window.SAM_BETA)return; /* the test app never signs a phone out of notifications – the real app owns them */try{var tk=store('sam_tok');if(tk&&S.me&&S.pin)call('unregister',{token:String(tk).split('|')[2]}).catch(function(){});}catch(e){}}
 var SAVE_T0=0;function savingLong(){if(!S.saving){SAVE_T0=0;return false;}if(!SAVE_T0){SAVE_T0=Date.now();setTimeout(function(){if(S.saving&&SAVE_T0&&Date.now()-SAVE_T0>=5000){var n=document.querySelector('.sync');if(n)n.textContent=T('Saving…');}},5100);}return Date.now()-SAVE_T0>=5000;}
 function signOut(msg,manual){SESS++;try{if(VCACHE)VCACHE.then(function(c){return c.keys().then(function(ks){ks.forEach(function(k){try{if(new URL(k.url).pathname.indexOf('/m/')===0)c.delete(k);}catch(e){}});});}).catch(function(){});}catch(e){}S.badPin=!manual;S.lgPin='';S.lgOther=false;S.lgBioAsked=!!manual;S.lgName=''; // only a normal 'Sign out' keeps the quick sign-in for next time
 if(S.poll){clearInterval(S.poll);S.poll=null;}dropPush();clearSession();OTW={}; /* saves still waiting for signal stay on the phone, marked with who made them – they go out when that person signs in again */try{localStorage.removeItem('sam_otw');}catch(e){}S.loginMsg=msg||'';closeSheet();render();}
@@ -1404,7 +1404,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611152305',lastUpd=0;
+var BUILD='202611152316',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
