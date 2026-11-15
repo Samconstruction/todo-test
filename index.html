@@ -936,10 +936,10 @@ function bottomTabs(){
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
  {id:'slidejob',i:'✓',t:'Slide to finish the job',d:'Workers: on Today, the big Done button is now a slide – drag the round button all the way to the right, then add a note and press Done. Undo is there for a few seconds.',go:function(){goView('home');}},
- {id:'nocam',i:'📷',t:'Photos are in the chat',d:'The camera button is gone from the task cards – the big Chat button has messages, photos, videos and reactions, all in one place.',go:function(){goView('home');}},
- {id:'taskchat',i:'💬',t:'Big Chat button on every task',d:'Every task card – yours and the workers\' – now has a big Chat button with the last message, the same as the job card on Today.',go:function(){goView('home');}},
+ {id:'nocam',i:'📷',t:'Photos are in the chat',d:'The camera button is gone from the task cards – the big Chat button has messages, photos, videos and reactions, all in one place.',go:function(){goView(isOffice()?'tasks':'myjobs');}},
+ {id:'taskchat',i:'💬',t:'Big Chat button on every task',d:'Every task card – yours and the workers\' – now has a big Chat button with the last message, the same as the job card on Today.',go:function(){goView(isOffice()?'tasks':'myjobs');}},
  {id:'mint1115',i:'🎨',t:'All mint',d:'The Sunday "Are you working today?" card and the last yellow, orange and plain-green spots are now mint. A task page shows its day only once.',go:function(){goView('home');}},
- {id:'startdone',i:'✓',t:'Started and Done',d:'"Halfway" is now "Started". Tap Started, then slide it all the way to Done – a quick tap can\'t mark it done by mistake. Slide back to undo, and right after Done there is an Undo button for a few seconds. All in mint.',go:function(){goView('home');}},
+ {id:'startdone',i:'✓',t:'Started and Done',d:'"Halfway" is now "Started". Tap Started, then slide it all the way to Done – a quick tap can\'t mark it done by mistake. Slide back to undo, and right after Done there is an Undo button for a few seconds. All in mint.',go:function(){goView(isOffice()?'tasks':'myjobs');}},
  {id:'phones_w',i:'📞',t:'Phones tab for everyone',d:'Workers now have a Phones tab at the bottom, like the office: everyone in their crew first (Prospect crews see their crew, daily workers see the whole daily crew), then the office.',go:function(){goView('phones');}},
  {id:'tidy1115',i:'🏗',t:'Cleaner worker screen',d:'The driver now shows with the app\'s own van icon, the "+1 more job today" card is mint, and the big Call the office button is gone – workers call from the Phones tab.',go:function(){goView('home');}},
  {id:'repsum',i:'📋',t:'Report summary on Today',d:'Crew leaders: after you send the daily report, Today shows what you sent – who came, who did not, overtime and activities. Tap ✎ to fix it.',go:function(){goView('home');}},
@@ -1304,7 +1304,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611150821',lastUpd=0;
+var BUILD='202611150824',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
