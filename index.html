@@ -1329,7 +1329,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611151856',lastUpd=0;
+var BUILD='202611151903',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -4814,7 +4814,7 @@ var HEALED=false;
 function pushHeal(){if(window.SAM_BETA)return;if(HEALED||!S.me||S.viewAs||notifState()!=='granted')return;HEALED=true;store('sam_tok','');
   var go=function(){try{if(!firebase.apps.length)firebase.initializeApp(FB_CONFIG);getReg().then(function(reg){return firebase.messaging().deleteToken().catch(function(){});}).then(function(){enablePush(false);}).catch(function(){enablePush(false);});}catch(e){enablePush(false);}};
   if(!window.firebase||!firebase.messaging)loadFirebase(go);else go();}
-function enablePush(ask){if(window.SAM_BETA)return Promise.resolve();
+function enablePush(ask){if(window.SAM_BETA){if(ask&&window.Notification&&Notification.permission==="default")Promise.resolve(Notification.requestPermission()).then(function(){render();});return Promise.resolve();}
   var st=notifState();
   if(st==='unsupported'||st==='ios-browser'||st==='denied')return;
   if(!window.firebase||!firebase.messaging){loadFirebase(function(){enablePush(ask);});return;}
