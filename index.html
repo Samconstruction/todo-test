@@ -547,7 +547,6 @@ function openMaint(fresh){
     el('button',{class:'cbtn',onclick:function(){openFpTest(true);}},'🔑 '+T('Test Forgot PIN')),
     el('button',{class:'cbtn',onclick:function(){openWaTest();}},'💬 '+T('Test the new chat features')),
     el('button',{class:'cbtn',onclick:function(){openNotifLog();}},'🔔 '+T('Notifications sent')),
-    el('button',{class:'cbtn',onclick:function(){openWxTest();}},'🌦 '+T('Weather looks')),
     el('button',{class:'cbtn',onclick:openChanges},'↩ '+T('Undo recent changes')),
     bkB,updB,
     el('div',{class:'muted',style:'font-size:13px;text-align:center;margin-top:6px',text:T('App version')+': '+buildLabel()+(Q.length?' · ⏳ '+Q.length+' '+T('waiting to send'):'')}),
@@ -681,7 +680,7 @@ function homeView(){
   var od=mine.filter(function(x){return x.due&&x.due<t;}).length,td=mine.filter(function(x){return x.due===t;}).length;
   var crews=(S.steady&&S.steady.crews)||[],repIn=crews.filter(function(c){return reportFor(c.id,t);}).length;
   var sc=(S.sched||{})[t],nCrews=sc?(sc.crews||[]).filter(function(c){return c.job||c.note;}).length:0;
-  var hb=heroBox(greetLine(firstName(S.name||S.me)),longDate(t),null);{var wm=wxMini();if(wm){var hs=hb.querySelector('.hsub');if(hs){hs.classList.add('hasw');hs.appendChild(wm);}}}try{wxDress(hb,wxKind());}catch(e){}wrap.appendChild(hb);
+  var hb=heroBox(greetLine(firstName(S.name||S.me)),longDate(t),null);{var wm=wxMini();if(wm){var hs=hb.querySelector('.hsub');if(hs){hs.classList.add('hasw');hs.appendChild(wm);}}}if(WX_MOOD_ON)try{wxDress(hb,wxKind());}catch(e){}wrap.appendChild(hb);
   var need=needItems(),snowOn=isSnowAdmin()&&S.snow&&S.snow.active,nn=need.length;
   if(S.snow&&S.snow.stops)wrap.appendChild(snowBannerBtn());
   if(isSnowAdmin()&&!snowOn){var sa=snowAhead();if(sa&&store('sam_snowx')!==sa.key)wrap.appendChild(snowSoonCard(sa));}
@@ -912,12 +911,9 @@ function bottomTabs(){
 // ===== What's new (TEST app only): every new thing pops up until Yossi has tapped each one =====
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
- {id:'wx_time',i:'🕗',t:'Weather looks by time of day',d:'Maintenance → Weather looks: pick Morning, Afternoon, Evening or Late night and any weather to see the Today page. Rain, fog, wind and storms now also get a night look with lit windows.',go:function(){openWxTest();}},
- {id:'wx_top',i:'🌦',t:'Weather all the way to the top',d:'On Today the weather now fills the whole top of the screen – behind the app name, the title and your picture too.',go:function(){goView('home');}},
  {id:'stiff',i:'👆',t:'Feels more like a real app',d:'Holding a button, title or list no longer selects the words or pops up copy/paste. To copy a message, hold it and tap Copy. Typing boxes and task notes can still be copied.',go:function(){goView('home');}},
  {id:'battery1',i:'🔋',t:'Easier on the battery',d:'An open chat checks for new messages and "typing…" every 3 seconds only while people are talking, every 10 seconds when it is quiet.  The screen is no longer rebuilt when nothing changed, the camera turns off when you switch apps, and leaving the snow route always lets the screen turn off again.',go:function(){goView('home');}},
  {id:'gnight',i:'🌙',t:'Working late?',d:'From 10 PM until 3 AM the Today greeting asks "Working late, Yossi?"; from 3 AM it says Good morning.',go:function(){goView('home');}},
- {id:'wx_mood',i:'🌦',t:'Today feels like the weather',d:'The Good morning card now shows a row of mint houses, and the weather happens to them: sun, clouds, rain, snow on the roofs, frost, fog, wind, storms, and stars at night. Plus a short tip for the day. Maintenance → Weather looks to see them all.',go:function(){openWxTest();}},
  {id:'kb_mint',i:'⌨️',t:'No more blue flash behind the keyboard',d:'When the keyboard opens, the space behind it is now mint like the app, not blue. (Your phone may take a day to pick this up.)'},
  {id:'notif_log',i:'🔔',t:'See who got which notification',d:'Maintenance → Notifications sent: every person with how many notifications they got today. Tap a name to see each one – title, time, and if it did not go out (notifications off on their phone, or Saturday). ‹ › to see other days.',go:function(){openNotifLog();}},
  {id:'grp_wa',i:'👥',t:'Chats look more like WhatsApp',d:'Day labels (Today, Yesterday, Thursday…). In groups: each person\'s picture and a name color of their own, shown once for messages in a row. 4+ photos sent together show in one box (tap +3 to see all). A ↪ forward button next to photos and videos. Scroll up and a ↓ button brings you back to the newest, with how many new messages came in.',go:function(){goView('chats');}},
@@ -1423,7 +1419,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611150545',lastUpd=0;
+var BUILD='202611150551',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -1716,6 +1712,8 @@ GEO.Monroe={lat:41.3304,lng:-74.1868};
 function wxInfo(c){c=+c;if(c===0)return['☀️','Clear','sun'];if(c<=2)return['⛅','Partly cloudy','sun'];if(c===3)return['☁️','Cloudy','cloud'];if(c===45||c===48)return['🌫','Fog','cloud'];
   if(c>=51&&c<=57)return['🌦','Drizzle','rain'];if(c>=61&&c<=67)return['🌧','Rain','rain'];if(c>=71&&c<=77)return['🌨','Snow','snow'];if(c>=80&&c<=82)return['🌦','Showers','rain'];if(c===85||c===86)return['🌨','Snow showers','snow'];if(c>=95)return['⛈','Thunderstorm','storm'];return['🌡','','cloud'];}
 // Weather mood on the Today greeting (option B): a row of mint houses, and the weather happens to them.
+// Weather mood on Today (option B) – built and saved, but switched OFF for now. Turn on: WX_MOOD_ON=true (+ the Maintenance button and What's new entries, see saved/weather-mood).
+var WX_MOOD_ON=false;
 var WXAN=0;document.addEventListener('visibilitychange',function(){if(!document.hidden)WXAN=0;});
 var WXK=['sunny','partly','cloudy','lrain','hrain','storm','snow','hsnow','freeze','sleet','fog','windy','hot','night','snownight'];
 var WXKN={sunny:'Sunny',partly:'Partly cloudy',cloudy:'Cloudy',lrain:'Light rain',hrain:'Heavy rain',storm:'Thunderstorm',snow:'Snow',hsnow:'Heavy snow',freeze:'Freezing',sleet:'Sleet / ice',fog:'Fog',windy:'Windy',hot:'Hot day',night:'Clear night',snownight:'Snowy night'};
