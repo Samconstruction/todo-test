@@ -31,6 +31,7 @@ self.addEventListener('fetch',function(e){
     setTimeout(function(){saved.then(give);},nav?2000:4000);}));
 });
 
+
 // A PDF shared into the app (Share → SAM TEST): keep it, then open the app to pick the estimate
 self.addEventListener('fetch',function(e){var u=new URL(e.request.url);if(e.request.method!=='POST'||u.pathname.slice(-13)!=="/share-target")return;
   e.respondWith(e.request.formData().then(function(fd){var f=fd.get('file');if(!f||typeof f==='string')return null;
