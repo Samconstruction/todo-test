@@ -24,6 +24,7 @@ var FB_CONFIG={apiKey:"AIzaSyC_2FSwxf4zIPNoT_VGQ5NpgG7-YZ0CiGU",authDomain:"sam-
 var PEOPLE=['Yossi','Rocky','Ashley'];
 var ES={"Could not connect. Check your signal and try again.":"No se pudo conectar. Revisa tu señal e intenta de nuevo.","To-Do":"Tareas","Who is using this phone?":"¿Quién usa este teléfono?","Saving…":"Guardando…","Cancel":"Cancelar","Loading…":"Cargando…","Try again":"Intentar de nuevo","Overdue":"Atrasadas","Coming up":"Próximas","No date":"Sin fecha","Nothing open for ":"No hay tareas pendientes para ",". Tap + to add a task.":". Toca + para agregar una tarea.","Completed":"Completadas","Added by ":"Agregada por "," · updated by ":" · actualizada por ","Overdue · ":"Atrasada · ","Push →":"Mover →","Could not save — check signal":"No se pudo guardar — revisa la señal","Could not load the list. Check your signal.":"No se pudo cargar la lista. Revisa tu señal.","What needs to be done?":"¿Qué hay que hacer?","Note — details (optional)":"Nota — detalles (opcional)","Address (optional)":"Dirección (opcional)","For":"Para","Date":"Fecha","Time (optional)":"Hora (opcional)","Mark as urgent":"Marcar como urgente","URGENT":"URGENTE","Add task":"Agregar tarea","Save changes":"Guardar cambios","Delete task":"Borrar tarea","Moved to ":"Movida a ","Push to later":"Mover para después","1 day later":"1 día después","2 days later":"2 días después","1 week later":"1 semana después","Or pick a date":"O elige una fecha","Move to this date":"Mover a esta fecha","Language":"Idioma","Turn on notifications":"Activa las notificaciones","Get alerts for new tasks and reminders.":"Recibe avisos de trabajos nuevos y recordatorios.","Allow":"Permitir","Notifications are on":"Notificaciones activadas","Notifications are blocked. Turn them on in your phone settings for this app.":"Las notificaciones están bloqueadas. Actívalas en los ajustes del teléfono para esta app.","To get notifications on iPhone, open SAM To-Do from your home screen icon.":"Para recibir notificaciones en iPhone, abre SAM To-Do desde el ícono de tu pantalla de inicio.","Notifications":"Notificaciones","Enter your PIN":"Ingresa tu PIN","Checking…":"Verificando…","Wrong PIN. Try again.":"PIN incorrecto. Intenta de nuevo.","Back":"Atrás","Check on map":"Ver en el mapa","I'm on the crew":"Estoy en la cuadrilla","My jobs":"Mis trabajos","No jobs right now.":"No tienes trabajos por ahora.","Manage crew":"Administrar cuadrilla","workers":"trabajadores","Add worker":"Agregar trabajador","Name":"Nombre","Phone number":"Número de teléfono","PIN (last 4 of phone)":"PIN (últimos 4 del teléfono)","Save":"Guardar","Tap again to remove":"Toca otra vez para quitar","That PIN is already used by someone else. Type a different 4-digit PIN.":"Ese PIN ya lo usa otra persona. Escribe otro PIN de 4 dígitos.","Enter a name and phone number.":"Escribe un nombre y un número de teléfono.","selected":"elegidos","Search name":"Buscar nombre","Pick at least one person.":"Elige al menos una persona.","Uploading photo…":"Subiendo foto…","Photo added":"Foto agregada","Could not upload the photo.":"No se pudo subir la foto.","Call":"Llamar","All jobs":"Todos los trabajos","Edit worker":"Editar trabajador","jobs to":"trabajos a","Phone list":"Lista de teléfonos"};
 var LANG=null;
+Object.assign(ES,{"Older voice notes share on iPhone": "Las notas de voz viejas se comparten en iPhone", "On an iPhone, sharing an older voice note that was recorded on an Android phone now turns it into a normal iPhone sound file (m4a) first, so WhatsApp and other apps can play it.": "En un iPhone, al compartir una nota de voz vieja grabada en un Android, ahora se convierte primero en un archivo de sonido normal de iPhone (m4a), para que WhatsApp y otras apps la puedan tocar."});
 Object.assign(ES,{"Voice notes send faster": "Las notas de voz se envían más rápido", "A voice note now shows as sent sooner: the server answers right away with just that chat, and the rest of the app updates a moment later. Same sound quality.": "Una nota de voz ahora sale como enviada más pronto: el servidor contesta enseguida solo con ese chat, y el resto de la app se actualiza un momento después. La misma calidad de sonido."});
 Object.assign(ES,{"Task name on top of the chat": "El nombre de la tarea arriba del chat", "Inside a job chat, the top now shows the task you are chatting about, with the job and address under it.": "Dentro de un chat de trabajo, arriba ahora se ve la tarea de la que estás hablando, con el trabajo y la dirección abajo.", "Moving someone's task to you": "Pasarte la tarea de otra persona", "When you send Rocky's (or Ashley's) task to yourself, the note in that chat now comes from them, and it shows as a new message in your Messages.": "Cuando te pasas la tarea de Rocky (o de Ashley), la nota en ese chat ahora sale de ellos, y aparece como mensaje nuevo en tus Mensajes."});
 Object.assign(ES,{"Mint pop-ups and Share fixed": "Avisos verde menta y Compartir arreglado", "The small messages that pop up (like Starred, Copied or Saved) are now the mint bubble instead of black. Holding a voice note and tapping Share now opens the phone's share list (WhatsApp, text, email…) (it was refused because of how the voice file was labelled).": "Los mensajitos que aparecen (como Destacado, Copiado o Guardado) ahora son la burbuja verde menta en vez de negra. Si mantienes presionada una nota de voz y tocas Compartir, ahora se abre la lista del teléfono para compartir (WhatsApp, mensaje, correo…) (antes el teléfono la rechazaba por cómo estaba marcado el archivo de voz)."});
@@ -958,6 +959,7 @@ function wnAs(kind,v){var c=null;if(kind==='leader'){var sc=((S.steady&&S.steady
   if(!c){wnPickWorker();return;}startViewAs(c);if(v&&v!=='home'){S.view=v;render();}}
 function wnPickWorker(){pickPerson('👀 '+T('See the app as…'),function(p){if(p.id==='Yossi'){toast(T('That is you'));return;}startViewAs(p);});}
 var WHATS_NEW=[
+ {id:'vnm4a',i:'🎤',t:"Older voice notes share on iPhone",d:"On an iPhone, sharing an older voice note that was recorded on an Android phone now turns it into a normal iPhone sound file (m4a) first, so WhatsApp and other apps can play it.",go:function(){goView('chats');}},
  {id:'vnfast',i:'🎤',t:"Voice notes send faster",d:"A voice note now shows as sent sooner: the server answers right away with just that chat, and the rest of the app updates a moment later. Same sound quality.",go:function(){goView('chats');}},
  {id:'chtask',i:'💬',t:"Task name on top of the chat",d:"Inside a job chat, the top now shows the task you are chatting about, with the job and address under it.",go:function(){goView('chats');}},
  {id:'handas',i:'↪',t:"Moving someone's task to you",d:"When you send Rocky's (or Ashley's) task to yourself, the note in that chat now comes from them, and it shows as a new message in your Messages.",go:function(){goView('chats');}},
@@ -1340,7 +1342,7 @@ function openPinChange(){
 }
 // ---------- Notifications open the right screen ----------
 // Auto-update: when the app comes back on screen, check if a newer version is out and reload into it (never while something is open).
-var BUILD='202611152024',lastUpd=0;
+var BUILD='202611152034',lastUpd=0;
 function checkUpdate(force){if(!force&&Date.now()-lastUpd<120000)return;lastUpd=Date.now();
   fetch('version.json?x='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){
     if(!v||!v.v||v.v===BUILD)return;
@@ -2408,17 +2410,60 @@ function openForward(x,m){
 }
 // Share a message out of the app (WhatsApp, text message, email…) – the phone's own share list.
 function shareFileOf(m){return m.photo?{id:m.photo,name:'SAM-photo.jpg',mime:'image/jpeg'}:m.video?{id:m.video,name:'SAM-video.mp4',mime:'video/mp4'}:m.voice?{id:m.voice,name:'SAM-voice.webm',mime:'audio/webm'}:m.file?{id:m.file,name:m.name||'file',mime:m.mime||'application/octet-stream'}:null;}
+// ---- voice note → .m4a for sharing (iPhone apps can't play older Android "webm" voice notes) ----
+// Builds a plain M4A file from AAC frames (no outside library). If this phone can't make AAC, a WAV file instead (plays everywhere).
+function m4aBox(type,parts){var len=8;parts.forEach(function(p){len+=p.length;});var o=new Uint8Array(len),dv=new DataView(o.buffer);dv.setUint32(0,len);for(var i=0;i<4;i++)o[4+i]=type.charCodeAt(i);var at=8;parts.forEach(function(p){o.set(p,at);at+=p.length;});return o;}
+function m4aU(n,bytes){var o=new Uint8Array(bytes);for(var i=bytes-1;i>=0;i--){o[i]=n&255;n=Math.floor(n/256);}return o;}
+function m4aStr(s){var o=new Uint8Array(s.length);for(var i=0;i<s.length;i++)o[i]=s.charCodeAt(i);return o;}
+function m4aCat(a){var len=0;a.forEach(function(p){len+=p.length;});var o=new Uint8Array(len),at=0;a.forEach(function(p){o.set(p,at);at+=p.length;});return o;}
+function m4aAsc(rate,ch){var fr=[96000,88200,64000,48000,44100,32000,24000,22050,16000,12000,11025,8000,7350].indexOf(rate);if(fr<0)fr=3;return new Uint8Array([(2<<3)|(fr>>1),((fr&1)<<7)|(ch<<3)]);}
+function m4aMux(frames,rate,ch,asc){
+  var n=frames.length,dur=n*1024,Z=function(k){return new Uint8Array(k);};
+  var desc=function(tag,body){return m4aCat([new Uint8Array([tag,body.length]),body]);};
+  var esd=desc(3,m4aCat([m4aU(0,2),new Uint8Array([0]),desc(4,m4aCat([new Uint8Array([0x40,0x15]),m4aU(0,3),m4aU(128000,4),m4aU(96000,4),desc(5,asc)])),desc(6,new Uint8Array([2]))]));
+  var mp4a=m4aBox('mp4a',[Z(6),m4aU(1,2),Z(8),m4aU(ch,2),m4aU(16,2),Z(4),m4aU(rate*65536,4),m4aBox('esds',[Z(4),esd])]);
+  var sizes=m4aCat(frames.map(function(f){return m4aU(f.length,4);}));
+  var stblOf=function(off){return m4aBox('stbl',[m4aBox('stsd',[Z(4),m4aU(1,4),mp4a]),m4aBox('stts',[Z(4),m4aU(1,4),m4aU(n,4),m4aU(1024,4)]),m4aBox('stsc',[Z(4),m4aU(1,4),m4aU(1,4),m4aU(n,4),m4aU(1,4)]),m4aBox('stsz',[Z(4),m4aU(0,4),m4aU(n,4),sizes]),m4aBox('stco',[Z(4),m4aU(1,4),m4aU(off,4)])]);};
+  var matrix=m4aCat([m4aU(0x10000,4),Z(12),m4aU(0x10000,4),Z(12),m4aU(0x40000000,4)]);
+  var moovOf=function(off){return m4aBox('moov',[
+    m4aBox('mvhd',[Z(4),Z(8),m4aU(rate,4),m4aU(dur,4),m4aU(0x10000,4),m4aU(0x100,2),Z(10),matrix,Z(24),m4aU(2,4)]),
+    m4aBox('trak',[m4aBox('tkhd',[new Uint8Array([0,0,0,3]),Z(8),m4aU(1,4),Z(4),m4aU(dur,4),Z(8),Z(2),Z(2),m4aU(0x100,2),Z(2),matrix,Z(8)]),
+      m4aBox('mdia',[m4aBox('mdhd',[Z(4),Z(8),m4aU(rate,4),m4aU(dur,4),m4aU(0x55c4,2),Z(2)]),m4aBox('hdlr',[Z(4),Z(4),m4aStr('soun'),Z(12),m4aStr('SoundHandler'),Z(1)]),
+        m4aBox('minf',[m4aBox('smhd',[Z(8)]),m4aBox('dinf',[m4aBox('dref',[Z(4),m4aU(1,4),m4aBox('url ',[new Uint8Array([0,0,0,1])])])]),stblOf(off)])])])]);};
+  var ftyp=m4aBox('ftyp',[m4aStr('M4A '),m4aU(0,4),m4aStr('M4A '),m4aStr('isom'),m4aStr('mp42')]);
+  var mlen=moovOf(0).length,off=ftyp.length+mlen+8;
+  return m4aCat([ftyp,moovOf(off),m4aBox('mdat',frames)]);}
+function m4aWav(buf){var d=buf.getChannelData(0),n=d.length,rate=buf.sampleRate,o=new DataView(new ArrayBuffer(44+n*2)),w=function(at,s){for(var i=0;i<s.length;i++)o.setUint8(at+i,s.charCodeAt(i));};
+  w(0,'RIFF');o.setUint32(4,36+n*2,true);w(8,'WAVEfmt ');o.setUint32(16,16,true);o.setUint16(20,1,true);o.setUint16(22,1,true);o.setUint32(24,rate,true);o.setUint32(28,rate*2,true);o.setUint16(32,2,true);o.setUint16(34,16,true);w(36,'data');o.setUint32(40,n*2,true);
+  for(var i=0;i<n;i++){var v=Math.max(-1,Math.min(1,d[i]));o.setInt16(44+i*2,v<0?v*32768:v*32767,true);}return new File([o.buffer],'SAM-voice.wav',{type:'audio/wav'});}
+function voiceToM4a(blob){
+  var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return Promise.reject(new Error('no audio'));
+  var ctx=new AC();
+  return blob.arrayBuffer().then(function(ab){return new Promise(function(ok,bad){var p=ctx.decodeAudioData(ab,ok,bad);if(p&&p.then)p.then(ok,bad);});})
+  .then(function(buf){try{ctx.close();}catch(e){}
+    var rate=buf.sampleRate,ch=1,cfg={codec:'mp4a.40.2',sampleRate:rate,numberOfChannels:ch,bitrate:96000};
+    if(!window.AudioEncoder||!window.AudioData)return m4aWav(buf);
+    return AudioEncoder.isConfigSupported(cfg).then(function(s){if(!s||!s.supported)return m4aWav(buf);
+      return new Promise(function(ok,bad){var frames=[],asc=null;
+        var enc=new AudioEncoder({output:function(c,meta){var b=new Uint8Array(c.byteLength);c.copyTo(b);frames.push(b);if(meta&&meta.decoderConfig&&meta.decoderConfig.description&&!asc){var dd=meta.decoderConfig.description;asc=new Uint8Array(dd.buffer?dd.buffer.slice(dd.byteOffset||0,(dd.byteOffset||0)+dd.byteLength):dd);}},error:bad});
+        enc.configure(cfg);var pcm=buf.getChannelData(0),N=1024;
+        for(var i=0;i<pcm.length;i+=N){var part=pcm.slice(i,Math.min(pcm.length,i+N));var ad=new AudioData({format:'f32-planar',sampleRate:rate,numberOfFrames:part.length,numberOfChannels:1,timestamp:Math.round(i*1e6/rate),data:part});enc.encode(ad);ad.close();}
+        enc.flush().then(function(){try{enc.close();}catch(e){}if(!frames.length)return ok(m4aWav(buf));
+          ok(new File([m4aMux(frames,rate,ch,asc&&asc.length>=2?asc:m4aAsc(rate,ch))],'SAM-voice.m4a',{type:'audio/mp4'}));},bad);});
+    },function(){return m4aWav(buf);});});}
 // get the file ready in the background (when a message is held), so Share opens the phone's list at once
 var SHARE_READY={};
 function sharePrep(m){var sf=shareFileOf(m);if(!sf)return Promise.resolve(null);if(SHARE_READY[sf.id])return Promise.resolve(SHARE_READY[sf.id]);
   var pr=m.photo?(S.photos[m.photo]?Promise.resolve(S.photos[m.photo]):call('photoGet',{fileId:m.photo}).then(function(b){return S.photos[m.photo]='data:image/jpeg;base64,'+b;})).then(function(u){return fetch(u).then(function(r){return r.blob();});})
     :(m.voice?vnGet(sf.id):getMedia(sf.id,null,sf.mime)).then(function(u){return fetch(u).then(function(r){return r.blob();});});
   return pr.then(function(bl){var ty=String(bl.type||sf.mime).split(';')[0].trim()||sf.mime,nm=sf.name;
-    if(m.voice){ // phones only share some file types (Android Chrome says no to "audio/mp4"), so try the names/types it accepts, best first
+    if(m.voice&&!/mp4|aac|m4a/.test(ty)&&(/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)))return voiceToM4a(bl).then(function(cf){SHARE_READY[sf.id]=cf;return cf;},function(){return vnShareFile(bl,ty,sf);}); // iPhone + an older Android (webm) voice note → make it .m4a first
+    if(m.voice)return vnShareFile(bl,ty,sf);
+    var f=new File([bl],nm,{type:ty});SHARE_READY[sf.id]=f;return f;});}
+function vnShareFile(bl,ty,sf){if(true){ // phones only share some file types (Android Chrome says no to "audio/mp4"), so try the names/types it accepts, best first
       var c=/mp4|aac|m4a/.test(ty)?[['audio/x-m4a','m4a'],['audio/mp4','m4a'],['audio/aac','m4a'],['video/mp4','mp4']]:/ogg/.test(ty)?[['audio/ogg','ogg'],['audio/ogg','oga']]:/mpeg|mp3/.test(ty)?[['audio/mpeg','mp3']]:/wav/.test(ty)?[['audio/wav','wav']]:[['audio/webm','weba'],['audio/webm','webm'],['video/webm','webm']];
       for(var i=0;i<c.length;i++){var tf=new File([bl],'SAM-voice.'+c[i][1],{type:c[i][0]});var ok=false;try{ok=!!(navigator.canShare&&navigator.canShare({files:[tf]}));}catch(e){}if(ok){SHARE_READY[sf.id]=tf;return tf;}}
-      var f0=new File([bl],'SAM-voice.'+c[0][1],{type:c[0][0]});SHARE_READY[sf.id]=f0;return f0;}
-    var f=new File([bl],nm,{type:ty});SHARE_READY[sf.id]=f;return f;});}
+      var f0=new File([bl],'SAM-voice.'+c[0][1],{type:c[0][0]});SHARE_READY[sf.id]=f0;return f0;}}
 function shareSave(f){try{var a=el('a',{href:URL.createObjectURL(f),download:f.name});document.body.appendChild(a);a.click();a.remove();toast('⬇ '+T('Downloading…'));}catch(e){toast('❗ '+T('Something went wrong'));}}
 function shareNow(m,f){try{if(f){var ok=false;try{ok=!!(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]}));}catch(e){}if(ok){navigator.share({files:[f],text:m.text||undefined}).catch(function(e){if(!e||e.name!=='AbortError')shareSave(f);});return true;} // the phone said no (not the person) → save it instead of doing nothing
     shareSave(f);return true;}
